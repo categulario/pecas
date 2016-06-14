@@ -621,6 +621,7 @@ Completud $archivosNoToc, $archivosNoTocCompleto
 
 # Ordena alfabéticamente
 $archivosTocs = $archivosTocs.sort
+$archivosXhtml = $archivosTocs
 
 # Crea un solo conjunto de lo que no se ha de mostrar ordenado alfabéticamente
 archivosNoMostrar = $archivosNoLinealesCompleto + $archivosNoTocCompleto
@@ -740,20 +741,19 @@ $rutaAbsolutaXhtml.each do |i|
 
     archivoXhtml = File.open(i, 'r:UTF-8')
     archivoXhtml.each do |linea|
-
         # Examina si en alguna línea del texto existe la etiqueta <title>
         if (linea =~ /epub:type="pagebreak"(.*)/ )
 
-            # Toma lo que está adentro del id de la página
-            linea = linea.split('epub:type="pagebreak"')[1]
-            linea = linea.split('title="')[0]
-            linea = linea.split('"')[1]
+            # Se crea un conjunto que contendrá todas las páginas
+            paginas = Array.new
 
-            # Elimina los espacios al inciio y al final
-            linea = linea.strip
+            # Se utuliza un conjunto porque puede darse el caso de más de un elemento encontrado en una misla línea
+            paginas = linea.scan(/epub:type="pagebreak"([^.]*?)id="([^.]*?)"/)
 
-            # Crea un nuevo conjunto en donde se añaden el nombre del archivo y el título
-            conjunto.push(linea)
+            paginas.each do |pagina|
+                # cada una de las páginas tiene dos elementos, el id y el title, solo se queda con el title
+                conjunto.push(pagina.last)
+            end
 
             # Habilita el llenado de la relación
             continuar = true
@@ -789,7 +789,7 @@ if $nombreYpaginas.length > 0
     $archivosNav.push('        <nav epub:type="page-list">')
     $archivosNav.push('            <ol epub:type="list">')
 
-    $archivosTocs.each do |at|
+    $archivosXhtml.each do |at|
         Paginas at
     end
 
