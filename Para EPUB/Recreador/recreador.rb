@@ -74,7 +74,7 @@ def carpetaBusqueda
     end
 
     $carpeta = ArregloRuta $carpeta
-    puts $carpeta
+
     # Se parte del supuesto de que la carpeta no es para un EPUB
     epub = false
 
@@ -871,7 +871,7 @@ puts "\nCreando#{espacio}EPUB..."
 
 # Crea el EPUB
 system ("#{zip} #{rutaEPUB} -X mimetype")
-system ("#{zip} #{rutaEPUB} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store #{$metadatoPreexistenteNombre}")
+system ("#{zip} #{rutaEPUB} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}"
