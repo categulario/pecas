@@ -467,6 +467,31 @@ end
 Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
     if File.extname(archivoManifiesto) != '.xml' and File.extname(archivoManifiesto) != '.opf'
 
+        # Conserva los xhtml que tienen scripts
+        $scriptXhtml = Array.new
+
+        if File.extname(archivoManifiesto) == '.xhtml'
+
+            # Ayuda a detectar scripts en en header
+            etiquetaHeadFin = false
+
+            archivoXhtml = File.open(archivoManifiesto, 'r:UTF-8')
+            archivoXhtml.each do |linea|
+
+                # Se indica cuando ya pasó el head
+                if (linea =~ /(.*)<\/head>/ )
+                    etiquetaHeadFin = true
+                end
+
+                # Si se encuentra una etiqueta de script andentro del head, entonces se considera que hay un script en el archivo
+                if (linea =~ /<script(.*)/ )
+                    if etiquetaHeadFin == false
+                        $scriptXhtml.push(File.basename(archivoManifiesto))
+                    end
+                end
+            end
+        end
+
         # Crea el identificador
         identificador = File.basename(archivoManifiesto)
         identificador['.'] = '_'
@@ -479,11 +504,19 @@ Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
         propiedad = Propiedad File.basename(archivoManifiesto), $portada, 'cover-image'
         propiedad2 = Propiedad File.basename(archivoManifiesto), $nav, 'nav'
 
+        # Revisa si entre los archivos que tienen javascript, el actual lo tiene
+        propiedad3 = ''
+        $scriptXhtml.each do |js|
+            if File.basename(archivoManifiesto) == js
+                propiedad3 = Propiedad File.basename(archivoManifiesto), js, 'scripted'
+            end
+        end
+
         # Añade la propiedad no lineal, si la hay
         noLineal = NoLinealCotejo identificador
 
         # Agrega los elementos al manifiesto
-        manifiesto.push('        <item href="' + rutaRelativa[indice] + '" id="' + identificador + '" media-type="' + tipo.to_s + '"' + propiedad.to_s + propiedad2.to_s + ' />')
+        manifiesto.push('        <item href="' + rutaRelativa[indice] + '" id="' + identificador + '" media-type="' + tipo.to_s + '"' + propiedad.to_s + propiedad2.to_s + propiedad3.to_s + ' />')
 
         # Agrega los elementos a la espina
         if File.extname(archivoManifiesto) == '.xhtml' and File.basename(archivoManifiesto) != $nav
@@ -643,6 +676,7 @@ end
 $nombreYtitulo = Array.new
 
 $rutaAbsolutaXhtml.each do |i|
+
     archivoXhtml = File.open(i, 'r:UTF-8')
     archivoXhtml.each do |linea|
 
