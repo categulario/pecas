@@ -27,10 +27,10 @@ archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
 
 ## Uso
 
-###### 1. Desde el *shell* se ordena arrancar el `script` con `ruby RUTA/recreador.rb`.
+###### 1. Desde el *shell* ejecutar el `script` cuyo único parámetro sea la ruta a la carpeta del EPUB.
 
-Para mayor comodidad solo escribe en el *shell* `ruby ` [con un espacio al
-final] y arrastra el archivo `recreador.rb`.
+Para mayor comodidad en el *shell* arrastra el archivo `recreador.rb` y después
+haz lo mismo con la carpeta del EPUB.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
