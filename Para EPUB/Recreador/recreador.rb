@@ -1,7 +1,18 @@
+#!/usr/bin/env ruby
 # encoding: UTF-8
 # coding: UTF-8
 
 Encoding.default_internal = Encoding::UTF_8
+
+if ARGF.argv.length < 1
+    puts "La ruta de la carpeta para el EPUB es necesaria."
+    abort
+elsif ARGF.argv.length == 1
+    $carpeta = ARGF.argv[0]
+else
+    puts "Solo se permite un argumento para la ruta de la carpeta para el EPUB."
+    abort
+end
 
 # Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
 module OS
@@ -25,7 +36,6 @@ $necesario = ' [campo necesario]:'
 
 # Elemento común para crear los archivos
 $divisor = '/'
-$carpeta = ''
 $primerosArchivos = Array.new
 
 # Ayuda a crear el uid del libro y elementos de los tocs
@@ -36,10 +46,6 @@ $lenguaje = ''
 
 # Identifica el nav
 $nav = ''
-
-# Inicio
-puts "\nEste script recrea los archivos opf, ncx y nav."
-puts "En sistemas UNIX también crea o modifica el archivo EPUB."
 
 # Enmienda ciertos problemas con la línea de texto
 def ArregloRuta (elemento)
@@ -66,9 +72,6 @@ end
 
 # Determina si en la carpeta hay un EPUB
 def carpetaBusqueda
-    puts "\nArrastra la carpeta donde están los archivos para el EPUB."
-    $carpeta = gets.chomp
-
     if OS.windows?
         $carpeta = $carpeta.gsub('\\', '/')
     end
@@ -78,27 +81,23 @@ def carpetaBusqueda
     # Se parte del supuesto de que la carpeta no es para un EPUB
     epub = false
 
-    # Si no se da una línea vacía
-    if $carpeta != ''
-
-        # Si dentro de los directorios hay un opf, entonces se supone que hay archivos para un EPUB
-        Dir.glob($carpeta + $divisor + '**') do |archivo|
-            if File.basename(archivo) == "mimetype"
-                epub = true
-            else
-                # Sirve para la creación del EPUB
-                $primerosArchivos.push(File.basename(archivo))
-            end
+    # Si dentro de los directorios hay un opf, entonces se supone que hay archivos para un EPUB
+    Dir.glob($carpeta + $divisor + '**') do |archivo|
+        if File.basename(archivo) == "mimetype"
+            epub = true
+        else
+            # Sirve para la creación del EPUB
+            $primerosArchivos.push(File.basename(archivo))
         end
+    end
 
-        # Ofrece un resultado
-        if epub == false
-            puts "\nAl parecer en la carpeta seleccionada no es proyecto para un EPUB."
-            carpetaBusqueda
-        end
+    # Ofrece un resultado
+    if epub == false
+        puts "\nAl parecer en la carpeta seleccionada no es proyecto para un EPUB."
+        abort
     else
-        puts "\nNo se ingresó una ruta válida."
-        carpetaBusqueda
+        puts "\nEste script recrea los archivos opf, ncx y nav."
+        puts "Al finalizar también creará o modificará el archivo EPUB."
     end
 end
 
@@ -141,7 +140,7 @@ $portada = ''
 # Crea un array para definir los archivos metadatos
 def Metadatos (texto, dc)
     puts texto + $necesario
-    metadato = gets.chomp
+    metadato = $stdin.gets.chomp
     coletilla = "@" + dc
     if metadato != ""
         $metadatosInicial.push(metadato + coletilla)
@@ -163,7 +162,7 @@ def metadatosTodo
 
     # Asigna el nombre de la portada para ponerle su atributo
     puts "\nNombre de la portada (ejemplo: portada.jpg)" + $blanco
-    $portada = gets.chomp
+    $portada = $stdin.gets.chomp
 
     if $portada == ''
         $portada = ' '
@@ -172,7 +171,7 @@ def metadatosTodo
     # Crea un array para definir los archivos XHTML ocultos
     def noMostrar (archivosConjunto)
         puts "\nNombre del archivo XHTML sin su extensión" + $blanco
-        archivoOculto = gets.chomp
+        archivoOculto = $stdin.gets.chomp
         if archivoOculto != ""
             archivosConjunto.push(archivoOculto)
             noMostrar archivosConjunto
@@ -182,7 +181,7 @@ def metadatosTodo
     # Determina si es necesario definir archivos ocultos
     def noMostrarRespuesta (archivosConjunto, texto)
         puts "\n" + texto + " [s/N]:"
-        respuesta = gets.chomp.downcase
+        respuesta = $stdin.gets.chomp.downcase
         if (respuesta != "")
             if (respuesta != "n")
                 if (respuesta == "s")
@@ -206,7 +205,7 @@ def metadatosTodo
         extension = elementos[1]
 
         puts "\nIndica el nombre del " + elementoNombre + " [" + porDefecto + " por defecto]:"
-        elementoPosible = gets.chomp
+        elementoPosible = $stdin.gets.chomp
 
         if elementoPosible.gsub(' ', '') == ''
             return elemento
@@ -249,7 +248,6 @@ def metadatosTodo
 end
 
 # Continúa con la petición de información adicional
-puts "\n"
 puts "\nResponde lo siguiente"
 
 # Si existen metadatos
@@ -259,7 +257,7 @@ if metadatosPreexistentes == true
     # Pregunta sobre la pertinencia de reutilizar los metadatos
     def preguntaMetadatos
         puts "\nSe han encontrado metadatos preexistentes, ¿deseas conservarlos? [S/n]:"
-        $respuestaMetadatos = gets.chomp.downcase
+        $respuestaMetadatos = $stdin.gets.chomp.downcase
 
         if $respuestaMetadatos == '' or $respuestaMetadatos == 's'
             reutilizacionMetadatos
@@ -887,7 +885,7 @@ if OS.windows?
     rutaPadre = rutaPadre.gsub('/', '\\')
     rm = "del #{rutaEPUB}"
     puts "\nArrastra el zip.exe"
-    zip = gets.chomp
+    zip = $stdin.gets.chomp
 end
 
 espacio = ' '
