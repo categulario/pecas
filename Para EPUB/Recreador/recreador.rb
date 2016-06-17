@@ -4,6 +4,7 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
+# Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
     puts "La ruta de la carpeta para el EPUB es necesaria."
     abort
@@ -902,8 +903,8 @@ end
 puts "\nCreando#{espacio}EPUB..."
 
 # Crea el EPUB
-system ("#{zip} #{rutaEPUB} -X mimetype")
-system ("#{zip} #{rutaEPUB} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
+system ("#{zip} '#{rutaEPUB}' -X mimetype")
+system ("#{zip} '#{rutaEPUB}' -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}"
