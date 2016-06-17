@@ -169,110 +169,107 @@ opf.each do |linea|
     $opfContenido.push(linea)
 end
 
-# Cambia la versión en el conjunto
+puts "\nCambiando versión de #{$versionActual} a #{$version}."
+
+# Cambia las versiones en el OPF
 $opfContenido.each do |linea|
-    if linea =~ /<(\s*)package/
+    if $versionActual != '2.0.1'
+        if $version != '2.0.1'
+            if linea =~ /<(\s*)package/
+                # Obtención del viejo prefijo
+                prefijo = linea.match(/prefix=[\"\']([^"]*)[\"\']/)
+                prefijo = prefijo[1].to_s
 
-        # Si la versión actual es la 2.0.1
-        if ($versionActual == '2.0.1')
-            if $version == '3.0.1'
-                puts "De 2.0.1 a 3.0.1"
-            else
-                puts "De 2.0.1 a 3.0.0"
-            end
-        # Si la versión actual es 3.0.0 o 3.0.1
-        else
-            # Obtención del viejo prefijo
-            prefijo = linea.match(/prefix=[\"\']([^"]*)[\"\']/)
-            prefijo = prefijo[1].to_s
-
-            # Si la versión deseada es la 2.0.1
-            if $version == '2.0.1'
-                if $versionActual == '3.0.1'
-                    puts "De 3.0.1 a 2.0.1"
-                    # puts prefijo
-                else
-                    puts "De 3.0.0 a 2.0.1"
-                end
-            # Si la versión deseada es la 3.0.0 o 3.0.1
-            else
                 # Cambios según la versión actual
                 if $versionActual == '3.0.1'
                     prefijo = 'rendition: http://www.idpf.org/vocab/rendition/# ' + prefijo
                 else
                     prefijo = prefijo.gsub(/rendition:(.*)#/, '').strip
                 end
+
+                # Nuevo prefijo
+                nuevaLineaPrefijo = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, 'prefix="' + prefijo + '"')
+
+                # Localización en el conjunto de la linea donde está el prefijo
+                hashPrefijo = Hash[$opfContenido.map.with_index.to_a]
+
+                # Cambio de línea
+                $opfContenido[hashPrefijo[linea]] = nuevaLineaPrefijo
             end
+        else
+            if linea =~ /<(\s*)package/
+                # Cambio en la linea
+                lineaPackage = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, '').gsub(/xml:lang=[\"\']([^"]*)[\"\']/, '').gsub(/version=[\"\']([^"]*)[\"\']/, 'version="2.0"')
 
-            # Nuevo prefijo
-            nuevaLinea = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, 'prefix="' + prefijo + '"')
+                # Localización en el conjunto de la linea donde está el prefijo
+                hashPackage = Hash[$opfContenido.map.with_index.to_a]
 
-            # Localización en el conjunto de la linea donde está el prefijo
-            hash = Hash[$opfContenido.map.with_index.to_a]
-
-            # Cambio de línea
-            $opfContenido[hash[linea]] = nuevaLinea
-
-            # Cambia el OPF para meter los cambios
-            opf = File.open($opfRuta, 'w:UTF-8')
-
-            $opfContenido.each do |linea|
-                opf.puts linea
+                # Cambio de línea
+                $opfContenido[hashPackage[linea]] = lineaPackage
             end
-
-            opf.close
         end
+    else
+        puts "Cambio de 2.0.1 a 3"
     end
 end
 
+# Cambia el OPF para meter los cambios
+opf = File.open($opfRuta, 'w:UTF-8')
+
+$opfContenido.each do |linea|
+    opf.puts linea
+end
+
+opf.close
+
+# removerCarpeta
+
+# Obtiene las carpetas del EPUB para preparar la compresión
+$primerosArchivos = Array.new
+
+Dir.glob($carpeta + $directorio + $divisor + '**') do |archivo|
+    if File.basename(archivo) != "mimetype"
+        $primerosArchivos.push(archivo.split($divisor).last)
+    end
+end
+
+# Se va a la carpeta para hacer el EPUB
+Dir.chdir($carpeta + $directorio)
+
+# La ruta para crear el EPUB
+$rutaEPUB = "../#{$epub}-#{$version}.epub"
+
+# Por defecto se usa el comando de las terminales UNIX
+rm = "rm -rf #{$rutaEPUB}"
+zip = 'zip'
+
+# Reajustes para Windows
+if OS.windows?
+    $rutaEPUB = $rutaEPUB.gsub('/', '\\')
+    rm = "del #{$rutaEPUB}"
+    puts "\nArrastra el zip.exe"
+    zip = $stdin.gets.chomp
+end
+
+espacio = ' '
+
+# Elimina el EPUB previo
+Dir.glob($carpeta + $divisor + '**') do |archivo|
+    if File.basename(archivo) == "#{$epub}-#{$version}.epub"
+        espacio = ' nuevo '
+        puts "\nEliminando EPUB versión #{$version} previo..."
+        system (rm)
+    end
+end
+
+puts "\nCreando#{espacio}EPUB versión #{$version}..."
+
+# Crea el EPUB
+system ("#{zip} '#{$rutaEPUB}' -X mimetype")
+system ("#{zip} '#{$rutaEPUB}' -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._*")
+
 removerCarpeta
 
-# # Obtiene las carpetas del EPUB para preparar la compresión
-# $primerosArchivos = Array.new
-#
-# Dir.glob($carpeta + $directorio + $divisor + '**') do |archivo|
-#     if File.basename(archivo) != "mimetype"
-#         $primerosArchivos.push(archivo.split($divisor).last)
-#     end
-# end
-#
-# # Se va a la carpeta para hacer el EPUB
-# Dir.chdir($carpeta + $directorio)
-#
-# # La ruta para crear el EPUB
-# $rutaEPUB = "../#{$epub}-#{$version}.epub"
-#
-# # Por defecto se usa el comando de las terminales UNIX
-# rm = "rm -rf #{$rutaEPUB}"
-# zip = 'zip'
-#
-# # Reajustes para Windows
-# if OS.windows?
-#     $rutaEPUB = $rutaEPUB.gsub('/', '\\')
-#     rm = "del #{$rutaEPUB}"
-#     puts "\nArrastra el zip.exe"
-#     zip = $stdin.gets.chomp
-# end
-#
-# espacio = ' '
-#
-# # Elimina el EPUB previo
-# Dir.glob($carpeta + $divisor + '**') do |archivo|
-#     if File.basename(archivo) == "#{$epub}-#{$version}.epub"
-#         espacio = ' nuevo '
-#         puts "\nEliminando EPUB versión #{$version} previo..."
-#         system (rm)
-#     end
-# end
-#
-# puts "\nCreando#{espacio}EPUB versión #{$version}..."
-#
-# # Crea el EPUB
-# system ("#{zip} '#{$rutaEPUB}' -X mimetype")
-# system ("#{zip} '#{$rutaEPUB}' -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._*")
-#
-# removerCarpeta
-#
-# # Finaliza la creación
-# puts "\n#{$epub}-#{$version}.epub creado en: #{$carpeta}"
-# puts = "\nEl proceso ha terminado."
+# Finaliza la creación
+puts "\n#{$epub}-#{$version}.epub creado en: #{$carpeta}"
+puts = "\nEl proceso ha terminado."
