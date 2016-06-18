@@ -38,6 +38,11 @@ $necesario = ' [campo necesario]:'
 # Elemento común para crear los archivos
 $divisor = '/'
 $primerosArchivos = Array.new
+$comillas = '\''
+
+if OS.windows?
+    $comillas = ''
+end
 
 # Ayuda a crear el uid del libro y elementos de los tocs
 $titulo = ''
@@ -903,8 +908,8 @@ end
 puts "\nCreando#{espacio}EPUB..."
 
 # Crea el EPUB
-system ("#{zip} '#{rutaEPUB}' -X mimetype")
-system ("#{zip} '#{rutaEPUB}' -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
+system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -X mimetype")
+system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}"
