@@ -73,13 +73,27 @@ $divisor = '/'
 $carpeta = ''
 $epub = ''
 $directorio = '.epub-cambiador'
+$comillas = '\''
+
+if OS.windows?
+    $comillas = ''
+end
 
 # Obtiene la ruta del EPUB y su nombre
-$rutaEpubArray = $rutaConEpub.split($divisor)
+if OS.windows?
+    $rutaEpubArray = $rutaConEpub.split('\\')
+else
+    $rutaEpubArray = $rutaConEpub.split($divisor)
+end
 
 $rutaEpubArray.each do |c|
+
     if c != $rutaEpubArray.last
-        $carpeta += c.to_s + $divisor
+        if OS.windows?
+            $carpeta += c.to_s + '\\'
+        else
+            $carpeta += c.to_s + $divisor
+        end
     else
         $epub = c.to_s
         $epub = $epub.split('.epub')[0]
@@ -101,7 +115,7 @@ end
 
 puts "\nDescomprimiendo EPUB..."
 
-system ("#{unzip} -qq '#{$rutaConEpub}' -d #{$directorio}")
+system ("#{unzip} -qq #{$comillas}#{$rutaConEpub}#{$comillas} -d #{$directorio}")
 
 # Elimina la carpeta temporal
 def removerCarpeta
@@ -265,8 +279,8 @@ end
 puts "\nCreando#{espacio}EPUB versión #{$version}..."
 
 # Crea el EPUB
-system ("#{zip} '#{$rutaEPUB}' -X mimetype")
-system ("#{zip} '#{$rutaEPUB}' -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._*")
+system ("#{zip} #{$comillas}#{$rutaEPUB}#{$comillas} -X mimetype")
+system ("#{zip} #{$comillas}#{$rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._*")
 
 removerCarpeta
 
