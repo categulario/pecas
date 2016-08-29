@@ -1,7 +1,11 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+# coding: UTF-8
+
 puts "\nEste script ayuda a utilizar Tesseract en múltiples archivos PNG o TIF contenidos en una misma carpeta."
 puts "Requiere tener Tesseract instalado."
 puts "No olvides estar en el directorio donde quieres los archivos de salida."
-puts "\nEscribe el prefijo del lenguaje a detectar"
+puts "\nEscribe el prefijo del lenguaje a detectar (por ejemplo: spa; véase más prefijos en: http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4)"
 lenguaje = gets.chomp
 puts "\nArrastra la carpeta que contiene las imágenes"
 carpeta = gets.chomp
