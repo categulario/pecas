@@ -236,8 +236,6 @@ end
 
 opf.close
 
-# removerCarpeta
-
 # Obtiene las carpetas del EPUB para preparar la compresión
 $primerosArchivos = Array.new
 
