@@ -163,6 +163,7 @@ def metadatosTodo
     Metadatos "\nNombre del autor o editor principal (ejemplo: Apellido, Nombre)", "dc:creator"
     Metadatos "\nEditorial", "dc:publisher"
     Metadatos "\nSinopsis", "dc:description"
+    Metadatos "\nTema", "dc:subject"
     Metadatos "\nLenguaje (ejemplo: es)", "dc:language"
     Metadatos "\nVersión (ejemplo: 1.0.0)", "dc:identifier"
 
