@@ -4,25 +4,7 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-# Obtiene los argumentos necesarios
-if ARGF.argv.length <= 1
-    puts "Argumentos insuficientes."
-    abort
-elsif ARGF.argv.length == 2
-    # El primer argumento tiene que ser la ruta al EPUB
-    if File.extname(ARGF.argv[0]) != '.epub'
-        puts "El primer argumento tiene que ser la ruta al EPUB."
-        abort
-    end
-    # El segundo argumento tiene que ser la versión disponible
-    if ARGF.argv[1] != '2.0.1' and ARGF.argv[1] != '3.0.0' and ARGF.argv[1] != '3.0.1'
-        puts "Las versiones disponibles son: 2.0.1, 3.0.0 o 3.0.1."
-        abort
-    end
-else
-    puts "Solo se permiten dos argumentos: ruta al EPUB y nueva versión deseada."
-    abort
-end
+### GENERALES ###
 
 # Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
 module OS
@@ -40,8 +22,32 @@ module OS
     end
 end
 
-$rutaEpub = ARGF.argv[0]
-$version = ARGF.argv[1]
+# Para colorear el texto; viene de: http://stackoverflow.com/questions/1489183/colorized-ruby-output
+class String
+    def black;          "\e[30m#{self}\e[0m" end
+    def red;            "\e[31m#{self}\e[0m" end
+    def green;          "\e[32m#{self}\e[0m" end
+    def brown;          "\e[33m#{self}\e[0m" end
+    def blue;           "\e[34m#{self}\e[0m" end
+    def magenta;        "\e[35m#{self}\e[0m" end
+    def cyan;           "\e[36m#{self}\e[0m" end
+    def gray;           "\e[37m#{self}\e[0m" end
+
+    def bg_black;       "\e[40m#{self}\e[0m" end
+    def bg_red;         "\e[41m#{self}\e[0m" end
+    def bg_green;       "\e[42m#{self}\e[0m" end
+    def bg_brown;       "\e[43m#{self}\e[0m" end
+    def bg_blue;        "\e[44m#{self}\e[0m" end
+    def bg_magenta;     "\e[45m#{self}\e[0m" end
+    def bg_cyan;        "\e[46m#{self}\e[0m" end
+    def bg_gray;        "\e[47m#{self}\e[0m" end
+
+    def bold;           "\e[1m#{self}\e[22m" end
+    def italic;         "\e[3m#{self}\e[23m" end
+    def underline;      "\e[4m#{self}\e[24m" end
+    def blink;          "\e[5m#{self}\e[25m" end
+    def reverse_color;  "\e[7m#{self}\e[27m" end
+end
 
 # Enmienda ciertos problemas con la línea de texto
 def ArregloRuta (elemento)
@@ -65,6 +71,31 @@ def ArregloRuta (elemento)
 
     return elementoFinal
 end
+
+### CHANGER ###
+
+# Obtiene los argumentos necesarios
+if ARGF.argv.length <= 1
+    puts "Argumentos insuficientes.".red.bold
+    abort
+elsif ARGF.argv.length == 2
+    # El primer argumento tiene que ser la ruta al EPUB
+    if File.extname(ARGF.argv[0]) != '.epub'
+        puts "El primer argumento tiene que ser la ruta al EPUB.".red.bold
+        abort
+    end
+    # El segundo argumento tiene que ser la versión disponible
+    if ARGF.argv[1] != '2.0.1' and ARGF.argv[1] != '3.0.0' and ARGF.argv[1] != '3.0.1'
+        puts "Las versiones disponibles son: 2.0.1, 3.0.0 o 3.0.1.".red.bold
+        abort
+    end
+else
+    puts "Solo se permiten dos argumentos: ruta al EPUB y nueva versión deseada.".red.bold
+    abort
+end
+
+$rutaEpub = ARGF.argv[0]
+$version = ARGF.argv[1]
 
 $rutaConEpub = ArregloRuta $rutaEpub
 
@@ -109,11 +140,11 @@ unzip = 'unzip'
 # Reajustes para Windows
 if OS.windows?
     $rutaConEpub = $rutaConEpub.gsub('/', '\\')
-    puts "\nArrastra el unzip.exe"
+    puts "\nArrastra el unzip.exe".blue
     unzip = $stdin.gets.chomp
 end
 
-puts "\nDescomprimiendo EPUB..."
+puts "\nDescomprimiendo EPUB...".magenta.bold
 
 system ("#{unzip} -qq #{$comillas}#{$rutaConEpub}#{$comillas} -d #{$directorio}")
 
@@ -171,9 +202,9 @@ opf.each do |linea|
         # Aborta si se intenta cambiar a la misma versión
         if $versionActual == $version
             if $versionActual == '2.0.1'
-                puts "\nEste EPUB es versión 2, solo se puede actualizar a versión 3.0.0 o 3.0.1."
+                puts "\nEste EPUB es versión 2, solo se puede actualizar a versión 3.0.0 o 3.0.1.".magenta.bold
             else
-                puts "\nEste EPUB ya es versión #{$versionActual}"
+                puts "\nEste EPUB ya es versión #{$versionActual}.".magenta.bold
             end
             removerCarpeta
             abort
@@ -183,7 +214,7 @@ opf.each do |linea|
     $opfContenido.push(linea)
 end
 
-puts "\nCambiando versión de #{$versionActual} a #{$version}."
+puts "\nCambiando versión de #{$versionActual} a #{$version}.".magenta.bold
 
 # Cambia las versiones en el OPF
 $opfContenido.each do |linea|
@@ -259,7 +290,7 @@ zip = 'zip'
 if OS.windows?
     $rutaEPUB = $rutaEPUB.gsub('/', '\\')
     rm = "del #{$rutaEPUB}"
-    puts "\nArrastra el zip.exe"
+    puts "\nArrastra el zip.exe".blue
     zip = $stdin.gets.chomp
 end
 
@@ -269,12 +300,12 @@ espacio = ' '
 Dir.glob($carpeta + $divisor + '**') do |archivo|
     if File.basename(archivo) == "#{$epub}-#{$version}.epub"
         espacio = ' nuevo '
-        puts "\nEliminando EPUB versión #{$version} previo..."
+        puts "\nEliminando EPUB versión #{$version} previo...".magenta.bold
         system (rm)
     end
 end
 
-puts "\nCreando#{espacio}EPUB versión #{$version}..."
+puts "\nCreando#{espacio}EPUB versión #{$version}...".magenta.bold
 
 # Crea el EPUB
 system ("#{zip} #{$comillas}#{$rutaEPUB}#{$comillas} -X mimetype")
@@ -283,5 +314,5 @@ system ("#{zip} #{$comillas}#{$rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]}
 removerCarpeta
 
 # Finaliza la creación
-puts "\n#{$epub}-#{$version}.epub creado en: #{$carpeta}"
-puts = "\nEl proceso ha terminado."
+puts "\n#{$epub}-#{$version}.epub creado en: #{$carpeta}".magenta.bold
+puts "\nEl proceso ha terminado.".gray.bold

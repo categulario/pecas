@@ -219,7 +219,7 @@ def metadatosTodo
 
     # Determina si es necesario definir archivos ocultos
     def noMostrarRespuesta (archivosConjunto, texto)
-        puts "\n" + texto + " [s/N]:"
+        puts "\n" + texto.blue + " [s/N]:"
         respuesta = $stdin.gets.chomp.downcase
         if (respuesta != "")
             if (respuesta != "n")
@@ -233,8 +233,8 @@ def metadatosTodo
     end
 
     # Obtiene los archivos ocultos
-    noMostrarRespuesta $archivosNoLineales, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos ni en la espina?".blue
-    noMostrarRespuesta $archivosNoToc, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos?".blue
+    noMostrarRespuesta $archivosNoLineales, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos ni en la espina?"
+    noMostrarRespuesta $archivosNoToc, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos?"
 
     # Obtiene el nombre del nav
     def ElementosNombre (elemento, porDefecto)
@@ -253,7 +253,7 @@ def metadatosTodo
                 elemento = elementoPosible
                 return elemento
             else
-                puts "\nNombre no válido."
+                puts "\nNombre no válido.".red.bold
                 ElementosNombre elemento, porDefecto
             end
         end
@@ -923,7 +923,7 @@ if OS.windows?
     rutaEPUB = rutaEPUB.gsub('/', '\\')
     rutaPadre = rutaPadre.gsub('/', '\\')
     rm = "del #{rutaEPUB}"
-    puts "\nArrastra el zip.exe"
+    puts "\nArrastra el zip.exe".blue
     zip = $stdin.gets.chomp
 end
 
@@ -946,4 +946,4 @@ system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} 
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}".magenta.bold
-puts mensajeFinal
+puts mensajeFinal.gray.bold
