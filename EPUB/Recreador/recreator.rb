@@ -4,16 +4,7 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-# Obtiene los argumentos necesarios
-if ARGF.argv.length < 1
-    puts "La ruta de la carpeta para el EPUB es necesaria."
-    abort
-elsif ARGF.argv.length == 1
-    $carpeta = ARGF.argv[0]
-else
-    puts "Solo se permite un argumento para la ruta de la carpeta para el EPUB."
-    abort
-end
+### GENERALES ###
 
 # Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
 module OS
@@ -31,27 +22,32 @@ module OS
     end
 end
 
-# Elementos comunes de lo que se imprime
-$blanco = ' [dejar en blanco para terminar]:'
-$necesario = ' [campo necesario]:'
+# Para colorear el texto; viene de: http://stackoverflow.com/questions/1489183/colorized-ruby-output
+class String
+    def black;          "\e[30m#{self}\e[0m" end
+    def red;            "\e[31m#{self}\e[0m" end
+    def green;          "\e[32m#{self}\e[0m" end
+    def brown;          "\e[33m#{self}\e[0m" end
+    def blue;           "\e[34m#{self}\e[0m" end
+    def magenta;        "\e[35m#{self}\e[0m" end
+    def cyan;           "\e[36m#{self}\e[0m" end
+    def gray;           "\e[37m#{self}\e[0m" end
 
-# Elemento común para crear los archivos
-$divisor = '/'
-$primerosArchivos = Array.new
-$comillas = '\''
+    def bg_black;       "\e[40m#{self}\e[0m" end
+    def bg_red;         "\e[41m#{self}\e[0m" end
+    def bg_green;       "\e[42m#{self}\e[0m" end
+    def bg_brown;       "\e[43m#{self}\e[0m" end
+    def bg_blue;        "\e[44m#{self}\e[0m" end
+    def bg_magenta;     "\e[45m#{self}\e[0m" end
+    def bg_cyan;        "\e[46m#{self}\e[0m" end
+    def bg_gray;        "\e[47m#{self}\e[0m" end
 
-if OS.windows?
-    $comillas = ''
+    def bold;           "\e[1m#{self}\e[22m" end
+    def italic;         "\e[3m#{self}\e[23m" end
+    def underline;      "\e[4m#{self}\e[24m" end
+    def blink;          "\e[5m#{self}\e[25m" end
+    def reverse_color;  "\e[7m#{self}\e[27m" end
 end
-
-# Ayuda a crear el uid del libro y elementos de los tocs
-$titulo = ''
-identificadorLibro = ''
-$creador = ''
-$lenguaje = ''
-
-# Identifica el nav
-$nav = ''
 
 # Enmienda ciertos problemas con la línea de texto
 def ArregloRuta (elemento)
@@ -76,6 +72,41 @@ def ArregloRuta (elemento)
     return elementoFinal
 end
 
+### RECREATOR ###
+
+# Obtiene los argumentos necesarios
+if ARGF.argv.length < 1
+    puts "La ruta de la carpeta para el EPUB es necesaria.".red.bold
+    abort
+elsif ARGF.argv.length == 1
+    $carpeta = ARGF.argv[0]
+else
+    puts "Solo se permite un argumento, el de la ruta de la carpeta para el EPUB.".red.bold
+    abort
+end
+
+# Elementos comunes de lo que se imprime
+$blanco = ' [dejar en blanco para terminar]:'.bold
+$necesario = ' [campo necesario]:'.bold
+
+# Elemento común para crear los archivos
+$divisor = '/'
+$primerosArchivos = Array.new
+$comillas = '\''
+
+if OS.windows?
+    $comillas = ''
+end
+
+# Ayuda a crear el uid del libro y elementos de los tocs
+$titulo = ''
+identificadorLibro = ''
+$creador = ''
+$lenguaje = ''
+
+# Identifica el nav
+$nav = ''
+
 # Determina si en la carpeta hay un EPUB
 def carpetaBusqueda
     if OS.windows?
@@ -99,11 +130,11 @@ def carpetaBusqueda
 
     # Ofrece un resultado
     if epub == false
-        puts "\nAl parecer en la carpeta seleccionada no es proyecto para un EPUB."
+        puts "\nAl parecer en la carpeta seleccionada no es proyecto para un EPUB.".red.bold
         abort
     else
-        puts "\nEste script recrea los archivos opf, ncx y nav."
-        puts "Al finalizar también creará o modificará el archivo EPUB."
+        puts "\nEste script recrea los archivos opf, ncx y nav.".gray.bold
+        puts "Al finalizar también creará o modificará el archivo EPUB.".gray.bold
     end
 end
 
@@ -145,7 +176,7 @@ $portada = ''
 
 # Crea un array para definir los archivos metadatos
 def Metadatos (texto, dc)
-    puts texto + $necesario
+    puts texto.blue + $necesario
     metadato = $stdin.gets.chomp
     coletilla = "@" + dc
     if metadato != ""
@@ -160,15 +191,15 @@ def metadatosTodo
 
     # Obtiene los metadatos
     Metadatos "\nTítulo", "dc:title"
-    Metadatos "\nNombre del autor o editor principal (ejemplo: Apellido, Nombre)", "dc:creator"
+    Metadatos "\nNombre del autor o editor principal " + "(ejemplo: Apellido, Nombre)".bold, "dc:creator"
     Metadatos "\nEditorial", "dc:publisher"
     Metadatos "\nSinopsis", "dc:description"
-    Metadatos "\nTema", "dc:subject"
-    Metadatos "\nLenguaje (ejemplo: es)", "dc:language"
-    Metadatos "\nVersión (ejemplo: 1.0.0)", "dc:identifier"
+    Metadatos "\nTema " + "(ejemplo: Ficción, Novela)".bold, "dc:subject"
+    Metadatos "\nLenguaje " + "(ejemplo: es)".bold, "dc:language"
+    Metadatos "\nVersión " + "(ejemplo: 1.0.0)".bold, "dc:identifier"
 
     # Asigna el nombre de la portada para ponerle su atributo
-    puts "\nNombre de la portada (ejemplo: portada.jpg)" + $blanco
+    puts "\nNombre de la portada ".blue + "(ejemplo: portada.jpg)".blue.bold + $blanco
     $portada = $stdin.gets.chomp.strip
 
     if $portada == ''
@@ -177,9 +208,10 @@ def metadatosTodo
 
     # Crea un array para definir los archivos XHTML ocultos
     def noMostrar (archivosConjunto)
-        puts "\nNombre del archivo XHTML" + $blanco
-        archivoOculto = $stdin.gets.chomp.split(".")[0].strip
+        puts "\nNombre del archivo XHTML".brown + $blanco
+        archivoOculto = $stdin.gets.chomp
         if archivoOculto != ""
+            archivoOculto = archivoOculto.split(".")[0].strip
             archivosConjunto.push(archivoOculto)
             noMostrar archivosConjunto
         end
@@ -201,8 +233,8 @@ def metadatosTodo
     end
 
     # Obtiene los archivos ocultos
-    noMostrarRespuesta $archivosNoLineales, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos ni en la espina?"
-    noMostrarRespuesta $archivosNoToc, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos?"
+    noMostrarRespuesta $archivosNoLineales, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos ni en la espina?".blue
+    noMostrarRespuesta $archivosNoToc, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos?".blue
 
     # Obtiene el nombre del nav
     def ElementosNombre (elemento, porDefecto)
@@ -211,7 +243,7 @@ def metadatosTodo
         elementoNombre = elementos[0]
         extension = elementos[1]
 
-        puts "\nIndica el nombre del " + elementoNombre + " [" + porDefecto + " por defecto]:"
+        puts "\nIndica el nombre del ".blue + elementoNombre.blue + " [".bold + porDefecto.bold + " por defecto]:".bold
         elementoPosible = $stdin.gets.chomp.strip
 
         if elementoPosible.gsub(' ', '') == ''
@@ -255,7 +287,7 @@ def metadatosTodo
 end
 
 # Continúa con la petición de información adicional
-puts "\nResponde lo siguiente"
+puts "\nResponde lo siguiente.".blink
 
 # Si existen metadatos
 if metadatosPreexistentes == true
@@ -263,7 +295,7 @@ if metadatosPreexistentes == true
 
     # Pregunta sobre la pertinencia de reutilizar los metadatos
     def preguntaMetadatos
-        puts "\nSe han encontrado metadatos preexistentes, ¿deseas conservarlos? [S/n]:"
+        puts "\nSe han encontrado metadatos preexistentes, ¿deseas conservarlos? ".magenta.bold + "[S/n]:"
         $respuestaMetadatos = $stdin.gets.chomp.downcase
 
         if $respuestaMetadatos == '' or $respuestaMetadatos == 's'
@@ -548,7 +580,7 @@ espina.push('    </spine>')
 Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
     if File.extname(archivo) == '.opf'
         # Inicia la recreación del opf
-        puts "\nRecreando el " + File.basename(archivo) + "..."
+        puts "\nRecreando el ".magenta.bold + File.basename(archivo).magenta.bold + "...".magenta.bold
 
         # Abre el opf
         opf = File.open(archivo, 'w:UTF-8')
@@ -859,7 +891,7 @@ def Recreador (comparativo, archivosToc)
     end
 
     # Inicia la recreación
-    puts "\nRecreando el " + File.basename(archivoEncontrado) + "..."
+    puts "\nRecreando el ".magenta.bold + File.basename(archivoEncontrado).magenta.bold + "...".magenta.bold
 
     # Abre el archivo
     archivoCambio = File.open(archivoEncontrado, 'w:UTF-8')
@@ -901,17 +933,17 @@ espacio = ' '
 Dir.glob($carpeta + $divisor + '..' + $divisor + '**') do |archivo|
     if File.basename(archivo) == ruta.last + '.epub'
         espacio = ' nuevo '
-        puts "\nEliminando EPUB previo..."
+        puts "\nEliminando EPUB previo...".magenta.bold
         system (rm)
     end
 end
 
-puts "\nCreando#{espacio}EPUB..."
+puts "\nCreando#{espacio}EPUB...".magenta.bold
 
 # Crea el EPUB
 system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -X mimetype")
 system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
 
 # Finaliza la creación
-puts "\n#{ruta.last}.epub creado en: #{rutaPadre}"
+puts "\n#{ruta.last}.epub creado en: #{rutaPadre}".magenta.bold
 puts mensajeFinal
