@@ -129,7 +129,7 @@ rutaPadre = ArregloRuta rutaPadre
 Dir.chdir($carpeta)
 
 metadatosPreexistentes = false
-$metadatoPreexistenteNombre = ".recreador-metadata"
+$metadatoPreexistenteNombre = ".recreator-metadata"
 
 Dir.glob($carpeta + $divisor + '.*') do |archivo|
     if File.basename(archivo) == $metadatoPreexistenteNombre
@@ -234,7 +234,7 @@ def metadatosTodo
     $archivosNoToc.push(' ')
 
     # Crea el archivo oculto con metadatos
-    archivoMetadatos = File.new(".recreador-metadata", "w:UTF-8")
+    archivoMetadatos = File.new(".recreator-metadata", "w:UTF-8")
 
     $metadatosInicial.each do |mI|
         archivoMetadatos.puts "_M_" + mI

@@ -1,4 +1,4 @@
-# Recreador.rb
+# Recreator.rb
 
 ## Índice
 
@@ -29,7 +29,7 @@ archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
 
 ###### 1. Desde el *shell* ejecutar el `script` cuyo único parámetro sea la ruta a la carpeta del EPUB.
 
-Para mayor comodidad en el *shell* arrastra el archivo `recreador.rb` y después
+Para mayor comodidad en el *shell* arrastra el archivo `recreator.rb` y después
 haz lo mismo con la carpeta del EPUB.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
@@ -118,13 +118,13 @@ la lectura lineal).
 
 Mucha de esta información es reutilizada para la recreación del NCX y del NAV.
 Además, para evitar volver a introducir la información cada vez que se recreen
-los archivos, se guarda un archivo `.recreador-metadata` con esta información
+los archivos, se guarda un archivo `.recreator-metadata` con esta información
 en la raíz de los archivos para el EPUB.
 
     Si se utiliza una herramienta externa para crear el EPUB,
-    se tiene que asegurar que no se incluya el archivo «.recreador-metadata».
+    se tiene que asegurar que no se incluya el archivo «.recreator-metadata».
 
-    La manipulación directa del «.recreador-metadata» no ocasiona ningún
+    La manipulación directa del «.recreator-metadata» no ocasiona ningún
     conflicto.
 
 ### Recreación del NCX
@@ -169,6 +169,6 @@ para comprimir.
 
 * `CARPETA-PARA-EPUB`. La carpeta para el EPUB en cuya raíz está presente el
 `mimetype`.
-  * `.recreador-metadata`. El archivo oculto que se crea o modifica para
+  * `.recreator-metadata`. El archivo oculto que se crea o modifica para
   conservar algunos metadatos.
 * `CARPETA-PARA-EPUB.epub`. El EPUB que se crea.

@@ -72,7 +72,7 @@ $rutaConEpub = ArregloRuta $rutaEpub
 $divisor = '/'
 $carpeta = ''
 $epub = ''
-$directorio = '.epub-cambiador'
+$directorio = '.epub-changer'
 $comillas = '\''
 
 if OS.windows?

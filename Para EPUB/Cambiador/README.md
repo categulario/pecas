@@ -1,4 +1,4 @@
-# Cambiador.rb
+# Changer.rb
 
 **En desarrollo.**
 
