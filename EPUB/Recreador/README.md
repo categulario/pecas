@@ -53,11 +53,13 @@ o las que no aparecen en la tabla de contenidos (opcionales) así como el NAV
 
     Las secciones que no se ven en la tabla de contenidos están pensadas para
     solo mostrarse en el seguimiento lineal de la obra, útiles para información
-    secundaria como portadillas o legales.
+    secundaria como portadillas o legales. La introducción de su nombre en el
+    recreador puede ser junto con su extensión o sin este.
 
     Las secciones ocultas no se muestran en la lectura lineal de la obra ni
     en la tabla de contenidos, útiles para información terciaria como notas al
-    pie o tablas.
+    pie o tablas. La introducción de su nombre en el recreador puede ser junto
+    con su extensión o sin este.
 
     Para mayor flexibilidad, cabe la posibilidad de indicar algún nombre
     personalizado para el NAV.

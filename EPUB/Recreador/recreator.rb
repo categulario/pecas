@@ -32,7 +32,7 @@ module OS
 end
 
 # Elementos comunes de lo que se imprime
-$blanco = ' [dejar en blanco para ignorar o terminar]:'
+$blanco = ' [dejar en blanco para terminar]:'
 $necesario = ' [campo necesario]:'
 
 # Elemento común para crear los archivos
@@ -169,7 +169,7 @@ def metadatosTodo
 
     # Asigna el nombre de la portada para ponerle su atributo
     puts "\nNombre de la portada (ejemplo: portada.jpg)" + $blanco
-    $portada = $stdin.gets.chomp
+    $portada = $stdin.gets.chomp.strip
 
     if $portada == ''
         $portada = ' '
@@ -177,8 +177,8 @@ def metadatosTodo
 
     # Crea un array para definir los archivos XHTML ocultos
     def noMostrar (archivosConjunto)
-        puts "\nNombre del archivo XHTML sin su extensión" + $blanco
-        archivoOculto = $stdin.gets.chomp
+        puts "\nNombre del archivo XHTML" + $blanco
+        archivoOculto = $stdin.gets.chomp.split(".")[0].strip
         if archivoOculto != ""
             archivosConjunto.push(archivoOculto)
             noMostrar archivosConjunto
@@ -212,7 +212,7 @@ def metadatosTodo
         extension = elementos[1]
 
         puts "\nIndica el nombre del " + elementoNombre + " [" + porDefecto + " por defecto]:"
-        elementoPosible = $stdin.gets.chomp
+        elementoPosible = $stdin.gets.chomp.strip
 
         if elementoPosible.gsub(' ', '') == ''
             return elemento
