@@ -76,21 +76,21 @@ end
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length <= 1
-    puts "Argumentos insuficientes.".red.bold
+    puts "\nArgumentos insuficientes.".red.bold
     abort
 elsif ARGF.argv.length == 2
     # El primer argumento tiene que ser la ruta al EPUB
     if File.extname(ARGF.argv[0]) != '.epub'
-        puts "El primer argumento tiene que ser la ruta al EPUB.".red.bold
+        puts "\nEl primer argumento tiene que ser la ruta al EPUB.".red.bold
         abort
     end
     # El segundo argumento tiene que ser la versión disponible
     if ARGF.argv[1] != '2.0.1' and ARGF.argv[1] != '3.0.0' and ARGF.argv[1] != '3.0.1'
-        puts "Las versiones disponibles son: 2.0.1, 3.0.0 o 3.0.1.".red.bold
+        puts "\nLas versiones disponibles son: 2.0.1, 3.0.0 o 3.0.1.".red.bold
         abort
     end
 else
-    puts "Solo se permiten dos argumentos: ruta al EPUB y nueva versión deseada.".red.bold
+    puts "\nSolo se permiten dos argumentos: ruta al EPUB y nueva versión deseada.".red.bold
     abort
 end
 
