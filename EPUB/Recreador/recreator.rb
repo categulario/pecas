@@ -909,7 +909,7 @@ Recreador '.ncx', $archivosNcx
 Recreador $nav, $archivosNav
 
 # Fin
-mensajeFinal = "\nEl proceso ha terminado."
+mensajeFinal = "\nEl proceso ha terminado.".gray.bold
 
 # Crea la ruta para el EPUB
 rutaEPUB = "../#{ruta.last}.epub"
@@ -946,4 +946,4 @@ system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} 
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}".magenta.bold
-puts mensajeFinal.gray.bold
+puts mensajeFinal
