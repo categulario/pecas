@@ -1,3 +1,0 @@
-# Divider.rb
-
-**En desarrollo.**
