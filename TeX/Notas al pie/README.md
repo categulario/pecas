@@ -25,4 +25,4 @@ pensado para que esta tarea se realice de manera automatizada en cuestión de
 Este *script* no solo se emplea para documentos de TeX, sino también para
 documentos HTML o XHTML. Este *script* y su documentación se encuentra en este
 mismo repositorio, pero en el área EPUB. El enlace directo es
-[este](../EPUB/3 - Notas al pie).
+[este](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3%20-%20Notas%20al%20pie).
