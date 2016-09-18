@@ -24,10 +24,9 @@ de los archivos HTML, XHTML o TeX.
 El archivo tiene que ser un `.txt`. Cada línea ha de contener la nota ordenada
 de manera secuencial. No es necesario agregar alguna clase de contador o
 referencia cruzada, el *script* se encarga de ello. El texto de la nota no ha
-de empezar y acabar con una etiqueta de párrafo, este automáticamente se
-incrustará. Solo es menester que cada nota esté en formato HTML, si es que se
-desea agregar otras etiquetas como `i`, `em`, `b`, `strong`, `span`, etcétera.
-Todas las líneas en blanco o son puros espacios serán ignoradas.
+de empezar y acabar con una etiqueta de párrafo, esta automáticamente se
+incrustará. Solo es menester que cada nota esté en formato HTML o TeX.
+Las líneas con solo saltos de línea vacíos o con puros espacios en blanco serán ignoradas.
 
 ##### Ejemplo para HTML o XHTML
 
@@ -98,9 +97,9 @@ haz lo mismo con la carpeta.
     El archivo se localizará en la raíz de la carpeta de los archivos con el
     nombre `9999-footnotes.xhtml`.
 
-    El *script* preguntará durante este proceso si se cuenta con alguna hoja de
+    Durante el proceso el *script* preguntará si se cuenta con alguna hoja de
     estilos CSS para vincularla a este nuevo archivo XHTML. Solo es necesario
-    arrastar el `.css` cuando se indica.
+    arrastar el `.css` cuando se indique.
 
 ###### 5. ¡Es todo!
 
@@ -118,8 +117,8 @@ a sus notas al pie. En el peor de los casos se entregará un documento de texto
 procesado con las notas ya incrustadas y que de poco o nada sirve al momento de
 vertir ese contenido a un lenguaje de etiquetas como Markdown, HTML o TeX.
 
-Esto genera que la adición de las notas tenga que ser manual, generando no solo
-mayores tiempos de producción, sino posibles errores de vinculación o de
+Esto provoca que la adición de las notas tenga que ser manual, generando no solo
+mayores tiempos de producción, sino posibles errores en la vinculación o en el
 etiquetado que en muchos de los casos requiere de una verificación por cada
 nota. Esto genera que el tiempo invertido aumente proporcionalmente a la
 cantidad de notas que contiene la obra. ¿Qué pasa cuando son más de cincuenta,
@@ -146,7 +145,7 @@ y 2) secuencial. Por ejemplo:
     /b.xhtml
     /c.tex
 ```
-El orden final de los archivos según este ejemplo sería:
+El orden final de los archivos en este caso sería:
 
 1. `a.html`
 2. `y.tex`
@@ -169,7 +168,7 @@ orden de lectura de la obra. Por ejemplo:
     /4-capitulo04.tex
     /5-conclusion.html
 ```
-El orden final, como puede anticiparse sería:
+El orden final, como puede anticiparse, sería:
 
 1. `0-introdccion.html`
 2. `1-capitulo01.xhtml`
@@ -198,10 +197,10 @@ ponemos en el lugar incorrecto. (:
 Como puede observarse, el marcador `\footnotes{}` es una herencia de TeX. Con
 esto evitamos que los usuarios de TeX tengan que aprender otra etiqueta. Para
 quienes trabajan con documentos HTML, se desistió la utilización de etiquetas
-existentes ya que están pueden ser utilizadas con otros cometidos adecionales
-a las notas al pie. Por ejemplo, las notas en los archivos HTML son colocadas
+existentes ya que están pueden ser utilizadas con otros cometidos distintos
+a las notas al pie. Por ejemplo, el *script* añade las notas en los archivos HTML
 con la etiqueta `<sup>`; no obstante, esta etiqueta también puede utilizarse
-para algo como «3 m²» (`3 m<sup>2</sup>`), generando potenciales confusiones.
+para algo como «3 m²» (`3 m<sup>2</sup>`), generando potenciales confusiones si el marcado desde el principio se hace con esta etiqueta.
 Se desistió el empleo de una etiqueta personalizada (por ejemplo: `<sup />` o
 `<note />`) ya que implica que tanto el usuario de HTML como el de TeX tengan
 que aprender una nueva etiqueta.
@@ -209,5 +208,71 @@ que aprender una nueva etiqueta.
 ### Archivo `9999-footnotes.xhtml`
 
 El archivo tiene ese nombre simplemente para asegurar que se colocará hasta el
-final del directorio. Algo muy útil si a partir de `recreator.rb` se generá
+final del directorio. Algo muy útil si a partir de
+[`recreator.rb`](../5%20-%20Recreador)
+se generá
 el EPUB y se desea colocar las notas hasta el final del libro.
+
+### Estilos CSS a las notas
+
+Existen tres clases por las cuales es posible dar estilo a las notas sin
+necesidad de modificar las etiquetas HTML generadas.
+
+Las referencias adentro de los archivos HTML o XHTML son como el siguiente
+ejemplo:
+
+```
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet
+fermentum felis. Suspendisse potenti. Sed sodales est porta ex venenatis, eget
+ultrices orci convallis.<sup class="fn-footnote" id="n1"><a href="9999-footnotes.xhtml#n1">[1]</a></sup></p>
+```
+
+La nota está adentro de una etiqueta `<sup>` que contiene la clase `fn-footnote`.
+Nótese que las referecias están entre corchetes para así aumentar el área de
+cliceo, ideal para *ereaders* o dispositivos móviles, donde la fuente tiende a
+tener un tamaño disminuido, más si se toma en cuenta que está en superíndice.
+
+Adentro del archivo `9999-footnotes.xhtml` las clases son como en el siguiente
+ejemplo:
+
+```
+...
+<body epub:type="footnotes">
+    <h1>Notas al pie</h1>
+    <p class="fn-note" id="n1"><a class="ft-note-number" href="0-introduccion.xhtml#n1">[1]</a> Maecenas convallis <i>lacus vel turpis</i> facilisis semper. Vestibulum at arcu ut erat imperdiet auctor.</p>
+    ...
+</body>
+
+</html>
+```
+
+Toda la nota está adentro de una etiqueta `<p>` que contiene la clase `fn-note`;
+además, el número de nota está dentro de un `<a>` con la clase `ft-note-number`.
+Nótese que el *script* siempre agrega un especio entre el número de nota y la
+nota, no debes de preocuparte por ello, solo concéntrate en darle formato a tus
+notas. P:
+
+Por último, si una nota comprende varios párrafos, solo es necesario omitir la
+primera etiqueta de apertura de (`<p>`) y la última de cierre (`</p>`) de la
+nota.
+
+Ejemplo de las notas en el `.text`:
+
+```
+Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.
+```
+
+Esto se reflejaría en `9999-footnotes.xhtml` como:
+
+```
+...
+<body epub:type="footnotes">
+    <h1>Notas al pie</h1>
+    <p class="fn-note" id="n1"><a class="ft-note-number" href="0-introduccion.xhtml#n1">[1]</a> Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.</p>
+    ...
+</body>
+
+</html>
+```
+
+Ahora sí, ¡a seguir editando libros!

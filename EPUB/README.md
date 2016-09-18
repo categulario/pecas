@@ -1,6 +1,6 @@
 # *Scripts* para el desarrollo de EPUB
 
-![Flujo de trabajo](flujo-de-trabajo.svg)
+![Flujo de trabajo](flujo-de-trabajo.jpg)
 
 Aquí están presentes una serie de *scripts*
 pensados para agilizar o automatizar el desarrollo
