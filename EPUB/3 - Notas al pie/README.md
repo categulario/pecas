@@ -83,29 +83,29 @@ haz lo mismo con la carpeta.
 
 ###### 2. El *script* verificará que coincidan la cantidad de notas en el archivo de texto y en los archivos HTML, XHTML o TeX.
 
-    Si la cantidad no coincide el *script* se detendrá, mencionando la cantidad
+    Si la cantidad no coincide el script se detendrá, mencionando la cantidad
     de notas detectadas en el archivo de texto y en el conjunto de los archivos
     HTML, XHTML o TeX.
 
 ###### 3. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
-    Si el *script* fue utilizado para archivos TeX, ¡es todo! Las etiquetas
-    `\footnote{}` habrán sido llenadas con la nota correspondiente.
+    Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
+    \footnote{} habrán sido llenadas con la nota correspondiente.
 
 ###### 4. Se creará o recreará el archivo con todas las notas
 
     El archivo se localizará en la raíz de la carpeta de los archivos con el
-    nombre `9999-footnotes.xhtml`.
+    nombre 9999-footnotes.xhtml.
 
-    Durante el proceso el *script* preguntará si se cuenta con alguna hoja de
+    Durante el proceso el script preguntará si se cuenta con alguna hoja de
     estilos CSS para vincularla a este nuevo archivo XHTML. Solo es necesario
-    arrastar el `.css` cuando se indique.
+    arrastar el .css cuando se indique.
 
 ###### 5. ¡Es todo!
 
     Ahora los documentos contendrán las referencias. En el caso de los
     documentos HTML o XHTML, se crearán referencias cruzadas y numeradas
-    entre estos archivos y el `9999-footnotes.xhtml`.
+    entre estos archivos y el 9999-footnotes.xhtml.
 
 ## Explicación
 
