@@ -209,7 +209,7 @@ que aprender una nueva etiqueta.
 
 El archivo tiene ese nombre simplemente para asegurar que se colocará hasta el
 final del directorio. Algo muy útil si a partir de
-[`recreator.rb`](../5%20-%20Recreador)
+[`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
 se generá
 el EPUB y se desea colocar las notas hasta el final del libro.
 
