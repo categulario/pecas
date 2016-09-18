@@ -5,8 +5,8 @@
 Aquí están presentes una serie de *scripts*
 pensados para agilizar o automatizar el desarrollo
 de libros EPUB. Se trata de seis *scripts* que
-ayudan en la creación de obras de cualquier
-índole con diseño fluido.
+ayudan en la creación de obras con diseño fluido de
+cualquier índole.
 
 1. `creator.rb`. Crea la estructura del EPUB, con
 la posibilidad de incluir una hoja de estilos CSS
