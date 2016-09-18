@@ -49,7 +49,7 @@ El *script* utilizará Tesseract para extrer el texto de cada página en formato
 ## Explicación
 
 El *script* simplemente genera un *loop* que recorre todos los archivos PNG o
-TIF de la carpeta indicada ejecutando dos comandos de Tesseract para generar
+TIF de la carpeta indicada, mientras ejecuta dos comandos de Tesseract para generar
 archivos `txt` y `pdf`. Este *script* es prescindible si se lleva a cabo
 [un *loop* desde la terminal](http://www.cyberciti.biz/faq/bash-for-loop/).
 
