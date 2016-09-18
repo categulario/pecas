@@ -4,6 +4,7 @@
 
 * [Descripción](#descripción)
 * [Uso](#uso)
+
 <!-- * [Explicación](#explicación) -->
 
 ## Descripción
