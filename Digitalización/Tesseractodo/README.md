@@ -9,7 +9,8 @@
 
 ## Descripción
 
-Este pequeño script en Ruby ayuda a utilizar Tesseract en todas las imágenes PNG o TIF de la carpeta seleccionada.
+Este pequeño script ayuda a utilizar Tesseract en todas las imágenes PNG o TIF
+de la carpeta seleccionada.
 
 ##Dependencias
 
@@ -33,8 +34,8 @@ Para mayor comodidad en el *shell* arrastra el archivo `tesseractall.rb`.
 
 ###### 2. Escribe el prefijo del lenguaje a detectar
 
-    El listado de los prefijos puede encontrarse
-    [aquí](http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4).
+El listado de los prefijos puede encontrarse
+[aquí](http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4).
 
 ###### 4. Indica la carpeta que contiene las imágenes
 
@@ -51,3 +52,5 @@ El *script* simplemente genera un *loop* que recorre todos los archivos PNG o
 TIF de la carpeta indicada ejecutando dos comandos de Tesseract para generar
 archivos `txt` y `pdf`. Este *script* es prescindible si se lleva a cabo
 [un *loop* desde la terminal](http://www.cyberciti.biz/faq/bash-for-loop/).
+
+Los archivos se generarán según donde se esté situado en la terminal.
