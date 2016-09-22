@@ -16,7 +16,7 @@ predeterminada.
 ###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta de la carpeta donde se creará el proyecto para el EPUB.
 
 Para mayor comodidad en el *shell* arrastra el archivo `creator.rb` y después
-haz lo mismo con la carpeta del EPUB.
+haz lo mismo para la carpeta donde se creará el proyecto para el EPUB.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
@@ -27,8 +27,7 @@ haz lo mismo con la carpeta del EPUB.
 
 ### Creación de un proyecto EPUB
 
-Este *script* crea una carpeta para un proyecto genérico para un libro EPUB el cual una plantilla
-para la portadilla y la legal (pueden eliminarse) y estilos CSS predeterminados (también eliminables).
+Este *script* crea una carpeta de un proyecto genérico para un libro EPUB el cual añade plantillas para la portadilla y la legal (pueden eliminarse) y estilos CSS predeterminados (también eliminables).
 
 ### Estilos
 
@@ -61,10 +60,10 @@ La hoja de estilo cuenta con un reseteador para después agregar los estilos pre
     * `content.opf`. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
     * `css`
       * `styles.css`. Se crean estilos predeterminados. Vaciar el archivo si no se desean.
-    * `img`. Para colocar las imágenes. Eliminar si el libro no contiene aunque se recomienda al menos colocar una imagen para la portada.
+    * `img`. Para colocar las imágenes. Eliminar si el libro no contiene alguna, aunque se recomienda al menos colocar una imagen para la portada.
     * `toc`. Carpeta para las tablas de contenidos.
       * `nav.xhtml`. Tabla de contenidos para dispositivos recientes. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
       * `toc.ncx`. Tabla de contenidos para dispositivos antiguos. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
     * `xhtml`
       * `001-portadilla.xhtml`. Archivo para la portadilla que solo requiere ingresar el título y autor. Eliminar si no se desea.
-      * `002-legal.xhtml`. Archivo para la legal, sustituir los elementos que se muestran. Eliminar si no se desea.
+      * `002-legal.xhtml`. Archivo para la legal, sustituir los elementos que contiene. Eliminar si no se desea.
