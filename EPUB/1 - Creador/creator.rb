@@ -73,3 +73,71 @@ def ArregloRuta (elemento)
 end
 
 ### CREATOR ###
+
+# Elementos generales
+$divisor = '/'
+$comillas = '\''
+$carpetaPadre = "EPUB-CREATOR"
+$carpetaMeta = "META-INF"
+$carpetaOPS = "OPS"
+
+if OS.windows?
+    $comillas = ''
+end
+
+# Obtiene los argumentos necesarios
+if ARGF.argv.length < 1
+    puts "\nLa ruta de la carpeta destino es necesaria.".red.bold
+    abort
+elsif ARGF.argv.length == 1
+    $carpeta = ARGF.argv[0]
+    $carpeta = ArregloRuta $carpeta
+else
+    puts "\nSolo se permite un argumento, el de la ruta de la carpeta destino.".red.bold
+    abort
+end
+
+# Se va a la carpeta para crear los archivos
+Dir.chdir($carpeta)
+
+# Crea la carpeta del EPUB si no existe previamente
+Dir.glob($carpeta + $divisor + '**') do |archivo|
+    if File.exists?($carpetaPadre) == true
+        puts "\nYa existe una carpeta con el nombre #{$carpetaPadre}.".red.bold
+        abort
+    else
+        puts "\nCreando carpeta del EPUB con el nombre #{$carpetaPadre}...".magenta.bold
+        # Crea la carpeta padre
+        Dir.mkdir $carpetaPadre
+
+        # Se mete a la carpeta padre
+        $carpeta = $carpeta + $divisor + $carpetaPadre
+        Dir.chdir($carpeta)
+
+        break
+    end
+end
+
+# Crea el mimetype
+mimetype = File.new("mimetype", "w:UTF-8")
+mimetype.puts "application/epub+zip"
+mimetype.close
+
+# Crea el META-INF
+Dir.mkdir $carpetaMeta
+Dir.chdir($carpeta + $divisor + $carpetaMeta)
+container = File.new("container.xml", "w:UTF-8")
+container.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+container.puts ""
+container.puts "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">"
+container.puts "	<rootfiles>"
+container.puts "		<rootfile full-path=\"OPS/content.opf\" media-type=\"application/oebps-package+xml\"/>"
+container.puts "	</rootfiles>"
+container.puts "</container>"
+container.close
+Dir.chdir($carpeta)
+
+# Crea el OPS
+Dir.mkdir $carpetaOPS
+$carpeta = $carpeta + $divisor + $carpetaOPS
+Dir.chdir($carpeta)
