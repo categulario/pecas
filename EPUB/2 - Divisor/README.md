@@ -9,7 +9,7 @@
 
 ## Descripción
 
-Este `script` divide un solo documento HTML o XHTML en varios documentos XHTML
+Este *script* divide un solo documento HTML o XHTML en varios documentos XHTML
 cada vez que detecta encabezados `h1`. Principalmente está pensado como un
 camino de un libro digitalizado a un libro EPUB.
 
@@ -17,7 +17,7 @@ camino de un libro digitalizado a un libro EPUB.
 
 **En desarrollo.**
 
-<!-- ###### 1. Desde el *shell* ejecutar el `script` cuyo único parámetro sea la ruta a la carpeta del EPUB.
+<!-- ###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta del EPUB.
 
 Para mayor comodidad en el *shell* arrastra el archivo `recreator.rb` y después
 haz lo mismo con la carpeta del EPUB.

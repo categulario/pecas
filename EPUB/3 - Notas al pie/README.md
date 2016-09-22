@@ -8,7 +8,7 @@
 
 ## Descripción
 
-Este `script` agrega de manera automatizada las notas al pie a un libro EPUB
+Este *script* agrega de manera automatizada las notas al pie a un libro EPUB
 o documentos TeX.
 
 ## Uso
@@ -73,7 +73,7 @@ secuencia}.\footnote{} ¡Así de sencillo!\footnote{}
 
 ### Ejecución del *script*
 
-###### 1. Desde el *shell* ejecutar el `script` cuyo único parámetro sea la ruta a la carpeta que contiene los archivos.
+###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta que contiene los archivos.
 
 Para mayor comodidad en el *shell* arrastra el archivo `footnotes.rb` y después
 haz lo mismo con la carpeta.

@@ -399,6 +399,10 @@ blockquote + blockquote {
 	text-align: right;
 }
 
+.izquierda {
+	text-align: left;
+}
+
 .centrado {
     text-indent: 0em;
 	text-align: center;
@@ -424,7 +428,7 @@ blockquote + blockquote {
 }
 
 .oculto {
-	display: none;
+	visibility: hidden;;
 }
 
 /* Efectos en las fuentes */
@@ -441,6 +445,10 @@ b, strong {
 
 .versalitas {
     font-variant: small-caps;
+}
+
+.versales {
+	text-transform: uppercase;
 }
 
 /* Enlaces */

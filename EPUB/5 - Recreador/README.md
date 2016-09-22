@@ -9,12 +9,12 @@
 
 ## Descripción
 
-Este `script` recrea los archivos OPF, NCX y NAV así como crea o recrea el
+Este *script* recrea los archivos OPF, NCX y NAV así como crea o recrea el
 archivo EPUB.
 
 ## Dependencias
 
-Este `script` requiere:
+Este *script* requiere:
 
 * Ruby. [Véase aquí para instalar]
 (https://www.ruby-lang.org/en/documentation/installation/#rubyinstaller). La
@@ -27,7 +27,7 @@ archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
 
 ## Uso
 
-###### 1. Desde el *shell* ejecutar el `script` cuyo único parámetro sea la ruta a la carpeta del EPUB.
+###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta del EPUB.
 
 Para mayor comodidad en el *shell* arrastra el archivo `recreator.rb` y después
 haz lo mismo con la carpeta del EPUB.
@@ -94,10 +94,10 @@ La mayoría de los archivos EPUB tienen similitudes en su estructura, lo cual
 hace conveniente la utilización de plantillas. Si bien esto evita el problema
 de crear la estructura desde cero, persisten las dificultades de rehacer el OPF,
 el NCX y el NAV. En la gran mayoría de los casos, solo alguns metadatos
-requieren de una intervención directa. Este `script` está pensado para
+requieren de una intervención directa. Este *script* está pensado para
 solventar esta problemática.
 
-Para evitar la recreación en carpetas potencialmente conflictivas, el `script`
+Para evitar la recreación en carpetas potencialmente conflictivas, el *script*
 solo arranca si se encuentra en la carpeta raíz del futuro EPUB, al localizar
 el archivo `mimetype`.
 
