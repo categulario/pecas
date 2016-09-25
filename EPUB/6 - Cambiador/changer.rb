@@ -146,6 +146,7 @@ end
 
 puts "\nDescomprimiendo EPUB...".magenta.bold
 
+### AQUÍ ESTÁ EL PROBLEMA CON WINDOWS
 system ("#{unzip} -qq #{$comillas}#{$rutaConEpub}#{$comillas} -d #{$directorio}")
 
 # Elimina la carpeta temporal
