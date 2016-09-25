@@ -79,6 +79,7 @@ $divisor = '/'
 $archivos = Array.new
 $rutasRelativas = Array.new
 $archivoCreado = "9999-footnotes.xhtml"
+$lenguaje = "es"
 $archivoNotas = ""
 $archivoCSS = ""
 $carpeta = ""
@@ -318,31 +319,29 @@ archivoCSSBusqueda
 archivoFootnotes = File.new("#{$archivoCreado}", "w:UTF-8")
 
 archivoFootnotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-archivoFootnotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"es\" lang=\"es\">"
-archivoFootnotes.puts "\n"
-archivoFootnotes.puts "<head>"
-archivoFootnotes.puts "    <meta charset=\"UTF-8\" />"
-archivoFootnotes.puts "    <title>Notas</title>"
+archivoFootnotes.puts "<!DOCTYPE html>"
+archivoFootnotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
+archivoFootnotes.puts "    <head>"
+archivoFootnotes.puts "        <meta charset=\"UTF-8\" />"
+archivoFootnotes.puts "        <title>Notas</title>"
 
 # Añade la ruta al CSS si se indicó el archivo
 if $rutaCSS != ""
-    archivoFootnotes.puts "    <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
+    archivoFootnotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
 end
 
-archivoFootnotes.puts "</head>"
-archivoFootnotes.puts "\n"
-archivoFootnotes.puts "<body epub:type=\"footnotes\">"
-archivoFootnotes.puts "    <h1>Notas al pie</h1>"
+archivoFootnotes.puts "    </head>"
+archivoFootnotes.puts "    <body epub:type=\"footnotes\">"
+archivoFootnotes.puts "        <h1>Notas al pie</h1>"
 
 # Añade cada una de las notas
 $notasTXT.each do |linea|
-    archivoFootnotes.puts "    <p class=\"fn-note\" id=\"n#{$conteo}\"><a class=\"ft-note-number\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{linea}</p>"
+    archivoFootnotes.puts "        <p class=\"fn-note\" id=\"n#{$conteo}\"><a class=\"ft-note-number\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{linea}</p>"
 
     $conteo = $conteo + 1;
 end
 
-archivoFootnotes.puts "</body>"
-archivoFootnotes.puts "\n"
+archivoFootnotes.puts "    </body>"
 archivoFootnotes.puts "</html>"
 
 archivoFootnotes.close
