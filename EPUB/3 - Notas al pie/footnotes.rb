@@ -292,45 +292,23 @@ def archivoCSSBusqueda
         # Para sacar la ruta relativa al archivo CSS
         archivoConjuntoCSS = $archivoCSS.split($divisor)
         separacionesConjuntoCarpeta = $carpeta.split($divisor)
-        separacionesArchivo = archivoConjuntoCSS.length - 1
-        conteoPartes = 0
-        conteoEliminar = 0
-        archivoConjuntoRelativoCSS = Array.new
 
+        # Ayuda a determinar el número de índice donde ambos conjutos difieren
+        indice = 0
         archivoConjuntoCSS.each do |parte|
-            if parte != separacionesConjuntoCarpeta[conteoPartes]
-                # Va armando la ruta relativa en un conjunto
-                archivoConjuntoRelativoCSS.push(parte)
+            if parte === separacionesConjuntoCarpeta[indice]
+                indice += 1
             else
-                # Servirá para recortar la ruta de la carpeta
-                conteoEliminar = conteoEliminar + 1
+                break
             end
-
-            conteoPartes = conteoPartes + 1
         end
 
-        # Relativiza la ruta
-        separacionesConjuntoCarpeta.shift(conteoEliminar)
+        # Elimina los elementos similares según el índice obtenido
+        archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
+        separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
 
-        # Si tienen la misma longitud
-        if archivoConjuntoRelativoCSS.length - 1 == separacionesConjuntoCarpeta.length
-            # Si está en la misma carpeta
-            if archivoConjuntoRelativoCSS.length == 1
-                $rutaCSS = archivoConjuntoRelativoCSS[0]
-            # Si está en otra carpeta al mismo nivel
-            else
-                $rutaCSS = ".." + $divisor + archivoConjuntoRelativoCSS.join($divisor)
-            end
-        # Si está un nivel más arriba
-        elsif archivoConjuntoRelativoCSS.length - 1 < separacionesConjuntoCarpeta.length
-            separacionesArchivo = archivoConjuntoCSS.length - 1
-            nivel = "..#{$divisor}"
-            rutaDiferencia = $separacionesCarpeta - separacionesArchivo
-            $rutaCSS = (nivel * rutaDiferencia) + archivoConjuntoRelativoCSS[0]
-        # Si está un nivel más adentro
-        else
-            $rutaCSS = archivoConjuntoRelativoCSS.join($divisor)
-        end
+        # Crea la ruta
+        $rutaCSS = ("..#{$divisor}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join($divisor)
     end
 end
 
