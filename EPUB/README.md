@@ -15,8 +15,8 @@ predeterminada.
 2. `divider.rb`. Divide un solo documento HTML o
 XHTML en varios documentos XHTML cada vez que
 detecta encabezados `h1`. Principalmente está
-pensado como un camino de un libro digitalizado
-a un libro EPUB.
+pensado como un proceso más dentro de la
+metodología del *single source publishing*.
 
 3. `footnotes.rb`. Agrega de manera automatizada
 las notas al pie a un libro EPUB o documentos
