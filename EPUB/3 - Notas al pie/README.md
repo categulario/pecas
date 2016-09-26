@@ -52,23 +52,23 @@ Nota 4 con \textsuperscript{superíndice} y \textsubscriptsubíndice}.
 
 #### Marcadores
 
-Para ubicar cada una de las notas, solo en necesario colocar un `\footnote{}`
+Para ubicar cada una de las notas, solo en necesario colocar un `((footnote))`
 en el lugar donde se desea colocar la nota.
 
 ##### Ejemplo para HTML o XHTML
 
 ```
-<p>Este es un párrafo de alguna obra.\footnote{} No hay necesidad de agregar
-otros elementos.\footnote{} El <b><i>script</i> automáticamente creará la
-secuencia</b>.\footnote{} ¡Así de sencillo!\footnote{}</p>
+<p>Este es un párrafo de alguna obra.((footnote)) No hay necesidad de agregar
+otros elementos.((footnote)) El <b><i>script</i> automáticamente creará la
+secuencia</b>.((footnote)) ¡Así de sencillo!((footnote))</p>
 ```
 
 ##### Ejemplo para TeX
 
 ```
-Este es un párrafo de alguna obra.\footnote{} No hay necesidad de agregar
-otros elementos.\footnote{} El \textbf\textit{script} automáticamente creará la
-secuencia}.\footnote{} ¡Así de sencillo!\footnote{}
+Este es un párrafo de alguna obra.((footnote)) No hay necesidad de agregar
+otros elementos.((footnote)) El \textbf\textit{script} automáticamente creará la
+secuencia}.((footnote)) ¡Así de sencillo!((footnote))
 ```
 
 ### Ejecución del *script*
@@ -90,7 +90,7 @@ haz lo mismo con la carpeta.
 ###### 3. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
     Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
-    \footnote{} habrán sido llenadas con la nota correspondiente.
+    ((footnote)) se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
 
 ###### 4. Se creará o recreará el archivo con todas las notas
 
@@ -191,19 +191,8 @@ aullaría este perro si eso pasara!
 
 Por este motivo, el *script* se detiene si no existe una coincidencia. El
 *script* es de gran utilidad y nos ahorrará mucho tiempo, pero no puede hacer
-nada si no colocamos la cantidad correcta de marcadores `\footnotes{}` o si los
+nada si no colocamos la cantidad correcta de marcadores `((footnote))` o si los
 ponemos en el lugar incorrecto. (:
-
-Como puede observarse, el marcador `\footnotes{}` es una herencia de TeX. Con
-esto evitamos que los usuarios de TeX tengan que aprender otra etiqueta. Para
-quienes trabajan con documentos HTML, se desistió la utilización de etiquetas
-existentes ya que están pueden ser utilizadas con otros cometidos distintos
-a las notas al pie. Por ejemplo, el *script* añade las notas en los archivos HTML
-con la etiqueta `<sup>`; no obstante, esta etiqueta también puede utilizarse
-para algo como «3 m²» (`3 m<sup>2</sup>`), generando potenciales confusiones si el marcado desde el principio se hace con esta etiqueta.
-Se desistió el empleo de una etiqueta personalizada (por ejemplo: `<sup />` o
-`<note />`) ya que implica que tanto el usuario de HTML como el de TeX tengan
-que aprender una nueva etiqueta.
 
 ### Archivo `9999-footnotes.xhtml`
 

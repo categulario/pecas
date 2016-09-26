@@ -181,7 +181,7 @@ $archivos.each do |archivo|
         palabras = linea.split
 
         palabras.each do |palabra|
-            if palabra =~ /\\footnote{}/
+            if palabra =~ /((footnote))/
                 $conteoArchivos = $conteoArchivos + 1
             end
         end
@@ -216,15 +216,15 @@ $archivos.each do |archivo|
         # En cada línea busca palabra por palabra
         linea.each do |palabra|
 
-            # Si la palabra tiene un «\footnote{}», lo cambia por la nota correspondiente
-            if palabra =~ /\\footnote{}/
+            # Si la palabra tiene un «((footnote))», lo cambia por la nota correspondiente
+            if palabra =~ /((footnote))/
 
                 # La sustitución varía según si es un tex o no
                 if File.extname(archivo) == ".tex"
-                    palabra = palabra.gsub('\footnote{}', "\\footnote{#{$notasTXT[$conteo - 1]}}")
+                    palabra = palabra.gsub('((footnote))', "\\footnote{#{$notasTXT[$conteo - 1]}}")
                 else
                     nota = "<sup class=\"fn-footnote\" id=\"n#{$conteo}\"><a href=\"#{rutaArchivoCreado}#n#{$conteo}\">[#{$conteo}]</a></sup>"
-                    palabra = palabra.gsub('\footnote{}', nota)
+                    palabra = palabra.gsub('((footnote))', nota)
                 end
 
                 # Añade las rutas relativas a cada documento para el $archivoCreado
