@@ -1,4 +1,4 @@
-# Footnotes.rb
+# Notes.rb
 
 ## Índice
 
@@ -52,30 +52,30 @@ Nota 4 con \textsuperscript{superíndice} y \textsubscriptsubíndice}.
 
 #### Marcadores
 
-Para ubicar cada una de las notas, solo en necesario colocar un `((footnote))`
+Para ubicar cada una de las notas, solo en necesario colocar un `((note))`
 en el lugar donde se desea colocar la nota.
 
 ##### Ejemplo para HTML o XHTML
 
 ```
-<p>Este es un párrafo de alguna obra.((footnote)) No hay necesidad de agregar
-otros elementos.((footnote)) El <b><i>script</i> automáticamente creará la
-secuencia</b>.((footnote)) ¡Así de sencillo!((footnote))</p>
+<p>Este es un párrafo de alguna obra.((note)) No hay necesidad de agregar
+otros elementos.((note)) El <b><i>script</i> automáticamente creará la
+secuencia</b>.((note)) ¡Así de sencillo!((note))</p>
 ```
 
 ##### Ejemplo para TeX
 
 ```
-Este es un párrafo de alguna obra.((footnote)) No hay necesidad de agregar
-otros elementos.((footnote)) El \textbf\textit{script} automáticamente creará la
-secuencia}.((footnote)) ¡Así de sencillo!((footnote))
+Este es un párrafo de alguna obra.((note)) No hay necesidad de agregar
+otros elementos.((note)) El \textbf\textit{script} automáticamente creará la
+secuencia}.((note)) ¡Así de sencillo!((note))
 ```
 
 ### Ejecución del *script*
 
 ###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta que contiene los archivos.
 
-Para mayor comodidad en el *shell* arrastra el archivo `footnotes.rb` y después
+Para mayor comodidad en el *shell* arrastra el archivo `notes.rb` y después
 haz lo mismo con la carpeta.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
@@ -90,12 +90,12 @@ haz lo mismo con la carpeta.
 ###### 3. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
     Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
-    ((footnote)) se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
+    ((note)) se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
 
 ###### 4. Se creará o recreará el archivo con todas las notas
 
     El archivo se localizará en la raíz de la carpeta de los archivos con el
-    nombre 9999-footnotes.xhtml.
+    nombre 9999-notes.xhtml.
 
     Durante el proceso el script preguntará si se cuenta con alguna hoja de
     estilos CSS para vincularla a este nuevo archivo XHTML. Solo es necesario
@@ -105,7 +105,7 @@ haz lo mismo con la carpeta.
 
     Ahora los documentos contendrán las referencias. En el caso de los
     documentos HTML o XHTML, se crearán referencias cruzadas y numeradas
-    entre estos archivos y el 9999-footnotes.xhtml.
+    entre estos archivos y el 9999-notes.xhtml.
 
 ## Explicación
 
@@ -191,10 +191,10 @@ aullaría este perro si eso pasara!
 
 Por este motivo, el *script* se detiene si no existe una coincidencia. El
 *script* es de gran utilidad y nos ahorrará mucho tiempo, pero no puede hacer
-nada si no colocamos la cantidad correcta de marcadores `((footnote))` o si los
+nada si no colocamos la cantidad correcta de marcadores `((note))` o si los
 ponemos en el lugar incorrecto. (:
 
-### Archivo `9999-footnotes.xhtml`
+### Archivo `9999-notes.xhtml`
 
 El archivo tiene ese nombre simplemente para asegurar que se colocará hasta el
 final del directorio. Algo muy útil si a partir de
@@ -213,30 +213,30 @@ ejemplo:
 ```
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet
 fermentum felis. Suspendisse potenti. Sed sodales est porta ex venenatis, eget
-ultrices orci convallis.<sup class="fn-footnote" id="n1"><a href="9999-footnotes.xhtml#n1">[1]</a></sup></p>
+ultrices orci convallis.<sup class="n-note-sup" id="n1"><a href="9999-notes.xhtml#n1">[1]</a></sup></p>
 ```
 
-La nota está adentro de una etiqueta `<sup>` que contiene la clase `fn-footnote`.
+La nota está adentro de una etiqueta `<sup>` que contiene la clase `n-note-sup`.
 Nótese que las referecias están entre corchetes para así aumentar el área de
 cliceo, ideal para *ereaders* o dispositivos móviles, donde la fuente tiende a
 tener un tamaño disminuido, más si se toma en cuenta que está en superíndice.
 
-Adentro del archivo `9999-footnotes.xhtml` las clases son como en el siguiente
+Adentro del archivo `9999-notes.xhtml` las clases son como en el siguiente
 ejemplo:
 
 ```
 ...
 <body epub:type="footnotes">
     <h1>Notas al pie</h1>
-    <p class="fn-note" id="n1"><a class="ft-note-number" href="0-introduccion.xhtml#n1">[1]</a> Maecenas convallis <i>lacus vel turpis</i> facilisis semper. Vestibulum at arcu ut erat imperdiet auctor.</p>
+    <p class="n-note-p" id="n1"><a class="n-note-a" href="0-introduccion.xhtml#n1">[1]</a> Maecenas convallis <i>lacus vel turpis</i> facilisis semper. Vestibulum at arcu ut erat imperdiet auctor.</p>
     ...
 </body>
 
 </html>
 ```
 
-Toda la nota está adentro de una etiqueta `<p>` que contiene la clase `fn-note`;
-además, el número de nota está dentro de un `<a>` con la clase `ft-note-number`.
+Toda la nota está adentro de una etiqueta `<p>` que contiene la clase `n-note-p`;
+además, el número de nota está dentro de un `<a>` con la clase `n-note-a`.
 Nótese que el *script* siempre agrega un especio entre el número de nota y la
 nota, no debes de preocuparte por ello, solo concéntrate en darle formato a tus
 notas. P:
@@ -251,13 +251,13 @@ Ejemplo de las notas en el `.text`:
 Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.
 ```
 
-Esto se reflejaría en `9999-footnotes.xhtml` como:
+Esto se reflejaría en `9999-notes.xhtml` como:
 
 ```
 ...
 <body epub:type="footnotes">
     <h1>Notas al pie</h1>
-    <p class="fn-note" id="n1"><a class="ft-note-number" href="0-introduccion.xhtml#n1">[1]</a> Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.</p>
+    <p class="n-note-p" id="n1"><a class="n-note-a" href="0-introduccion.xhtml#n1">[1]</a> Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.</p>
     ...
 </body>
 

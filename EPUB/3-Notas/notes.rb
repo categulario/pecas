@@ -72,13 +72,13 @@ def ArregloRuta (elemento)
     return elementoFinal
 end
 
-### FOOTNOTE ###
+### NOTES ###
 
 # Elementos comunes
 $divisor = '/'
 $archivos = Array.new
 $rutasRelativas = Array.new
-$archivoCreado = "9999-footnotes.xhtml"
+$archivoCreado = "9999-notes.xhtml"
 $lenguaje = "es"
 $archivoNotas = ""
 $archivoCSS = ""
@@ -181,7 +181,7 @@ $archivos.each do |archivo|
         palabras = linea.split
 
         palabras.each do |palabra|
-            if palabra =~ /((footnote))/
+            if palabra =~ /\(\(note\)\)/
                 $conteoArchivos = $conteoArchivos + 1
             end
         end
@@ -216,15 +216,15 @@ $archivos.each do |archivo|
         # En cada línea busca palabra por palabra
         linea.each do |palabra|
 
-            # Si la palabra tiene un «((footnote))», lo cambia por la nota correspondiente
-            if palabra =~ /((footnote))/
+            # Si la palabra tiene un «((note))», lo cambia por la nota correspondiente
+            if palabra =~ /((note))/
 
                 # La sustitución varía según si es un tex o no
                 if File.extname(archivo) == ".tex"
-                    palabra = palabra.gsub('((footnote))', "\\footnote{#{$notasTXT[$conteo - 1]}}")
+                    palabra = palabra.gsub('((note))', "\\footnote{#{$notasTXT[$conteo - 1]}}")
                 else
-                    nota = "<sup class=\"fn-footnote\" id=\"n#{$conteo}\"><a href=\"#{rutaArchivoCreado}#n#{$conteo}\">[#{$conteo}]</a></sup>"
-                    palabra = palabra.gsub('((footnote))', nota)
+                    nota = "<sup class=\"n-note-sup\" id=\"n#{$conteo}\"><a href=\"#{rutaArchivoCreado}#n#{$conteo}\">[#{$conteo}]</a></sup>"
+                    palabra = palabra.gsub('((note))', nota)
                 end
 
                 # Añade las rutas relativas a cada documento para el $archivoCreado
@@ -261,9 +261,9 @@ else
     archivoExistente = $carpeta + $divisor + $archivoCreado
     archivoExistenteBool = File.exist?(archivoExistente)
     if archivoExistenteBool == false
-        puts "\nCreando archivo 9999-footnotes.xhtml...".magenta.bold
+        puts "\nCreando archivo 9999-notes.xhtml...".magenta.bold
     else
-        puts "\nRecreando archivo 9999-footnotes.xhtml...".magenta.bold
+        puts "\nRecreando archivo 9999-notes.xhtml...".magenta.bold
     end
 end
 
@@ -316,34 +316,34 @@ end
 archivoCSSBusqueda
 
 # Crea el archivo $archivoCreado
-archivoFootnotes = File.new("#{$archivoCreado}", "w:UTF-8")
+archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
 
-archivoFootnotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-archivoFootnotes.puts "<!DOCTYPE html>"
-archivoFootnotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
-archivoFootnotes.puts "    <head>"
-archivoFootnotes.puts "        <meta charset=\"UTF-8\" />"
-archivoFootnotes.puts "        <title>Notas</title>"
+archivoNotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+archivoNotes.puts "<!DOCTYPE html>"
+archivoNotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
+archivoNotes.puts "    <head>"
+archivoNotes.puts "        <meta charset=\"UTF-8\" />"
+archivoNotes.puts "        <title>Notas</title>"
 
 # Añade la ruta al CSS si se indicó el archivo
 if $rutaCSS != ""
-    archivoFootnotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
+    archivoNotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
 end
 
-archivoFootnotes.puts "    </head>"
-archivoFootnotes.puts "    <body epub:type=\"footnotes\">"
-archivoFootnotes.puts "        <h1>Notas al pie</h1>"
+archivoNotes.puts "    </head>"
+archivoNotes.puts "    <body epub:type=\"footnotes\">"
+archivoNotes.puts "        <h1>Notas al pie</h1>"
 
 # Añade cada una de las notas
 $notasTXT.each do |linea|
-    archivoFootnotes.puts "        <p class=\"fn-note\" id=\"n#{$conteo}\"><a class=\"ft-note-number\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{linea}</p>"
+    archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteo}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{linea}</p>"
 
     $conteo = $conteo + 1;
 end
 
-archivoFootnotes.puts "    </body>"
-archivoFootnotes.puts "</html>"
+archivoNotes.puts "    </body>"
+archivoNotes.puts "</html>"
 
-archivoFootnotes.close
+archivoNotes.close
 
 puts $mensajeFinal
