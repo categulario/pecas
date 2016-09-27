@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+# coding: UTF-8
+
+# Obtiene la ruta absoluta
+path = File.dirname(__FILE__)
+
+# Regresa la ruta a /Herramientas
+pathArray = path.split("/")
+pathArray = pathArray[0..pathArray.length - 2]
+pathArray = pathArray.join("/")
+
+# Añade lo restante de la ruta al script
+script = pathArray + "/EPUB/4-Bibliografia/cites.rb"
+
+# Llama al script
+require script
