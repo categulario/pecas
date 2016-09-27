@@ -36,9 +36,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 
     Si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
-    solo tiene que cerrarse y volver a abrir la terminal. Si no se desea
-    cerrarla, se ha de escribir `source <archivo de inicialización de usuario>`.
-    Este procedimiento solo se hace una vez, cuando se termina la instalación.
+    solo tiene que cerrar y volver a abrir la terminal. Si no se desea cerrarla,
+    se ha de escribir `source <archivo de inicialización de usuario>`. Este
+    procedimiento solo se hace una vez, cuando se termina la instalación.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para no tener conflicto con la ejecución de
