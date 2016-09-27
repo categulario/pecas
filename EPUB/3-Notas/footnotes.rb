@@ -89,12 +89,12 @@ $mensajeFinal = "\nEl proceso ha terminado.".gray.bold
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
-    puts "La ruta de la carpeta con los archivos a referenciar es necesaria.".red.bold
+    puts "\nLa ruta de la carpeta con los archivos a referenciar es necesaria.".red.bold
     abort
 elsif ARGF.argv.length == 1
     $carpeta = ARGF.argv[0]
 else
-    puts "Solo se permite un argumento, el de la ruta de la carpeta con los archivos a referenciar.".red.bold
+    puts "\nSolo se permite un argumento, el de la ruta de la carpeta con los archivos a referenciar.".red.bold
     abort
 end
 
