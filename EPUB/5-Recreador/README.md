@@ -35,6 +35,9 @@ haz lo mismo con la carpeta del EPUB.
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
 
+    Si no se ingresa algún parámetro, el directorio actual será tratado como la
+    carpeta del EPUB.
+
 ###### 2. Indica la carpeta donde están los archivos para el EPUB.
 
 Se tiene que poner la ruta absoluta, para mayor comodidad solo arrastra

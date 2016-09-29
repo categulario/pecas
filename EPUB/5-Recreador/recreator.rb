@@ -76,8 +76,7 @@ end
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
-    puts "\nLa ruta de la carpeta para el EPUB es necesaria.".red.bold
-    abort
+    $carpeta = Dir.pwd
 elsif ARGF.argv.length == 1
     $carpeta = ARGF.argv[0]
 else
