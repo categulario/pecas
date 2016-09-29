@@ -81,6 +81,9 @@ haz lo mismo con la carpeta.
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
 
+    Si no se ingresa algún parámetro, el directorio actual será tratado como la
+    carpeta que contiene los archivos.
+
 ###### 2. El *script* verificará que coincidan la cantidad de notas en el archivo de texto y en los archivos HTML, XHTML o TeX.
 
     Si la cantidad no coincide el script se detendrá, mencionando la cantidad
