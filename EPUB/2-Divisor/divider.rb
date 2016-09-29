@@ -255,7 +255,7 @@ def creacion
 
     # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el conte y el nombre de extensión
     nombreArchivo = ActiveSupport::Inflector.transliterate($objeto.titulo).to_s
-    nombreArchivo = conteoString($conteo) + "-" + nombreArchivo.gsub(" ", "-").downcase + ".xhtml"
+    nombreArchivo = conteoString($conteo) + "-" + nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase + ".xhtml"
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
@@ -314,6 +314,11 @@ archivoTodo.each do |linea|
         # Si es una línea que no tiene </body> o </html>
         if linea !~ /body>/i && linea !~ /html>/i
             $contenidoConjunto.push(linea.strip)
+
+            # Si se trata de la última línea, se crea el archivo; por si el documento no cuenta con etiquetas de body o html
+            if archivoTodo.eof? == true
+                creacion
+            end
         # Si se llega el fin del body o html, se crea el último archivo y se termina el loop
         else
             creacion
