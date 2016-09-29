@@ -41,6 +41,7 @@ La hoja de estilo cuenta con un reseteador para después agregar los estilos pre
 * `izquierda`. Alinea el texto a la izquierda.
 * `centrado`. Centra el texto.
 * `frances`. Alinea el texto a la izquierda como un párrafo francés.
+* `sangria`. añade un `text-indent` de 1em.
 * `sinSangria`. Elimina el `text-indent`.
 * `oculto`. Oculta el elemento.
 * `versalitas`. Coloca el texto en versalitas.
