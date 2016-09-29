@@ -438,7 +438,7 @@ blockquote + blockquote {
 }
 
 .oculto {
-	visibility: hidden;;
+	visibility: hidden;
 }
 
 /* Efectos en las fuentes */
