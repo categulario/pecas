@@ -21,6 +21,9 @@ haz lo mismo para la carpeta donde se creará el proyecto para el EPUB.
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
 
+    Si no se ingresa algún parámetro, el proyecto se creará en el directorio
+    actual.
+
 ###### 1. El *script* creará la carpeta del proyecto con el nombre `EPUB-CREATOR` y ¡listo!
 
 ## Explicación
