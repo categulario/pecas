@@ -52,23 +52,23 @@ Nota 4 con \textsuperscript{superíndice} y \textsubscriptsubíndice}.
 
 #### Marcadores
 
-Para ubicar cada una de las notas, solo en necesario colocar un `((note))`
+Para ubicar cada una de las notas, solo en necesario colocar un `ººnoteºº`
 en el lugar donde se desea colocar la nota.
 
 ##### Ejemplo para HTML o XHTML
 
 ```
-<p>Este es un párrafo de alguna obra.((note)) No hay necesidad de agregar
-otros elementos.((note)) El <b><i>script</i> automáticamente creará la
-secuencia</b>.((note)) ¡Así de sencillo!((note))</p>
+<p>Este es un párrafo de alguna obra.ººnoteºº No hay necesidad de agregar
+otros elementos.ººnoteºº El <b><i>script</i> automáticamente creará la
+secuencia</b>.ººnoteºº ¡Así de sencillo!ººnoteºº</p>
 ```
 
 ##### Ejemplo para TeX
 
 ```
-Este es un párrafo de alguna obra.((note)) No hay necesidad de agregar
-otros elementos.((note)) El \textbf\textit{script} automáticamente creará la
-secuencia}.((note)) ¡Así de sencillo!((note))
+Este es un párrafo de alguna obra.ººnoteºº No hay necesidad de agregar
+otros elementos.ººnoteºº El \textbf\textit{script} automáticamente creará la
+secuencia}.ººnoteºº ¡Así de sencillo!ººnoteºº
 ```
 
 ### Ejecución del *script*
@@ -93,7 +93,7 @@ haz lo mismo con la carpeta.
 ###### 3. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
     Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
-    ((note)) se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
+    ººnoteºº se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
 
 ###### 4. Se creará o recreará el archivo con todas las notas
 
@@ -194,7 +194,7 @@ aullaría este perro si eso pasara!
 
 Por este motivo, el *script* se detiene si no existe una coincidencia. El
 *script* es de gran utilidad y nos ahorrará mucho tiempo, pero no puede hacer
-nada si no colocamos la cantidad correcta de marcadores `((note))` o si los
+nada si no colocamos la cantidad correcta de marcadores `ººnoteºº` o si los
 ponemos en el lugar incorrecto. (:
 
 ### Archivo `9999-notes.xhtml`

@@ -76,6 +76,8 @@ end
 
 # Elementos comunes
 $divisor = '/'
+$note = "ººnoteºº"
+$noteRegEx = /ººnoteºº/
 $archivos = Array.new
 $rutasRelativas = Array.new
 $archivoCreado = "9999-notes.xhtml"
@@ -180,7 +182,7 @@ $archivos.each do |archivo|
         palabras = linea.split
 
         palabras.each do |palabra|
-            if palabra =~ /\(\(note\)\)/
+            if palabra =~ $noteRegEx
                 $conteoArchivos = $conteoArchivos + 1
             end
         end
@@ -215,15 +217,15 @@ $archivos.each do |archivo|
         # En cada línea busca palabra por palabra
         linea.each do |palabra|
 
-            # Si la palabra tiene un «((note))», lo cambia por la nota correspondiente
-            if palabra =~ /((note))/
+            # Si la palabra tiene un «ººnoteºº», lo cambia por la nota correspondiente
+            if palabra =~ $noteRegEx
 
                 # La sustitución varía según si es un tex o no
                 if File.extname(archivo) == ".tex"
-                    palabra = palabra.gsub('((note))', "\\footnote{#{$notasTXT[$conteo - 1]}}")
+                    palabra = palabra.gsub($note, "\\footnote{#{$notasTXT[$conteo - 1]}}")
                 else
                     nota = "<sup class=\"n-note-sup\" id=\"n#{$conteo}\"><a href=\"#{rutaArchivoCreado}#n#{$conteo}\">[#{$conteo}]</a></sup>"
-                    palabra = palabra.gsub('((note))', nota)
+                    palabra = palabra.gsub($note, nota)
                 end
 
                 # Añade las rutas relativas a cada documento para el $archivoCreado
