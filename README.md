@@ -44,6 +44,17 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     «Start Command Prompt with Ruby» para no tener conflicto con la ejecución de
     los binarios.
 
+# Pendientes
+
+* `cites.rb`.
+  * Terminar el desarrollo.
+* `recreator.rb`.
+  * Tabla de contenidos jerarquizado.
+* `changer.rb`.
+  * Terminar el desarrollo.
+* `index.rb`.
+  * Añadir este séptimo `script` para la creación de índices analíticos.
+
 # Licencia
 
 Las herramientas están bajo licencia GPL v3.

@@ -337,7 +337,25 @@ archivoNotes.puts "        <h1>Notas al pie</h1>"
 
 # Añade cada una de las notas
 $notasTXT.each do |linea|
-    archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteo}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{linea}</p>"
+    palabras = linea.split
+    palabrasCorregidas = Array.new
+
+    # Si se trata de la primera o última palabra, se elimina la etiqueta de párrafo
+    palabras.each do |palabra|
+        if palabra == palabras.first
+            palabra = palabra.gsub("<p>", "")
+        elsif palabra == palabras.last
+            palabra = palabra.gsub("</p>", "")
+        end
+
+        # Se agrega al nuevo conjunto
+        palabrasCorregidas.push(palabra)
+    end
+
+    # El conjunto se convierte en una nueva línea para añadirle lo demás requerido para el archivo de las notas
+    lineaCorregida = palabrasCorregidas.join(" ")
+
+    archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteo}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{lineaCorregida}</p>"
 
     $conteo = $conteo + 1;
 end
