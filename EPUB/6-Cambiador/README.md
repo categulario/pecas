@@ -26,8 +26,6 @@ desde ftp://ftp.info-zip.org/pub/infozip/win32/.
 
 ## Uso
 
-**En desarrollo.**
-
 ###### 1. Desde el *shell* ejecutar el *script* cuyos parámetros sean la ruta al EPUB y la versión deseada.
 
 Para mayor comodidad en el *shell* arrastra el archivo `changer.rb` y después

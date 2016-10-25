@@ -46,14 +46,15 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 
 # Pendientes
 
-* `cites.rb`.
-  * Terminar el desarrollo.
-* `recreator.rb`.
-  * Tabla de contenidos jerarquizado.
-* `changer.rb`.
-  * Corrección del error en la descompresión en Windows.
-* `index.rb`.
-  * Añadir este séptimo `script` para la creación de índices analíticos.
+* EPUB
+  * `cites.rb`.
+    * Terminar el desarrollo.
+  * `recreator.rb`.
+    * Tabla de contenidos jerarquizado.
+  * `changer.rb`.
+    * Corrección del error en la descompresión en Windows.
+  * `index.rb`.
+    * Añadir este séptimo `script` para la creación de índices analíticos.
 
 # Licencia
 
