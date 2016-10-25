@@ -19,6 +19,8 @@ Las herramientas pueden utilizarse de tres maneras:
 
 # Instalación de los binarios
 
+**Solo para sistemas UNIX (Linux y Mac OS X)**
+
 ###### 1. Ingresa a esta carpeta (`Herramientas`) en la terminal.
 ###### 2. Llama al instalador con `./instalar.sh`
 ###### 3. ¡Listo!
@@ -40,10 +42,6 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     se ha de escribir `source <archivo de inicialización de usuario>`. Este
     procedimiento solo se hace una vez, cuando se termina la instalación.
 
-    Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
-    «Start Command Prompt with Ruby» para no tener conflicto con la ejecución de
-    los binarios.
-
 # Pendientes
 
 * EPUB
@@ -51,8 +49,10 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * Terminar el desarrollo.
   * `recreator.rb`.
     * Tabla de contenidos jerarquizado.
+    * `File.rm_rf` no elimina los archivos temporales en Windows; el uso de `File.remove_dir` genera errores de permisos.
   * `changer.rb`.
-    * Corrección del error en la descompresión en Windows.
+    * `File.rm_rf` no elimina los archivos temporales en Windows; el uso de `File.remove_dir` genera errores de permisos.
+    * ¿Compatibilidad para versión EPUB 2.0.1?
   * `index.rb`.
     * Añadir este séptimo `script` para la creación de índices analíticos.
 

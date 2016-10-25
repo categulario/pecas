@@ -2,6 +2,8 @@
 # encoding: UTF-8
 # coding: UTF-8
 
+require 'fileutils'
+
 Encoding.default_internal = Encoding::UTF_8
 
 ### GENERALES ###
@@ -120,11 +122,11 @@ end
 $rutaEpubArray.each do |c|
 
     if c != $rutaEpubArray.last
-        if OS.windows?
-            $carpeta += c.to_s + '\\'
-        else
+        # if OS.windows?
+        #     $carpeta += c.to_s + '\\'
+        # else
             $carpeta += c.to_s + $divisor
-        end
+        # end
     else
         $epub = c.to_s
         $epub = $epub.split('.epub')[0]
@@ -146,21 +148,12 @@ end
 
 puts "\nDescomprimiendo EPUB...".magenta.bold
 
-### AQUÍ ESTÁ EL PROBLEMA CON WINDOWS
 system ("#{unzip} -qq #{$comillas}#{$rutaConEpub}#{$comillas} -d #{$directorio}")
 
 # Elimina la carpeta temporal
 def removerCarpeta
-    # Por defecto se usa el comando de las terminales UNIX
-    rm = "rm -rf #{$carpeta + $directorio}"
-
-    # Reajustes para Windows
-    if OS.windows?
-        $rutaEPUB = $rutaEPUB.gsub('/', '\\')
-        rm = "del #{$rutaEPUB}"
-    end
-
-    system (rm)
+    ruta = $carpeta + $directorio
+    FileUtils.rm_rf(ruta)
 end
 
 # Para obtener la línea del OPF donde se indica su versión y todas las líneas
@@ -258,13 +251,10 @@ Dir.chdir($carpeta + $directorio)
 $rutaEPUB = "../#{$epub}-#{$version}.epub"
 
 # Por defecto se usa el comando de las terminales UNIX
-rm = "rm -rf #{$rutaEPUB}"
 zip = 'zip'
 
 # Reajustes para Windows
 if OS.windows?
-    $rutaEPUB = $rutaEPUB.gsub('/', '\\')
-    rm = "del #{$rutaEPUB}"
     puts "\nArrastra el zip.exe".blue
     zip = $stdin.gets.chomp
 end
@@ -276,7 +266,7 @@ Dir.glob($carpeta + $divisor + '**') do |archivo|
     if File.basename(archivo) == "#{$epub}-#{$version}.epub"
         espacio = ' nuevo '
         puts "\nEliminando EPUB versión #{$version} previo...".magenta.bold
-        system (rm)
+        FileUtils.rm_rf($rutaEPUB)
     end
 end
 
