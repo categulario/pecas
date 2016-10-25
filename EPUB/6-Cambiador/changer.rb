@@ -85,8 +85,8 @@ elsif ARGF.argv.length == 2
         abort
     end
     # El segundo argumento tiene que ser la versión disponible
-    if ARGF.argv[1] != '2.0.1' and ARGF.argv[1] != '3.0.0' and ARGF.argv[1] != '3.0.1'
-        puts "\nLas versiones disponibles son: 2.0.1, 3.0.0 o 3.0.1.".red.bold
+    if ARGF.argv[1] != '3.0.0' and ARGF.argv[1] != '3.0.1'
+        puts "\nLas versiones disponibles son: 3.0.0 o 3.0.1.".red.bold
         abort
     end
 else
@@ -189,24 +189,15 @@ opf.each do |linea|
             $versionActual = version.to_s.split('"')[-1]
         end
 
-        # Especifica la versión actual
-        if $versionActual == '3.0'
-            if linea =~ /rendition/
-                $versionActual = '3.0.0'
-            else
-                $versionActual = '3.0.1'
-            end
+        if linea =~ /rendition/
+            $versionActual = '3.0.0'
         else
-            $versionActual = '2.0.1'
+            $versionActual = '3.0.1'
         end
 
         # Aborta si se intenta cambiar a la misma versión
         if $versionActual == $version
-            if $versionActual == '2.0.1'
-                puts "\nEste EPUB es versión 2, solo se puede actualizar a versión 3.0.0 o 3.0.1.".magenta.bold
-            else
-                puts "\nEste EPUB ya es versión #{$versionActual}.".magenta.bold
-            end
+            puts "\nEste EPUB ya es versión #{$versionActual}.".magenta.bold
             removerCarpeta
             abort
         end
@@ -215,47 +206,30 @@ opf.each do |linea|
     $opfContenido.push(linea)
 end
 
-puts "\nCambiando versión de #{$versionActual} a #{$version}.".magenta.bold
+puts "\nCambiando versión de #{$versionActual} a #{$version}...".magenta.bold
 
 # Cambia las versiones en el OPF
 $opfContenido.each do |linea|
-    if $versionActual != '2.0.1'
-        if $version != '2.0.1'
-            if linea =~ /<(\s*)package/
-                # Obtención del viejo prefijo
-                prefijo = linea.match(/prefix=[\"\']([^"]*)[\"\']/)
-                prefijo = prefijo[1].to_s
+    if linea =~ /<(\s*)package/
+        # Obtención del viejo prefijo
+        prefijo = linea.match(/prefix=[\"\']([^"]*)[\"\']/)
+        prefijo = prefijo[1].to_s
 
-                # Cambios según la versión actual
-                if $versionActual == '3.0.1'
-                    prefijo = 'rendition: http://www.idpf.org/vocab/rendition/# ' + prefijo
-                else
-                    prefijo = prefijo.gsub(/rendition:(.*)#/, '').strip
-                end
-
-                # Nuevo prefijo
-                nuevaLineaPrefijo = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, 'prefix="' + prefijo + '"')
-
-                # Localización en el conjunto de la linea donde está el prefijo
-                hashPrefijo = Hash[$opfContenido.map.with_index.to_a]
-
-                # Cambio de línea
-                $opfContenido[hashPrefijo[linea]] = nuevaLineaPrefijo
-            end
+        # Cambios según la versión actual
+        if $versionActual == '3.0.1'
+            prefijo = 'rendition: http://www.idpf.org/vocab/rendition/# ' + prefijo
         else
-            if linea =~ /<(\s*)package/
-                # Cambio en la linea
-                lineaPackage = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, '').gsub(/xml:lang=[\"\']([^"]*)[\"\']/, '').gsub(/version=[\"\']([^"]*)[\"\']/, 'version="2.0"')
-
-                # Localización en el conjunto de la linea donde está el prefijo
-                hashPackage = Hash[$opfContenido.map.with_index.to_a]
-
-                # Cambio de línea
-                $opfContenido[hashPackage[linea]] = lineaPackage
-            end
+            prefijo = prefijo.gsub(/rendition:(.*?)#/, '').strip
         end
-    else
-        puts "Cambio de 2.0.1 a 3"
+
+        # Nuevo prefijo
+        nuevaLineaPrefijo = linea.to_s.gsub(/prefix=[\"\']([^"]*)[\"\']/, 'prefix="' + prefijo + '"')
+
+        # Localización en el conjunto de la linea donde está el prefijo
+        hashPrefijo = Hash[$opfContenido.map.with_index.to_a]
+
+        # Cambio de línea
+        $opfContenido[hashPrefijo[linea]] = nuevaLineaPrefijo
     end
 end
 

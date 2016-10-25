@@ -51,7 +51,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * `recreator.rb`.
   * Tabla de contenidos jerarquizado.
 * `changer.rb`.
-  * Terminar el desarrollo.
+  * Corrección del error en la descompresión en Windows.
 * `index.rb`.
   * Añadir este séptimo `script` para la creación de índices analíticos.
 

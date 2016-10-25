@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="flujo-de-trabajo.svg">
+   sodipodi:docname="flujo-de-trabajo.svg"
+   inkscape:export-filename="/Volumes/Documentos/Repositorios/Herramientas/EPUB/flujo-de-trabajo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -256,11 +259,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="623.76185"
-     inkscape:cy="224.1534"
+     inkscape:zoom="0.35"
+     inkscape:cx="466.99169"
+     inkscape:cy="390.94557"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g4602"
      showgrid="false"
      units="px"
      inkscape:window-width="1280"
@@ -276,7 +279,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -444,32 +447,6 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2px;word-spacing:0px;text-anchor:middle">3.0.1</tspan></text>
     </g>
     <g
-       id="g4596"
-       transform="translate(174.64286,-250.57147)">
-      <path
-         inkscape:connector-curvature="0"
-         id="path4584"
-         d="m 295.35714,1041.9337 a 49.999996,50.000002 0 0 1 -50,50 49.999996,50.000002 0 0 1 -50,-50 49.999996,50.000002 0 0 1 50,-50.00006 49.999996,50.000002 0 0 1 50,50.00006 z"
-         style="opacity:1;fill:#85b717;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:18px;line-height:125%;font-family:sans-serif;letter-spacing:-0.80000001px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="244.75949"
-         y="1040.0609"
-         id="text4586"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan4588"
-           x="243.75949"
-           y="1040.0609"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2px;word-spacing:0px;text-anchor:middle">EPUB</tspan><tspan
-           id="tspan4590"
-           sodipodi:role="line"
-           x="243.75949"
-           y="1061.0902"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2px;word-spacing:0px;text-anchor:middle">3.0.0</tspan></text>
-    </g>
-    <g
        id="g4602"
        transform="translate(173.21429,-249.14289)">
       <path
@@ -493,7 +470,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2px;word-spacing:0px;text-anchor:middle"
            y="1059.6616"
            x="95.188057"
-           sodipodi:role="line">2.0.1</tspan></text>
+           sodipodi:role="line">3.0.0</tspan></text>
     </g>
     <g
        transform="translate(387.5,-132.00001)"
@@ -603,25 +580,6 @@
        id="path4872"
        d="m 250.00001,459.36263 75.38489,-4.5e-4"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4874)" />
-    <g
-       id="g5312"
-       transform="translate(187.5,-142.00001)">
-      <path
-         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-         d="m 232,988.97656 0,69.88474 1,0 0,-69.88474 -1,0 z"
-         id="path4926"
-         inkscape:connector-curvature="0" />
-      <path
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.8pt;stroke-opacity:1"
-         d="m 232.50047,1063.3631 -4.00005,-6.92 8,0 -3.99995,6.92 z"
-         id="path5318"
-         inkscape:connector-curvature="0" />
-      <path
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.8pt;stroke-opacity:1"
-         d="m 232.49995,984.3613 4.00005,6.91997 -8,6e-5 3.99995,-6.92003 z"
-         id="path5320"
-         inkscape:connector-curvature="0" />
-    </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5030)"
        d="m 620,791.36263 94.38489,-4.5e-4"
