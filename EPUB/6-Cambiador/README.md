@@ -7,6 +7,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este *script* cambia versiones de EPUB entre `3.0.0` y `3.0.1`.

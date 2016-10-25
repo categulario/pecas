@@ -6,6 +6,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este *script* divide un solo documento HTML o XHTML en varios documentos XHTML

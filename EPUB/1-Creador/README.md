@@ -6,6 +6,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este *script* crea la estructura del EPUB, con la posibilidad de incluir una hoja de estilos CSS

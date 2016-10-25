@@ -7,6 +7,8 @@
 
 <!-- * [Explicación](#explicación) -->
 
+---
+
 ## Descripción
 
 Este *script* agrega de manera automatizada la bibliografía en formato `.bib`

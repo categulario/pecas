@@ -14,7 +14,6 @@ recolectando.
 * [Licencia](#licencia)
 
 ---
----
 
 # Requisitos
 

@@ -7,6 +7,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este pequeño script ayuda a utilizar Tesseract en todas las imágenes PNG o TIF

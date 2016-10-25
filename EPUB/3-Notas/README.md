@@ -6,6 +6,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este *script* agrega de manera automatizada las notas al pie a un libro EPUB

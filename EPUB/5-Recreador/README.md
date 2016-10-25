@@ -7,6 +7,8 @@
 * [Uso](#uso)
 * [Explicación](#explicación)
 
+---
+
 ## Descripción
 
 Este *script* recrea los archivos OPF, NCX y NAV así como crea o recrea el
