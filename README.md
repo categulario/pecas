@@ -5,6 +5,17 @@ código para ahorrarse mucho trabajo repetitivo. Con el fin de hacer más
 accesibles estas herramientas, se ha creado este repositorio para irlas
 recolectando.
 
+## Índice
+
+* [Requisitos](#requisitos)
+* [Utilización](#utilización)
+* [Binarios](#binarios)
+* [Pendientes](#pendientes)
+* [Licencia](#licencia)
+
+---
+---
+
 # Requisitos
 
 Las herramientas requieren [Ruby](https://www.ruby-lang.org/es/) 1.9.3 o posterior.
@@ -17,9 +28,12 @@ Las herramientas pueden utilizarse de tres maneras:
 2. Arrastrando el *script* deseado a la terminal.
 3. Instalando los binarios para utilizar los *script* directamente.
 
-# Instalación de los binarios
+# Binarios
 
 **Solo para sistemas UNIX (Linux y Mac OS X).**
+
+Los binarios permiten acceder a las herramientas desde la terminal sin necesidad
+de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencilla:
 
 ###### 1. Ingresa a esta carpeta (`Herramientas`) en la terminal.
 ###### 2. Llama al instalador con `./instalar.sh`
