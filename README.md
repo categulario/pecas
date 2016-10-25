@@ -19,7 +19,7 @@ Las herramientas pueden utilizarse de tres maneras:
 
 # Instalación de los binarios
 
-**Solo para sistemas UNIX (Linux y Mac OS X)**
+**Solo para sistemas UNIX (Linux y Mac OS X).**
 
 ###### 1. Ingresa a esta carpeta (`Herramientas`) en la terminal.
 ###### 2. Llama al instalador con `./instalar.sh`
@@ -49,9 +49,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * Terminar el desarrollo.
   * `recreator.rb`.
     * Tabla de contenidos jerarquizado.
-    * `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos.
+    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos.
   * `changer.rb`.
-    * `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales en Windows; el uso de `FileUtils.remove_dir` genera errores de permisos.
+    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos.
     * ¿Compatibilidad para versión EPUB 2.0.1?
   * `index.rb`.
     * Añadir este séptimo `script` para la creación de índices analíticos.
