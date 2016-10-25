@@ -2,6 +2,8 @@
 # encoding: UTF-8
 # coding: UTF-8
 
+require 'fileutils'
+
 Encoding.default_internal = Encoding::UTF_8
 
 ### GENERALES ###
@@ -914,14 +916,13 @@ mensajeFinal = "\nEl proceso ha terminado.".gray.bold
 rutaEPUB = "../#{ruta.last}.epub"
 
 # Por defecto se usa el comando de las terminales UNIX
-rm = "rm -rf #{rutaEPUB}"
+rm = rutaEPUB
 zip = 'zip'
 
 # Reajustes para Windows
 if OS.windows?
     rutaEPUB = rutaEPUB.gsub('/', '\\')
     rutaPadre = rutaPadre.gsub('/', '\\')
-    rm = "del #{rutaEPUB}"
     puts "\nArrastra el zip.exe".blue
     zip = $stdin.gets.chomp
 end
@@ -933,7 +934,7 @@ Dir.glob($carpeta + $divisor + '..' + $divisor + '**') do |archivo|
     if File.basename(archivo) == ruta.last + '.epub'
         espacio = ' nuevo '
         puts "\nEliminando EPUB previo...".magenta.bold
-        system (rm)
+        FileUtils.rm_rf(rm)
     end
 end
 

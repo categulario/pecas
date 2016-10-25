@@ -49,9 +49,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * Terminar el desarrollo.
   * `recreator.rb`.
     * Tabla de contenidos jerarquizado.
-    * `File.rm_rf` no elimina los archivos temporales en Windows; el uso de `File.remove_dir` genera errores de permisos.
+    * `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos.
   * `changer.rb`.
-    * `File.rm_rf` no elimina los archivos temporales en Windows; el uso de `File.remove_dir` genera errores de permisos.
+    * `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales en Windows; el uso de `FileUtils.remove_dir` genera errores de permisos.
     * ¿Compatibilidad para versión EPUB 2.0.1?
   * `index.rb`.
     * Añadir este séptimo `script` para la creación de índices analíticos.
