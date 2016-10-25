@@ -19,10 +19,17 @@ Este *script* requiere, además de Ruby:
 preinstalado. Para Windows es necesario descargar el `zip.exe` en Info-ZIP
 desde ftp://ftp.info-zip.org/pub/infozip/win32/. Para Windows de 64 bits es el
 archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
+Si existe alguna duda, mejor descárguese el ejecutable desde la carpeta
+[`info-zip`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/otros/info-zip)
+de este repositorio.
 
 * UnZip 6.0. La mayoría de las distribuciones Linux y Mac OSX ya lo tienen
 preinstalado. Para Windows es necesario descargar el `unz600xn.exe` en Info-ZIP
-desde ftp://ftp.info-zip.org/pub/infozip/win32/.
+desde ftp://ftp.info-zip.org/pub/infozip/win32/. Una vez descargado hay que
+ejecutar el archivo para obtener el `unzip.exe`.
+Si existe alguna duda, mejor descárguese el ejecutable desde la carpeta
+[`info-zip`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/otros/info-zip)
+de este repositorio.
 
 ## Uso
 
@@ -41,8 +48,6 @@ versión en la misma carpeta del EPUB original.
 
     Para usuarios de Windows, el proceso también requiere contar con unzip.exe
     y zip.exe que en su momento les pedirá arrastrar.
-
-    OJO: al parecer exite un problema con unzip.exe en Windows.
 
 ## Explicación
 

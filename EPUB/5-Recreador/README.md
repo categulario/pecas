@@ -24,6 +24,9 @@ versión mínima de Ruby que se ha probado es la 1.9.3p484.
 preinstalado. Para Windows es necesario descargar el `zip.exe` en Info-ZIP
 desde ftp://ftp.info-zip.org/pub/infozip/win32/. Para Windows de 64 bits es el
 archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
+Si existe alguna duda, mejor descárguese el ejecutable desde la carpeta
+[`info-zip`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/otros/info-zip)
+de este repositorio.
 
 ## Uso
 
