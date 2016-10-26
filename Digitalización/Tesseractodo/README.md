@@ -29,7 +29,7 @@ versión mínima de Ruby que se ha probado es la 1.9.3p484.
 
 ###### 1. Desde el *shell* ejecutar el `script`
 
-Para mayor comodidad en el *shell* arrastra el archivo `tesseractall.rb`.
+Sitúate en la carpeta en la que quieres que se guarden los archivos finales. Para mayor comodidad en el *shell*, arrastra el archivo `tesseractall.rb` y pulsa «enter».
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
@@ -37,11 +37,11 @@ Para mayor comodidad en el *shell* arrastra el archivo `tesseractall.rb`.
 ###### 2. Escribe el prefijo del lenguaje a detectar
 
 El listado de los prefijos puede encontrarse
-[aquí](http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4).
+[aquí](http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4). Pulsa «enter» nuevamente.
 
 ###### 4. Indica la carpeta que contiene las imágenes
 
-Para mayor comodidad en el *shell* arrastra la carpeta con las imágenes.
+Para mayor comodidad en el *shell* arrastra la carpeta con las imágenes y pulsa enter por última vez.
 
 ###### 5. ¡Es todo!
 
