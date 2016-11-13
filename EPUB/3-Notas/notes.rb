@@ -327,23 +327,35 @@ $conteoId = 1
 def adicion (archivoNotes)
     # Añade cada una de las notas
     $notasTXT.each do |linea|
-        palabras = linea.split
-        palabrasCorregidas = Array.new
+        $palabrasCorregidas = Array.new
 
-        # Si se trata de la primera o última palabra, se elimina la etiqueta de párrafo
-        palabras.each do |palabra|
-            if palabra == palabras.first
-                palabra = palabra.gsub("<p>", "")
-            elsif palabra == palabras.last
-                palabra = palabra.gsub("</p>", "")
+        # Si se colocan dentro de cada sección, evita que se ingresen notas de otras secciones
+        if $boolColocacion
+            # Compara que el archivo donde van sea el mismo a donde se dirige, si no, se termina la colocación
+            if $archivoParaNotas != $rutasRelativas[$conteoId - 1]
+                break
             end
-
-            # Se agrega al nuevo conjunto
-            palabrasCorregidas.push(palabra)
         end
 
-        # El conjunto se convierte en una nueva línea para añadirle lo demás requerido para el archivo de las notas
-        lineaCorregida = palabrasCorregidas.join(" ")
+        # Compone la línea de la nota
+        def arreglo lugar
+            palabras = lugar.split
+
+            # Si se trata de la primera o última palabra, se elimina la etiqueta de párrafo
+            palabras.each do |palabra|
+                if palabra == palabras.first
+                    palabra = palabra.gsub("<p>", "")
+                elsif palabra == palabras.last
+                    palabra = palabra.gsub(/<\/p>+$/, "")
+                end
+
+                # Se agrega al nuevo conjunto
+                $palabrasCorregidas.push(palabra)
+            end
+
+            # El conjunto se convierte en una nueva línea para añadirle lo demás requerido para el archivo de las notas
+            $lineaCorregida = $palabrasCorregidas.join(" ")
+        end
 
         # Añade el nombre del capítulo si se reinicia la numeración y se está creando un nuevo archivo
         if $boolReinicio && $conteoFinal[$conteo] == 1 && !$boolColocacion
@@ -377,19 +389,13 @@ def adicion (archivoNotes)
             archivoNotes.puts "        <h2 class=\"n-note-h2\">" + h2.gsub(/\n/, "") + "</h2>"
         end
 
-        # Si se colocan dentro de cada sección, evita que se ingresen notas de otras secciones
-        if $boolColocacion
-            # Compara que el archivo donde van sea el mismo a donde se dirige, si no, se termina la colocación
-            if $archivoParaNotas != $rutasRelativas[$conteoId - 1]
-                break
-            end
-        end
-
         # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
         if $boolColocacion
-            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#c-n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{lineaCorregida}</p>"
+            arreglo $notasTXT[$conteoId - 1]
+            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#c-n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
         else
-            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{lineaCorregida}</p>"
+            arreglo linea
+            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
         end
 
         $conteo = $conteo + 1

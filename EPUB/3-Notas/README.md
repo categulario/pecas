@@ -266,10 +266,10 @@ notas. P:
 Por último, las notas pueden comprenden varios párrafos, solo basta que dejes
 marcadas las etiquetas correspondientes.
 
-Ejemplo de las notas en el `.text`:
+Ejemplo de las notas en el `.txt`:
 
 ```
-Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i>.
+<p>Esto es una nota que tiene <b>varios párrafos</b>.</p><p>Este es un segundo párrafo.</p><p>Uno más <i>siempre omitiendo la primera etiqueta de apertura y la última de cierre</i></p>.
 ```
 
 Esto se reflejaría en `9999-notes.xhtml` como:
@@ -284,5 +284,16 @@ Esto se reflejaría en `9999-notes.xhtml` como:
 
 </html>
 ```
+
+Cuando en `9999-notes.xhtml` también se indica un reinicio de la numeración,
+entre las notas se coloca el nombre del capítulo. El nombre es igual al
+primer encabezado `h1` que se encuentre en el archivo correspondiente. Si no
+existe esta etiqueta en el documento, el nombre es igual a lo que contiene la
+etiqueta `title`. Este nombre de capítulo se coloca en una etiqueta `h2` con la
+clase `n-note-h2`.
+
+Cuando se indica que las notas han de estar adentro del mismo documento de
+referencia, estas son colocadas al final del archivo, iniciando con un divisor
+`hr` cuya clase es `n-note-hr`.
 
 Ahora sí, ¡a seguir editando libros!
