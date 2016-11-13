@@ -77,8 +77,8 @@ secuencia}.ººnoteºº ¡Así de sencillo!ººnoteºº
 
 ###### 1. Desde el *shell* ejecutar el *script* cuyos parámetros sean la ruta a la carpeta que contiene los archivos y el archivo de texto que contiene todas las notas al pie.
 
-Para mayor comodidad en el *shell* arrastra el archivo `notes.rb` y después
-haz lo mismo con la carpeta.
+Para mayor comodidad en el *shell* arrastra el archivo `notes.rb`, después
+haz lo mismo con la carpeta y con el archivo que contiene las notas.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
@@ -95,7 +95,7 @@ haz lo mismo con la carpeta.
 
 ###### 3. Se pregunta si se desea reiniciar la numeración en cada sección
 
-    Por defecto la numeración es continúa a través de todos los archivos, pero
+    Por defecto la numeración es continua a través de todos los archivos, pero
     es posible reiniciar la numeración en cada uno de los archivos.
 
 ###### 4. Se pregunta si se desea colocar las notas en cada uno de los archivos
@@ -103,8 +103,7 @@ haz lo mismo con la carpeta.
     Por defecto en la misma carpeta que contiene los archivos se crea un
     documento llamado 9999-notes.xhtml el cual contiene las notas. Cabe la
     posibilidad de que las notas se coloquen al final de cada uno de los
-    archivos que contienen las notas, evitándose la creación del archivo
-    9999-notes.xhtml.
+    archivos, evitándose la creación del archivo 9999-notes.xhtml.
 
     Para TeX esta pregunta no aplica, ya que siempre se colocan las notas
     adentro de cada uno de los archivos.

@@ -457,7 +457,7 @@ def Tipo (extension)
         return 'image/png'
     elsif extension == '.svg'
         return 'image/svg+xml'
-    elsif extension == '.xhtml'
+    elsif extension == '.xhtml' or extension == '.html'
         return 'application/xhtml+xml'
     elsif extension == '.ncx'
         return 'application/x-dtbncx+xml'
@@ -557,7 +557,7 @@ Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
         manifiesto.push('        <item href="' + rutaRelativa[indice] + '" id="' + identificador + '" media-type="' + tipo.to_s + '"' + propiedad.to_s + propiedad2.to_s + propiedad3.to_s + ' />')
 
         # Agrega los elementos a la espina
-        if File.extname(archivoManifiesto) == '.xhtml' and File.basename(archivoManifiesto) != $nav
+        if (File.extname(archivoManifiesto) == '.xhtml' || File.extname(archivoManifiesto) == '.html') and File.basename(archivoManifiesto) != $nav
             espina.push ('        <itemref idref="' + identificador + '"' + noLineal.to_s + '/>')
         end
 

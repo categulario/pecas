@@ -492,8 +492,7 @@ ul {
 sup, sub {
     font-size: .75em;
     vertical-align: baseline;
-    position: relative;
-    top: -0.4em;
+    padding-top: -0.4em;
 }
 
 sub {
