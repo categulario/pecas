@@ -491,8 +491,7 @@ ul {
 
 sup, sub {
     font-size: .75em;
-    vertical-align: baseline;
-    padding-top: -0.4em;
+    vertical-align: super;
 }
 
 sub {
@@ -552,6 +551,24 @@ sub {
 
 .espacioArriba3 {
 	margin-top: 3em;
+}
+
+/* Estilos adicionales */
+
+* + .n-note-p {
+    margin-top: 1em;
+}
+
+.n-note-p + .n-note-p {
+    margin-top: 0.5em;
+    text-indent: 0;
+}
+
+.n-note-hr {
+	margin-top: 2em;
+	width: 25%;
+	margin-left: 0;
+	border: 1px solid gray;
 }
 
 /* Estilos de esta edición */

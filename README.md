@@ -58,9 +58,6 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 # Pendientes
 
 * EPUB
-  * `creator.rb`
-    * crear estilos para las clases de `notes.rb`.
-    * arreglar el problema con Kindle del estilo para la etiqueta `sup`.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
