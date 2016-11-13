@@ -75,7 +75,7 @@ secuencia}.ººnoteºº ¡Así de sencillo!ººnoteºº
 
 ### Ejecución del *script*
 
-###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta que contiene los archivos.
+###### 1. Desde el *shell* ejecutar el *script* cuyos parámetros sean la ruta a la carpeta que contiene los archivos y el archivo de texto que contiene todas las notas al pie.
 
 Para mayor comodidad en el *shell* arrastra el archivo `notes.rb` y después
 haz lo mismo con la carpeta.
@@ -83,8 +83,9 @@ haz lo mismo con la carpeta.
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
     «Start Command Prompt with Ruby» para poder ejecutar esta orden.
 
-    Si no se ingresa algún parámetro, el directorio actual será tratado como la
-    carpeta que contiene los archivos.
+    Es posible ingresar únicamente como parámetro el archivo de texto que
+    contiene todas las notas al pie y de esta forma el directorio actual será
+    tratado como la carpeta que contiene los archivos.
 
 ###### 2. El *script* verificará que coincidan la cantidad de notas en el archivo de texto y en los archivos HTML, XHTML o TeX.
 
@@ -92,12 +93,28 @@ haz lo mismo con la carpeta.
     de notas detectadas en el archivo de texto y en el conjunto de los archivos
     HTML, XHTML o TeX.
 
-###### 3. Se añadirán las referencias a los archivos HTML, XHTML o TeX
+###### 3. Se pregunta si se desea reiniciar la numeración en cada sección
+
+    Por defecto la numeración es continúa a través de todos los archivos, pero
+    es posible reiniciar la numeración en cada uno de los archivos.
+
+###### 4. Se pregunta si se desea colocar las notas en cada uno de los archivos
+
+    Por defecto en la misma carpeta que contiene los archivos se crea un
+    documento llamado 9999-notes.xhtml el cual contiene las notas. Cabe la
+    posibilidad de que las notas se coloquen al final de cada uno de los
+    archivos que contienen las notas, evitándose la creación del archivo
+    9999-notes.xhtml.
+
+    Para TeX esta pregunta no aplica, ya que siempre se colocan las notas
+    adentro de cada uno de los archivos.
+
+###### 5. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
     Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
     ººnoteºº se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
 
-###### 4. Se creará o recreará el archivo con todas las notas
+###### 6. Se creará o recreará el archivo con todas las notas
 
     El archivo se localizará en la raíz de la carpeta de los archivos con el
     nombre 9999-notes.xhtml.
@@ -106,7 +123,7 @@ haz lo mismo con la carpeta.
     estilos CSS para vincularla a este nuevo archivo XHTML. Solo es necesario
     arrastar el .css cuando se indique.
 
-###### 5. ¡Es todo!
+###### 7. ¡Es todo!
 
     Ahora los documentos contendrán las referencias. En el caso de los
     documentos HTML o XHTML, se crearán referencias cruzadas y numeradas
@@ -209,7 +226,7 @@ el EPUB y se desea colocar las notas hasta el final del libro.
 
 ### Estilos CSS a las notas
 
-Existen tres clases por las cuales es posible dar estilo a las notas sin
+Existen cinco clases por las cuales es posible dar estilo a las notas sin
 necesidad de modificar las etiquetas HTML generadas.
 
 Las referencias adentro de los archivos HTML o XHTML son como el siguiente
@@ -246,9 +263,8 @@ Nótese que el *script* siempre agrega un especio entre el número de nota y la
 nota, no debes de preocuparte por ello, solo concéntrate en darle formato a tus
 notas. P:
 
-Por último, si una nota comprende varios párrafos, solo es necesario omitir la
-primera etiqueta de apertura de (`<p>`) y la última de cierre (`</p>`) de la
-nota.
+Por último, las notas pueden comprenden varios párrafos, solo basta que dejes
+marcadas las etiquetas correspondientes.
 
 Ejemplo de las notas en el `.text`:
 

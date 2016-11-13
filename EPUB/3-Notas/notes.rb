@@ -87,15 +87,30 @@ $archivoCSS = ""
 $carpeta = ""
 $separacionesCarpeta = 0
 $conteo = 1
+$conteoId = 1
 $mensajeFinal = "\nEl proceso ha terminado.".gray.bold
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
-    $carpeta = Dir.pwd
-elsif ARGF.argv.length == 1
-    $carpeta = ARGF.argv[0]
+    puts "\nLa ruta al archivo de texto que contiene las notas al pie es necesaria.".red.bold
+    abort
+elsif ARGF.argv.length == 1 || ARGF.argv.length == 2
+    if ARGF.argv.length == 1
+        $carpeta = Dir.pwd
+        $archivoNotas = ARGF.argv[0]
+    else
+        $carpeta = ARGF.argv[0]
+        $archivoNotas = ARGF.argv[1]
+    end
+
+    $archivoNotas = ArregloRuta $archivoNotas
+
+    if $archivoNotas.split(".").last != "txt"
+        puts "\nEl archivo indicado no tiene extensión .txt.".red.bold
+        abort
+    end
 else
-    puts "\nSolo se permite un argumento, el de la ruta de la carpeta con los archivos a referenciar.".red.bold
+    puts "\nNo se permiten más de dos argumentos.".red.bold
     abort
 end
 
@@ -143,20 +158,6 @@ end
 # Obtiene los archivos xhtml, html o tex
 carpetaBusqueda
 
-# Obtiene el archivo que contiene las notas al pie
-def archivoNotasBusqueda
-    puts "\nArrastra el archivo de texto que contiene las notas al pie.".blue
-    $archivoNotas = $stdin.gets.chomp
-    $archivoNotas = ArregloRuta $archivoNotas
-
-    if $archivoNotas.split(".").last != "txt"
-        puts "\nEl archivo indicado no tiene extensión .txt.".red.bold
-        archivoNotasBusqueda
-    end
-end
-
-archivoNotasBusqueda
-
 puts "\nComparando cantidad de notas...".magenta.bold
 
 # Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
@@ -197,7 +198,36 @@ if $conteoTXT != $conteoArchivos
     abort
 end
 
+# Preguntas relativas al modo de crear las notas
+def pregunta (texto, booleano)
+    puts "\n" + texto.blue + " [s/N]:"
+    respuesta = $stdin.gets.chomp.downcase
+    if (respuesta == "" || respuesta == "n")
+        booleano = false;
+        return booleano
+    elsif (respuesta == "s")
+        booleano = true;
+        return booleano
+    else
+        pregunta texto, booleano
+    end
+end
+
+# Obtiene el booleano para determinar si se reinicia la numeración
+preguntaReinicio = "¿Reiniciar la numeración en cada sección?"
+$boolReinicio = pregunta preguntaReinicio, $boolReinicio
+
+# En TeX se agregan las notas en los archivos, pero en HTML o XHTML existe la posibilidad de añadirlos al mismo documento o crear uno nuevo
+if $archivosExistentesHTML == true
+    # Obtiene el booleano para determinar el lugar de las notas
+    preguntaColocacion = "¿Colocar las notas en el documento de cada sección?"
+    $boolColocacion = pregunta preguntaColocacion, $boolColocacion
+end
+
 puts "\nAñadiendo referencias a los archivos...".magenta.bold
+
+# Un conjunto para utilizarlo al colocar las notas con la numeración correcta
+$conteoFinal = Array.new
 
 # Agrega la referencia a los archivos
 $archivos.each do |archivo|
@@ -210,6 +240,10 @@ $archivos.each do |archivo|
     # Abre el archivo para sustituir las referencias
     archivoAbrir = File.open(archivo, 'r:UTF-8')
 
+    if $boolReinicio
+        $conteo = 1
+    end
+
     archivoAbrir.each do |linea|
         linea = linea.split
         palabras = Array.new
@@ -220,11 +254,20 @@ $archivos.each do |archivo|
             # Si la palabra tiene un «ººnoteºº», lo cambia por la nota correspondiente
             if palabra =~ $noteRegEx
 
+                # Añade el conteo final
+                $conteoFinal.push($conteo)
+
                 # La sustitución varía según si es un tex o no
                 if File.extname(archivo) == ".tex"
-                    palabra = palabra.gsub($note, "\\footnote{#{$notasTXT[$conteo - 1]}}")
+                    palabra = palabra.gsub($note, "\\footnote[#{$conteo}]{#{$notasTXT[$conteoId - 1]}}")
                 else
-                    nota = "<sup class=\"n-note-sup\" id=\"n#{$conteo}\"><a href=\"#{rutaArchivoCreado}#n#{$conteo}\">[#{$conteo}]</a></sup>"
+                    # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
+                    if $boolColocacion
+                        nota = "<sup class=\"n-note-sup\" id=\"c-n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$conteo}]</a></sup>"
+                    else
+                        nota = "<sup class=\"n-note-sup\" id=\"n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$conteo}]</a></sup>"
+                    end
+
                     palabra = palabra.gsub($note, nota)
                 end
 
@@ -232,6 +275,7 @@ $archivos.each do |archivo|
                 $rutasRelativas.push(archivo.split($divisor)[$separacionesCarpeta..(archivo.length - 1)].join($divisor))
 
                 $conteo = $conteo + 1
+                $conteoId = $conteoId + 1
             end
 
             # Agrega la palabra modificada para crear una nueva línea
@@ -259,110 +303,237 @@ if $archivosExistentesHTML != true
     puts $mensajeFinal
     abort
 else
-    archivoExistente = $carpeta + $divisor + $archivoCreado
-    archivoExistenteBool = File.exist?(archivoExistente)
-    if archivoExistenteBool == false
-        puts "\nCreando archivo 9999-notes.xhtml...".magenta.bold
+    if $boolColocacion
+        puts "\nColocando notas en cada uno de los archivos...".magenta.bold
     else
-        puts "\nRecreando archivo 9999-notes.xhtml...".magenta.bold
+        archivoExistente = $carpeta + $divisor + $archivoCreado
+        archivoExistenteBool = File.exist?(archivoExistente)
+        if archivoExistenteBool == false
+            puts "\nCreando archivo 9999-notes.xhtml...".magenta.bold
+        else
+            puts "\nRecreando archivo 9999-notes.xhtml...".magenta.bold
+        end
     end
 end
-
-# Se resetea el contador
-$conteo = 1
 
 # Va a la carpeta
 Dir.chdir($carpeta)
 
-# Obtiene el archivo CSS
-$rutaCSS = ""
+# Se resetea el contador
+$conteo = 0
+$conteoId = 1
 
-def archivoCSSBusqueda
-    puts "\nArrastra el archivo CSS si existe ".blue + "[dejar en blanco para ignorar]:".bold
-    $archivoCSS = $stdin.gets.chomp
-    $archivoCSS = ArregloRuta $archivoCSS
-    $archivoCSS = $archivoCSS.strip
+# Para añadir las notas a los archivos o en un nuevo documento
+def adicion (archivoNotes)
+    # Añade cada una de las notas
+    $notasTXT.each do |linea|
+        palabras = linea.split
+        palabrasCorregidas = Array.new
 
-    # Si se arrastró un archivo
-    if $archivoCSS != ""
-        # Si el archivo introducido no es un CSS, vuelve a preguntar
-        if $archivoCSS.split(".").last != "css"
-            puts "\nEl archivo indicado no tiene extensión .css.".red.bold
-            archivoCSSBusqueda
+        # Si se trata de la primera o última palabra, se elimina la etiqueta de párrafo
+        palabras.each do |palabra|
+            if palabra == palabras.first
+                palabra = palabra.gsub("<p>", "")
+            elsif palabra == palabras.last
+                palabra = palabra.gsub("</p>", "")
+            end
+
+            # Se agrega al nuevo conjunto
+            palabrasCorregidas.push(palabra)
         end
 
-        # Para sacar la ruta relativa al archivo CSS
-        archivoConjuntoCSS = $archivoCSS.split($divisor)
-        separacionesConjuntoCarpeta = $carpeta.split($divisor)
+        # El conjunto se convierte en una nueva línea para añadirle lo demás requerido para el archivo de las notas
+        lineaCorregida = palabrasCorregidas.join(" ")
 
-        # Ayuda a determinar el número de índice donde ambos conjutos difieren
-        indice = 0
-        archivoConjuntoCSS.each do |parte|
-            if parte === separacionesConjuntoCarpeta[indice]
-                indice += 1
+        # Añade el nombre del capítulo si se reinicia la numeración y se está creando un nuevo archivo
+        if $boolReinicio && $conteoFinal[$conteo] == 1 && !$boolColocacion
+            archivoTitulo = File.open($rutasRelativas[$conteoId - 1], 'r:UTF-8')
+            titulo = ""
+            h1 = ""
+            h2 = ""
+            boolH1 = false
+
+            archivoTitulo.each do |linea|
+                # Busca por el texto de las etiquetas title o h1
+                if linea =~ /<title>/
+                    titulo = linea.gsub("<title>", "").gsub("</title>", "")
+                elsif linea =~ /<h1(.*?)>/
+                    h1 = linea.gsub(/<h1(.*?)>/, "").gsub("</h1>", "")
+                    boolH1 = true
+                    # Se rompe para solo contemplar la primera etiqueta h1 que aparezca
+                    break
+                end
+            end
+
+            archivoTitulo.close
+
+            # Si se detecto una etiqueta h1, ese es el título por defecto, de lo contrario es el contenido de la etiqueta title
+            if boolH1
+                h2 = h1
             else
+                h2 = titulo
+            end
+
+            archivoNotes.puts "        <h2 class=\"n-note-h2\">" + h2.gsub(/\n/, "") + "</h2>"
+        end
+
+        # Si se colocan dentro de cada sección, evita que se ingresen notas de otras secciones
+        if $boolColocacion
+            # Compara que el archivo donde van sea el mismo a donde se dirige, si no, se termina la colocación
+            if $archivoParaNotas != $rutasRelativas[$conteoId - 1]
                 break
             end
         end
 
-        # Elimina los elementos similares según el índice obtenido
-        archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
-        separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
-
-        # Crea la ruta
-        $rutaCSS = ("..#{$divisor}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join($divisor)
-    end
-end
-
-archivoCSSBusqueda
-
-# Crea el archivo $archivoCreado
-archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
-
-archivoNotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-archivoNotes.puts "<!DOCTYPE html>"
-archivoNotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
-archivoNotes.puts "    <head>"
-archivoNotes.puts "        <meta charset=\"UTF-8\" />"
-archivoNotes.puts "        <title>Notas</title>"
-
-# Añade la ruta al CSS si se indicó el archivo
-if $rutaCSS != ""
-    archivoNotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
-end
-
-archivoNotes.puts "    </head>"
-archivoNotes.puts "    <body epub:type=\"footnotes\">"
-archivoNotes.puts "        <h1>Notas al pie</h1>"
-
-# Añade cada una de las notas
-$notasTXT.each do |linea|
-    palabras = linea.split
-    palabrasCorregidas = Array.new
-
-    # Si se trata de la primera o última palabra, se elimina la etiqueta de párrafo
-    palabras.each do |palabra|
-        if palabra == palabras.first
-            palabra = palabra.gsub("<p>", "")
-        elsif palabra == palabras.last
-            palabra = palabra.gsub("</p>", "")
+        # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
+        if $boolColocacion
+            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#c-n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{lineaCorregida}</p>"
+        else
+            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{lineaCorregida}</p>"
         end
 
-        # Se agrega al nuevo conjunto
-        palabrasCorregidas.push(palabra)
+        $conteo = $conteo + 1
+        $conteoId = $conteoId + 1
     end
-
-    # El conjunto se convierte en una nueva línea para añadirle lo demás requerido para el archivo de las notas
-    lineaCorregida = palabrasCorregidas.join(" ")
-
-    archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteo}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteo - 1]}#n#{$conteo}\">[#{$conteo}]</a> #{lineaCorregida}</p>"
-
-    $conteo = $conteo + 1;
 end
 
-archivoNotes.puts "    </body>"
-archivoNotes.puts "</html>"
+# Si se quieren en el mismo archivo
+if $boolColocacion
+    indice = 0
+    rutaRelativaVieja = ""
 
-archivoNotes.close
+    def colocacion archivo
+        lineas = Array.new
+
+        # Ayuda a detectar el archivo donde se incluirán las notas
+        $archivoParaNotas = archivo
+
+        # Busca la última línea de cada documento con notas
+        archivoNotes = File.open(archivo, "r:UTF-8")
+        archivoNotes.each do |linea|
+            # Si llega al final del body, se termina la búsqueda
+            if linea =~ /<\/body>/
+                break
+            # Cada línea se va constituyendo como la línea final hasta que se llega a la etiqueta de cierre del body
+            else
+                lineas.push(linea)
+            end
+        end
+        archivoNotes.close
+
+        # Añade las notas
+        archivoNotes = File.open(archivo, "w:UTF-8")
+
+        # Sustituye las antiguas líneas por las nuevas
+        lineas.each do |linea|
+
+            # Cambia a la ruta correcta porque por defecto manda al archivo «9999-notes.xhtml» que en este caso es inexistente
+            if linea =~ /9999-notes.xhtml/
+                linea = linea.gsub("9999-notes.xhtml", archivo)
+            end
+
+            archivoNotes.puts linea
+        end
+
+        # Se añade una barra horizontal como divisor entre el contenido y las notas
+        archivoNotes.puts "        <hr class=\"n-note-hr\" />"
+
+        # Añade las notas al final
+        adicion archivoNotes
+
+        # Últimos elementos necesarios para el archivo
+        archivoNotes.puts "    </body>"
+        archivoNotes.puts "</html>"
+
+        archivoNotes.close
+    end
+
+    # Inicia la colocación solo cuando se detecta la primera nota de cada archivo
+    $rutasRelativas.each do |linea|
+        # En el primer caso siempre es la primera nota
+        if indice == 0
+            rutaRelativaVieja = linea
+            colocacion linea
+        else
+            # Cuando la ruta al archivo cambia, quiere decir que es la primera nota
+            if rutaRelativaVieja != linea
+                rutaRelativaVieja = linea
+                colocacion linea
+            end
+        end
+
+        indice = indice + 1
+    end
+# Si se quiere un nuevo archivo
+else
+    # Obtiene el archivo CSS
+    $rutaCSS = ""
+
+    def archivoCSSBusqueda
+        puts "\nArrastra el archivo CSS si existe ".blue + "[dejar en blanco para ignorar]:".bold
+        $archivoCSS = $stdin.gets.chomp
+        $archivoCSS = ArregloRuta $archivoCSS
+        $archivoCSS = $archivoCSS.strip
+
+        # Si se arrastró un archivo
+        if $archivoCSS != ""
+            # Si el archivo introducido no es un CSS, vuelve a preguntar
+            if $archivoCSS.split(".").last != "css"
+                puts "\nEl archivo indicado no tiene extensión .css.".red.bold
+                archivoCSSBusqueda
+            end
+
+            # Para sacar la ruta relativa al archivo CSS
+            archivoConjuntoCSS = $archivoCSS.split($divisor)
+            separacionesConjuntoCarpeta = $carpeta.split($divisor)
+
+            # Ayuda a determinar el número de índice donde ambos conjutos difieren
+            indice = 0
+            archivoConjuntoCSS.each do |parte|
+                if parte === separacionesConjuntoCarpeta[indice]
+                    indice += 1
+                else
+                    break
+                end
+            end
+
+            # Elimina los elementos similares según el índice obtenido
+            archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
+            separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
+
+            # Crea la ruta
+            $rutaCSS = ("..#{$divisor}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join($divisor)
+        end
+    end
+
+    archivoCSSBusqueda
+
+    # Crea el archivo $archivoCreado
+    archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
+
+    archivoNotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    archivoNotes.puts "<!DOCTYPE html>"
+    archivoNotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
+    archivoNotes.puts "    <head>"
+    archivoNotes.puts "        <meta charset=\"UTF-8\" />"
+    archivoNotes.puts "        <title>Notas</title>"
+
+    # Añade la ruta al CSS si se indicó el archivo
+    if $rutaCSS != ""
+        archivoNotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
+    end
+
+    archivoNotes.puts "    </head>"
+    archivoNotes.puts "    <body epub:type=\"footnotes\">"
+    archivoNotes.puts "        <h1>Notas al pie</h1>"
+
+    # Añade las notas
+    adicion archivoNotes
+
+    archivoNotes.puts "    </body>"
+    archivoNotes.puts "</html>"
+
+    archivoNotes.close
+end
 
 puts $mensajeFinal
