@@ -1,0 +1,124 @@
+\documentclass[12pt,a5paper,oneside]{book}
+\usepackage[a5paper, top=3.3cm, bottom=2.50cm, left=1.90cm, right=1.90cm, headsep=1.5cm, footskip=1.3cm]{geometry} % Modificación de márgenes
+\usepackage[spanish]{babel} % Localización y separación silábica en español
+\usepackage[utf8]{inputenc} % Moderniza
+\usepackage[T1]{fontenc} % Moderniza
+\usepackage{lmodern} % Moderniza
+\usepackage{tikz} % Para la imagen de portada
+\usepackage{hyperref} % Para los enlaces
+\usepackage{titling} % Control sobre \maketitle para la portadilla
+\usepackage{titlesec} % Control sobre encabezados y pies
+\usepackage{enumitem} % Personalización de las listas
+\usepackage{extdash} % Para separación silábica manual
+\usepackage{framed} % Para la línea en los pie de imagen.
+
+% Aumenta los estilos anidados a 9 de los 5 por defecto
+\setlistdepth{9} 
+
+% Modifica el estilo de la página para mostrar el número de página en el pie
+\newpagestyle{mystyle}{
+\sethead[][\footnotesize\textsc\chaptertitle][]{}{\footnotesize\textsc\chaptertitle}{}
+\setfoot[][\small\thepage][]{}{\small\thepage}{}
+}
+\pagestyle{mystyle}
+
+% Modifica el nombre de los apartados
+\titleformat{\part}[display]{\normalfont\bfseries\centering}{}{0pt}{\Huge}
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Large}
+
+\begin{document}
+
+% Contenido preliminar
+\frontmatter
+
+% Portada
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\node[inner sep=0] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{img/portada.jpg}};
+\end{tikzpicture}
+\cleardoublepage{}
+
+% Portadilla
+\predate{}
+\postdate{\begin{center}\vspace{0.5cm}\includegraphics[width=0.25\textwidth]{img/logo.jpg}\end{center}}
+\title{Título\\de la obra}
+\author{Nombre de algo o alguien}
+\date{}
+\maketitle
+
+% Legal
+{\footnotesize
+\thispagestyle{empty}
+
+\noindent\textit{Título de la obra}
+\vspace{12pt}
+
+\noindent Primera edición, AÑO
+\vspace{12pt}
+
+\noindent Texto
+
+\noindent Nombre y apellido
+\vspace{12pt}
+
+\noindent Edición
+
+\noindent Nombre y apellido
+\vspace{12pt}
+
+\noindent Desarrollo
+
+\noindent Nombre y apellido
+\vspace{12pt}
+
+\noindent Diseño
+
+\noindent Nombre y apellido
+\vspace{12pt}
+
+\noindent Corrección de estilo
+
+\noindent Nombre y apellido
+\vspace{12pt}
+
+\noindent ISBN: NÚMERO
+\vspace{12pt}
+
+\noindent Hecho en CIUDAD
+\cleardoublepage{}
+}
+
+% Contenido inicial
+\frontmatter
+
+% Índice
+{\small
+\makeatletter
+\renewcommand{\l@chapter}{\@dottedtocline{1}{0em}{2em}}
+\makeatother
+\thispagestyle{empty}
+\renewcommand{\contentsname}{Índice}
+\tableofcontents
+\cleardoublepage{}
+}
+
+\include{tex/01-dedicatoria}
+\include{tex/02-introduccion}
+
+
+% Contenido principal
+\mainmatter
+\include{tex/03-parte}
+\include{tex/04-capitulo01}
+\include{tex/05-parte}
+\include{tex/06-capitulo02}
+
+% Cotenido final
+\backmatter
+\include{tex/07-conclusion}
+
+% Apéndices
+\appendix
+\include{tex/08-apendice}
+
+\end{document}
