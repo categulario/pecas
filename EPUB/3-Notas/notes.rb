@@ -571,7 +571,7 @@ else
 
     archivoNotes.puts "    </head>"
     archivoNotes.puts "    <body epub:type=\"footnotes\">"
-    archivoNotes.puts "        <h1>Notas al pie</h1>"
+    archivoNotes.puts "        <h1>Notas</h1>"
 
     # Ayuda a detectar si existe un cambio de ruta
     $rutaVieja = $rutasRelativas.first
