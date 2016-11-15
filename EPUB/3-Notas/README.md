@@ -73,6 +73,28 @@ otros elementos.ººnoteºº El \textbf\textit{script} automáticamente creará 
 secuencia}.ººnoteºº ¡Así de sencillo!ººnoteºº
 ```
 
+**También existe la posibilidad de agregar notas con texto personalizado en
+el superíndice**. Para este propósito la marca habrá de ser `ººnote[TEXTO]ºº`
+donde `TEXTO` es igual al superíndice que se desea de la nota.
+
+##### Ejemplo de una nota personalizada
+
+```
+Este es un párrafo de alguna obra.ººnote[*]ºº De esta manera el superíndice
+de la nota será «*» en lugar de un número.
+```
+
+Aunque el superíndice de las notas personalizadas no sea un número, es necesario
+colocarla en el orden secuencial deseado. Por ejemplo, si una nota personalizada
+con superíndice «\*» va entre la nota número 1 y 2, su contenido en el archivo
+de texto ha de ir entre el contenido de la nota 1 y la 2.
+
+    En los archivos TeX será necesario ajustar los márgenes de las notas
+    personalizadas. Se prescindió del paquete footmisc por la necesidad de
+    una alta personalización y porque podría acarrear conflictos cuando se
+    desea reiniciar la numeración en cada sección debido a la numeración manual
+    que se coloca en ese caso.
+
 ### Ejecución del *script*
 
 ###### 1. Desde el *shell* ejecutar el *script* cuyos parámetros sean la ruta a la carpeta que contiene los archivos y el archivo de texto que contiene todas las notas al pie.
@@ -97,6 +119,11 @@ haz lo mismo con la carpeta y con el archivo que contiene las notas.
 
     Por defecto la numeración es continua a través de todos los archivos, pero
     es posible reiniciar la numeración en cada uno de los archivos.
+
+    En los documentos de TeX en cada nota se agrega manualmente su número de
+    nota si se desea reiniciar la numeración en cada sección. Por ello hay
+    que tener precaución de agregar o quitar notas después, ya que se tendrá
+    que modificar la numeración manualmente.
 
 ###### 4. Se pregunta si se desea colocar las notas en cada uno de los archivos
 

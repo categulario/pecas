@@ -77,7 +77,7 @@ end
 # Elementos comunes
 $divisor = '/'
 $note = "ººnoteºº"
-$noteRegEx = /ººnoteºº/
+$noteRegEx = /ººnote(.*?)ºº/
 $archivos = Array.new
 $rutasRelativas = Array.new
 $archivoCreado = "9999-notes.xhtml"
@@ -240,11 +240,13 @@ $archivos.each do |archivo|
     # Abre el archivo para sustituir las referencias
     archivoAbrir = File.open(archivo, 'r:UTF-8')
 
+    # Se reinicia el contador si así se ha indicado
     if $boolReinicio
         $conteo = 1
     end
 
     archivoAbrir.each do |linea|
+        inicio = linea.match(/(^\s+)/)
         linea = linea.split
         palabras = Array.new
 
@@ -254,27 +256,62 @@ $archivos.each do |archivo|
             # Si la palabra tiene un «ººnoteºº», lo cambia por la nota correspondiente
             if palabra =~ $noteRegEx
 
+                # El superíndice varía según si existe un texto personalizado o no
+                if palabra =~ /#{$note}/
+                    $sup = $conteo
+                else
+                    $sup = palabra.gsub(/(.*?)ººnote\[/, "").gsub(/]ºº(.*)/, "")
+                end
+
                 # Añade el conteo final
-                $conteoFinal.push($conteo)
+                $conteoFinal.push($sup)
+
+                # Aquí irá el texto de la nota final
+                nota = ""
 
                 # La sustitución varía según si es un tex o no
                 if File.extname(archivo) == ".tex"
-                    palabra = palabra.gsub($note, "\\footnote[#{$conteo}]{#{$notasTXT[$conteoId - 1]}}")
+                    notaAdentro = $notasTXT[$conteoId - 1]
+
+                    # Elimina etiquetas de párrafo de HTML por si hay un despiste y da una advertencia
+                    if notaAdentro =~ /<("[^"]*"|'[^']*'|[^'">])*>/
+                        notaAdentro = notaAdentro.gsub(/<\/p>(.*?)<p(.*?)>/, "\\newline\\indent ").gsub(/<p(.*?)>/, "").gsub("</p>", "")
+                        puts "\nADVERTENCIA: se han detectado etiquetas HTML en la nota «#{$sup}» para #{archivo.split($divisor).last}."
+                    end
+
+                    # En el caso de ser un superíndice numérico
+                    if $sup.is_a? Numeric
+                        # Si se reinicia la numeración cada sección, se agrega manualmente el número de nota
+                        if $boolReinicio
+                            nota = "\\footnote[#{$sup}]{#{notaAdentro}}"
+                        else
+                            nota = "\\footnote{#{notaAdentro}}"
+                        end
+                    # En el caso de ser un superíndice personalizado
+                    else
+                        nota = "\\let\\svthefootnote\\thefootnote\\let\\thefootnote\\relax\\textsuperscript{#{$sup}}\\footnote{\\textsuperscript{#{$sup}} #{notaAdentro}}\\addtocounter{footnote}{-1}\\let\\thefootnote\\svthefootnote"
+                    end
                 else
                     # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
                     if $boolColocacion
-                        nota = "<sup class=\"n-note-sup\" id=\"c-n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$conteo}]</a></sup>"
+                        nota = "<sup class=\"n-note-sup\" id=\"c-n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$sup}]</a></sup>"
                     else
-                        nota = "<sup class=\"n-note-sup\" id=\"n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$conteo}]</a></sup>"
+                        nota = "<sup class=\"n-note-sup\" id=\"n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$sup}]</a></sup>"
                     end
-
-                    palabra = palabra.gsub($note, nota)
                 end
+
+                # Realiza el cambio en la palabra
+                palabra = palabra.gsub($noteRegEx, nota)
 
                 # Añade las rutas relativas a cada documento para el $archivoCreado
                 $rutasRelativas.push(archivo.split($divisor)[$separacionesCarpeta..(archivo.length - 1)].join($divisor))
 
-                $conteo = $conteo + 1
+                # Solo aumenta cuando el superíndice es numérico
+                if $sup.is_a? Numeric
+                    $conteo = $conteo + 1
+                end
+
+                # Siempre aumenta porque los id siempre son numéricos
                 $conteoId = $conteoId + 1
             end
 
@@ -282,8 +319,8 @@ $archivos.each do |archivo|
             palabras.push(palabra)
         end
 
-        # Crea la nueva línea
-        lineas.push(palabras.join(" "))
+        # Crea la nueva línea donde al inicio se respeta el espacio que tenía previamente
+        lineas.push(inicio.to_s + palabras.join(" "))
     end
 
     # Abre el archivo para guardar los cambios
@@ -358,7 +395,7 @@ def adicion (archivoNotes)
         end
 
         # Añade el nombre del capítulo si se reinicia la numeración y se está creando un nuevo archivo
-        if $boolReinicio && $conteoFinal[$conteo] == 1 && !$boolColocacion
+        if $boolReinicio && !$boolColocacion && $rutasRelativas[$conteo] != $rutaVieja
             archivoTitulo = File.open($rutasRelativas[$conteoId - 1], 'r:UTF-8')
             titulo = ""
             h1 = ""
@@ -387,6 +424,9 @@ def adicion (archivoNotes)
             end
 
             archivoNotes.puts "        <h2 class=\"n-note-h2\">" + h2.gsub(/\n/, "") + "</h2>"
+
+            # Así evita que se ejecute cuando se trata de la misma sección
+            $rutaVieja = $rutasRelativas[$conteo]
         end
 
         # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
@@ -532,6 +572,9 @@ else
     archivoNotes.puts "    </head>"
     archivoNotes.puts "    <body epub:type=\"footnotes\">"
     archivoNotes.puts "        <h1>Notas al pie</h1>"
+
+    # Ayuda a detectar si existe un cambio de ruta
+    $rutaVieja = $rutasRelativas.first
 
     # Añade las notas
     adicion archivoNotes
