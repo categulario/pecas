@@ -434,7 +434,7 @@ blockquote + blockquote {
 }
 
 .sangria {
-    text-indent: 1em;
+    text-indent: 1.5em;
 }
 
 .sinSangria {
