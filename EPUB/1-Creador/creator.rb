@@ -476,7 +476,7 @@ a, a:link, a:visited {
 
 ol, ul {
     margin: 1em 0 1em 2em;
-    paddig: 0;
+    padding: 0;
 }
 
 ol {
