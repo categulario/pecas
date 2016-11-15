@@ -10,7 +10,7 @@
 \usepackage{titlesec} % Control sobre encabezados y pies
 \usepackage{enumitem} % Personalización de las listas
 \usepackage{extdash} % Para separación silábica manual
-\usepackage{framed} % Para la línea en los pie de imagen.
+\usepackage{footmisc} % Para las notas al pie no numeradas
 
 % Aumenta los estilos anidados a 9 de los 5 por defecto
 \setlistdepth{9} 
@@ -108,6 +108,7 @@
 
 % Contenido principal
 \mainmatter
+
 \include{tex/03-parte}
 \include{tex/04-capitulo01}
 \include{tex/05-parte}
@@ -115,10 +116,12 @@
 
 % Cotenido final
 \backmatter
+
 \include{tex/07-conclusion}
 
 % Apéndices
 \appendix
+
 \include{tex/08-apendice}
 
 \end{document}
