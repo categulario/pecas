@@ -405,7 +405,7 @@ blockquote + blockquote {
 }
 
 .derecha {
-    text-indent: 0em;
+    text-indent: 0;
 	text-align: right;
 }
 
@@ -414,7 +414,7 @@ blockquote + blockquote {
 }
 
 .centrado {
-    text-indent: 0em;
+    text-indent: 0;
 	text-align: center;
 }
 
@@ -475,8 +475,8 @@ a, a:link, a:visited {
 /* Listas */
 
 ol, ul {
-    margin: 1em 0em 1em 2em;
-    paddig: 0em;
+    margin: 1em 0 1em 2em;
+    paddig: 0;
 }
 
 ol {
