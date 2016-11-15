@@ -495,7 +495,7 @@ sup, sub {
 }
 
 sub {
-    top: 0.4em;
+    vertical-align: sub;
 }
 
 /* Contenidos especiales */
