@@ -392,7 +392,7 @@ p + p {
 
 blockquote {
     font-size: .9em;
-    margin: 1em;
+    margin: 1em 1.5em;
 }
 
 blockquote + blockquote {
