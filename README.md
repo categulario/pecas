@@ -63,6 +63,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
   * `notes.rb`.
     * No se añade el primer encabezado cuando se reinicia la numeración y se crea el `9999-notes.xhtml`.
     * Los encabezados que se añaden a `9999-notes.xhtml` heredan espacios al principio y al final.
+    * Evitar que los encabeazados añadidos a `9999-notes.xhtml` hereden etiquetas HTML indeseadas.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
