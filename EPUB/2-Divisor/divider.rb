@@ -289,7 +289,7 @@ end
 # Divide el archivo
 archivoTodo.each do |linea|
     # Si se trata de un encabezado h1
-    if linea =~ /<(.*?)h1(.*?)>/i
+    if linea =~ /<(.*?)h1(.*?)>(.*?)<\/(.*?)h1(.*?)>/i
 
         # Para no ignorar el contenido posterior aunque no se trate de un encabezado
         enEncabezado = true
