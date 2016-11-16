@@ -58,6 +58,8 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 # Pendientes
 
 * EPUB
+  * `divider.rb`.
+    * Evitar que se copien las etiquetas con `ºº` al título.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
