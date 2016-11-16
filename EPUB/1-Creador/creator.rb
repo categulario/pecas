@@ -370,10 +370,6 @@ h1 + p {
     margin-top: 4em;
 }
 
-h1 + p strong:first-child {
-    font-weight: normal;
-}
-
 p, blockquote, li {
 	font-family: Georgia, \"Times New Roman\", serif;
 	font-size: 1em;
