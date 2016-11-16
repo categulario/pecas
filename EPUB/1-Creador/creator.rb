@@ -551,6 +551,18 @@ sub {
 
 /* Estilos adicionales */
 
+.n-note-sup {
+	font-style: normal;
+	font-weight: normal;
+}
+
+.n-note-hr {
+	margin-top: 2em;
+	width: 25%;
+	margin-left: 0;
+	border: 1px solid gray;
+}
+
 * + .n-note-p {
     margin-top: 1em;
 }
@@ -560,11 +572,14 @@ sub {
     text-indent: 0;
 }
 
-.n-note-hr {
-	margin-top: 2em;
-	width: 25%;
-	margin-left: 0;
-	border: 1px solid gray;
+.n-note-p {
+	margin-left: 3em;
+}
+
+.n-note-a {
+	display: block;
+	margin-left: -3em;
+	margin-bottom: -1.25em;
 }
 
 /* Estilos de esta edición */
