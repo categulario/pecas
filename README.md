@@ -64,9 +64,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * No se añade el primer encabezado cuando se reinicia la numeración y se crea el `9999-notes.xhtml`.
     * Los encabezados que se añaden a `9999-notes.xhtml` heredan espacios al principio y al final.
     * Evitar que los encabeazados añadidos a `9999-notes.xhtml` hereden etiquetas HTML indeseadas.
-    * Se detectó que no se elimina la etiqueta de cierra de párrafo en la nota
+    * Se detectó que no se elimina la etiqueta de cierre de párrafo en la nota
     cuando está viene en el archivo de texto; el caso particular es que en el
-    archivo de texto hay un «<p><em>Algo</em></p>».
+    archivo de texto hay una nota como esta «<p><em>Algo</em>.</p>».
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
