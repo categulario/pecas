@@ -433,8 +433,16 @@ blockquote + blockquote {
     text-indent: 1.5em;
 }
 
-.sinSangria {
+.sin-sangria {
     text-indent: 0;
+}
+
+.sin-separacion {
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -o-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
 .oculto {
@@ -445,12 +453,10 @@ blockquote + blockquote {
 
 i, em {
     font-style: italic;
-	font-family: Georgia, \"Times New Roman\", serif;
 }
 
 b, strong {
 	font-weight: bold;
-    font-family: Georgia, \"Times New Roman\", serif;
 }
 
 .versalitas {
@@ -509,7 +515,6 @@ sub {
 }
 
 .legal {
-	font-family: Georgia, \"Times New Roman\", serif;
 	font-size: 1em;
 	text-align: left;
 	line-height: 1.25em;
@@ -521,7 +526,6 @@ sub {
 }
 
 .epigrafe {
-    font-family: Georgia, \"Times New Roman\", serif;
 	font-size: .9em;
 	text-align: right;
 	line-height: 1.25em;
@@ -537,15 +541,15 @@ sub {
     margin-top: .5em;
 }
 
-.espacioArriba {
+.espacio-arriba1 {
 	margin-top: 1em;
 }
 
-.espacioArriba2 {
+.espacio-arriba2 {
 	margin-top: 2em;
 }
 
-.espacioArriba3 {
+.espacio-arriba3 {
 	margin-top: 3em;
 }
 
@@ -563,6 +567,17 @@ sub {
 	border: 1px solid gray;
 }
 
+.n-note-a {
+	display: block;
+	margin-left: -3em;
+	margin-bottom: -1.25em;
+}
+
+.n-note-p {
+	margin-left: 3em;
+	font-size: .9em;
+}
+
 * + .n-note-p {
     margin-top: 1em;
 }
@@ -570,16 +585,6 @@ sub {
 .n-note-p + .n-note-p {
     margin-top: 0.5em;
     text-indent: 0;
-}
-
-.n-note-p {
-	margin-left: 3em;
-}
-
-.n-note-a {
-	display: block;
-	margin-left: -3em;
-	margin-bottom: -1.25em;
 }
 
 /* Estilos de esta edición */
