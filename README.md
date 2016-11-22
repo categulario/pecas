@@ -69,6 +69,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * Se detectó que no se elimina la etiqueta de cierre de párrafo en la nota
     cuando está viene en el archivo de texto; el caso particular es que en el
     archivo de texto hay una nota como esta `<p><em>Algo</em>.</p>`.
+    * Se están creando espacios antes del `body` sin importar que las notas se creen en `9999-notes.xhtml`.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
