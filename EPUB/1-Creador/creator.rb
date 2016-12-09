@@ -190,13 +190,11 @@ Dir.chdir($carpeta + $divisor + $carpetaXhtml)
 portadilla = File.new("001-portadilla.xhtml", "w:UTF-8")
 portadilla.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 portadilla.puts "<!DOCTYPE html>"
-portadilla.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\""
-portadilla.puts "      xmlns:epub=\"http://www.idpf.org/2007/ops\""
-portadilla.puts "      xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
+portadilla.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
 portadilla.puts "    <head>"
 portadilla.puts "        <meta charset=\"UTF-8\" />"
-portadilla.puts "        <link href=\"../#{$carpetaCss}/styles.css\" rel=\"stylesheet\" type=\"text/css\" />"
 portadilla.puts "        <title>#{$portadilla}</title>"
+portadilla.puts "        <link href=\"../#{$carpetaCss}/styles.css\" rel=\"stylesheet\" type=\"text/css\" />"
 portadilla.puts "    </head>"
 portadilla.puts "    <body epub:type=\"titlepage\">"
 portadilla.puts "        <h1 class=\"centrado titulo\">Título</h1>"
@@ -205,17 +203,15 @@ portadilla.puts "    </body>"
 portadilla.puts "</html>"
 portadilla.close
 
-# Crea la portadilla
+# Crea la legal
 legal = File.new("002-legal.xhtml", "w:UTF-8")
 legal.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 legal.puts "<!DOCTYPE html>"
-legal.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\""
-legal.puts "      xmlns:epub=\"http://www.idpf.org/2007/ops\""
-legal.puts "      xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
+legal.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
 legal.puts "    <head>"
 legal.puts "        <meta charset=\"UTF-8\" />"
-legal.puts "        <link href=\"../#{$carpetaCss}/styles.css\" rel=\"stylesheet\" type=\"text/css\" />"
 legal.puts "        <title>#{$legal}</title>"
+legal.puts "        <link href=\"../#{$carpetaCss}/styles.css\" rel=\"stylesheet\" type=\"text/css\" />"
 legal.puts "    </head>"
 legal.puts "    <body epub:type=\"copyright-page\">"
 legal.puts "	    <p class=\"legal\"><i>Título</i></p>"

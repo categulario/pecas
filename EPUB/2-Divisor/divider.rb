@@ -266,7 +266,7 @@ def creacion
     archivo.puts "        <meta charset=\"UTF-8\" />"
     archivo.puts "        <title>" + $objeto.titulo + "</title>"
     if $rutaCSS != ""
-        archivo.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
+        archivo.puts "        <link href=\"#{$rutaCSS}\" rel=\"stylesheet\" type=\"text/css\" />"
     end
     archivo.puts "    </head>"
     if $epubType == ""
