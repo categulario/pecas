@@ -50,6 +50,11 @@ la carpeta al *shell*.
 
 ###### 3. A continuación responde lo que se te pide.
 
+*Si se desea un EPUB con diseño fijo*. Por defecto este *script* crea los EPUB
+con diseño fluido; sin embargo, es posible especificar que se desea desarrollar
+un EPUB con diseño fijo. Al responder que esta es la intención, solo es
+necesario escoger entre las opciones que se dan para este tipo de diseño.
+
 *Si se crea por primera vez*. Para poder crear ciertos metadatos es necesario
 indicar el título, el autor o editor principal, la editorial, la sinopsis, el
 lenguaje, la versión, la portada (opcional), las secciones ocultas (opcionales)
@@ -174,6 +179,22 @@ Zip 3.0 mediante Ruby.
 El EPUB se crea en la carpeta padre de la raíz de los archivos para el EPUB
 con el mismo nombre de la raíz. Si ya existe un EPUB con ese nombre, lo elimina
 para comprimir.
+
+### Limitaciones del EPUB fijo recreado con este *script*
+
+Actualmente no es posible crear excepciones en la espina para
+`rendition:layout`, `rendition:orientation`, `rendition:spread`, y
+`page-spread-*`. Si esto es lo que se desea, se recomienda utilizar este
+*script* por primera y única ocasión, para posteriormente modificar directamente
+el OPF y comprimir el EPUB con otras herramientas.
+
+Por defecto `recreator.rb` crea EPUB versión 3.0.1 y debido a esto *se ha
+detectado que algunos lectores ignoran el diseño fijo*. Para solucionar este
+problema solo es necesario cambiar la versión a 3.0.0, lo cual puede hacerse con
+`changer.rb`.
+
+De manera automática se modificarán o se añadirán *viewports* con las medidas
+especificadas. Por ello, todo tamaño previo será ignorado.
 
 ### Árbol de archivos creados
 

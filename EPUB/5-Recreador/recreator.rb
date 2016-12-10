@@ -174,6 +174,78 @@ $metadatosInicial = Array.new
 $archivosNoLineales = Array.new
 $archivosNoToc = Array.new
 $portada = ''
+$fijo = Array.new
+
+# Define si se trata de un EPUB fijo
+def fijo
+    puts "\n" + "¿Se trata de un EPUB con diseño fijo?".blue + " [s/N]:"
+    respuesta = $stdin.gets.chomp.downcase
+
+    # La respuesta por defecto es no, por lo que solo deja un texto vacío
+    if respuesta == '' or respuesta == 'n'
+        $fijo.push(" ")
+    elsif respuesta == 's'
+        puts "\nATENCIÓN: ".bold + "en http://www.idpf.org/epub/fxl/#property-orientation viene la explicación de los datos que se piden a continuación."
+        $fijo = Array.new
+        $fijo.push("pre-paginated@rendition:layout")
+
+        # Obtiene los renditions necesarios
+        def fijoData opciones, rendition
+            puts "\nElige una de las siguientes opciones para #{rendition} ".brown + "[#{opciones}]:".bold
+            r = $stdin.gets.chomp.downcase
+            o = opciones.split(",")
+            v = false
+
+            # Busca si la opción ingresada es una de las disponibles
+            o.each do |opcion|
+                if r == opcion.strip.downcase
+                    v = true
+                    break
+                end
+            end
+
+            # Si es una opción válida, se escribe; si no, vuelve a preguntar
+            if v
+                $fijo.push(r + "@" + rendition)
+            else
+                puts "\nOpción no válida.".red.bold
+                fijoData opciones, rendition
+            end
+        end
+
+        # Obtiene el tamaño por defecto
+        def fijoSize opcion
+            # Determina si será la anchura o la altura
+            if opcion == "w"
+                lado = "anchura"
+            else
+                lado = "altura"
+            end
+
+            puts "\nElige el tamaño de la #{lado} en pixeles ".brown + "(será ignorado en los archivos que contengan un viewport):"
+            r = $stdin.gets.chomp.downcase
+
+            # Se busca que la respuesta convertida a número íntegro sea la misma
+            if r.to_i.to_s == r
+                $fijo.push(r + "@" + opcion)
+            # Si no lo es, vuelve a preguntar
+            else
+                puts "\nOpción no válida. Un número entero es necesario.".red.bold
+                fijoSize opcion
+            end
+
+        end
+
+        fijoData "landscape, portrait, auto", "rendition:orientation"
+        fijoData "none, landscape, portrait, both, auto", "rendition:spread"
+        fijoSize "w"
+        fijoSize "h"
+
+    # Se repite si no se indica un «s» o un «n»
+    else
+        fijo
+    end
+end
 
 # Crea un array para definir los archivos metadatos
 def Metadatos (texto, dc)
@@ -189,6 +261,9 @@ end
 
 # Obtiene todos los metadatos
 def metadatosTodo
+
+    # Pregunta si se desea un EPUB fijo
+    fijo
 
     # Obtiene los metadatos
     Metadatos "\nTítulo", "dc:title"
@@ -269,6 +344,10 @@ def metadatosTodo
     # Crea el archivo oculto con metadatos
     archivoMetadatos = File.new(".recreator-metadata", "w:UTF-8")
 
+    $fijo.each do |f|
+        archivoMetadatos.puts "_R_" + f
+    end
+
     $metadatosInicial.each do |mI|
         archivoMetadatos.puts "_M_" + mI
     end
@@ -316,7 +395,9 @@ if metadatosPreexistentes == true
             lineaCortaFinal = linea[3...-1]
 
             # Permite separar los metadatos según su tipo
-            if lineaCortaInicio == "_M_"
+            if lineaCortaInicio == "_R_"
+                $fijo.push(lineaCortaFinal)
+            elsif lineaCortaInicio == "_M_"
                 # Evita copiar la versión
                 if linea[-11...-1] != "identifier"
                     $metadatosInicial.push(lineaCortaFinal)
@@ -439,7 +520,30 @@ fechaCompleta =  ano + '-' + mes + '-' + dia + 'T' + hora + ':' + minuto + ':' +
 
 # Termina los metadatos
 metadatos.push('        <meta property="dcterms:modified">' + fechaCompleta + '</meta>')
-metadatos.push('        <meta property="rendition:layout">reflowable</meta>')
+
+# Si es EPUB fijo, se agregan esas propiedades, se lo contrario solo se agrega el «reflowable»
+if $fijo.first != " "
+    $fijo.each do |r|
+        a = r.split("@").first
+        z = r.split("@").last
+
+        # No agrega como metadato la anchura y la altura
+        if z != "w" && z != "h"
+            metadatos.push('        <meta property="' + z + '">' + a + '</meta>')
+        else
+            # Si es la anchura, guarda la variable para utilizarse más adelante
+            if z == "w"
+                $width = a
+            # Mismo caso pero para la altura
+            else
+                $height = a
+            end
+        end
+    end
+else
+    metadatos.push('        <meta property="rendition:layout">reflowable</meta>')
+end
+
 metadatos.push('        <meta property="ibooks:specified-fonts">true</meta>')
 metadatos.push('    </metadata>')
 
@@ -713,7 +817,64 @@ end
 # Crea una relacion entre el nombre del archivo y su título
 $nombreYtitulo = Array.new
 
+# Para mostrar el anuncio solo una vez
+viewportsAnuncio = true
+viewportsAnuncio2 = true
+
 $rutaAbsolutaXhtml.each do |i|
+
+    # Si es diseño fijo, se añade el viewport
+    if $fijo.first != " "
+        enHead = true
+        sinViewport = true
+        lineas = Array.new
+
+        # Guarda las líneas con la modificación
+        a = File.open(i, 'r:UTF-8')
+        a.each do |linea|
+            # Si está en el head, y se encuentra un viewport, se indica
+            if enHead
+                if linea =~ /viewport/
+                    # Hasta este punto se está seguro si se modificarán viewports o no, por ello se anuncia
+                    if viewportsAnuncio2
+                        puts "\nModificando viewports...".magenta.bold
+                    end
+
+                    # Evita la repetición del anuncio
+                    viewportsAnuncio2 = false
+
+                    linea = linea.gsub(/content=\"(.*?)\"/, 'content="width=' + $width + ', height=' + $height + '"')
+                    sinViewport = false
+                end
+            end
+
+            # Cuando se llega al fin y no hay viewport, se añade; también se señala el fin del head
+            if (linea =~ /(.*)<\/head>/ )
+                if sinViewport
+                    # Hasta este punto se está seguro si se agregarán viewports o no, por ello se anuncia
+                    if viewportsAnuncio
+                        puts "\nAñadiendo viewports...".magenta.bold
+                    end
+
+                    # Evita la repetición del anuncio
+                    viewportsAnuncio = false
+
+                    lineas.push('        <meta name="viewport" content="width=' + $width + ', height=' + $height + '" />')
+                end
+                enHead = false
+            end
+
+            # Añade las líneas ya existentes del archivo
+            lineas.push(linea)
+        end
+
+        # Rescribe el archivo con las lineas encontradas o añadidas del análisis anterior
+        b = File.open(i, 'w:UTF-8')
+        lineas.each do |l|
+            b.puts l
+        end
+        b.close
+    end
 
     archivoXhtml = File.open(i, 'r:UTF-8')
     archivoXhtml.each do |linea|
