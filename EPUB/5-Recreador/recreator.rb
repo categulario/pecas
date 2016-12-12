@@ -222,7 +222,7 @@ def fijo
                 lado = "altura"
             end
 
-            puts "\nElige el tamaño de la #{lado} en pixeles ".brown + "(será ignorado en los archivos que contengan un viewport):"
+            puts "\nElige el tamaño de la #{lado} en pixeles:".brown
             r = $stdin.gets.chomp.downcase
 
             # Se busca que la respuesta convertida a número íntegro sea la misma
