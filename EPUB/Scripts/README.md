@@ -6,8 +6,8 @@ diseño fijo.
 
 ## Implementación
 
-Solo vincula el archivo `.js` en la etiqueta `head`
-de los XHTML del EPUB, por ejemplo:
+Solo vincula el archivo `.js` adentro de la etiqueta
+`head` de los XHTML del EPUB, por ejemplo:
 
     <script type="text/javascript" src="script.js"></script>
 

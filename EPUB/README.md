@@ -1,12 +1,12 @@
 # *Scripts* para el desarrollo de EPUB
 
+## EPUB con diseño fluido o fijo
+
 ![Flujo de trabajo](flujo-de-trabajo.jpg)
 
 Aquí están presentes una serie de *scripts*
 pensados para agilizar o automatizar el desarrollo
-de libros EPUB. Se trata de seis *scripts* que
-ayudan en la creación de obras con diseño fluido de
-cualquier índole.
+de libros EPUB. Estos son:
 
 1. `creator.rb`. Crea la estructura del EPUB, con
 la posibilidad de incluir una hoja de estilos CSS
@@ -33,6 +33,9 @@ NAV así como crea o recrea el archivo EPUB.
 6. `changer.rb`. Cambia versiones de EPUB entre
 `3.0.0` y `3.0.1`.
 
-También existen *scripts* adicionales para el
-desarrollo de EPUB con diseño fijos, los cuales
-se encuentran en la carpeta `Scripts`.
+7. `index.rb`. Agrega índices analíticos.
+
+## EPUB con diseño fijo
+
+Estos *scripts* adicionales se encuentran en la
+carpeta `Scripts`.
