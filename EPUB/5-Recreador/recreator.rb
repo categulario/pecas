@@ -850,7 +850,7 @@ $rutaAbsolutaXhtml.each do |i|
 
             # Cuando se llega al fin y no hay viewport, se añade; también se señala el fin del head
             if (linea =~ /(.*)<\/head>/ )
-                if sinViewport
+                if sinViewport && $width != nil
                     # Hasta este punto se está seguro si se agregarán viewports o no, por ello se anuncia
                     if viewportsAnuncio
                         puts "\nAñadiendo viewports...".magenta.bold
