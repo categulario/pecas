@@ -37,5 +37,5 @@ NAV así como crea o recrea el archivo EPUB.
 
 ## EPUB con diseño fijo
 
-Estos *scripts* adicionales se encuentran en la
-carpeta `Scripts`.
+Estos *scripts* se encuentran en la carpeta
+`Scripts-fijo`.
