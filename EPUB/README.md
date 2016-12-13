@@ -32,3 +32,7 @@ NAV así como crea o recrea el archivo EPUB.
 
 6. `changer.rb`. Cambia versiones de EPUB entre
 `3.0.0` y `3.0.1`.
+
+También existen *scripts* adicionales para el
+desarrollo de EPUB con diseño fijos, los cuales
+se encuentran en la carpeta `Scripts`.
