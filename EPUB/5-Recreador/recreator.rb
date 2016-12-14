@@ -584,33 +584,15 @@ def Tipo (extension)
     end
 end
 
-# Determina si se le pone un atributo no lienal al XHTML
-def NoLinealCotejo (identificador)
-    retorno = ""
-    $archivosNoLineales.each do |comparar|
-        comparador = "id_" + comparar + "_xhtml"
-        if comparador == identificador
-            retorno = ' linear="no"'
-            break
-        end
-    end
-    return retorno
-end
-
-def Propiedad (archivo, comparacion, propiedad)
-    propiedadAdicion = ''
-    if archivo == comparacion
-        propiedadAdicion = ' properties="' + propiedad + '"'
-    end
-    return propiedadAdicion
-end
-
 # Recorre todos los archivos en busca de los recursos para el manifiesto y la espina
 Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
     if File.extname(archivoManifiesto) != '.xml' and File.extname(archivoManifiesto) != '.opf'
 
-        # Conserva los xhtml que tienen scripts
+        $archivoNombre = File.basename(archivoManifiesto)
+
+        # Conserva los xhtml que tienen scripts o archivos svg
         $scriptXhtml = Array.new
+        $svgXhtml = Array.new
 
         if File.extname(archivoManifiesto) == '.xhtml'
 
@@ -628,30 +610,79 @@ Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
                 # Si se encuentra una etiqueta de script andentro del head, entonces se considera que hay un script en el archivo
                 if (linea =~ /<script(.*)/ )
                     if etiquetaHeadFin == false
-                        $scriptXhtml.push(File.basename(archivoManifiesto))
+                        $scriptXhtml.push($archivoNombre)
                     end
+                end
+
+                # Identifica si se encuentra una imagen svg
+                if (linea =~ /<(.*?)img(.*?)src="(.*?).svg(.*?)"(.*?)\/>/ )
+                    $svgXhtml.push($archivoNombre)
                 end
             end
         end
 
         # Crea el identificador
-        identificador = File.basename(archivoManifiesto)
+        identificador = $archivoNombre
         identificador['.'] = '_'
         identificador = 'id_' + identificador
 
         # Añade el tipo de recurso
         tipo = Tipo File.extname(archivoManifiesto)
 
-        # Añade propiedades
-        propiedad = Propiedad File.basename(archivoManifiesto), $portada, 'cover-image'
-        propiedad2 = Propiedad File.basename(archivoManifiesto), $nav, 'nav'
+        # Inscruta propiedades
+        def Propiedad (archivo, comparacion, propiedad)
+            propiedadAdicion = ''
 
-        # Revisa si entre los archivos que tienen javascript, el actual lo tiene
-        propiedad3 = ''
-        $scriptXhtml.each do |js|
-            if File.basename(archivoManifiesto) == js
-                propiedad3 = Propiedad File.basename(archivoManifiesto), js, 'scripted'
+            if archivo == comparacion
+                propiedadAdicion = ' properties="' + propiedad + '"'
             end
+
+            return propiedadAdicion
+        end
+
+        # Añade propiedades
+        propiedad = Propiedad $archivoNombre, $portada.gsub(".", "_"), 'cover-image'
+        propiedad2 = Propiedad $archivoNombre, $nav.gsub(".", "_"), 'nav'
+
+        # Si encuentra una propiedad, se cambia el valor a verdadero; de lo contrario es falso
+        def propiedadBuscar conjunto
+            conjunto.each do |a|
+                if $archivoNombre == a
+                    return true
+                    break
+                end
+            end
+
+            return false
+        end
+
+        # Revisa si entre los archivos que tienen javascript o svg, el actual lo tiene
+        script = propiedadBuscar $scriptXhtml
+        svg = propiedadBuscar $svgXhtml
+
+        # Si tiene ambas propiedades
+        if script && svg
+            propiedad3 = Propiedad $archivoNombre, $archivoNombre, 'scripted svg'
+        # Si tiene alguna de las propiedades
+        elsif script || svg
+            if script
+                propiedad3 = Propiedad $archivoNombre, $archivoNombre, 'scripted'
+            else
+                propiedad3 = Propiedad $archivoNombre, $archivoNombre, 'svg'
+            end
+        end
+
+        # Determina si se le pone un atributo no lienal al XHTML
+        def NoLinealCotejo (identificador)
+            retorno = ""
+            $archivosNoLineales.each do |comparar|
+                comparador = "id_" + comparar + "_xhtml"
+                if comparador == identificador
+                    retorno = ' linear="no"'
+                    break
+                end
+            end
+            return retorno
         end
 
         # Añade la propiedad no lineal, si la hay
@@ -661,7 +692,7 @@ Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
         manifiesto.push('        <item href="' + rutaRelativa[indice] + '" id="' + identificador + '" media-type="' + tipo.to_s + '"' + propiedad.to_s + propiedad2.to_s + propiedad3.to_s + ' />')
 
         # Agrega los elementos a la espina
-        if (File.extname(archivoManifiesto) == '.xhtml' || File.extname(archivoManifiesto) == '.html') and File.basename(archivoManifiesto) != $nav
+        if (File.extname(archivoManifiesto) == '.xhtml' || File.extname(archivoManifiesto) == '.html') and $archivoNombre != $nav.gsub(".", "_")
             espina.push ('        <itemref idref="' + identificador + '"' + noLineal.to_s + '/>')
         end
 
