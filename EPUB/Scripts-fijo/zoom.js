@@ -1,3 +1,24 @@
+/*
+    Hasta el fin existen tres opciones que están comentadas.
+    Para habilitarse, solo es necesario descomentarse.
+
+    Las opciones son:
+    1. zoom.computadora
+        Indica si se desea que el zoom también se habilite
+        en computadoras de escritorio. Por defecto es falso.
+    3. zoom.restaurar
+        Indica si se desea restaurar el zoom por defecto
+        al abrirse un archivo. El script guarda el zoom
+        puesto en un documento para aplicarlo a los demás,
+        con esta opción se evita que se herede el zoom
+        aplicado. Por defecto es falso.
+    2. zoom.animacion.mostrar
+        Indica si se desea un fadein al momento en que se
+        adapta el documento al zoom guardado con anterioridad.
+        Es ignorado si zoom.restaurar es verdadero. Por
+        defecto es verdadero.
+*/
+
 var zoom = {
     //  Lo que aumentará o disminuirá, donde tamaño normal = 1 y «fraccion» = 1 / fraccion
     fraccion: 8,
@@ -237,8 +258,8 @@ var zoom = {
 
 //  Todo empezará hasta que se cargue el DOM
 window.onload = function () {
-    // zoom.computadora = true;    // Descomentar si también se quiere aplicar a computadoras
-    // zoom.animacion.mostrar = false;    // Descomentar si no se desea animación
-    // zoom.restaurar = true;  // Descomentar si siempre se desea empezar con el zoom por defecto
+    // zoom.computadora = true;
+    // zoom.restaurar = true;
+    // zoom.animacion.mostrar = false;
     zoom.crear();
 };
