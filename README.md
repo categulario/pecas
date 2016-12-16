@@ -74,6 +74,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * Terminar el desarrollo.
   * `recreator.rb`.
     * No guarda la nueva versión cuando obtiene los datos de `recreator-metadata`.
+    * Agregar posibilidad de anidar TOC, al menos donde `part` es padre de `chapter`.
     * Tabla de contenidos jerarquizado.
     * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos.
   * `changer.rb`.
