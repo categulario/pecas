@@ -455,12 +455,31 @@ b, strong {
 	font-weight: bold;
 }
 
-.versalitas {
-    font-variant: small-caps;
-}
-
 .versales {
 	text-transform: uppercase;
+}
+
+@media not amzn-mobi {	/* Para cualquier dispositivo excepto Mobi */
+	.versalitas {
+        font-variant: small-caps;
+    	-moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        -o-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+    }
+}
+
+@media amzn-mobi {	/* Para Mobi ya que no soporta el atributo «font-variant» */
+	.versalitas {
+    	text-transform: uppercase;
+    	font-size: .8em;
+    	-moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        -o-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+    }
 }
 
 /* Enlaces */
