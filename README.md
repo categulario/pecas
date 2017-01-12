@@ -58,6 +58,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 # Pendientes
 
 * EPUB
+  * `instalar.sh`.
+    * Fallo en la instalación cuando el nombre de la carpeta de este 
+repositorio contiene espacios.
   * Todos.
     * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
   * `divider.rb`.
