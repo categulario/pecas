@@ -211,7 +211,7 @@ epubTypePregunta
 # Inicia la división
 puts "\nDividiendo archivos...".magenta.bold
 if $epubTypeCreacion == true
-    puts "\nATENCIÓN: ".bold + "en https://idpf.github.io/epub-vocabs/structure/#h_aboutthisvocabulary se encuentra un listado de los epub:type disponibles."
+    puts "\nATENCIÓN: ".bold + "en https://idpf.github.io/epub-vocabs/structure/ se encuentra un listado de los epub:type disponibles."
 end
 
 # Para ver el contenido
