@@ -59,7 +59,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 
 * EPUB
   * `instalar.sh`.
-    * Fallo en la instalación cuando el nombre de la carpeta de este 
+    * Fallo en la instalación cuando el nombre de la carpeta de este
 repositorio contiene espacios.
   * Todos.
     * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
@@ -73,6 +73,7 @@ repositorio contiene espacios.
     cuando está viene en el archivo de texto; el caso particular es que en el
     archivo de texto hay una nota como esta `<p><em>Algo</em>.</p>`.
     * Se están creando espacios antes del `body` sin importar que las notas se creen en `9999-notes.xhtml`.
+    * En Linux no se orden correctamente las notas cuando se crea `9999-notes.xhtml` con división por sección.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
