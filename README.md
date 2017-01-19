@@ -73,7 +73,7 @@ repositorio contiene espacios.
     cuando está viene en el archivo de texto; el caso particular es que en el
     archivo de texto hay una nota como esta `<p><em>Algo</em>.</p>`.
     * Se están creando espacios antes del `body` sin importar que las notas se creen en `9999-notes.xhtml`.
-    * En Linux no se orden correctamente las notas cuando se crea `9999-notes.xhtml` con división por sección.
+    * En Linux no se ordenan correctamente las notas cuando se crea `9999-notes.xhtml` con división por sección.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `recreator.rb`.
