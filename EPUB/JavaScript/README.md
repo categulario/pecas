@@ -24,4 +24,4 @@ del tamaño de la tipografía.
 # *Scripts* en desarrollo
 
 * `poetry.js`. Posibilita un control ortotipográfico
-cuando acontece un corte de verso.
+cuando existe un corte de verso.
