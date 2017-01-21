@@ -38,5 +38,5 @@ NAV así como crea o recrea el archivo EPUB.
 ## *Scripts* de JavaScript para EPUB
 
 Estos *scripts* implementan algunas funcionalidades
-adicionales a los EPUB, se encuentras en la carpeta
+adicionales a los EPUB, se encuentran en la carpeta
 [`JavaScript`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/JavaScript).
