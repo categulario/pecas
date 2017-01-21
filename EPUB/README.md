@@ -35,7 +35,8 @@ NAV así como crea o recrea el archivo EPUB.
 
 7. `index.rb`. Agrega índices analíticos.
 
-## EPUB con diseño fijo
+## *Scripts* de JavaScript para EPUB
 
-Estos *scripts* se encuentran en la carpeta
-`Scripts-fijo`.
+Estos *scripts* implementan algunas funcionalidades
+adicionales a los EPUB, se encuentras en la carpeta
+`JavaScript`.
