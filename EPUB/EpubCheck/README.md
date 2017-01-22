@@ -10,7 +10,7 @@ que simplifica el uso de las dos versiones. Cada versión corresponde a:
 # Uso
 
 Cabe la posibilidad de arrastrar el archivo binario (presente en 
-`bin/epubcheck` o agregar ese archivo al path.
+`bin/epubcheck` o agregar el directorio `bin` al path.
 
 Para EPUB 3.0.0 se usa: `epubcheck 3 ruta/al/EPUB`.
 
