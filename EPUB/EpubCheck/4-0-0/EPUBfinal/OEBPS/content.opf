@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" xml:lang="en" unique-identifier="uid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" version="3.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title>Obras</dc:title>
+        <dc:creator>Arreola, Juan José</dc:creator>
+        <dc:publisher>Fondo de Cultura Económica</dc:publisher>
+        <dc:description>Algo</dc:description>
+        <dc:language>es</dc:language>
+        <dc:identifier id="uid">Obras-3.0.1</dc:identifier>
+        <meta property="dcterms:modified">2016-06-07T17:17:54Z</meta>
+        <meta property="rendition:layout">reflowable</meta>
+        <meta property="ibooks:specified-fonts">true</meta>
+    </metadata>
+    <manifest>
+        <item href="css/principal.css" id="id_principal_css" media-type="text/css" />
+        <item href="html/001-portada.xhtml" id="id_001-portada_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/002-portadaFalsa.xhtml" id="id_002-portadaFalsa_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/003-portadilla.xhtml" id="id_003-portadilla_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/004-legal.xhtml" id="id_004-legal_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/005-prologo.xhtml" id="id_005-prologo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/005N-prologo.xhtml" id="id_005N-prologo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/006-confabularioParte.xhtml" id="id_006-confabularioParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/007-memoria.xhtml" id="id_007-memoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/007N-memoria.xhtml" id="id_007N-memoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/008-confabularioDivision.xhtml" id="id_008-confabularioDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/009-confabularioEpigrafe.xhtml" id="id_009-confabularioEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/010-montes.xhtml" id="id_010-montes_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/011-verdad.xhtml" id="id_011-verdad_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/012-rinoceronte.xhtml" id="id_012-rinoceronte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/013-migala.xhtml" id="id_013-migala_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/014-guardagujas.xhtml" id="id_014-guardagujas_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/015-discipulo.xhtml" id="id_015-discipulo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/016-eva.xhtml" id="id_016-eva_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/017-pueblerina.xhtml" id="id_017-pueblerina_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/018-sinesio.xhtml" id="id_018-sinesio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/019-monologo.xhtml" id="id_019-monologo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/020-prodigioso.xhtml" id="id_020-prodigioso_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/021-nabonides.xhtml" id="id_021-nabonides_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/021N-nabonides.xhtml" id="id_021N-nabonides_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/022-faro.xhtml" id="id_022-faro_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/023-memoriam.xhtml" id="id_023-memoriam_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/024-baltasar.xhtml" id="id_024-baltasar_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/025-baby.xhtml" id="id_025-baby_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/026-anuncio.xhtml" id="id_026-anuncio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/026N-anuncio.xhtml" id="id_026N-anuncio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/027-balistica.xhtml" id="id_027-balistica_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/028-mujer.xhtml" id="id_028-mujer_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/029-pablo.xhtml" id="id_029-pablo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/030-parabola.xhtml" id="id_030-parabola_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/031-diablo.xhtml" id="id_031-diablo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/032-converso.xhtml" id="id_032-converso_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/033-dios.xhtml" id="id_033-dios_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/034-alimentos.xhtml" id="id_034-alimentos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/035-reputacion.xhtml" id="id_035-reputacion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/036-corrido.xhtml" id="id_036-corrido_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/037-carta.xhtml" id="id_037-carta_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/038-palindromaParte.xhtml" id="id_038-palindromaParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/039-palindromaDivision.xhtml" id="id_039-palindromaDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/040-palindromaEpigrafe.xhtml" id="id_040-palindromaEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/041-tres.xhtml" id="id_041-tres_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/042-starring.xhtml" id="id_042-starring_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/043-hogares.xhtml" id="id_043-hogares_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/044-jardin.xhtml" id="id_044-jardin_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/045-botella.xhtml" id="id_045-botella_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/046-himen.xhtml" id="id_046-himen_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/047-variacionesDivision.xhtml" id="id_047-variacionesDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/048-variacionesEpigrafe.xhtml" id="id_048-variacionesEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/049-duermevela.xhtml" id="id_049-duermevela_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/050-profilaxis.xhtml" id="id_050-profilaxis_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/051-receta.xhtml" id="id_051-receta_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/052-viajero.xhtml" id="id_052-viajero_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/053-disyuntiva.xhtml" id="id_053-disyuntiva_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/054-ciclismo.xhtml" id="id_054-ciclismo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/055-astronomia.xhtml" id="id_055-astronomia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/056-historia.xhtml" id="id_056-historia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/057-balada.xhtml" id="id_057-balada_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/058-doxografias.xhtml" id="id_058-doxografias_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/059-terceraDivision.xhtml" id="id_059-terceraDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/060-terceraEpigrafe.xhtml" id="id_060-terceraEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/061-personajes.xhtml" id="id_061-personajes_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/061N-personajes.xhtml" id="id_061N-personajes_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/062-escena.xhtml" id="id_062-escena_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/063-terceraEpigrafeFinal.xhtml" id="id_063-terceraEpigrafeFinal_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/064-variaParte.xhtml" id="id_064-variaParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/065-variaDivision.xhtml" id="id_065-variaDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/066-variaEpigrafe.xhtml" id="id_066-variaEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/067-hizo.xhtml" id="id_067-hizo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/068-cuervero.xhtml" id="id_068-cuervero_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/069-vida.xhtml" id="id_069-vida_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/070-fraude.xhtml" id="id_070-fraude_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/071-horaDivision.xhtml" id="id_071-horaDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/072-horaDedicatoria.xhtml" id="id_072-horaDedicatoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/073-horaEpigrafe.xhtml" id="id_073-horaEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/074-dramatis.xhtml" id="id_074-dramatis_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/075-escena.xhtml" id="id_075-escena_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/076-bestiarioParte.xhtml" id="id_076-bestiarioParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/077-bestiarioDivision.xhtml" id="id_077-bestiarioDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/078-bestiarioDedicatoria.xhtml" id="id_078-bestiarioDedicatoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/079-bestiarioPrologo.xhtml" id="id_079-bestiarioPrologo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/080-rinoceronte.xhtml" id="id_080-rinoceronte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/081-sapo.xhtml" id="id_081-sapo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/082-bisonte.xhtml" id="id_082-bisonte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/083-aves.xhtml" id="id_083-aves_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/084-avestruz.xhtml" id="id_084-avestruz_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/085-insectiada.xhtml" id="id_085-insectiada_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/086-carabao.xhtml" id="id_086-carabao_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/087-felinos.xhtml" id="id_087-felinos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/088-buho.xhtml" id="id_088-buho_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/089-oso.xhtml" id="id_089-oso_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/090-elefante.xhtml" id="id_090-elefante_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/091-topos.xhtml" id="id_091-topos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/092-camelidos.xhtml" id="id_092-camelidos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/093-boa.xhtml" id="id_093-boa_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/094-cebra.xhtml" id="id_094-cebra_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/095-jirafa.xhtml" id="id_095-jirafa_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/096-hiena.xhtml" id="id_096-hiena_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/097-hipopotamo.xhtml" id="id_097-hipopotamo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/098-cervidos.xhtml" id="id_098-cervidos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/099-focas.xhtml" id="id_099-focas_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/100-aves.xhtml" id="id_100-aves_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/101-ajolote.xhtml" id="id_101-ajolote_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/102-monos.xhtml" id="id_102-monos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/103-cantosDivision.xhtml" id="id_103-cantosDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/104-cantosEpigrafe.xhtml" id="id_104-cantosEpigrafe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/105-loco.xhtml" id="id_105-loco_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/106-casus.xhtml" id="id_106-casus_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/107-kalenda.xhtml" id="id_107-kalenda_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/108-jacobi.xhtml" id="id_108-jacobi_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/109-varo.xhtml" id="id_109-varo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/110-noticia.xhtml" id="id_110-noticia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/111-navidena.xhtml" id="id_111-navidena_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/112-cetreria.xhtml" id="id_112-cetreria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/113-rey.xhtml" id="id_113-rey_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/114-weininger.xhtml" id="id_114-weininger_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/115-metamorfosis.xhtml" id="id_115-metamorfosis_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/116-cocktail.xhtml" id="id_116-cocktail_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/117-trampa.xhtml" id="id_117-trampa_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/118-caballero.xhtml" id="id_118-caballero_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/119-post.xhtml" id="id_119-post_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/120-achtung.xhtml" id="id_120-achtung_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/121-lengua.xhtml" id="id_121-lengua_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/122-balada.xhtml" id="id_122-balada_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/123-tu.xhtml" id="id_123-tu_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/124-encuentro.xhtml" id="id_124-encuentro_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/125-dama.xhtml" id="id_125-dama_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/126-teoria.xhtml" id="id_126-teoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/127-epitalamio.xhtml" id="id_127-epitalamio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/128-allons.xhtml" id="id_128-allons_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/129-luna.xhtml" id="id_129-luna_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/130-armisticio.xhtml" id="id_130-armisticio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/131-clausulas.xhtml" id="id_131-clausulas_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/132-gravitacion.xhtml" id="id_132-gravitacion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/133-prosodiaDivision.xhtml" id="id_133-prosodiaDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/134-prosodiaDedicatoria.xhtml" id="id_134-prosodiaDedicatoria_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/135-informe.xhtml" id="id_135-informe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/136-telemaquia.xhtml" id="id_136-telemaquia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/137-infierno.xhtml" id="id_137-infierno_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/138-de.xhtml" id="id_138-de_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/139-una.xhtml" id="id_139-una_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/140-libertad.xhtml" id="id_140-libertad_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/141-ultimo.xhtml" id="id_141-ultimo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/142-elegia.xhtml" id="id_142-elegia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/143-flor.xhtml" id="id_143-flor_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/144-flash.xhtml" id="id_144-flash_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/145-diamante.xhtml" id="id_145-diamante_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/146-mapa.xhtml" id="id_146-mapa_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/147-loco.xhtml" id="id_147-loco_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/148-caverna.xhtml" id="id_148-caverna_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/149-bienes.xhtml" id="id_149-bienes_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/150-alarma.xhtml" id="id_150-alarma_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/151-interview.xhtml" id="id_151-interview_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/152-sonado.xhtml" id="id_152-sonado_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/153-asesino.xhtml" id="id_153-asesino_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/154-cancion.xhtml" id="id_154-cancion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/155-autrui.xhtml" id="id_155-autrui_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/156-epitafio.xhtml" id="id_156-epitafio_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/157-lay.xhtml" id="id_157-lay_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/158-condenado.xhtml" id="id_158-condenado_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/159-apuntes.xhtml" id="id_159-apuntes_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/160-aproximacionesDivision.xhtml" id="id_160-aproximacionesDivision_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/161-familia.xhtml" id="id_161-familia_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/162-sapo.xhtml" id="id_162-sapo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/163-declaracion.xhtml" id="id_163-declaracion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/164-fondo.xhtml" id="id_164-fondo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/165-puerco.xhtml" id="id_165-puerco_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/166-tristeza.xhtml" id="id_166-tristeza_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/167-arana.xhtml" id="id_167-arana_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/168-urdos.xhtml" id="id_168-urdos_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/169-octubre.xhtml" id="id_169-octubre_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/171-disolucion.xhtml" id="id_171-disolucion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/172-derivacion.xhtml" id="id_172-derivacion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/173-tristeza.xhtml" id="id_173-tristeza_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/174-pensamiento.xhtml" id="id_174-pensamiento_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/175-libacion.xhtml" id="id_175-libacion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/176-desde.xhtml" id="id_176-desde_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/177-corimbo.xhtml" id="id_177-corimbo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/178-feriaParte.xhtml" id="id_178-feriaParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/179-feriaToda.xhtml" id="id_179-feriaToda_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/180-otrosParte.xhtml" id="id_180-otrosParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/181-veinte.xhtml" id="id_181-veinte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/182-dialogo.xhtml" id="id_182-dialogo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/182N-dialogo.xhtml" id="id_182N-dialogo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/183-imaginario.xhtml" id="id_183-imaginario_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/183N-imaginario.xhtml" id="id_183N-imaginario_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/184-implantacion.xhtml" id="id_184-implantacion_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/184-inedito.xhtml" id="id_184-inedito_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/184N-inedito.xhtml" id="id_184N-inedito_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/185-montaigne.xhtml" id="id_185-montaigne_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/185N-montaigne.xhtml" id="id_185N-montaigne_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/186-grupoParte.xhtml" id="id_186-grupoParte_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/187-notaEditor.xhtml" id="id_187-notaEditor_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/188-pedro.xhtml" id="id_188-pedro_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/189-andres.xhtml" id="id_189-andres_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/190-santiagoMenor.xhtml" id="id_190-santiagoMenor_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/191-juan.xhtml" id="id_191-juan_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/192-felipe.xhtml" id="id_192-felipe_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/193-bartolome.xhtml" id="id_193-bartolome_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/194-tomas.xhtml" id="id_194-tomas_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/195-mateo.xhtml" id="id_195-mateo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/196-santiagoMayor.xhtml" id="id_196-santiagoMayor_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/197-judas.xhtml" id="id_197-judas_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/198-simon.xhtml" id="id_198-simon_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/199-pablo.xhtml" id="id_199-pablo_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/200-indice.xhtml" id="id_200-indice_xhtml" media-type="application/xhtml+xml" />
+        <item href="html/201-contraportada.xhtml" id="id_201-contraportada_xhtml" media-type="application/xhtml+xml" />
+        <item href="img/contraportada.jpg" id="id_contraportada_jpg" media-type="image/jpeg" />
+        <item href="img/formula.png" id="id_formula_png" media-type="image/png" />
+        <item href="img/glifo001.png" id="id_glifo001_png" media-type="image/png" />
+        <item href="img/glifo002.png" id="id_glifo002_png" media-type="image/png" />
+        <item href="img/glifo003.png" id="id_glifo003_png" media-type="image/png" />
+        <item href="img/glifo004.png" id="id_glifo004_png" media-type="image/png" />
+        <item href="img/glifo005.png" id="id_glifo005_png" media-type="image/png" />
+        <item href="img/glifo006.png" id="id_glifo006_png" media-type="image/png" />
+        <item href="img/glifo007.png" id="id_glifo007_png" media-type="image/png" />
+        <item href="img/glifo008.png" id="id_glifo008_png" media-type="image/png" />
+        <item href="img/glifo009.png" id="id_glifo009_png" media-type="image/png" />
+        <item href="img/glifo010.png" id="id_glifo010_png" media-type="image/png" />
+        <item href="img/glifo011.png" id="id_glifo011_png" media-type="image/png" />
+        <item href="img/glifo012.png" id="id_glifo012_png" media-type="image/png" />
+        <item href="img/glifo013.png" id="id_glifo013_png" media-type="image/png" />
+        <item href="img/glifo014.png" id="id_glifo014_png" media-type="image/png" />
+        <item href="img/glifo015.png" id="id_glifo015_png" media-type="image/png" />
+        <item href="img/glifo016.png" id="id_glifo016_png" media-type="image/png" />
+        <item href="img/glifo017.png" id="id_glifo017_png" media-type="image/png" />
+        <item href="img/glifo018.png" id="id_glifo018_png" media-type="image/png" />
+        <item href="img/glifo019.png" id="id_glifo019_png" media-type="image/png" />
+        <item href="img/glifo020.png" id="id_glifo020_png" media-type="image/png" />
+        <item href="img/glifo021.png" id="id_glifo021_png" media-type="image/png" />
+        <item href="img/glifo022.png" id="id_glifo022_png" media-type="image/png" />
+        <item href="img/glifo023.png" id="id_glifo023_png" media-type="image/png" />
+        <item href="img/glifo024.png" id="id_glifo024_png" media-type="image/png" />
+        <item href="img/glifo025.png" id="id_glifo025_png" media-type="image/png" />
+        <item href="img/glifo026.png" id="id_glifo026_png" media-type="image/png" />
+        <item href="img/glifo027.png" id="id_glifo027_png" media-type="image/png" />
+        <item href="img/glifo028.png" id="id_glifo028_png" media-type="image/png" />
+        <item href="img/glifo029.png" id="id_glifo029_png" media-type="image/png" />
+        <item href="img/glifo030.png" id="id_glifo030_png" media-type="image/png" />
+        <item href="img/glifo031.png" id="id_glifo031_png" media-type="image/png" />
+        <item href="img/glifo032.png" id="id_glifo032_png" media-type="image/png" />
+        <item href="img/glifo033.png" id="id_glifo033_png" media-type="image/png" />
+        <item href="img/glifo034.png" id="id_glifo034_png" media-type="image/png" />
+        <item href="img/glifo035.png" id="id_glifo035_png" media-type="image/png" />
+        <item href="img/glifo036.png" id="id_glifo036_png" media-type="image/png" />
+        <item href="img/glifo037.png" id="id_glifo037_png" media-type="image/png" />
+        <item href="img/glifo038.png" id="id_glifo038_png" media-type="image/png" />
+        <item href="img/glifo039.png" id="id_glifo039_png" media-type="image/png" />
+        <item href="img/glifo040.png" id="id_glifo040_png" media-type="image/png" />
+        <item href="img/glifo041.png" id="id_glifo041_png" media-type="image/png" />
+        <item href="img/glifo042.png" id="id_glifo042_png" media-type="image/png" />
+        <item href="img/glifo043.png" id="id_glifo043_png" media-type="image/png" />
+        <item href="img/glifo044.png" id="id_glifo044_png" media-type="image/png" />
+        <item href="img/glifo045.png" id="id_glifo045_png" media-type="image/png" />
+        <item href="img/glifo046.png" id="id_glifo046_png" media-type="image/png" />
+        <item href="img/glifo047.png" id="id_glifo047_png" media-type="image/png" />
+        <item href="img/glifo048.png" id="id_glifo048_png" media-type="image/png" />
+        <item href="img/glifo049.png" id="id_glifo049_png" media-type="image/png" />
+        <item href="img/glifo050.png" id="id_glifo050_png" media-type="image/png" />
+        <item href="img/glifo051.png" id="id_glifo051_png" media-type="image/png" />
+        <item href="img/glifo052.png" id="id_glifo052_png" media-type="image/png" />
+        <item href="img/glifo053.png" id="id_glifo053_png" media-type="image/png" />
+        <item href="img/glifo054.png" id="id_glifo054_png" media-type="image/png" />
+        <item href="img/glifo055.png" id="id_glifo055_png" media-type="image/png" />
+        <item href="img/glifo056.png" id="id_glifo056_png" media-type="image/png" />
+        <item href="img/glifo057.png" id="id_glifo057_png" media-type="image/png" />
+        <item href="img/glifo058.png" id="id_glifo058_png" media-type="image/png" />
+        <item href="img/glifo059.png" id="id_glifo059_png" media-type="image/png" />
+        <item href="img/glifo060.png" id="id_glifo060_png" media-type="image/png" />
+        <item href="img/glifo061.png" id="id_glifo061_png" media-type="image/png" />
+        <item href="img/glifo062.png" id="id_glifo062_png" media-type="image/png" />
+        <item href="img/glifo063.png" id="id_glifo063_png" media-type="image/png" />
+        <item href="img/glifo064.png" id="id_glifo064_png" media-type="image/png" />
+        <item href="img/glifo065.png" id="id_glifo065_png" media-type="image/png" />
+        <item href="img/glifo066.png" id="id_glifo066_png" media-type="image/png" />
+        <item href="img/glifo067.png" id="id_glifo067_png" media-type="image/png" />
+        <item href="img/glifo068.png" id="id_glifo068_png" media-type="image/png" />
+        <item href="img/glifo069.png" id="id_glifo069_png" media-type="image/png" />
+        <item href="img/glifo070.png" id="id_glifo070_png" media-type="image/png" />
+        <item href="img/glifo071.png" id="id_glifo071_png" media-type="image/png" />
+        <item href="img/glifo072.png" id="id_glifo072_png" media-type="image/png" />
+        <item href="img/glifo073.png" id="id_glifo073_png" media-type="image/png" />
+        <item href="img/glifo074.png" id="id_glifo074_png" media-type="image/png" />
+        <item href="img/glifo075.png" id="id_glifo075_png" media-type="image/png" />
+        <item href="img/glifo076.png" id="id_glifo076_png" media-type="image/png" />
+        <item href="img/glifo077.png" id="id_glifo077_png" media-type="image/png" />
+        <item href="img/glifo078.png" id="id_glifo078_png" media-type="image/png" />
+        <item href="img/glifo079.png" id="id_glifo079_png" media-type="image/png" />
+        <item href="img/glifo080.png" id="id_glifo080_png" media-type="image/png" />
+        <item href="img/glifo081.png" id="id_glifo081_png" media-type="image/png" />
+        <item href="img/glifo082.png" id="id_glifo082_png" media-type="image/png" />
+        <item href="img/glifo083.png" id="id_glifo083_png" media-type="image/png" />
+        <item href="img/glifo084.png" id="id_glifo084_png" media-type="image/png" />
+        <item href="img/glifo085.png" id="id_glifo085_png" media-type="image/png" />
+        <item href="img/glifo086.png" id="id_glifo086_png" media-type="image/png" />
+        <item href="img/glifo087.png" id="id_glifo087_png" media-type="image/png" />
+        <item href="img/glifo088.png" id="id_glifo088_png" media-type="image/png" />
+        <item href="img/glifo089.png" id="id_glifo089_png" media-type="image/png" />
+        <item href="img/glifo090.png" id="id_glifo090_png" media-type="image/png" />
+        <item href="img/glifo091.png" id="id_glifo091_png" media-type="image/png" />
+        <item href="img/glifo092.png" id="id_glifo092_png" media-type="image/png" />
+        <item href="img/glifo093.png" id="id_glifo093_png" media-type="image/png" />
+        <item href="img/glifo094.png" id="id_glifo094_png" media-type="image/png" />
+        <item href="img/glifo095.png" id="id_glifo095_png" media-type="image/png" />
+        <item href="img/glifo096.png" id="id_glifo096_png" media-type="image/png" />
+        <item href="img/glifo097.png" id="id_glifo097_png" media-type="image/png" />
+        <item href="img/glifo098.png" id="id_glifo098_png" media-type="image/png" />
+        <item href="img/glifo099.png" id="id_glifo099_png" media-type="image/png" />
+        <item href="img/glifo100.png" id="id_glifo100_png" media-type="image/png" />
+        <item href="img/glifo101.png" id="id_glifo101_png" media-type="image/png" />
+        <item href="img/glifo102.png" id="id_glifo102_png" media-type="image/png" />
+        <item href="img/glifo103.png" id="id_glifo103_png" media-type="image/png" />
+        <item href="img/glifo104.png" id="id_glifo104_png" media-type="image/png" />
+        <item href="img/glifo105.png" id="id_glifo105_png" media-type="image/png" />
+        <item href="img/glifo106.png" id="id_glifo106_png" media-type="image/png" />
+        <item href="img/glifo107.png" id="id_glifo107_png" media-type="image/png" />
+        <item href="img/glifo108.png" id="id_glifo108_png" media-type="image/png" />
+        <item href="img/glifo109.png" id="id_glifo109_png" media-type="image/png" />
+        <item href="img/glifo110.png" id="id_glifo110_png" media-type="image/png" />
+        <item href="img/glifo111.png" id="id_glifo111_png" media-type="image/png" />
+        <item href="img/glifo112.png" id="id_glifo112_png" media-type="image/png" />
+        <item href="img/glifo113.png" id="id_glifo113_png" media-type="image/png" />
+        <item href="img/glifo114.png" id="id_glifo114_png" media-type="image/png" />
+        <item href="img/glifo115.png" id="id_glifo115_png" media-type="image/png" />
+        <item href="img/glifo116.png" id="id_glifo116_png" media-type="image/png" />
+        <item href="img/glifo117.png" id="id_glifo117_png" media-type="image/png" />
+        <item href="img/glifo118.png" id="id_glifo118_png" media-type="image/png" />
+        <item href="img/glifo119.png" id="id_glifo119_png" media-type="image/png" />
+        <item href="img/glifo120.png" id="id_glifo120_png" media-type="image/png" />
+        <item href="img/glifo121.png" id="id_glifo121_png" media-type="image/png" />
+        <item href="img/glifo122.png" id="id_glifo122_png" media-type="image/png" />
+        <item href="img/glifo123.png" id="id_glifo123_png" media-type="image/png" />
+        <item href="img/glifo124.png" id="id_glifo124_png" media-type="image/png" />
+        <item href="img/glifo125.png" id="id_glifo125_png" media-type="image/png" />
+        <item href="img/glifo126.png" id="id_glifo126_png" media-type="image/png" />
+        <item href="img/glifo127.png" id="id_glifo127_png" media-type="image/png" />
+        <item href="img/glifo128.png" id="id_glifo128_png" media-type="image/png" />
+        <item href="img/glifo129.png" id="id_glifo129_png" media-type="image/png" />
+        <item href="img/glifo130.png" id="id_glifo130_png" media-type="image/png" />
+        <item href="img/glifo131.png" id="id_glifo131_png" media-type="image/png" />
+        <item href="img/glifo132.png" id="id_glifo132_png" media-type="image/png" />
+        <item href="img/glifo133.png" id="id_glifo133_png" media-type="image/png" />
+        <item href="img/glifo134.png" id="id_glifo134_png" media-type="image/png" />
+        <item href="img/glifo135.png" id="id_glifo135_png" media-type="image/png" />
+        <item href="img/glifo136.png" id="id_glifo136_png" media-type="image/png" />
+        <item href="img/glifo137.png" id="id_glifo137_png" media-type="image/png" />
+        <item href="img/glifo138.png" id="id_glifo138_png" media-type="image/png" />
+        <item href="img/glifo139.png" id="id_glifo139_png" media-type="image/png" />
+        <item href="img/glifo140.png" id="id_glifo140_png" media-type="image/png" />
+        <item href="img/glifo141.png" id="id_glifo141_png" media-type="image/png" />
+        <item href="img/glifo142.png" id="id_glifo142_png" media-type="image/png" />
+        <item href="img/glifo143.png" id="id_glifo143_png" media-type="image/png" />
+        <item href="img/glifo144.png" id="id_glifo144_png" media-type="image/png" />
+        <item href="img/glifo145.png" id="id_glifo145_png" media-type="image/png" />
+        <item href="img/glifo146.png" id="id_glifo146_png" media-type="image/png" />
+        <item href="img/glifo147.png" id="id_glifo147_png" media-type="image/png" />
+        <item href="img/glifo148.png" id="id_glifo148_png" media-type="image/png" />
+        <item href="img/glifo149.png" id="id_glifo149_png" media-type="image/png" />
+        <item href="img/glifo150.png" id="id_glifo150_png" media-type="image/png" />
+        <item href="img/glifo151.png" id="id_glifo151_png" media-type="image/png" />
+        <item href="img/glifo152.png" id="id_glifo152_png" media-type="image/png" />
+        <item href="img/glifo153.png" id="id_glifo153_png" media-type="image/png" />
+        <item href="img/glifo154.png" id="id_glifo154_png" media-type="image/png" />
+        <item href="img/glifo155.png" id="id_glifo155_png" media-type="image/png" />
+        <item href="img/glifo156.png" id="id_glifo156_png" media-type="image/png" />
+        <item href="img/glifo157.png" id="id_glifo157_png" media-type="image/png" />
+        <item href="img/glifo158.png" id="id_glifo158_png" media-type="image/png" />
+        <item href="img/glifo159.png" id="id_glifo159_png" media-type="image/png" />
+        <item href="img/glifo160.png" id="id_glifo160_png" media-type="image/png" />
+        <item href="img/glifo161.png" id="id_glifo161_png" media-type="image/png" />
+        <item href="img/glifo162.png" id="id_glifo162_png" media-type="image/png" />
+        <item href="img/glifo163.png" id="id_glifo163_png" media-type="image/png" />
+        <item href="img/glifo164.png" id="id_glifo164_png" media-type="image/png" />
+        <item href="img/glifo165.png" id="id_glifo165_png" media-type="image/png" />
+        <item href="img/glifo166.png" id="id_glifo166_png" media-type="image/png" />
+        <item href="img/glifo167.png" id="id_glifo167_png" media-type="image/png" />
+        <item href="img/glifo168.png" id="id_glifo168_png" media-type="image/png" />
+        <item href="img/glifo169.png" id="id_glifo169_png" media-type="image/png" />
+        <item href="img/glifo170.png" id="id_glifo170_png" media-type="image/png" />
+        <item href="img/glifo171.png" id="id_glifo171_png" media-type="image/png" />
+        <item href="img/glifo172.png" id="id_glifo172_png" media-type="image/png" />
+        <item href="img/glifo173.png" id="id_glifo173_png" media-type="image/png" />
+        <item href="img/glifo174.png" id="id_glifo174_png" media-type="image/png" />
+        <item href="img/glifo175.png" id="id_glifo175_png" media-type="image/png" />
+        <item href="img/glifo176.png" id="id_glifo176_png" media-type="image/png" />
+        <item href="img/glifo177.png" id="id_glifo177_png" media-type="image/png" />
+        <item href="img/glifo178.png" id="id_glifo178_png" media-type="image/png" />
+        <item href="img/glifo179.png" id="id_glifo179_png" media-type="image/png" />
+        <item href="img/glifo180.png" id="id_glifo180_png" media-type="image/png" />
+        <item href="img/glifo181.png" id="id_glifo181_png" media-type="image/png" />
+        <item href="img/glifo182.png" id="id_glifo182_png" media-type="image/png" />
+        <item href="img/glifo183.png" id="id_glifo183_png" media-type="image/png" />
+        <item href="img/glifo184.png" id="id_glifo184_png" media-type="image/png" />
+        <item href="img/glifo185.png" id="id_glifo185_png" media-type="image/png" />
+        <item href="img/glifo186.png" id="id_glifo186_png" media-type="image/png" />
+        <item href="img/glifo187.png" id="id_glifo187_png" media-type="image/png" />
+        <item href="img/glifo188.png" id="id_glifo188_png" media-type="image/png" />
+        <item href="img/glifo189.png" id="id_glifo189_png" media-type="image/png" />
+        <item href="img/glifo190.png" id="id_glifo190_png" media-type="image/png" />
+        <item href="img/glifo191.png" id="id_glifo191_png" media-type="image/png" />
+        <item href="img/glifo192.png" id="id_glifo192_png" media-type="image/png" />
+        <item href="img/glifo193.png" id="id_glifo193_png" media-type="image/png" />
+        <item href="img/glifo194.png" id="id_glifo194_png" media-type="image/png" />
+        <item href="img/glifo195.png" id="id_glifo195_png" media-type="image/png" />
+        <item href="img/glifo196.png" id="id_glifo196_png" media-type="image/png" />
+        <item href="img/glifo197.png" id="id_glifo197_png" media-type="image/png" />
+        <item href="img/glifo198.png" id="id_glifo198_png" media-type="image/png" />
+        <item href="img/glifo199.png" id="id_glifo199_png" media-type="image/png" />
+        <item href="img/glifo200.png" id="id_glifo200_png" media-type="image/png" />
+        <item href="img/glifo201.png" id="id_glifo201_png" media-type="image/png" />
+        <item href="img/glifo202.png" id="id_glifo202_png" media-type="image/png" />
+        <item href="img/glifo203.png" id="id_glifo203_png" media-type="image/png" />
+        <item href="img/glifo204.png" id="id_glifo204_png" media-type="image/png" />
+        <item href="img/glifo205.png" id="id_glifo205_png" media-type="image/png" />
+        <item href="img/glifo206.png" id="id_glifo206_png" media-type="image/png" />
+        <item href="img/glifo207.png" id="id_glifo207_png" media-type="image/png" />
+        <item href="img/glifo208.png" id="id_glifo208_png" media-type="image/png" />
+        <item href="img/glifo209.png" id="id_glifo209_png" media-type="image/png" />
+        <item href="img/glifo210.png" id="id_glifo210_png" media-type="image/png" />
+        <item href="img/glifo211.png" id="id_glifo211_png" media-type="image/png" />
+        <item href="img/glifo212.png" id="id_glifo212_png" media-type="image/png" />
+        <item href="img/glifo213.png" id="id_glifo213_png" media-type="image/png" />
+        <item href="img/glifo214.png" id="id_glifo214_png" media-type="image/png" />
+        <item href="img/glifo215.png" id="id_glifo215_png" media-type="image/png" />
+        <item href="img/glifo216.png" id="id_glifo216_png" media-type="image/png" />
+        <item href="img/glifo217.png" id="id_glifo217_png" media-type="image/png" />
+        <item href="img/glifo218.png" id="id_glifo218_png" media-type="image/png" />
+        <item href="img/glifo219.png" id="id_glifo219_png" media-type="image/png" />
+        <item href="img/glifo220.png" id="id_glifo220_png" media-type="image/png" />
+        <item href="img/glifo221.png" id="id_glifo221_png" media-type="image/png" />
+        <item href="img/glifo222.png" id="id_glifo222_png" media-type="image/png" />
+        <item href="img/glifo223.png" id="id_glifo223_png" media-type="image/png" />
+        <item href="img/glifo224.png" id="id_glifo224_png" media-type="image/png" />
+        <item href="img/glifo225.png" id="id_glifo225_png" media-type="image/png" />
+        <item href="img/glifo226.png" id="id_glifo226_png" media-type="image/png" />
+        <item href="img/glifo227.png" id="id_glifo227_png" media-type="image/png" />
+        <item href="img/glifo228.png" id="id_glifo228_png" media-type="image/png" />
+        <item href="img/glifo229.png" id="id_glifo229_png" media-type="image/png" />
+        <item href="img/glifo230.png" id="id_glifo230_png" media-type="image/png" />
+        <item href="img/glifo231.png" id="id_glifo231_png" media-type="image/png" />
+        <item href="img/glifo232.png" id="id_glifo232_png" media-type="image/png" />
+        <item href="img/glifo233.png" id="id_glifo233_png" media-type="image/png" />
+        <item href="img/glifo234.png" id="id_glifo234_png" media-type="image/png" />
+        <item href="img/glifo235.png" id="id_glifo235_png" media-type="image/png" />
+        <item href="img/glifo236.png" id="id_glifo236_png" media-type="image/png" />
+        <item href="img/glifo237.png" id="id_glifo237_png" media-type="image/png" />
+        <item href="img/glifo238.png" id="id_glifo238_png" media-type="image/png" />
+        <item href="img/glifo239.png" id="id_glifo239_png" media-type="image/png" />
+        <item href="img/glifo240.png" id="id_glifo240_png" media-type="image/png" />
+        <item href="img/glifo241.png" id="id_glifo241_png" media-type="image/png" />
+        <item href="img/glifo242.png" id="id_glifo242_png" media-type="image/png" />
+        <item href="img/glifo243.png" id="id_glifo243_png" media-type="image/png" />
+        <item href="img/glifo244.png" id="id_glifo244_png" media-type="image/png" />
+        <item href="img/glifo245.png" id="id_glifo245_png" media-type="image/png" />
+        <item href="img/glifo246.png" id="id_glifo246_png" media-type="image/png" />
+        <item href="img/glifo247.png" id="id_glifo247_png" media-type="image/png" />
+        <item href="img/glifo248.png" id="id_glifo248_png" media-type="image/png" />
+        <item href="img/glifo249.png" id="id_glifo249_png" media-type="image/png" />
+        <item href="img/glifo250.png" id="id_glifo250_png" media-type="image/png" />
+        <item href="img/glifo251.png" id="id_glifo251_png" media-type="image/png" />
+        <item href="img/glifo252.png" id="id_glifo252_png" media-type="image/png" />
+        <item href="img/glifo253.png" id="id_glifo253_png" media-type="image/png" />
+        <item href="img/glifo254.png" id="id_glifo254_png" media-type="image/png" />
+        <item href="img/glifo255.png" id="id_glifo255_png" media-type="image/png" />
+        <item href="img/glifo256.png" id="id_glifo256_png" media-type="image/png" />
+        <item href="img/glifo257.png" id="id_glifo257_png" media-type="image/png" />
+        <item href="img/glifo258.png" id="id_glifo258_png" media-type="image/png" />
+        <item href="img/glifo259.png" id="id_glifo259_png" media-type="image/png" />
+        <item href="img/glifo260.png" id="id_glifo260_png" media-type="image/png" />
+        <item href="img/glifo261.png" id="id_glifo261_png" media-type="image/png" />
+        <item href="img/glifo262.png" id="id_glifo262_png" media-type="image/png" />
+        <item href="img/glifo263.png" id="id_glifo263_png" media-type="image/png" />
+        <item href="img/glifo264.png" id="id_glifo264_png" media-type="image/png" />
+        <item href="img/glifo265.png" id="id_glifo265_png" media-type="image/png" />
+        <item href="img/glifo266.png" id="id_glifo266_png" media-type="image/png" />
+        <item href="img/glifo267.png" id="id_glifo267_png" media-type="image/png" />
+        <item href="img/glifo268.png" id="id_glifo268_png" media-type="image/png" />
+        <item href="img/glifo269.png" id="id_glifo269_png" media-type="image/png" />
+        <item href="img/glifo270.png" id="id_glifo270_png" media-type="image/png" />
+        <item href="img/glifo271.png" id="id_glifo271_png" media-type="image/png" />
+        <item href="img/glifo272.png" id="id_glifo272_png" media-type="image/png" />
+        <item href="img/glifo273.png" id="id_glifo273_png" media-type="image/png" />
+        <item href="img/glifo274.png" id="id_glifo274_png" media-type="image/png" />
+        <item href="img/glifo275.png" id="id_glifo275_png" media-type="image/png" />
+        <item href="img/glifo276.png" id="id_glifo276_png" media-type="image/png" />
+        <item href="img/glifo277.png" id="id_glifo277_png" media-type="image/png" />
+        <item href="img/glifo278.png" id="id_glifo278_png" media-type="image/png" />
+        <item href="img/glifo279.png" id="id_glifo279_png" media-type="image/png" />
+        <item href="img/glifo280.png" id="id_glifo280_png" media-type="image/png" />
+        <item href="img/glifo281.png" id="id_glifo281_png" media-type="image/png" />
+        <item href="img/glifo282.png" id="id_glifo282_png" media-type="image/png" />
+        <item href="img/glifo283.png" id="id_glifo283_png" media-type="image/png" />
+        <item href="img/glifo284.png" id="id_glifo284_png" media-type="image/png" />
+        <item href="img/glifo285.png" id="id_glifo285_png" media-type="image/png" />
+        <item href="img/glifo286.png" id="id_glifo286_png" media-type="image/png" />
+        <item href="img/glifo287.png" id="id_glifo287_png" media-type="image/png" />
+        <item href="img/glifo288.png" id="id_glifo288_png" media-type="image/png" />
+        <item href="img/glifo289.png" id="id_glifo289_png" media-type="image/png" />
+        <item href="img/logo.png" id="id_logo_png" media-type="image/png" />
+        <item href="img/portada.jpg" id="id_portada_jpg" media-type="image/jpeg" properties="cover-image" />
+        <item href="nav/nav.xhtml" id="id_nav_xhtml" media-type="application/xhtml+xml" properties="nav" />
+        <item href="toc.ncx" id="id_toc_ncx" media-type="application/x-dtbncx+xml" />
+    </manifest>
+    <spine toc="id_toc_ncx">
+        <itemref idref="id_001-portada_xhtml"/>
+        <itemref idref="id_002-portadaFalsa_xhtml"/>
+        <itemref idref="id_003-portadilla_xhtml"/>
+        <itemref idref="id_004-legal_xhtml"/>
+        <itemref idref="id_005-prologo_xhtml"/>
+        <itemref idref="id_005N-prologo_xhtml" linear="no"/>
+        <itemref idref="id_006-confabularioParte_xhtml"/>
+        <itemref idref="id_007-memoria_xhtml"/>
+        <itemref idref="id_007N-memoria_xhtml" linear="no"/>
+        <itemref idref="id_008-confabularioDivision_xhtml"/>
+        <itemref idref="id_009-confabularioEpigrafe_xhtml"/>
+        <itemref idref="id_010-montes_xhtml"/>
+        <itemref idref="id_011-verdad_xhtml"/>
+        <itemref idref="id_012-rinoceronte_xhtml"/>
+        <itemref idref="id_013-migala_xhtml"/>
+        <itemref idref="id_014-guardagujas_xhtml"/>
+        <itemref idref="id_015-discipulo_xhtml"/>
+        <itemref idref="id_016-eva_xhtml"/>
+        <itemref idref="id_017-pueblerina_xhtml"/>
+        <itemref idref="id_018-sinesio_xhtml"/>
+        <itemref idref="id_019-monologo_xhtml"/>
+        <itemref idref="id_020-prodigioso_xhtml"/>
+        <itemref idref="id_021-nabonides_xhtml"/>
+        <itemref idref="id_021N-nabonides_xhtml" linear="no"/>
+        <itemref idref="id_022-faro_xhtml"/>
+        <itemref idref="id_023-memoriam_xhtml"/>
+        <itemref idref="id_024-baltasar_xhtml"/>
+        <itemref idref="id_025-baby_xhtml"/>
+        <itemref idref="id_026-anuncio_xhtml"/>
+        <itemref idref="id_026N-anuncio_xhtml" linear="no"/>
+        <itemref idref="id_027-balistica_xhtml"/>
+        <itemref idref="id_028-mujer_xhtml"/>
+        <itemref idref="id_029-pablo_xhtml"/>
+        <itemref idref="id_030-parabola_xhtml"/>
+        <itemref idref="id_031-diablo_xhtml"/>
+        <itemref idref="id_032-converso_xhtml"/>
+        <itemref idref="id_033-dios_xhtml"/>
+        <itemref idref="id_034-alimentos_xhtml"/>
+        <itemref idref="id_035-reputacion_xhtml"/>
+        <itemref idref="id_036-corrido_xhtml"/>
+        <itemref idref="id_037-carta_xhtml"/>
+        <itemref idref="id_038-palindromaParte_xhtml"/>
+        <itemref idref="id_039-palindromaDivision_xhtml"/>
+        <itemref idref="id_040-palindromaEpigrafe_xhtml"/>
+        <itemref idref="id_041-tres_xhtml"/>
+        <itemref idref="id_042-starring_xhtml"/>
+        <itemref idref="id_043-hogares_xhtml"/>
+        <itemref idref="id_044-jardin_xhtml"/>
+        <itemref idref="id_045-botella_xhtml"/>
+        <itemref idref="id_046-himen_xhtml"/>
+        <itemref idref="id_047-variacionesDivision_xhtml"/>
+        <itemref idref="id_048-variacionesEpigrafe_xhtml"/>
+        <itemref idref="id_049-duermevela_xhtml"/>
+        <itemref idref="id_050-profilaxis_xhtml"/>
+        <itemref idref="id_051-receta_xhtml"/>
+        <itemref idref="id_052-viajero_xhtml"/>
+        <itemref idref="id_053-disyuntiva_xhtml"/>
+        <itemref idref="id_054-ciclismo_xhtml"/>
+        <itemref idref="id_055-astronomia_xhtml"/>
+        <itemref idref="id_056-historia_xhtml"/>
+        <itemref idref="id_057-balada_xhtml"/>
+        <itemref idref="id_058-doxografias_xhtml"/>
+        <itemref idref="id_059-terceraDivision_xhtml"/>
+        <itemref idref="id_060-terceraEpigrafe_xhtml"/>
+        <itemref idref="id_061-personajes_xhtml"/>
+        <itemref idref="id_061N-personajes_xhtml" linear="no"/>
+        <itemref idref="id_062-escena_xhtml"/>
+        <itemref idref="id_063-terceraEpigrafeFinal_xhtml"/>
+        <itemref idref="id_064-variaParte_xhtml"/>
+        <itemref idref="id_065-variaDivision_xhtml"/>
+        <itemref idref="id_066-variaEpigrafe_xhtml"/>
+        <itemref idref="id_067-hizo_xhtml"/>
+        <itemref idref="id_068-cuervero_xhtml"/>
+        <itemref idref="id_069-vida_xhtml"/>
+        <itemref idref="id_070-fraude_xhtml"/>
+        <itemref idref="id_071-horaDivision_xhtml"/>
+        <itemref idref="id_072-horaDedicatoria_xhtml"/>
+        <itemref idref="id_073-horaEpigrafe_xhtml"/>
+        <itemref idref="id_074-dramatis_xhtml"/>
+        <itemref idref="id_075-escena_xhtml"/>
+        <itemref idref="id_076-bestiarioParte_xhtml"/>
+        <itemref idref="id_077-bestiarioDivision_xhtml"/>
+        <itemref idref="id_078-bestiarioDedicatoria_xhtml"/>
+        <itemref idref="id_079-bestiarioPrologo_xhtml"/>
+        <itemref idref="id_080-rinoceronte_xhtml"/>
+        <itemref idref="id_081-sapo_xhtml"/>
+        <itemref idref="id_082-bisonte_xhtml"/>
+        <itemref idref="id_083-aves_xhtml"/>
+        <itemref idref="id_084-avestruz_xhtml"/>
+        <itemref idref="id_085-insectiada_xhtml"/>
+        <itemref idref="id_086-carabao_xhtml"/>
+        <itemref idref="id_087-felinos_xhtml"/>
+        <itemref idref="id_088-buho_xhtml"/>
+        <itemref idref="id_089-oso_xhtml"/>
+        <itemref idref="id_090-elefante_xhtml"/>
+        <itemref idref="id_091-topos_xhtml"/>
+        <itemref idref="id_092-camelidos_xhtml"/>
+        <itemref idref="id_093-boa_xhtml"/>
+        <itemref idref="id_094-cebra_xhtml"/>
+        <itemref idref="id_095-jirafa_xhtml"/>
+        <itemref idref="id_096-hiena_xhtml"/>
+        <itemref idref="id_097-hipopotamo_xhtml"/>
+        <itemref idref="id_098-cervidos_xhtml"/>
+        <itemref idref="id_099-focas_xhtml"/>
+        <itemref idref="id_100-aves_xhtml"/>
+        <itemref idref="id_101-ajolote_xhtml"/>
+        <itemref idref="id_102-monos_xhtml"/>
+        <itemref idref="id_103-cantosDivision_xhtml"/>
+        <itemref idref="id_104-cantosEpigrafe_xhtml"/>
+        <itemref idref="id_105-loco_xhtml"/>
+        <itemref idref="id_106-casus_xhtml"/>
+        <itemref idref="id_107-kalenda_xhtml"/>
+        <itemref idref="id_108-jacobi_xhtml"/>
+        <itemref idref="id_109-varo_xhtml"/>
+        <itemref idref="id_110-noticia_xhtml"/>
+        <itemref idref="id_111-navidena_xhtml"/>
+        <itemref idref="id_112-cetreria_xhtml"/>
+        <itemref idref="id_113-rey_xhtml"/>
+        <itemref idref="id_114-weininger_xhtml"/>
+        <itemref idref="id_115-metamorfosis_xhtml"/>
+        <itemref idref="id_116-cocktail_xhtml"/>
+        <itemref idref="id_117-trampa_xhtml"/>
+        <itemref idref="id_118-caballero_xhtml"/>
+        <itemref idref="id_119-post_xhtml"/>
+        <itemref idref="id_120-achtung_xhtml"/>
+        <itemref idref="id_121-lengua_xhtml"/>
+        <itemref idref="id_122-balada_xhtml"/>
+        <itemref idref="id_123-tu_xhtml"/>
+        <itemref idref="id_124-encuentro_xhtml"/>
+        <itemref idref="id_125-dama_xhtml"/>
+        <itemref idref="id_126-teoria_xhtml"/>
+        <itemref idref="id_127-epitalamio_xhtml"/>
+        <itemref idref="id_128-allons_xhtml"/>
+        <itemref idref="id_129-luna_xhtml"/>
+        <itemref idref="id_130-armisticio_xhtml"/>
+        <itemref idref="id_131-clausulas_xhtml"/>
+        <itemref idref="id_132-gravitacion_xhtml"/>
+        <itemref idref="id_133-prosodiaDivision_xhtml"/>
+        <itemref idref="id_134-prosodiaDedicatoria_xhtml"/>
+        <itemref idref="id_135-informe_xhtml"/>
+        <itemref idref="id_136-telemaquia_xhtml"/>
+        <itemref idref="id_137-infierno_xhtml"/>
+        <itemref idref="id_138-de_xhtml"/>
+        <itemref idref="id_139-una_xhtml"/>
+        <itemref idref="id_140-libertad_xhtml"/>
+        <itemref idref="id_141-ultimo_xhtml"/>
+        <itemref idref="id_142-elegia_xhtml"/>
+        <itemref idref="id_143-flor_xhtml"/>
+        <itemref idref="id_144-flash_xhtml"/>
+        <itemref idref="id_145-diamante_xhtml"/>
+        <itemref idref="id_146-mapa_xhtml"/>
+        <itemref idref="id_147-loco_xhtml"/>
+        <itemref idref="id_148-caverna_xhtml"/>
+        <itemref idref="id_149-bienes_xhtml"/>
+        <itemref idref="id_150-alarma_xhtml"/>
+        <itemref idref="id_151-interview_xhtml"/>
+        <itemref idref="id_152-sonado_xhtml"/>
+        <itemref idref="id_153-asesino_xhtml"/>
+        <itemref idref="id_154-cancion_xhtml"/>
+        <itemref idref="id_155-autrui_xhtml"/>
+        <itemref idref="id_156-epitafio_xhtml"/>
+        <itemref idref="id_157-lay_xhtml"/>
+        <itemref idref="id_158-condenado_xhtml"/>
+        <itemref idref="id_159-apuntes_xhtml"/>
+        <itemref idref="id_160-aproximacionesDivision_xhtml"/>
+        <itemref idref="id_161-familia_xhtml"/>
+        <itemref idref="id_162-sapo_xhtml"/>
+        <itemref idref="id_163-declaracion_xhtml"/>
+        <itemref idref="id_164-fondo_xhtml"/>
+        <itemref idref="id_165-puerco_xhtml"/>
+        <itemref idref="id_166-tristeza_xhtml"/>
+        <itemref idref="id_167-arana_xhtml"/>
+        <itemref idref="id_168-urdos_xhtml"/>
+        <itemref idref="id_169-octubre_xhtml"/>
+        <itemref idref="id_171-disolucion_xhtml"/>
+        <itemref idref="id_172-derivacion_xhtml"/>
+        <itemref idref="id_173-tristeza_xhtml"/>
+        <itemref idref="id_174-pensamiento_xhtml"/>
+        <itemref idref="id_175-libacion_xhtml"/>
+        <itemref idref="id_176-desde_xhtml"/>
+        <itemref idref="id_177-corimbo_xhtml"/>
+        <itemref idref="id_178-feriaParte_xhtml"/>
+        <itemref idref="id_179-feriaToda_xhtml"/>
+        <itemref idref="id_180-otrosParte_xhtml"/>
+        <itemref idref="id_181-veinte_xhtml"/>
+        <itemref idref="id_182-dialogo_xhtml"/>
+        <itemref idref="id_182N-dialogo_xhtml" linear="no"/>
+        <itemref idref="id_183-imaginario_xhtml"/>
+        <itemref idref="id_183N-imaginario_xhtml" linear="no"/>
+        <itemref idref="id_184-implantacion_xhtml"/>
+        <itemref idref="id_184-inedito_xhtml"/>
+        <itemref idref="id_184N-inedito_xhtml" linear="no"/>
+        <itemref idref="id_185-montaigne_xhtml"/>
+        <itemref idref="id_185N-montaigne_xhtml" linear="no"/>
+        <itemref idref="id_186-grupoParte_xhtml"/>
+        <itemref idref="id_187-notaEditor_xhtml"/>
+        <itemref idref="id_188-pedro_xhtml"/>
+        <itemref idref="id_189-andres_xhtml"/>
+        <itemref idref="id_190-santiagoMenor_xhtml"/>
+        <itemref idref="id_191-juan_xhtml"/>
+        <itemref idref="id_192-felipe_xhtml"/>
+        <itemref idref="id_193-bartolome_xhtml"/>
+        <itemref idref="id_194-tomas_xhtml"/>
+        <itemref idref="id_195-mateo_xhtml"/>
+        <itemref idref="id_196-santiagoMayor_xhtml"/>
+        <itemref idref="id_197-judas_xhtml"/>
+        <itemref idref="id_198-simon_xhtml"/>
+        <itemref idref="id_199-pablo_xhtml"/>
+        <itemref idref="id_200-indice_xhtml"/>
+        <itemref idref="id_201-contraportada_xhtml"/>
+    </spine>
+</package>
