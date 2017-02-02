@@ -50,7 +50,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -103,7 +103,7 @@ else
     abort
 end
 
-$carpeta = ArregloRuta $carpeta
+$carpeta = arregloRuta $carpeta
 
 # Se va a la carpeta para crear los archivos
 Dir.chdir($carpeta)

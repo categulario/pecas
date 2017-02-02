@@ -53,7 +53,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -106,7 +106,7 @@ if ARGF.argv.length < 1
     abort
 elsif ARGF.argv.length == 1
     $archivo = ARGF.argv[0]
-    $archivo = ArregloRuta $archivo
+    $archivo = arregloRuta $archivo
 
     if File.extname($archivo) != '.html' && File.extname($archivo) != '.xhtml'
         puts "\nSolo se permiten archivos HTML o XHTML.".red.bold
@@ -120,7 +120,7 @@ end
 # Obtiene la carpeta destino
 def carpetaDestino
     puts "\nArrastra la carpeta destino".blue
-    $carpeta = ArregloRuta $stdin.gets.chomp
+    $carpeta = arregloRuta $stdin.gets.chomp
 
     if $carpeta.strip == ""
         carpetaDestino
@@ -136,7 +136,7 @@ Dir.chdir($carpeta)
 def archivoCSSBusqueda
     puts "\nArrastra el archivo CSS si existe ".blue + "[dejar en blanco para ignorar]:".bold
     $archivoCSS = $stdin.gets.chomp
-    $archivoCSS = ArregloRuta $archivoCSS
+    $archivoCSS = arregloRuta $archivoCSS
     $archivoCSS = $archivoCSS.strip
 
     # Si se arrastró un archivo

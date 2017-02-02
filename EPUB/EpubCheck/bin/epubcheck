@@ -50,7 +50,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -106,7 +106,7 @@ end
 
 $version = ARGF.argv[0].to_i
 $epub = ARGF.argv[1]
-$epub = ArregloRuta $epub
+$epub = arregloRuta $epub
 
 # Obtiene la ruta absoluta
 path = File.dirname(__FILE__)

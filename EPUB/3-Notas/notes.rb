@@ -50,7 +50,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -103,7 +103,7 @@ elsif ARGF.argv.length == 1 || ARGF.argv.length == 2
         $archivoNotas = ARGF.argv[1]
     end
 
-    $archivoNotas = ArregloRuta $archivoNotas
+    $archivoNotas = arregloRuta $archivoNotas
 
     if $archivoNotas.split(".").last != "txt"
         puts "\nEl archivo indicado no tiene extensión .txt.".red.bold
@@ -120,7 +120,7 @@ def carpetaBusqueda
         $carpeta = $carpeta.gsub('\\', '/')
     end
 
-    $carpeta = ArregloRuta $carpeta
+    $carpeta = arregloRuta $carpeta
     $separacionesCarpeta = $carpeta.split($divisor).length
 
     # Se parte del supuesto de que no hay archivos xhtml, html o tex
@@ -139,7 +139,7 @@ def carpetaBusqueda
                 $archivosExistentesHTML = true
             end
 
-            archivo = ArregloRuta File.expand_path(archivo).to_s
+            archivo = arregloRuta File.expand_path(archivo).to_s
 
             # Se agregan los archivos a un conjunto que servirá para verificar la cantidad de notas y para agregarlas
             $archivos.push(archivo)
@@ -518,7 +518,7 @@ else
     def archivoCSSBusqueda
         puts "\nArrastra el archivo CSS si existe ".blue + "[dejar en blanco para ignorar]:".bold
         $archivoCSS = $stdin.gets.chomp
-        $archivoCSS = ArregloRuta $archivoCSS
+        $archivoCSS = arregloRuta $archivoCSS
         $archivoCSS = $archivoCSS.strip
 
         # Si se arrastró un archivo

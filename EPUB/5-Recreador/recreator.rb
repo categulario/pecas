@@ -52,7 +52,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -114,7 +114,7 @@ def carpetaBusqueda
         $carpeta = $carpeta.gsub('\\', '/')
     end
 
-    $carpeta = ArregloRuta $carpeta
+    $carpeta = arregloRuta $carpeta
 
     # Se parte del supuesto de que la carpeta no es para un EPUB
     epub = false
@@ -155,7 +155,7 @@ ruta.each do |parte|
     end
 end
 
-rutaPadre = ArregloRuta rutaPadre
+rutaPadre = arregloRuta rutaPadre
 
 # Verifica si existe un archivo oculto de metadatos
 Dir.chdir($carpeta)

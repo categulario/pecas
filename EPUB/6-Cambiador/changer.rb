@@ -52,7 +52,7 @@ class String
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def ArregloRuta (elemento)
+def arregloRuta (elemento)
     if elemento[-1] == ' '
         elemento = elemento[0...-1]
     end
@@ -99,7 +99,7 @@ end
 $rutaEpub = ARGF.argv[0]
 $version = ARGF.argv[1]
 
-$rutaConEpub = ArregloRuta $rutaEpub
+$rutaConEpub = arregloRuta $rutaEpub
 
 # Elementos comunes
 $divisor = '/'
