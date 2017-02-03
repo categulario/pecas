@@ -6,6 +6,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Variables
 $divisor = '/'
@@ -489,21 +490,7 @@ else
 
     # Crea el archivo $archivoCreado
     archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
-
-    archivoNotes.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    archivoNotes.puts "<!DOCTYPE html>"
-    archivoNotes.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
-    archivoNotes.puts "    <head>"
-    archivoNotes.puts "        <meta charset=\"UTF-8\" />"
-    archivoNotes.puts "        <title>Notas</title>"
-
-    # Añade la ruta al CSS si se indicó el archivo
-    if $rutaCSS != ""
-        archivoNotes.puts "        <link rel=\"stylesheet\" href=\"#{$rutaCSS}\" />"
-    end
-
-    archivoNotes.puts "    </head>"
-    archivoNotes.puts "    <body epub:type=\"footnotes\">"
+	archivoNotes.puts xhtmlTemplateHead $lenguaje, "Notas", $rutaCSS, "footnotes"
     archivoNotes.puts "        <h1>Notas</h1>"
 
     # Ayuda a detectar si existe un cambio de ruta
@@ -512,8 +499,7 @@ else
     # Añade las notas
     adicion archivoNotes
 
-    archivoNotes.puts "    </body>"
-    archivoNotes.puts "</html>"
+    archivoNotes.puts $xhtmlTemplateFoot
 
     archivoNotes.close
 end

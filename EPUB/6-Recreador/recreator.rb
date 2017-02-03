@@ -8,6 +8,7 @@ require 'fileutils'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
@@ -898,14 +899,7 @@ $archivosNcx.push('        <text>' + $creador + '</text>')
 $archivosNcx.push('    </docAuthor>')
 $archivosNcx.push('    <navMap>')
 
-$archivosNav.push('<?xml version="1.0" encoding="UTF-8"?>')
-$archivosNav.push('<!DOCTYPE html>')
-$archivosNav.push('<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="' + $lenguaje + '" lang="' + $lenguaje + '">')
-$archivosNav.push('    <head>')
-$archivosNav.push('        <meta charset="UTF-8" />')
-$archivosNav.push('        <title>' + $titulo + '</title>')
-$archivosNav.push('    </head>')
-$archivosNav.push('    <body>')
+$archivosNav.push(xhtmlTemplateHead $lenguaje, $titulo)
 $archivosNav.push('        <nav epub:type="toc">')
 $archivosNav.push('            <ol>')
 
@@ -995,8 +989,7 @@ if $nombreYpaginas.length > 0
 end
 
 # Añade los últimos elementos del nav
-$archivosNav.push('    </body>')
-$archivosNav.push('</html>')
+$archivosNav.push($xhtmlTemplateFoot)
 
 # Mete los cambios a los archivos actuales
 def Recreador (comparativo, archivosToc)

@@ -7,6 +7,7 @@ require 'active_support/inflector'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Para detectar que es un número entero; viene de: http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
 class String
@@ -190,27 +191,12 @@ def creacion
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
-    archivo.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    archivo.puts "<!DOCTYPE html>"
-    archivo.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lenguaje}\" lang=\"#{$lenguaje}\">"
-    archivo.puts "    <head>"
-    archivo.puts "        <meta charset=\"UTF-8\" />"
-    archivo.puts "        <title>" + $objeto.titulo + "</title>"
-    if $rutaCSS != ""
-        archivo.puts "        <link href=\"#{$rutaCSS}\" rel=\"stylesheet\" type=\"text/css\" />"
-    end
-    archivo.puts "    </head>"
-    if $epubType == ""
-        archivo.puts "    <body>"
-    else
-        archivo.puts "    <body epub:type=\"#{$epubType}\">"
-    end
+    archivo.puts xhtmlTemplateHead $lenguaje, $objeto.titulo, $rutaCSS, $epubType
     archivo.puts "        " + $objeto.encabezado
     $objeto.contenido.each do |linea|
         archivo.puts "        " + linea
     end
-    archivo.puts "    </body>"
-    archivo.puts "</html>"
+    archivo.puts $xhtmlTemplateFoot
     archivo.close
 
     # Para aumentar la numeración
