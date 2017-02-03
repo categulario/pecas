@@ -1,7 +1,9 @@
-# Otros archivos
+# Otros
 
-Aquí se colocan el *software* no elaborado por Perro Triste pero que en algunas
-ocasiones son necesarios para las herramientas que desarrolla este perro.
+Aquí están presentes algunos archivos opcionales o *scripts* secundarios 
+a estas herramientas.
 
-**Solo es para archivo, se recomienda descargarlos desde sus sitios oficiales,
-que se señalan en cada caso.**
+**CUIDADO**: cambiar el nombre a esta carpeta, o a la carpeta `secundarios` 
+y sus contenidos provocará la necesidad de revincularlos en cada uno de 
+los *scripts* principales. Si no estás seguro de lo que esto significa,
+no modifiques el nombre de ninguno de estos directorios.

@@ -4,8 +4,6 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-### GENERALES ###
-
 # Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
 module OS
     def OS.windows?
@@ -70,61 +68,4 @@ def arregloRuta (elemento)
     elementoFinal = elementoFinal.encode!(Encoding::UTF_8)
 
     return elementoFinal
-end
-
-### SCRIPT ###
-
-# Variables
-
-$directorio
-$lenguaje
-$nombre
-
-ARGF.argv.each_cons(2) do |p1, p2|
-	if p1 == "-d"
-		$directorio = p2
-	elsif p1 == "-l"
-		$lenguaje = p2
-	elsif p1 == "-o"
-		$nombre = p2
-	end
-end
-
-def comprobacion conjunto
-	conjunto.each do |e|
-		if e == nil
-			puts "ERROR"
-		end
-	end
-end
-
-comprobacion [$directorio, $lenguaje, $nombre]
-
-# -d = directorio que contiene las imágenes
-# -l = lenguaje a detectar
-# -o = nombre del archivo de salida
-
-abort
-
-puts "\nEste script ayuda a utilizar Tesseract en múltiples archivos PNG o TIF contenidos en una misma carpeta."
-puts "Requiere tener Tesseract instalado."
-puts "No olvides estar en el directorio donde quieres los archivos de salida."
-puts "\nEscribe el prefijo del lenguaje a detectar (por ejemplo: spa; véase más prefijos en: http://manpages.ubuntu.com/manpages/precise/man1/tesseract.1.html#contenttoc4)"
-lenguaje = gets.chomp
-puts "\nArrastra la carpeta que contiene las imágenes"
-carpeta = gets.chomp
-
-if carpeta[-1] == " "
-    carpeta = carpeta[0...-1]
-end
-
-Dir.foreach(carpeta.gsub('\ ', ' ').gsub('\'', '')) do |archivo|
-  if File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
-      puts "\nEjecutando Tesseract para: #{archivo}"
-      comando = system ("tesseract -l #{lenguaje} #{carpeta + "/" + archivo.gsub(' ', '\ ')} #{archivo.gsub(' ', '\ ').gsub('.png', '').gsub('.tiff', '').gsub('.tif', '')}")
-      comando2 = system ("tesseract -l #{lenguaje} #{carpeta + "/" + archivo.gsub(' ', '\ ')} #{archivo.gsub(' ', '\ ').gsub('.png', '').gsub('.tiff', '').gsub('.tif', '')} pdf")
-      if comando == false or comando2 == false
-          puts "Al parecer tu sistema no tiene instalado Tesseract..."
-      end
-  end
 end
