@@ -47,8 +47,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * `pt-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
 * `pt-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
 * `pt-cites` llama a `cites.rb`, cuya documentación se encuentra en [`EPUB/4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
-* `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/5-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Recreador).
-* `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/6-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Cambiador).
+* `pt-index` llama a `index.rb`, cuya documentación se encuentra en [`EPUB/5-Indice`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Indice).
+* `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/6-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Recreador).
+* `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
 
     Si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
@@ -86,8 +87,6 @@ repositorio contiene espacios.
   * `changer.rb`.
     * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos.
     * ¿Compatibilidad para versión EPUB 2.0.1?
-  * `index.rb`.
-    * Añadir este séptimo `script` para la creación de índices analíticos.
 
 # Licencia
 

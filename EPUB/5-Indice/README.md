@@ -1,4 +1,4 @@
-# Cites.rb
+# Index.rb
 
 ## Índice
 
@@ -11,8 +11,7 @@
 
 ## Descripción
 
-Este *script* agrega de manera automatizada la bibliografía en formato `.bib`
-([BibTeX](http://www.bibtex.org/)) a un libro EPUB.
+Este *script* agrega índices analíticos a un libro EPUB.
 
 ## Uso
 
@@ -20,7 +19,7 @@ Este *script* agrega de manera automatizada la bibliografía en formato `.bib`
 
 <!-- ###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta del EPUB.
 
-Para mayor comodidad en el *shell* arrastra el archivo `cites.rb` y después
+Para mayor comodidad en el *shell* arrastra el archivo `index.rb` y después
 haz lo mismo con la carpeta del EPUB.
 
     Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
