@@ -13,6 +13,10 @@ popd  > /dev/null
 # Para generar la ruta a la carpeta bin
 SCRIPT_PATH="${SCRIPT_PATH}/bin"
 
+# Sustituye los espacios en la ruta
+space="\\ "
+SCRIPT_PATH=${SCRIPT_PATH// /$space}
+
 # Para localizar dónde se encuentra el perfil; viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if [[ -f ~/.bash_profile ]]; then
   profile_script_short="~/.bash_profile"
@@ -24,7 +28,7 @@ elif [[ -f ~/.profile ]]; then
   profile_script_short="~/.profile"
   profile_script_full=~/.profile
 else
-  echo "FATAL: archivo de inicialización de usuario no encontrado." 1>&2
+  echo "FATAL: archivo de inicialización de usuario no encontrado. Ingresa: touch ~/.bash_profile" 1>&2
   exit 1
 fi
 
