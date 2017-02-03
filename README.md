@@ -42,12 +42,13 @@ de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencil
 
 Solo es necesario escribir el nombre del binario para llamar al script:
 
-* `pt-creator` llama a `creator.rb`, cuya documentación se encuentra en [`1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
-* `pt-divider` llama a `divider.rb`, cuya documentación se encuentra en [`2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
-* `pt-notes` llama a `notes.rb`, cuya documentación se encuentra en [`3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
-* `pt-cites` llama a `cites.rb`, cuya documentación se encuentra en [`4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
-* `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`5-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Recreador).
-* `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`6-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Cambiador).
+* `pt-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
+* `pt-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
+* `pt-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
+* `pt-cites` llama a `cites.rb`, cuya documentación se encuentra en [`EPUB/4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
+* `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/5-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Recreador).
+* `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/6-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Cambiador).
+* `pt-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
 
     Si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
