@@ -46,7 +46,7 @@ adicionales a los EPUB, se encuentran en la carpeta
 [EpubCheck](https://github.com/IDPF/epubcheck) es la herramienta de 
 validación de EPUB de [IDPF](http://idpf.org/).
 
-Esta carpeta contiene las versiones 3.0.1 y 4.0.0 de EpubCheck que 
+Esta carpeta contiene las versiones 3.0.1 y 4.0.2 de EpubCheck que 
 pueden descargar desde su repositorio. La ventaja de esta carpeta es
 que existe un binario para poder utilizar epubcheck de manera más 
 sencilla.

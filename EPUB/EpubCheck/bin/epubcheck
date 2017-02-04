@@ -53,7 +53,7 @@ pathArray = pathArray.join("/")
 if $version == 3
     epubcheck = pathArray + "/3-0-1/epubcheck.jar"
 else
-    epubcheck = pathArray + "/4-0-0/epubcheck.jar"
+    epubcheck = pathArray + "/4-0-2/epubcheck.jar"
 end
 
 # Llama a EpubCheck
