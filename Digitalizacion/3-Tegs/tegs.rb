@@ -89,14 +89,26 @@ Dir.chdir $directorio
 $txts = Array.new
 $pdfs = Array.new	# Solo para Windows
 
+# Cuenta la cantidad de archivos a reconocer
+total = 0
+Dir.foreach($directorio) do |archivo|
+	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
+		total = total + 1
+	end
+end
+
 # Inicia Tesseract
+actual = 0
 Dir.foreach($directorio) do |archivo|
 	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
   
 		archivo_sin_extension = archivo.split(".").first
 		
-		begin		
-			puts "\nReconociendo #{archivo}..."
+		actual = actual + 1
+		
+		begin
+			puts "\nProcesando #{actual} de #{total}.".green.bold
+			puts "\nReconociendo #{archivo}...".green
 			
 			if OS.windows?
 				$pdfs.push(".#{archivo_sin_extension}.pdf")
@@ -106,7 +118,7 @@ Dir.foreach($directorio) do |archivo|
 			`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
 			
 			if $txt
-				puts "\nExtrayendo texto de #{archivo}..."
+				puts "\nExtrayendo texto de #{archivo}...".green
 				
 				# Crea un TXT con OCR
 				`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension}`
@@ -122,7 +134,7 @@ end
 
 # Inicia Ghostscript
 begin
-	puts "\nUniendo archivos pdf, esta operación puede durar varios minutos..."
+	puts "\nUniendo archivos pdf, esta operación puede durar varios minutos...".green
 	
 	# PDFS a PDF
 	if OS.windows?
@@ -133,7 +145,7 @@ begin
 	end
 	
 	if $comprimido
-		puts "\nComprimiendo #{$nombre}.pdf, esta operación puede durar varios minutos..."
+		puts "\nComprimiendo #{$nombre}.pdf, esta operación puede durar varios minutos...".green
 		
 		# PDF a PDF comprimido
 		if OS.windows?
@@ -149,7 +161,7 @@ end
 
 # Extrae el texto
 if $txt
-	puts "\nUniendo archivos txt..."
+	puts "\nUniendo archivos txt...".green
 	
 	# Ordena el conjunto
 	$txts = $txts.sort
@@ -169,7 +181,7 @@ if $txt
 end
 
 # Elimina los archivos innecesarios
-puts "\nLimpiando directorio..."
+puts "\nLimpiando directorio...".green
 Dir.foreach($directorio) do |archivo|
 	if File.extname(archivo) == '.pdf' or File.extname(archivo) == '.txt'
 		if archivo[0] == "."
@@ -179,4 +191,5 @@ Dir.foreach($directorio) do |archivo|
 	end
 end
 
-puts "\n¡Operación finalizada exitosamente!".green.bold
+puts "\n¡Operación finalizada exitosamente!".blue.bold
+puts "\n"
