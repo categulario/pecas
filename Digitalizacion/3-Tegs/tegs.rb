@@ -16,6 +16,7 @@ $nombre
 $comprimido_texto = "comprimido"
 $txt = false
 $comprimido = false
+$gswin = "64"
 
 # Obtiene los argumentos
 ARGF.argv.each_with_index do |p, i|
@@ -29,6 +30,8 @@ ARGF.argv.each_with_index do |p, i|
 		$txt = true
 	elsif p == "-c"
 		$comprimido = true
+	elsif p == "-32"
+		$gswin = "32"
 	elsif p == "-v"
 		puts "tegs 0.1.0"
 		abort
@@ -43,6 +46,7 @@ ARGF.argv.each_with_index do |p, i|
 		puts "\nParámetros opcionales:"
 		puts "  -t = [text] Crea un TXT adicional al PDF creado."
 		puts "  -c = [compressed] Crea un PDF comprimido adcional al PDF creado."
+		puts "  -32 = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits."
 		puts "\nParámetros únicos:"
 		puts "  -v = [version] Muestra la versión."
 		puts "  -h = [help] Muestra esta ayuda."
@@ -83,15 +87,21 @@ Dir.chdir $directorio
 
 # Conjunto para los archivos de texto
 $txts = Array.new
+$pdfs = Array.new	# Solo para Windows
 
 # Inicia Tesseract
 Dir.foreach($directorio) do |archivo|
 	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
   
 		archivo_sin_extension = archivo.split(".").first
-
+		
 		begin		
 			puts "\nReconociendo #{archivo}..."
+			
+			if OS.windows?
+				$pdfs.push(".#{archivo_sin_extension}.pdf")
+			end
+			
 			# Crea un PDF con OCR
 			`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
 			
@@ -115,13 +125,22 @@ begin
 	puts "\nUniendo archivos pdf, esta operación puede durar varios minutos..."
 	
 	# PDFS a PDF
-	`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}.pdf .*.pdf`
+	if OS.windows?
+		$pdfs = $pdfs.sort
+		`gswin#{$gswin}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}.pdf #{$pdfs.join(" ")}`
+	else
+		`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}.pdf .*.pdf`
+	end
 	
 	if $comprimido
 		puts "\nComprimiendo #{$nombre}.pdf, esta operación puede durar varios minutos..."
 		
 		# PDF a PDF comprimido
-		`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$comprimido_texto}.pdf #{$nombre}.pdf`
+		if OS.windows?
+			`gswin#{$gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$comprimido_texto}.pdf #{$nombre}.pdf`
+		else
+			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$comprimido_texto}.pdf #{$nombre}.pdf`
+		end
 	end
 rescue
 	puts "\nAl parecer tu sistema no tiene instalado Ghostscript...".red.bold
