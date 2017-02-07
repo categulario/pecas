@@ -8,6 +8,7 @@ require 'fileutils'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Obtiene los argumentos necesarios
@@ -37,7 +38,6 @@ end
 $titulo = ''
 identificadorLibro = ''
 $creador = ''
-$lenguaje = ''
 
 # Identifica el nav
 $nav = ''
@@ -205,7 +205,6 @@ def metadatosTodo
     Metadatos "\nEditorial", "dc:publisher"
     Metadatos "\nSinopsis", "dc:description"
     Metadatos "\nTema " + "(ejemplo: Ficción, Novela)".bold, "dc:subject"
-    Metadatos "\nLenguaje " + "(ejemplo: es)".bold, "dc:language"
     Metadatos "\nVersión " + "(ejemplo: 1.0.0)".bold, "dc:identifier"
 
     # Asigna el nombre de la portada para ponerle su atributo
@@ -406,6 +405,7 @@ espina = Array.new
 
 # Inicia la creación de los metadatos
 metadatos.push('    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">')
+metadatos.push('        <dc:language>' + $lang + '</dc:language>')
 
 # Añade cada uno de los metadatos
 $metadatosInicial.each do |dc|
@@ -420,8 +420,6 @@ $metadatosInicial.each do |dc|
             conjunto[0] = identificadorLibro
         elsif conjunto[1] == 'dc:creator'
             $creador = conjunto[0]
-        elsif conjunto[1] == 'dc:language'
-            $lenguaje = conjunto[0]
         end
         metadatos.push('        <' + conjunto[1] + uid + '>' + conjunto[0] + '</' + conjunto[1] + '>')
     end
@@ -657,7 +655,7 @@ Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
 
         # Añade los primeros elementos necesarios
         opf.puts '<?xml version="1.0" encoding="UTF-8"?>'
-        opf.puts '<package xmlns="http://www.idpf.org/2007/opf" xml:lang="' + $lenguaje + '" unique-identifier="uid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" version="3.0">'
+        opf.puts '<package xmlns="http://www.idpf.org/2007/opf" xml:lang="' + $lang + '" unique-identifier="uid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" version="3.0">'
 
         # Añade los metadatos
         metadatos.each do |lineaMetadatos|
@@ -884,7 +882,7 @@ $archivosNav = Array.new
 
 # Añade los primeros elementos de los tocs
 $archivosNcx.push('<?xml version="1.0" encoding="UTF-8" standalone="no" ?>')
-$archivosNcx.push('<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="' + $lenguaje + '">')
+$archivosNcx.push('<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="' + $lang + '">')
 $archivosNcx.push('    <head>')
 $archivosNcx.push('        <meta content="' + identificadorLibro + '" name="dtb:uid"/>')
 $archivosNcx.push('        <meta content="1" name="dtb:depth"/>')
@@ -899,7 +897,7 @@ $archivosNcx.push('        <text>' + $creador + '</text>')
 $archivosNcx.push('    </docAuthor>')
 $archivosNcx.push('    <navMap>')
 
-$archivosNav.push(xhtmlTemplateHead $lenguaje, $titulo)
+$archivosNav.push(xhtmlTemplateHead $titulo)
 $archivosNav.push('        <nav epub:type="toc">')
 $archivosNav.push('            <ol>')
 

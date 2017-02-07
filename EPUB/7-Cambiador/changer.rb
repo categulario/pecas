@@ -8,6 +8,7 @@ require 'fileutils'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length <= 1

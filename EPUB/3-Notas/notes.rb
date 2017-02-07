@@ -6,6 +6,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Variables
@@ -15,7 +16,6 @@ $noteRegEx = /ººnote(.*?)ºº/
 $archivos = Array.new
 $rutasRelativas = Array.new
 $archivoCreado = "9999-notes.xhtml"
-$lenguaje = "es"
 $archivoNotas = ""
 $archivoCSS = ""
 $carpeta = ""
@@ -490,7 +490,7 @@ else
 
     # Crea el archivo $archivoCreado
     archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
-	archivoNotes.puts xhtmlTemplateHead $lenguaje, "Notas", $rutaCSS, "footnotes"
+	archivoNotes.puts xhtmlTemplateHead "Notas", $rutaCSS, "footnotes"
     archivoNotes.puts "        <h1>Notas</h1>"
 
     # Ayuda a detectar si existe un cambio de ruta

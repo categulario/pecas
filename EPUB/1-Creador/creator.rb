@@ -6,13 +6,13 @@ Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/css-template.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Variables
 $divisor = '/'
 $comillas = '\''
-$lenguaje = "es"
 $carpetaPadre = "EPUB-CREATOR"
 $carpetaMeta = "META-INF"
 $carpetaOPS = "OPS"
@@ -123,7 +123,7 @@ Dir.chdir($carpeta + $divisor + $carpetaXhtml)
 
 # Crea la portadilla
 portadilla = File.new("001-portadilla.xhtml", "w:UTF-8")
-portadilla.puts xhtmlTemplateHead $lenguaje, $portadilla, "../#{$carpetaCss}/styles.css", "titlepage"
+portadilla.puts xhtmlTemplateHead $portadilla, "../#{$carpetaCss}/styles.css", "titlepage"
 portadilla.puts "        <h1 class=\"centrado titulo\">Título</h1>"
 portadilla.puts "        <p class=\"centrado\">Autor</p>"
 portadilla.puts $xhtmlTemplateFoot
@@ -131,7 +131,7 @@ portadilla.close
 
 # Crea la legal
 legal = File.new("002-legal.xhtml", "w:UTF-8")
-legal.puts xhtmlTemplateHead $lenguaje, $legal, "../#{$carpetaCss}/styles.css", "copyright-page"
+legal.puts xhtmlTemplateHead $legal, "../#{$carpetaCss}/styles.css", "copyright-page"
 legal.puts "	    <p class=\"legal\"><i>Título</i></p>"
 legal.puts "	    <p class=\"legal\">Editorial</p>"
 legal.puts "	    <br /><br />"

@@ -7,6 +7,7 @@ require 'active_support/inflector'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Para detectar que es un número entero; viene de: http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
@@ -19,7 +20,6 @@ end
 # Elementos generales
 $divisor = '/'
 $comillas = '\''
-$lenguaje = "es"
 $archivo = ""
 $carpeta = ""
 $rutaCSS = ""
@@ -191,7 +191,7 @@ def creacion
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
-    archivo.puts xhtmlTemplateHead $lenguaje, $objeto.titulo, $rutaCSS, $epubType
+    archivo.puts xhtmlTemplateHead $objeto.titulo, $rutaCSS, $epubType
     archivo.puts "        " + $objeto.encabezado
     $objeto.contenido.each do |linea|
         archivo.puts "        " + linea
