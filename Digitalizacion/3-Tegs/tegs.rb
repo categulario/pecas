@@ -14,7 +14,6 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 $directorio
 $lenguaje
 $nombre
-$comprimido_texto = "comprimido"
 $txt = false
 $comprimido = false
 $gswin = "64"
@@ -34,35 +33,10 @@ ARGF.argv.each_with_index do |p, i|
 	elsif p == "-32"
 		$gswin = "32"
 	elsif p == "-v"
-		puts "tegs 0.1.0"
+		puts $l_tg_v
 		abort
 	elsif p == "-h"
-		puts "\nTegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con OCR o TXT a partir de imágenes TIFF, PNG o BMP."
-		puts "\nUso:"
-		puts "  pt-tegs -d [directorio] -l [idioma] -o [nombre del archivo]"
-		puts "\nParámetros necesarios:"
-		puts "  -d = [directory] Directorio que contiene las imágenes."
-		puts "  -l = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages"
-		puts "  -o = [output] Nombre para el o los archivos que se crearán."
-		puts "\nParámetros opcionales:"
-		puts "  -t = [text] Crea un TXT adicional al PDF creado."
-		puts "  -c = [compressed] Crea un PDF comprimido adcional al PDF creado."
-		puts "  -32 = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits."
-		puts "\nParámetros únicos:"
-		puts "  -v = [version] Muestra la versión."
-		puts "  -h = [help] Muestra esta ayuda."
-		puts "\nEjemplo sencillo:"
-		puts "  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba"
-		puts "  Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en «directorio/de/las/imágenes»."
-		puts "\nEjemplo con PDF comprimido:"
-		puts "  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -c"
-		puts "  Además del PDF con OCR, se crea otro PDF con compresión."
-		puts "\nEjemplo con archivo de texto:"
-		puts "  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -t"
-		puts "  Además del PDF con OCR, se crea un archivo de texto con el contenido de las imágenes."
-		puts "\nEjemplo con PDF comprimido y archivo de texto:"
-		puts "  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -c -t"
-		puts "  Además del PDF con OCR, se crea otro PDF con compresión y un archivo de texto."
+		puts $l_tg_h
 		abort
 	end
 end
@@ -71,7 +45,7 @@ end
 def comprobacion conjunto
 	conjunto.each do |e|
 		if e == nil
-			puts "\nArgumentos insuficientes.".red.bold
+			puts $l_g_error_arg
 			abort
 		end
 	end
@@ -106,11 +80,11 @@ Dir.foreach($directorio) do |archivo|
 		archivo_sin_extension = archivo.split(".").first
 		
 		actual = actual + 1
-		
+
 		begin
-			puts "\nProcesando #{actual} de #{total}.".green.bold
-			puts "\nReconociendo #{archivo}...".green
-			
+			puts "#{$l_tg_procesando[0] + actual.to_s + $l_tg_procesando[1] + total.to_s + $l_tg_procesando[2]}".green.bold
+			puts "#{$l_tg_reconociendo[0] + archivo + $l_tg_reconociendo[1]}".green
+
 			if OS.windows?
 				$pdfs.push(".#{archivo_sin_extension}.pdf")
 			end
@@ -119,7 +93,7 @@ Dir.foreach($directorio) do |archivo|
 			`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
 			
 			if $txt
-				puts "\nExtrayendo texto de #{archivo}...".green
+				puts "#{$l_tg_extrayendo[0] + archivo + $l_tg_extrayendo[1]}".green
 				
 				# Crea un TXT con OCR
 				`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension}`
@@ -127,7 +101,7 @@ Dir.foreach($directorio) do |archivo|
 				$txts.push(".#{archivo_sin_extension}.txt")
 			end
 		rescue
-			puts "\nAl parecer tu sistema no tiene instalado Tesseract...".red.bold
+			puts $l_tg_error_te
 			abort
 		end
 	end
@@ -135,8 +109,8 @@ end
 
 # Inicia Ghostscript
 begin
-	puts "\nUniendo archivos pdf, esta operación puede durar varios minutos...".green
-	
+	puts $l_tg_uniendo_pdf
+
 	# PDFS a PDF
 	if OS.windows?
 		$pdfs = $pdfs.sort
@@ -146,23 +120,23 @@ begin
 	end
 	
 	if $comprimido
-		puts "\nComprimiendo #{$nombre}.pdf, esta operación puede durar varios minutos...".green
+		puts "#{$l_tg_comprimiendo[0] + $nombre + $l_tg_comprimiendo[1]}".green
 		
 		# PDF a PDF comprimido
 		if OS.windows?
-			`gswin#{$gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$comprimido_texto}.pdf #{$nombre}.pdf`
+			`gswin#{$gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$l_tg_comprimido}.pdf #{$nombre}.pdf`
 		else
-			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$comprimido_texto}.pdf #{$nombre}.pdf`
+			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$l_tg_comprimido}.pdf #{$nombre}.pdf`
 		end
 	end
 rescue
-	puts "\nAl parecer tu sistema no tiene instalado Ghostscript...".red.bold
+	puts $l_tg_error_gs
 	abort
 end
 
 # Extrae el texto
 if $txt
-	puts "\nUniendo archivos txt...".green
+	puts $l_tg_uniendo_txt
 	
 	# Ordena el conjunto
 	$txts = $txts.sort
@@ -182,7 +156,7 @@ if $txt
 end
 
 # Elimina los archivos innecesarios
-puts "\nLimpiando directorio...".green
+puts $l_tg_limpiando
 Dir.foreach($directorio) do |archivo|
 	if File.extname(archivo) == '.pdf' or File.extname(archivo) == '.txt'
 		if archivo[0] == "."
@@ -192,5 +166,4 @@ Dir.foreach($directorio) do |archivo|
 	end
 end
 
-puts "\n¡Operación finalizada exitosamente!".blue.bold
-puts "\n"
+puts $l_g_fin

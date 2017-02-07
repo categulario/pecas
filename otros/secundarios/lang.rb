@@ -4,6 +4,8 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
+require "json"
+
 $lang = "es"
 
 # Para colorear el texto; viene de: http://stackoverflow.com/questions/1489183/colorized-ruby-output
@@ -32,3 +34,27 @@ class String
     def blink;          "\e[5m#{self}\e[25m" end
     def reverse_color;  "\e[7m#{self}\e[27m" end
 end
+
+# Obtiene el JSON
+json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json")
+langObj = JSON.parse(json)
+
+# GENERALES
+
+$l_g_error_arg = langObj["general"]["error_arg"].red.bold
+$l_g_fin = langObj["general"]["fin"].blue.bold
+
+# TEGS
+
+$l_tg_v = langObj["tegs"]["v"]
+$l_tg_h = langObj["tegs"]["h"]
+$l_tg_comprimido = langObj["tegs"]["comprimido"]
+$l_tg_procesando = langObj["tegs"]["procesando"]
+$l_tg_reconociendo = langObj["tegs"]["reconociendo"]
+$l_tg_extrayendo = langObj["tegs"]["extrayendo"]
+$l_tg_uniendo_pdf = langObj["tegs"]["uniendo_pdf"].green
+$l_tg_comprimiendo = langObj["tegs"]["comprimiendo"]
+$l_tg_uniendo_txt = langObj["tegs"]["uniendo_txt"].green
+$l_tg_limpiando = langObj["tegs"]["limpiando"].green
+$l_tg_error_te = langObj["tegs"]["error"]["te"].red.bold
+$l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
