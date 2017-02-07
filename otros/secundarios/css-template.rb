@@ -215,12 +215,12 @@ b, strong {
 	font-weight: bold;
 }
 
-.versales {
+.versal {
 	text-transform: uppercase;
 }
 
 @media not amzn-mobi {	/* Para cualquier dispositivo excepto Mobi */
-	.versalitas {
+	.versalita {
         font-variant: small-caps;
     	-moz-hyphens: auto;
         -webkit-hyphens: auto;
@@ -231,7 +231,7 @@ b, strong {
 }
 
 @media amzn-mobi {	/* Para Mobi ya que no soporta el atributo «font-variant» */
-	.versalitas {
+	.versalita {
     	text-transform: uppercase;
     	font-size: .8em;
     	-moz-hyphens: auto;
