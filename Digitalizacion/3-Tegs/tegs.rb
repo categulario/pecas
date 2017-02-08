@@ -10,47 +10,17 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 
 ## REQUIERE TESSERACT y GHOSTSCRIPT
 
-# Variables
-directorio = nil
-lenguaje = nil
-nombre = nil
-txt = false
-comprimido = false
-gswin = "64"
-
-# Obtiene los argumentos
-ARGF.argv.each_with_index do |p, i|
-	if p == "-d"
-		directorio = ARGF.argv[i+1]
-	elsif p == "-l"
-		lenguaje = ARGF.argv[i+1]
-	elsif p == "-o"
-		nombre = ARGF.argv[i+1]
-	elsif p == "-t"
-		txt = true
-	elsif p == "-c"
-		comprimido = true
-	elsif p == "-32"
-		gswin = "32"
-	elsif p == "-v"
-		puts $l_tg_v
-		abort
-	elsif p == "-h"
-		puts $l_tg_h
-		abort
-	end
-end
+# Argumentos
+directorio = argumento "-d", directorio
+lenguaje = argumento "-l", lenguaje
+nombre = argumento "-o", nombre
+version = argumento "-v", $l_tg_v
+ayuda = argumento "-h", $l_tg_h
+txt = argumento "-t", txt, 1
+comprimido = argumento "-c", comprimido, 1
+gswin32 = argumento "-32", gswin32, 1
 
 # Comprueba que existan los argumentos necesarios
-def comprobacion conjunto
-	conjunto.each do |e|
-		if e == nil
-			puts $l_g_error_arg
-			abort
-		end
-	end
-end
-
 comprobacion [directorio, lenguaje, nombre]
 
 # Arregla los contenidos de la variable para evitar conflictos
@@ -114,7 +84,7 @@ begin
 	# PDFS a PDF
 	if OS.windows?
 		pdfs = pdfs.sort
-		`gswin#{gswin}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf #{pdfs.join(" ")}`
+		`gswin#{gswin32 == nil ? "64" : "32"}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf #{pdfs.join(" ")}`
 	else
 		`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf .*.pdf`
 	end
@@ -124,7 +94,7 @@ begin
 		
 		# PDF a PDF comprimido
 		if OS.windows?
-			`gswin#{gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
+			`gswin#{gswin32 == nil ? "64" : "32"}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
 		else
 			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
 		end

@@ -42,7 +42,13 @@ langObj = JSON.parse(json)
 # GENERALES
 
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
+$l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
 $l_g_fin = langObj["general"]["fin"].blue.bold
+
+# Archivo madre
+
+$l_pg_v = langObj["pandog"]["v"]
+$l_pg_h = langObj["pandog"]["h"]
 
 # TEGS
 

@@ -4,6 +4,9 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
+# Funciones y módulos comunes a todas las herramientas
+require File.dirname(__FILE__) + "/../secundarios/lang.rb"
+
 ## MÓDULOS
 
 # Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
@@ -24,11 +27,62 @@ end
 
 ## FUNCIONES
 
+# Obtiene los argumentos
+def argumento condicion, resultado, tipo = 0
+	# 0 ==> quiere texto
+	# 1 ==> quiere booleano
+	
+	# Iteración hasta encontrar la condición buscada
+	ARGF.argv.each_with_index do |p, i|
+		if p == condicion
+			# Si se introdujo un texto, se imprime y aborta el scrip; se usa para -v o -h, por ejemplo
+			if resultado.is_a? String
+				puts resultado
+				abort
+			# Si se trata de un parámetro nulo, se le da un valor
+			else
+				# Para cuando se quiere un booleano
+				if tipo == 1
+					resultado = true
+				# Para cuando se quiere una línea de texto; toma el valor inmediato, p. ej. de -d tomará la ruta del directorio
+				else
+					# Si si hay un elemento siguiente, se avanza, marca error y aborta si no
+					begin
+						# Si el siguiente argumento no empieza con «-» se registra el valor, marca error y aborta si no
+						if ARGF.argv[i+1][0] != "-"
+							resultado = ARGF.argv[i+1]
+						else
+							puts $l_g_error_arg2
+							abort
+						end
+					rescue
+						puts $l_g_error_arg
+						abort
+					end
+				end
+			end
+		end
+	end
+	
+	# Regresa el valor
+	return resultado
+end
+
+# Comprueba que existan los argumentos necesarios
+def comprobacion conjunto
+	conjunto.each do |e|
+		# Si al menos una de las variables es nulo, se muestra el error y aborta
+		if e == nil
+			puts $l_g_error_arg
+			abort
+		end
+	end
+end
+
 # Enmienda ciertos problemas con la línea de texto
 def arregloRuta (elemento)
-    if elemento[-1] == ' '
-        elemento = elemento[0...-1]
-    end
+	# Elimina espacios al inicio y al final
+    elemento = elemento.strip
 
     # Elimina caracteres conficlitos
     elementoFinal = elemento.gsub('\ ', ' ').gsub('\'', '')

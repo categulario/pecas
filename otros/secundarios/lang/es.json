@@ -1,7 +1,13 @@
 {
    "general" : {
 		"error_arg" : "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda.",
+		"error_arg2" : "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda.",
 		"fin" : "\n¡Operación finalizada exitosamente!\n"
+	},
+	
+	"pandog" : {
+		"v" : "pandog 0.1.0",
+		"h" : "AYUDA"
 	},
 	
 	"tegs" : {
