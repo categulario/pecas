@@ -112,17 +112,17 @@ if txt
 	txts = txts.sort
 	
 	# Crea el archivo de texto
-	txtTodo = File.open(nombre + ".txt", "w")
+	txt_todo = File.open(nombre + ".txt", "w")
 	
 	# Agrega cada una de las líneas de los archivos de texto
 	txts.each do |t|
 		File.readlines(t).each do |l|
-			txtTodo.puts l
+			txt_todo.puts l
 		end
 	end
 	
 	# Finaliza el archivo de texto
-	txtTodo.close
+	txt_todo.close
 end
 
 # Elimina los archivos innecesarios
