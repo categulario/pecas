@@ -11,27 +11,27 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 ## REQUIERE TESSERACT y GHOSTSCRIPT
 
 # Variables
-$directorio
-$lenguaje
-$nombre
-$txt = false
-$comprimido = false
-$gswin = "64"
+directorio = nil
+lenguaje = nil
+nombre = nil
+txt = false
+comprimido = false
+gswin = "64"
 
 # Obtiene los argumentos
 ARGF.argv.each_with_index do |p, i|
 	if p == "-d"
-		$directorio = ARGF.argv[i+1]
+		directorio = ARGF.argv[i+1]
 	elsif p == "-l"
-		$lenguaje = ARGF.argv[i+1]
+		lenguaje = ARGF.argv[i+1]
 	elsif p == "-o"
-		$nombre = ARGF.argv[i+1]
+		nombre = ARGF.argv[i+1]
 	elsif p == "-t"
-		$txt = true
+		txt = true
 	elsif p == "-c"
-		$comprimido = true
+		comprimido = true
 	elsif p == "-32"
-		$gswin = "32"
+		gswin = "32"
 	elsif p == "-v"
 		puts $l_tg_v
 		abort
@@ -51,22 +51,22 @@ def comprobacion conjunto
 	end
 end
 
-comprobacion [$directorio, $lenguaje, $nombre]
+comprobacion [directorio, lenguaje, nombre]
 
 # Arregla los contenidos de la variable para evitar conflictos
-$directorio = arregloRuta $directorio
-$nombre = $nombre.split(".").first
+directorio = arregloRuta directorio
+nombre = nombre.split(".").first
 
 # Va al directorio donde están las imágenes
-Dir.chdir $directorio
+Dir.chdir directorio
 
 # Conjunto para los archivos de texto
-$txts = Array.new
-$pdfs = Array.new	# Solo para Windows
+txts = Array.new
+pdfs = Array.new	# Solo para Windows
 
 # Cuenta la cantidad de archivos a reconocer
 total = 0
-Dir.foreach($directorio) do |archivo|
+Dir.foreach(directorio) do |archivo|
 	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
 		total = total + 1
 	end
@@ -74,7 +74,7 @@ end
 
 # Inicia Tesseract
 actual = 0
-Dir.foreach($directorio) do |archivo|
+Dir.foreach(directorio) do |archivo|
 	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
   
 		archivo_sin_extension = archivo.split(".").first
@@ -86,19 +86,19 @@ Dir.foreach($directorio) do |archivo|
 			puts "#{$l_tg_reconociendo[0] + archivo + $l_tg_reconociendo[1]}".green
 
 			if OS.windows?
-				$pdfs.push(".#{archivo_sin_extension}.pdf")
+				pdfs.push(".#{archivo_sin_extension}.pdf")
 			end
 			
 			# Crea un PDF con OCR
-			`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
+			`tesseract -l #{lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
 			
-			if $txt
+			if txt
 				puts "#{$l_tg_extrayendo[0] + archivo + $l_tg_extrayendo[1]}".green
 				
 				# Crea un TXT con OCR
-				`tesseract -l #{$lenguaje} #{archivo} .#{archivo_sin_extension}`
+				`tesseract -l #{lenguaje} #{archivo} .#{archivo_sin_extension}`
 				
-				$txts.push(".#{archivo_sin_extension}.txt")
+				txts.push(".#{archivo_sin_extension}.txt")
 			end
 		rescue
 			puts $l_tg_error_te
@@ -113,20 +113,20 @@ begin
 
 	# PDFS a PDF
 	if OS.windows?
-		$pdfs = $pdfs.sort
-		`gswin#{$gswin}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}.pdf #{$pdfs.join(" ")}`
+		pdfs = pdfs.sort
+		`gswin#{gswin}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf #{pdfs.join(" ")}`
 	else
-		`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}.pdf .*.pdf`
+		`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf .*.pdf`
 	end
 	
-	if $comprimido
-		puts "#{$l_tg_comprimiendo[0] + $nombre + $l_tg_comprimiendo[1]}".green
+	if comprimido
+		puts "#{$l_tg_comprimiendo[0] + nombre + $l_tg_comprimiendo[1]}".green
 		
 		# PDF a PDF comprimido
 		if OS.windows?
-			`gswin#{$gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$l_tg_comprimido}.pdf #{$nombre}.pdf`
+			`gswin#{gswin}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
 		else
-			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{$nombre}-#{$l_tg_comprimido}.pdf #{$nombre}.pdf`
+			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
 		end
 	end
 rescue
@@ -135,29 +135,29 @@ rescue
 end
 
 # Extrae el texto
-if $txt
+if txt
 	puts $l_tg_uniendo_txt
 	
 	# Ordena el conjunto
-	$txts = $txts.sort
+	txts = txts.sort
 	
 	# Crea el archivo de texto
-	txt = File.open($nombre + ".txt", "w")
+	txtTodo = File.open(nombre + ".txt", "w")
 	
 	# Agrega cada una de las líneas de los archivos de texto
-	$txts.each do |t|
+	txts.each do |t|
 		File.readlines(t).each do |l|
-			txt.puts l
+			txtTodo.puts l
 		end
 	end
 	
 	# Finaliza el archivo de texto
-	txt.close
+	txtTodo.close
 end
 
 # Elimina los archivos innecesarios
 puts $l_tg_limpiando
-Dir.foreach($directorio) do |archivo|
+Dir.foreach(directorio) do |archivo|
 	if File.extname(archivo) == '.pdf' or File.extname(archivo) == '.txt'
 		if archivo[0] == "."
 			# Solo elimina los archivos PDF o TXT ocultos
