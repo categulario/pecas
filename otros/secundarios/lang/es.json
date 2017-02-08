@@ -7,7 +7,11 @@
 	
 	"pandog" : {
 		"v" : "pandog 0.1.0",
-		"h" : "AYUDA"
+		"h" : "AYUDA",
+		"error_ext" : "\nERROR: no se indicó el nombre de extensión para el archivo de salida.",
+		"error_m" : "\nERROR: no fue posible modificar el archivo.",
+		"iniciando" : "\nIniciando conversión con Pandoc...",
+		"modificando" : "\nModificando el archivo creado por Pandoc..."
 	},
 	
 	"tegs" : {
@@ -22,8 +26,8 @@
 		"uniendo_txt": "\nUniendo archivos txt...",
 		"limpiando": "\nLimpiando directorio...",
 		"error" : {
-			"te" : "\nERROR: no fue posible iniciar Tesseract...",
-			"gs" : "\nERROR: no fue posible iniciar Ghostscript..."
+			"te" : "\nERROR: no fue posible iniciar Tesseract.",
+			"gs" : "\nERROR: no fue posible iniciar Ghostscript."
 		}
 	}
 }

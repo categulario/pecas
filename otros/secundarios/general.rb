@@ -100,3 +100,7 @@ def arregloRuta (elemento)
 
     return elementoFinal
 end
+
+def directorioPadre archivo
+	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
+end

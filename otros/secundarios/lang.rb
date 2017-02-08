@@ -49,6 +49,10 @@ $l_g_fin = langObj["general"]["fin"].blue.bold
 
 $l_pg_v = langObj["pandog"]["v"]
 $l_pg_h = langObj["pandog"]["h"]
+$l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
+$l_pg_error_m = langObj["pandog"]["error_m"].red.bold
+$l_pg_iniciando = langObj["pandog"]["iniciando"].green
+$l_pg_modificando = langObj["pandog"]["modificando"].green
 
 # TEGS
 
