@@ -39,13 +39,13 @@ end
 json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json")
 langObj = JSON.parse(json)
 
-# GENERALES
+# Generales
 
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
 $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
 $l_g_fin = langObj["general"]["fin"].blue.bold
 
-# Archivo madre
+# Pandog
 
 $l_pg_v = langObj["pandog"]["v"]
 $l_pg_h = langObj["pandog"]["h"]
@@ -54,7 +54,7 @@ $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
 
-# TEGS
+# Tegs
 
 $l_tg_v = langObj["tegs"]["v"]
 $l_tg_h = langObj["tegs"]["h"]
