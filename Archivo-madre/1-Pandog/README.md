@@ -16,13 +16,13 @@ Pandog utiliza el poder de Pandoc para convertir archivos con elementos adiciona
 
 ### Parámetros necesarios:
 
-* -i = [input] Nombre del archivo a convertir.
-* -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.
+* `-i` = [input] Nombre del archivo a convertir.
+* `-o` = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.
 
 ### Parámetros únicos:
 
-* -v = [version] Muestra la versión.
-* -h = [help] Muestra la ayuda, la cual es este contenido.
+* `-v` = [version] Muestra la versión.
+* `-h` = [help] Muestra la ayuda, la cual es este contenido.
 
 ## Ejemplo
 
