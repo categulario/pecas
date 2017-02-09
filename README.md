@@ -22,8 +22,8 @@ según el modelo del *single source and online publishing*.
 # *Single source and online publishing* (SSOP)
 
 Esta metodología de trabajo implica la idea de que a partir de un archivo
-madre en marcado ligero, como Markdown, sea posible crear de manera ramificada 
-distintas salidas según el formato de la publicación deseada.
+madre en marcado ligero sea posible crear de manera ramificada distintas 
+salidas según el formato de la publicación deseada.
 
 El archivo madre se diferencia del archivo de origen en que, aún siendo
 ambos digitales, el primero ya ha sido tratado para ajustarse a las posibilidades 
@@ -35,15 +35,15 @@ se dé por concluido con el fin de empezar la creación de otro.
 
 Las ventajas de esta metodología son:
 
-1. un gran control semántico y estructural del contenido,
+1. un mayor control semántico y estructural del contenido,
 2. el fin al dilema donde «el tiempo de publicación es proporcional a la 
 cantidad de formatos deseados»,
 3. la practicidad de prescindir de la creación de respaldos por el control
 de versiones del repositorio de la publicación,
 4. la ventaja de actualizar la obra continuamente y sin dificultades,
 5. la posibilidad de agregar excepciones según cada formato de salida, y
-6. un mayor espacio de maniobra para quien edita o quien diseñe se concentren
-en su trabajo.
+6. el fin a la transmisión de errores entre formatos que acontece al pasar
+de un formato de salida a otro.
 
 # Requisitos
 
