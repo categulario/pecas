@@ -85,6 +85,7 @@ de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencil
 
 Solo es necesario escribir el nombre del binario para llamar al script:
 
+* `pt-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`Archivo-madre/1-Pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog).
 * `pt-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
 * `pt-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
 * `pt-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
