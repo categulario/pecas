@@ -36,7 +36,7 @@ class String
 end
 
 # Obtiene el JSON
-json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json")
+json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json", :encoding => 'UTF-8')
 langObj = JSON.parse(json)
 
 # Generales
