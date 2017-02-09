@@ -23,6 +23,10 @@ ayuda = argumento "-h", $l_pg_h
 # Comprueba que existan los argumentos necesarios
 comprobacion [entrada, salida]
 
+# Arregla rutas
+entrada = arregloRuta entrada
+salida = arregloRuta salida
+
 # Sirve para evitar borrara archivos incorrectos
 $pandog_coletilla = "-pandog"
 
@@ -47,7 +51,7 @@ Dir.chdir(directorio)
 
 # Inicia Pandoc
 puts $l_pg_iniciando
-
+abort
 # Cambios de MD a HTML
 def mdAhtml s_path, s_nombre
 	
@@ -85,7 +89,8 @@ def mdAhtml s_path, s_nombre
 	end
 	
 	# Empiezaa leer línea por línea del archivo de salida
-	File.open(s_nombre_actual, "r").each do |linea|
+	archivo_abierto = File.open(s_nombre_actual, "r")
+	archivo_abierto.each do |linea|
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
@@ -179,6 +184,7 @@ def mdAhtml s_path, s_nombre
 	end
 	
 	# Cierra el archivo con las modificaciones
+	archivo_abierto.close
 	html_nuevo.close
 	
 	# Borra el archivo viejo y renombra al nuevo para sustituirlo
@@ -201,7 +207,8 @@ def htmlAmd s_path, s_nombre
 	linea_pasada = nil
 	
 	# Empiezaa leer línea por línea del archivo de salida
-	File.open(s_nombre, "r").each do |linea|
+	archivo_abierto = File.open(s_nombre, "r")
+	archivo_abierto.each do |linea|
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*>/, "").gsub(/^\s+$/, "").strip
 		
@@ -220,6 +227,7 @@ def htmlAmd s_path, s_nombre
 	end
 	
 	# Cierra el archivo con las modificaciones
+	archivo_abierto.close
 	md_nuevo.close
 
 	# Borra el archivo viejo y renombra al nuevo para sustituirlo
@@ -249,7 +257,7 @@ elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xm
 			FileUtils.cp(entrada, entrada_html)
 			entrada = directorioPadre(entrada) + "/" + entrada_html
 		end
-	
+
 		# Hace que los encabezados estén con gatos
 		`pandoc #{entrada} --atx-headers -o #{salida}`
 		
