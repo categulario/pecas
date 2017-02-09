@@ -1,12 +1,16 @@
 # Herramientas
 
-A través de eventos o talleres este perro ha tenido que escribir algo de
-código para ahorrarse mucho trabajo repetitivo. Con el fin de hacer más
-accesibles estas herramientas, se ha creado este repositorio para irlas
-recolectando.
+Perro triste está creando un conjunto de *scripts* pensados para agilizar
+o automatizar varios de los procesos del quehacer editorial con el fin
+de que las posibilidades tecnológicas no se presenten como un reto o un
+inconveniente para quien edita o diseña una publicación.
+
+Las herramientas siguen un modelo de [desarrollo continuo](https://es.wikipedia.org/wiki/Liberaci%C3%B3n_continua)
+según el modelo del *single source and online publishing*.
 
 ## Índice
 
+* [*Single source and online publishing* (SSOP)](#single-source-and-online-publishing-ssop)
 * [Requisitos](#requisitos)
 * [Utilización](#utilización)
 * [Binarios](#binarios)
@@ -14,6 +18,32 @@ recolectando.
 * [Licencia](#licencia)
 
 ---
+
+# *Single source and online publishing* (SSOP)
+
+Esta metodología de trabajo implica la idea de que a partir de un archivo
+madre en marcado ligero, como Markdown, sea posible crear de manera ramificada 
+distintas salidas según el formato de la publicación deseada.
+
+El archivo madre se diferencia del archivo de origen en que, aún siendo
+ambos digitales, el primero ya ha sido tratado para ajustarse a las posibilidades 
+y lineamientos de la metodología del SSOP.
+
+El modelo ramificado de publicación se diferencia del modelo cíclico, común
+en la tradición editorial, en que no es necesario esperar a que un formato
+se dé por concluido con el fin de empezar la creación de otro.
+
+Las ventajas de esta metodología son:
+
+1. un gran control semántico y estructural del contenido,
+2. el fin al dilema donde «el tiempo de publicación es proporcional a la 
+cantidad de formatos deseados»,
+3. la practicidad de prescindir de la creación de respaldos por el control
+de versiones del repositorio de la publicación,
+4. la ventaja de actualizar la obra continuamente y sin dificultades,
+5. la posibilidad de agregar excepciones según cada formato de salida, y
+6. un mayor espacio de maniobra para quien edita o quien diseñe se concentren
+en su trabajo.
 
 # Requisitos
 
