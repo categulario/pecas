@@ -64,10 +64,10 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/6-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Recreador).
 * `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
 
-    Si ningún binario se encuentra, es necesario refrescar el archivo de
+    **Nota**: si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
     solo tiene que cerrar y volver a abrir la terminal. Si no se desea cerrarla,
-    se ha de escribir `source <archivo de inicialización de usuario>`. Este
+    se ha de escribir `source [archivo de inicialización de usuario]`. Este
     procedimiento solo se hace una vez, cuando se termina la instalación.
 
 # Pendientes
