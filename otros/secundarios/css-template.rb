@@ -366,3 +366,13 @@ sub {
 
 /* AGREGAR ESTILOS PERSONALIZADOS */
 "
+
+# Plantilla minificada
+$css_template_min = $css_template.gsub(/\n/,"")					# Elimina los saltos de línea	
+						.gsub(/\/\*.*?\*\//,"")					# Elimina los comentarios
+						.gsub(/,\s+/,",").gsub(/\s+,\s+/,",")	# Elimina los espacios entre comas
+						.gsub(/;\s+/,";").gsub(/\s+;\s+/,";")	# Elimina los espacios entre puntos y coma
+						.gsub(/{\s+/,"{").gsub(/\s+{\s+/,"{")	# Elimina los espacios entre corchetes
+						.gsub(/}\s+/,"}").gsub(/\s+}\s+/,"}")	# Elimina los espacios entre corchetes
+						.gsub(/:\s+/,":").gsub(/\s+:\s+/,":")	# Elimina los espacios entre dos puntos
+						.gsub(/\s+/," ")						# Elimina los dobles espacios
