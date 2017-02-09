@@ -52,7 +52,6 @@ de un formato de salida a otro.
 ## Todos
 
 * [Ruby](https://www.ruby-lang.org/es/) > 1.9.3
-  * Gema `json` => `gem install json`
   * Gema `activesupport` => `gem install activesupport`
   
 ## Digitalización
@@ -126,9 +125,9 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * No guarda la nueva versión cuando obtiene los datos de `recreator-metadata`.
     * Agregar posibilidad de anidar TOC, al menos donde `part` es padre de `chapter`.
     * Tabla de contenidos jerarquizado.
-    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos.
+    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
   * `changer.rb`.
-    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos.
+    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
     * ¿Compatibilidad para versión EPUB 2.0.1?
 
 # Licencia
