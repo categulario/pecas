@@ -1,6 +1,6 @@
 # *Scripts* para el archivo madre
 
-![Flujo de trabajo](flujo-de-trabajo.jpg)
+<!-- ![Flujo de trabajo](flujo-de-trabajo.jpg) -->
 
 Aquí están presentes una serie de *scripts* pensados para agilizar o
 automatizar la creación y mantenimiento del archivo madre. Estos son:
