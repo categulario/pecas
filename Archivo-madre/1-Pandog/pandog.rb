@@ -9,6 +9,8 @@ Encoding.default_internal = Encoding::UTF_8
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/css-template.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 ## REQUIERE PANDOC
 
@@ -20,6 +22,9 @@ ayuda = argumento "-h", $l_pg_h
 
 # Comprueba que existan los argumentos necesarios
 comprobacion [entrada, salida]
+
+# Sirve para evitar borrara archivos incorrectos
+$pandog_coletilla = "-pandog"
 
 # Obtiene las extensiones de los archivos
 ext_e = File.extname(entrada)
@@ -48,7 +53,137 @@ def mdAhtml s_path, s_nombre
 	
 	puts $l_pg_modificando
 	
+	s_nombre_final = s_nombre
+	s_nombre_actual = File.basename(s_nombre, ".*") + $pandog_coletilla + ".html"
 	
+	# Va al directorio donde está el archivo de salida
+	Dir.chdir(s_path)
+	
+	# Crea el nuevo archivo oculto donde se pondrán las modificaciones
+	html_nuevo = File.open(".#{s_nombre_actual}", "w")
+	
+	# Ayudará a forzar a poner todo el contenido de una etiqueta en una sola línea
+	linea_pasada = ""
+	
+	# Para que se vea mejor
+	espacio = ""
+	
+	# Agrega cabezas
+	if File.extname(s_nombre_final) == ".xml"
+		html_nuevo.puts "<body>"
+		espacio = "    "
+	else
+		if File.extname(s_nombre_final) == ".xhtml"
+			html_nuevo.puts xhtmlTemplateHead
+		else
+			html_nuevo.puts htmlTemplateHead
+		end
+		espacio = "        "
+		
+		# Agrega la hoja de estilos minificada
+		html_nuevo.puts espacio + "<style>" + $css_template_min + "</style>"
+	end
+	
+	# Empiezaa leer línea por línea del archivo de salida
+	File.open(s_nombre_actual, "r").each do |linea|
+		# Elimina todas las etiquetas HTML que quedaron y espacios de más
+		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
+		
+		# Servirá para agregar atributos si los hay
+		atributos_final = Array.new
+		
+		# Si la línea no quedo vacía se agrega
+		if linea != ""
+		
+			# Si se localizan párrafos que se desean con identificadores o clases
+			p = /\s?+{.*?}<\/p>$/
+			if linea =~ p
+				# Obtiene los atributos en un conjunto ordenado
+				atributos = p.match(linea).to_s.gsub("{","").gsub("}","").gsub("</p>","").strip.split(" ").sort
+
+				# Extrae los identificadores y las clases en distintos grupos
+				atributos_id = Array.new
+				atributos_clase = Array.new
+				atributos.each do |a|
+					if a[0] == "#"
+						atributos_id.push(a[1..-1])
+					elsif a[0] == "."
+						atributos_clase.push(a[1..-1])
+					end
+				end
+				
+				# Crea la sintaxis correcta para los atributos
+				def atributoConstruccion conjunto, atributo
+					if conjunto.length > 0
+						resultado = atributo + "=\"" + conjunto.join(" ") + "\""
+						return resultado
+					else
+						return nil
+					end
+				end
+				
+				p_id = atributoConstruccion atributos_id, "id"
+				p_clase = atributoConstruccion atributos_clase, "class"
+				
+				# Agrega los atributos para usarlos más abajo, por el conflicto que puede acarrear el <br />
+				def adicionAtributoFinal conjunto, variable
+					if variable != nil
+						conjunto.push(variable)
+					end
+				end
+				
+				adicionAtributoFinal atributos_final, p_id
+				adicionAtributoFinal atributos_final, p_clase
+				
+				# Elimina las llaves y su contenido
+				linea = linea.gsub(p,"</p>")
+			end
+			
+			# Agrega identificadores o clases al párrafo si los hay
+			def atributosAdicion c, l, a, e
+				# Si el conjunto tiene algún elemento, entonces hay atributos
+				if c.length > 0
+					# Sustituye la etiqueta de párrafo para incluir los atributos
+					a.puts l.gsub(/^\s+<p>/, e + "<p " + c.join(" ") + ">")
+				else
+					a.puts l
+				end
+			end
+		
+			# Si se detecta un <br /> al final de la línea se guarda en lugar de agregarla
+			if linea =~ /<[^>]*?br.*?\/.*?>$/
+				linea_pasada += linea
+			# Si no se detecta un <br />
+			else
+				# Si existen líneas guardadas, se agregan junto con la línea actual
+				if linea_pasada != ""
+					linea = espacio + linea_pasada + linea
+					atributosAdicion atributos_final, linea, html_nuevo, espacio
+					
+					# Reseteo
+					linea_pasada = ""
+				# Si no existen líneas guardadas, únicamente se agrega la línea actual
+				else
+					linea = espacio + linea
+					atributosAdicion atributos_final, linea, html_nuevo, espacio
+				end
+			end
+		end
+	end
+	
+	# Agrega pies
+	if File.extname(s_nombre_final) == ".xml"
+		html_nuevo.puts "</body>"
+	else
+		html_nuevo.puts $xhtmlTemplateFoot
+	end
+	
+	# Cierra el archivo con las modificaciones
+	html_nuevo.close
+	
+	# Borra el archivo viejo y renombra al nuevo para sustituirlo
+	File.delete(s_nombre_actual)
+	File.rename(".#{s_nombre_actual}", s_nombre_final)
 end
 
 # Cambios de HTML a MD
@@ -96,7 +231,7 @@ end
 if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
 	begin
 		# Por defecto crea un HTML sin cabeza
-		`pandoc #{entrada} -o #{directorioPadre(salida) + "/" + File.basename(salida, ".*") + ".html"}`
+		`pandoc #{entrada} -o #{directorioPadre(salida) + "/" + File.basename(salida, ".*") + $pandog_coletilla + ".html"}`
 		
 		# Llama a las modificaciones
 		mdAhtml directorioPadre(salida), File.basename(salida)
