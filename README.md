@@ -20,8 +20,8 @@ recolectando.
 ## Todos
 
 * [Ruby](https://www.ruby-lang.org/es/) > 1.9.3
-  * Gema `json` ==> `gem install json`
-  * Gema `activesupport` ==> `gem install activesupport`
+  * Gema `json` => `gem install json`
+  * Gema `activesupport` => `gem install activesupport`
   
 ## Digitalización
 
