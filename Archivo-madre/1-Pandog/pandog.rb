@@ -93,10 +93,10 @@ def htmlAmd s_path, s_nombre
 end
 
 # El plus a pandoc es en el tratamiento entre el MD y el HTML
-if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm")
+if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
 	begin
 		# Por defecto crea un HTML sin cabeza
-		`pandoc #{entrada} -o #{directorioPadre(salida) + "/" + File.basename(salida).split(".")[0] + ".html"}`
+		`pandoc #{entrada} -o #{directorioPadre(salida) + "/" + File.basename(salida, ".*") + ".html"}`
 		
 		# Llama a las modificaciones
 		mdAhtml directorioPadre(salida), File.basename(salida)
@@ -104,10 +104,24 @@ if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm")
 		puts $l_pg_error_m
 		abort
 	end
-elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm") && ext_s == ".md"
+elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xml") && ext_s == ".md"
 	begin
+		entrada_html = nil
+		
+		# Si se trata de un XML, copia el archivo en un HTML oculto que se usará para Pandoc
+		if ext_e == ".xml"
+			entrada_html = "." + File.basename(entrada, ".*") + ".html"
+			FileUtils.cp(entrada, entrada_html)
+			entrada = directorioPadre(entrada) + "/" + entrada_html
+		end
+	
 		# Hace que los encabezados estén con gatos
 		`pandoc #{entrada} --atx-headers -o #{salida}`
+		
+		# Se elimina el HTML oculto de existir
+		if entrada_html != nil
+			File.delete(entrada_html)
+		end
 		
 		# Llama a las modificaciones
 		htmlAmd directorioPadre(salida), File.basename(salida)
