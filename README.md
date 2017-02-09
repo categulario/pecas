@@ -10,7 +10,7 @@ según el modelo del *single source and online publishing*.
 
 ## Índice
 
-* [*Single source and online publishing* (SSOP)](#single-source-and-online-publishing-ssop)
+* [SSOP](#single-source-and-online-publishing-ssop)
 * [Requisitos](#requisitos)
 * [Utilización](#utilización)
 * [Binarios](#binarios)
