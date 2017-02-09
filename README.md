@@ -45,6 +45,8 @@ de versiones del repositorio de la publicación,
 6. el fin a la transmisión de errores entre formatos que acontece al pasar
 de un formato de salida a otro.
 
+![Flujo de trabajo](flujo-de-trabajo.jpg)
+
 # Requisitos
 
 ## Todos
