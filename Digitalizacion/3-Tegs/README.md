@@ -40,7 +40,7 @@ Tegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con 
   pt-tegs -d directorio/de/las/imágenes -l spa -o prueba
 ```
 
-Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en «directorio/de/las/imágenes».
+Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en `directorio/de/las/imágenes`.
 
 ### Ejemplo con PDF comprimido
 
