@@ -26,6 +26,8 @@ comprobacion [entrada, salida]
 # Arregla rutas
 entrada = arregloRuta entrada
 salida = arregloRuta salida
+entrada_sis = arregloRutaTerminal entrada
+salida_sis = arregloRutaTerminal salida
 
 # Sirve para evitar borrara archivos incorrectos
 $pandog_coletilla = "-pandog"
@@ -64,7 +66,7 @@ def mdAhtml s_path, s_nombre
 	Dir.chdir(s_path)
 	
 	# Crea el nuevo archivo oculto donde se pondrán las modificaciones
-	html_nuevo = File.open(".#{s_nombre_actual}", "w")
+	html_nuevo = File.open(".#{s_nombre_actual}", "w:UTF-8")
 	
 	# Ayudará a forzar a poner todo el contenido de una etiqueta en una sola línea
 	linea_pasada = ""
@@ -89,7 +91,7 @@ def mdAhtml s_path, s_nombre
 	end
 	
 	# Empiezaa leer línea por línea del archivo de salida
-	archivo_abierto = File.open(s_nombre_actual, "r")
+	archivo_abierto = File.open(s_nombre_actual, "r:UTF-8")
 	archivo_abierto.each do |linea|
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
@@ -239,7 +241,7 @@ end
 if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
 	begin
 		# Por defecto crea un HTML sin cabeza
-		`pandoc #{entrada} -o #{directorioPadre(salida) + "/" + File.basename(salida, ".*") + $pandog_coletilla + ".html"}`
+		`pandoc #{entrada_sis} -o #{directorioPadreTerminal salida_sis}/#{File.basename(salida_sis,'.*') + $pandog_coletilla + '.html'}`
 		
 		# Llama a las modificaciones
 		mdAhtml directorioPadre(salida), File.basename(salida)
@@ -259,7 +261,7 @@ elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xm
 		end
 
 		# Hace que los encabezados estén con gatos
-		`pandoc #{entrada} --atx-headers -o #{salida}`
+		`pandoc #{entrada_sis} --atx-headers -o #{salida_sis}`
 		
 		# Se elimina el HTML oculto de existir
 		if entrada_html != nil
@@ -273,7 +275,7 @@ elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xm
 		abort
 	end
 else
-	`pandoc #{entrada} -o #{salida}`
+	`pandoc #{entrada_sis} -o #{salida_sis}`
 end
 
 puts $l_g_fin
