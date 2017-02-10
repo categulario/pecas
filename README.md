@@ -61,7 +61,7 @@ de un formato de salida a otro.
 
 ## Archivo Madre
 
-* [Pandoc](http://pandoc.org/)
+* [Pandoc](http://pandoc.org/) > 1.19
 
 # Utilización
 

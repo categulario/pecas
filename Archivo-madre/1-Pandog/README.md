@@ -4,7 +4,7 @@ Pandog utiliza el poder de Pandoc para convertir archivos con elementos adiciona
 
 ## Requerimientos
 
-* [Pandoc](http://pandoc.org/)
+* [Pandoc](http://pandoc.org/) > 1.19
 
 ## Uso:
 
