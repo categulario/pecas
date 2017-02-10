@@ -80,12 +80,12 @@ def comprobacion conjunto
 end
 
 # Enmienda ciertos problemas con la línea de texto
-def arregloRuta (elemento)
+def arregloRuta elemento
 	# Elimina espacios al inicio y al final
     elemento = elemento.strip
 
     # Elimina caracteres conficlitos
-    elementoFinal = elemento.gsub('\ ', ' ').gsub('\'', '')
+    elementoFinal = elemento.gsub("file:","").gsub("%20"," ")
 
     if OS.windows?
         # En Windows cuando hay rutas con espacios se agregan comillas dobles que se tiene que eliminar
@@ -101,6 +101,30 @@ def arregloRuta (elemento)
     return elementoFinal
 end
 
+def arregloRutaTerminal elemento
+	ruta = elemento
+	
+	if OS.windows?
+		ruta = '"' + ruta + '"'
+	else
+		ruta = ruta.gsub(/\s/, "\\ ")
+	end
+	
+	return ruta
+end
+
 def directorioPadre archivo
 	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
+end
+
+def directorioPadreTerminal archivo
+	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
+
+	if OS.windows?
+		directorio = '"' + directorio + '"'
+	else
+		directorio = directorio.gsub(/\s/, "\\ ")
+	end
+	
+	return directorio
 end
