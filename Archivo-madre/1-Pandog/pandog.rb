@@ -51,7 +51,7 @@ Dir.chdir(directorio)
 
 # Inicia Pandoc
 puts $l_pg_iniciando
-abort
+
 # Cambios de MD a HTML
 def mdAhtml s_path, s_nombre
 	
