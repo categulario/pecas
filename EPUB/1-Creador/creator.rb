@@ -56,6 +56,7 @@ if epubImagenes != nil
 	epubImagenes = arregloRuta epubImagenes
 	if !File.directory?(epubImagenes)
 		puts $l_cr_error_img
+		abort
 	end
 end
 
@@ -63,22 +64,16 @@ end
 epubUbicacion = arregloRuta epubUbicacion
 Dir.chdir(epubUbicacion)
 
-# Según si la carpeta padre está vacía o no, crea o no la carpeta para el EPUB
-if Dir["#{epubUbicacion}/*"].empty? == true
-	puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
-    Dir.mkdir epubNombre
-else
-    # Crea la carpeta del EPUB si no existe previamente
-    Dir.glob(epubUbicacion + "/**") do |archivo|
-        if File.exists?(epubNombre) == true
-            puts $l_cr_error_nombre
-            abort
-        else
-			puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
-            Dir.mkdir epubNombre
-            break
-        end
-    end
+# Crea la carpeta del EPUB si no existe previamente
+Dir.glob("*") do |archivo|
+	if File.exists?(epubNombre) == true
+		puts $l_cr_error_nombre
+		abort
+	else
+		puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
+		Dir.mkdir epubNombre
+		break
+	end
 end
 
 # Se mete a la carpeta padre
@@ -130,11 +125,18 @@ if epubPortada != nil || epubImagenes != nil
 	
 	# Copia las imágenes
 	if epubImagenes != nil
-		Dir.glob(epubImagenes + "/*") do |archivo|
+		# Va a la carpeta que contiene las imágenes
+		Dir.chdir(epubImagenes)
+		
+		# Se itera para obtener cada imagen y copiarla
+		Dir.glob("*") do |archivo|
 			if File.extname(archivo) == ".jpg" || File.extname(archivo) == ".jpeg" || File.extname(archivo) == ".gif" || File.extname(archivo) == ".png" || File.extname(archivo) == ".svg"
 				FileUtils.cp(archivo, epubUbicacion + "/img")
 			end
 		end
+		
+		# Regresa a la ubicación del proyecto
+		Dir.chdir(epubUbicacion)
 	end
 end
 
