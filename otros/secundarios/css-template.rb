@@ -282,6 +282,12 @@ sub {
 
 /* Contenidos especiales */
 
+.forro {
+	display: block;
+	margin: auto;
+    height: 100vh;
+}
+
 .titulo {
     margin-top: 3em;
     margin-left: 0;
