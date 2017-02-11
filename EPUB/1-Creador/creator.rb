@@ -2,6 +2,8 @@
 # encoding: UTF-8
 # coding: UTF-8
 
+require 'fileutils'
+
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
@@ -10,66 +12,78 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/css-template.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
-# Variables
-$divisor = '/'
-$comillas = '\''
-$carpetaPadre = "EPUB-CREATOR"
-$carpetaMeta = "META-INF"
-$carpetaOPS = "OPS"
-$carpetaToc = "toc"
-$carpetaXhtml = "xhtml"
-$carpetaCss = "css"
-$carpetaImg = "img"
-$aviso = "Use recreator.rb to fill this file."
-$portadilla = "Portadilla"
-$legal = "Legal"
+# Argumentos
+epubUbicacion = if argumento "-d", epubUbicacion != nil then argumento "-d", epubUbicacion else Dir.pwd end
+epubNombre = if argumento "-o", epubNombre != nil then argumento "-o", epubNombre else $l_cr_epub_nombre end
+epubCSS = argumento "-s", epubCSS
+epubPortada = argumento "-c", epubPortada
+epubImagenes = argumento "-i", epubImagenes
+epubTitulo = argumento "--title", epubTitulo
+epubAutor = argumento "--creator", epubAutor
+epubEditorial = argumento "--publisher", epubEditorial
+argumento "-v", $l_cr_v
+argumento "-h", $l_cr_h
 
-if OS.windows?
-    $comillas = ''
+# Comprueba que existan los argumentos necesarios
+comprobacion [epubTitulo, epubAutor, epubEditorial]
+
+# Comprueba el archivo CSS
+if epubCSS != nil
+	epubCSS = arregloRuta epubCSS
+	if File.extname(epubCSS) != ".css"
+		puts $l_cr_error_css
+		abort
+	elsif !File.exists?(epubCSS)
+		puts $l_cr_error_css2
+		abort
+	end
 end
 
-# Obtiene los argumentos necesarios
-if ARGF.argv.length < 1
-    $carpeta = Dir.pwd
-elsif ARGF.argv.length == 1
-    $carpeta = ARGF.argv[0]
-else
-    puts "\nSolo se permite un argumento, el de la ruta de la carpeta destino.".red.bold
-    abort
+# Comprueba el nombre de la portada
+if epubPortada != nil
+	epubPortada = arregloRuta epubPortada
+	if File.extname(epubPortada) != ".jpg" && File.extname(epubPortada) != ".jpeg" && File.extname(epubPortada) != ".gif" && File.extname(epubPortada) != ".png" && File.extname(epubPortada) != ".svg"
+		puts $l_cr_error_portada
+		abort
+	elsif !File.exists?(epubPortada)
+		puts $l_cr_error_portada2
+		abort
+	end
 end
 
-$carpeta = arregloRuta $carpeta
+# Comprueba que exista la carpeta de las imágenes
+if epubImagenes != nil
+	epubImagenes = arregloRuta epubImagenes
+	if !File.directory?(epubImagenes)
+		puts $l_cr_error_img
+	end
+end
 
 # Se va a la carpeta para crear los archivos
-Dir.chdir($carpeta)
-
-# Para crear la carpeta del EPUB
-def creacion
-    puts "\nCreando carpeta del EPUB con el nombre #{$carpetaPadre}...".magenta.bold
-    # Crea la carpeta padre
-    Dir.mkdir $carpetaPadre
-
-    # Se mete a la carpeta padre
-    $carpeta = $carpeta + $divisor + $carpetaPadre
-    Dir.chdir($carpeta)
-end
+epubUbicacion = arregloRuta epubUbicacion
+Dir.chdir(epubUbicacion)
 
 # Según si la carpeta padre está vacía o no, crea o no la carpeta para el EPUB
-if Dir["#{$carpeta}/*"].empty? == true
-    creacion
+if Dir["#{epubUbicacion}/*"].empty? == true
+	puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
+    Dir.mkdir epubNombre
 else
     # Crea la carpeta del EPUB si no existe previamente
-    Dir.glob($carpeta + $divisor + '**') do |archivo|
-        if File.exists?($carpetaPadre) == true
-            puts "\nYa existe una carpeta con el nombre #{$carpetaPadre}.".red.bold
+    Dir.glob(epubUbicacion + "/**") do |archivo|
+        if File.exists?(epubNombre) == true
+            puts $l_cr_error_nombre
             abort
         else
-            creacion
-
+			puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
+            Dir.mkdir epubNombre
             break
         end
     end
 end
+
+# Se mete a la carpeta padre
+epubUbicacion = epubUbicacion + "/" + epubNombre
+Dir.chdir(epubUbicacion)
 
 # Crea el mimetype sin dejar líneas vacías
 File.open("mimetype", "w") do |mimetype|
@@ -77,8 +91,8 @@ File.open("mimetype", "w") do |mimetype|
 end
 
 # Crea la carpeta META-INF y el archivo container.xml
-Dir.mkdir $carpetaMeta
-Dir.chdir($carpeta + $divisor + $carpetaMeta)
+Dir.mkdir "META-INF"
+Dir.chdir(epubUbicacion + "/META-INF")
 container = File.new("container.xml", "w:UTF-8")
 container.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 container.puts ""
@@ -88,83 +102,97 @@ container.puts "		<rootfile full-path=\"OPS/content.opf\" media-type=\"applicati
 container.puts "	</rootfiles>"
 container.puts "</container>"
 container.close
-Dir.chdir($carpeta)
+Dir.chdir(epubUbicacion)
 
 # Crea la carpeta OPS
-Dir.mkdir $carpetaOPS
-$carpeta = $carpeta + $divisor + $carpetaOPS
-Dir.chdir($carpeta)
+Dir.mkdir "OPS"
+epubUbicacion = epubUbicacion + "/OPS"
+Dir.chdir(epubUbicacion)
 
 # Crea el archivo content.opf
 opf = File.new("content.opf", "w:UTF-8")
-opf.puts $aviso
+opf.puts $l_cr_aviso
 opf.close
-
-# Crea la carpeta para las tablas de contenidos
-Dir.mkdir $carpetaToc
-Dir.chdir($carpeta + $divisor + $carpetaToc)
 
 # Crea el NCX
 ncx = File.new("toc.ncx", "w:UTF-8")
-ncx.puts $aviso
+ncx.puts $l_cr_aviso
 ncx.close
 
 # Crea el nav
 nav = File.new("nav.xhtml", "w:UTF-8")
-nav.puts $aviso
+nav.puts $l_cr_aviso
 nav.close
 
-# Regresa a la raíz
-Dir.chdir($carpeta)
-
-# Crea la carpeta para los xhtml
-Dir.mkdir $carpetaXhtml
-Dir.chdir($carpeta + $divisor + $carpetaXhtml)
-
-# Crea la portadilla
-portadilla = File.new("001-portadilla.xhtml", "w:UTF-8")
-portadilla.puts xhtmlTemplateHead $portadilla, "../#{$carpetaCss}/styles.css", "titlepage"
-portadilla.puts "        <h1 class=\"centrado titulo\">Título</h1>"
-portadilla.puts "        <p class=\"centrado\">Autor</p>"
-portadilla.puts $xhtmlTemplateFoot
-portadilla.close
-
-# Crea la legal
-legal = File.new("002-legal.xhtml", "w:UTF-8")
-legal.puts xhtmlTemplateHead $legal, "../#{$carpetaCss}/styles.css", "copyright-page"
-legal.puts "	    <p class=\"legal\"><i>Título</i></p>"
-legal.puts "	    <p class=\"legal\">Editorial</p>"
-legal.puts "	    <br /><br />"
-legal.puts "	    <p class=\"legal\">Autoría</p>"
-legal.puts "	    <p class=\"legal\">Nombre</p>"
-legal.puts "	    <br /><br />"
-legal.puts "	    <p class=\"legal\">Edición</p>"
-legal.puts "	    <p class=\"legal\">Nombre</p>"
-legal.puts "	    <br /><br />"
-legal.puts "	    <p class=\"legal\">ISBN: XXX</p>"
-legal.puts $xhtmlTemplateFoot
-legal.close
-
-# Regresa a la raíz
-Dir.chdir($carpeta)
-
 # Crea la carpeta para las imágenes
-Dir.mkdir $carpetaImg
-Dir.chdir($carpeta + $divisor + $carpetaImg)
+if epubPortada != nil || epubImagenes != nil
+	Dir.mkdir "img"
+	
+	# Copia las imágenes
+	if epubImagenes != nil
+		Dir.glob(epubImagenes + "/*") do |archivo|
+			if File.extname(archivo) == ".jpg" || File.extname(archivo) == ".jpeg" || File.extname(archivo) == ".gif" || File.extname(archivo) == ".png" || File.extname(archivo) == ".svg"
+				FileUtils.cp(archivo, epubUbicacion + "/img")
+			end
+		end
+	end
+end
 
-# Regresa a la raíz
-Dir.chdir($carpeta)
+# Crea la carpeta para el CSS
+Dir.mkdir "css"
+Dir.chdir(epubUbicacion + "/css")
 
-# Crea la carpeta para el css
-Dir.mkdir $carpetaCss
-Dir.chdir($carpeta + $divisor + $carpetaCss)
-
-# Crea el archivo css
+# Crea el archivo CSS
 styles = File.new("styles.css", "w:UTF-8")
-styles.puts $css_template
+# Si no se indicó ninguna hoja, se añade una por defecto
+if epubCSS == nil
+	styles.puts $css_template
+else
+	archivo_abierto = File.open(epubCSS, "r:UTF-8")
+	archivo_abierto.each do |linea|
+		styles.puts linea
+	end
+	archivo_abierto.close
+end
 styles.close
 
 # Regresa a la raíz
-Dir.chdir($carpeta)
+Dir.chdir(epubUbicacion)
 
-puts "\nEl proceso ha terminado.".gray.bold
+# Crea la carpeta para los xhtml
+Dir.mkdir "xhtml"
+Dir.chdir(epubUbicacion + "/xhtml")
+
+# Crea la portada
+if epubPortada
+	FileUtils.cp(epubPortada, epubUbicacion + "/img/" + File.basename(epubPortada))
+	portada = $l_cr_xhtml_portada
+	$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
+	$l_cr_xhtml_portada.puts xhtmlTemplateHead portada, "../css/styles.css", "cover"
+	$l_cr_xhtml_portada.puts "        <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
+	$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
+	$l_cr_xhtml_portada.close
+end
+
+# Crea la portadilla
+portadilla = $l_cr_xhtml_portadilla
+$l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
+$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css", "titlepage"
+$l_cr_xhtml_portadilla.puts "        <h1 class=\"centrado titulo\">#{epubTitulo}</h1>"
+$l_cr_xhtml_portadilla.puts "        <p class=\"centrado\">#{epubAutor}</p>"
+$l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
+$l_cr_xhtml_portadilla.close
+
+# Crea la legal
+legal = $l_cr_xhtml_legal
+$l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
+$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css", "copyright-page"
+$l_cr_xhtml_legal.puts "	    <p id=\"title\" class=\"legal\"><i>#{epubTitulo}</i></p>"
+$l_cr_xhtml_legal.puts "	    <p id=\"publisher\" class=\"legal\">#{epubEditorial}</p>"
+$l_cr_xhtml_legal.puts "	    <br /><br />"
+$l_cr_xhtml_legal.puts "	    <p class=\"legal\">#{$l_cr_xhtml_autoria}</p>"
+$l_cr_xhtml_legal.puts "	    <p id=\"creator\" class=\"legal\">#{epubAutor}</p>"
+$l_cr_xhtml_legal.puts $xhtmlTemplateFoot
+$l_cr_xhtml_legal.close
+
+puts $l_g_fin

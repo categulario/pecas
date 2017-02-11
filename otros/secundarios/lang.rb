@@ -68,3 +68,23 @@ $l_tg_uniendo_txt = langObj["tegs"]["uniendo_txt"].green
 $l_tg_limpiando = langObj["tegs"]["limpiando"].green
 $l_tg_error_te = langObj["tegs"]["error"]["te"].red.bold
 $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
+
+# Creator
+$l_cr_v = langObj["creator"]["v"]
+$l_cr_h = langObj["creator"]["h"]
+$l_cr_epub_nombre = langObj["creator"]["epub_nombre"]
+$l_cr_aviso = langObj["creator"]["aviso"]
+$l_cr_xhtml_portada = langObj["creator"]["xhtml_portada"]
+$l_cr_xhtml_portadilla = langObj["creator"]["xhtml_portadilla"]
+$l_cr_xhtml_legal = langObj["creator"]["xhtml_legal"]
+$l_cr_xhtml_titulo = langObj["creator"]["xhtml_titulo"]
+$l_cr_xhtml_autor = langObj["creator"]["xhtml_autor"]
+$l_cr_xhtml_editorial = langObj["creator"]["xhtml_editorial"]
+$l_cr_xhtml_autoria = langObj["creator"]["xhtml_autoria"]
+$l_cr_creando = langObj["creator"]["creando"]
+$l_cr_error_nombre = langObj["creator"]["error_nombre"].red.bold
+$l_cr_error_css = langObj["creator"]["error_css"].red.bold
+$l_cr_error_css2 = langObj["creator"]["error_css2"].red.bold
+$l_cr_error_portada = langObj["creator"]["error_portada"].red.bold
+$l_cr_error_portada2 = langObj["creator"]["error_portada2"].red.bold
+$l_cr_error_img = langObj["creator"]["error_img"].red.bold
