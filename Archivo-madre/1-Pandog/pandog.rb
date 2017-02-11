@@ -17,8 +17,8 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 # Argumentos
 entrada = argumento "-i", entrada
 salida = argumento "-o", salida
-version = argumento "-v", $l_pg_v
-ayuda = argumento "-h", $l_pg_h
+argumento "-v", $l_pg_v
+argumento "-h", $l_pg_h
 
 # Comprueba que existan los argumentos necesarios
 comprobacion [entrada, salida]
