@@ -14,11 +14,11 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 directorio = argumento "-d", directorio
 lenguaje = argumento "-l", lenguaje
 nombre = argumento "-o", nombre
-version = argumento "-v", $l_tg_v
-ayuda = argumento "-h", $l_tg_h
 txt = argumento "-t", txt, 1
 comprimido = argumento "-c", comprimido, 1
 gswin32 = argumento "-32", gswin32, 1
+argumento "-v", $l_tg_v
+argumento "-h", $l_tg_h
 
 # Comprueba que existan los argumentos necesarios
 comprobacion [directorio, lenguaje, nombre]
