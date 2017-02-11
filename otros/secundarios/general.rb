@@ -46,7 +46,7 @@ def argumento condicion, resultado, tipo = 0
 					resultado = true
 				# Para cuando se quiere una línea de texto; toma el valor inmediato, p. ej. de -d tomará la ruta del directorio
 				else
-					# Si si hay un elemento siguiente, se avanza, marca error y aborta si no
+					# Si sí hay un elemento siguiente, se avanza, marca error y aborta si no
 					begin
 						# Si el siguiente argumento no empieza con «-» se registra el valor, marca error y aborta si no
 						if ARGF.argv[i+1][0] != "-"
