@@ -215,6 +215,11 @@ b, strong {
 	font-weight: bold;
 }
 
+.capitular {
+	font-size: 2em;
+	padding-right: 1px;
+}
+
 .versal {
 	text-transform: uppercase;
 }
