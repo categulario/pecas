@@ -1,75 +1,80 @@
-# Creator.rb
+# Creator
 
-## Índice
+Creator crea un proyecto para EPUB con distintas opciones.
 
-* [Descripción](#descripción)
-* [Uso](#uso)
-* [Explicación](#explicación)
+## Uso:
 
----
+  ```
+  pt-creator --title "[Título]" --creator "[Autoría]" --publisher "[Editorial]"
+  ```
 
-## Descripción
+## Descripción de los parámetros
 
-Este *script* crea la estructura del EPUB, con la posibilidad de incluir una hoja de estilos CSS
-predeterminada.
+### Parámetros necesarios:
 
-## Uso
+* `--title` = Título de la obra.
+* `--creator` = Persona o grupo a quien se le atribuye la obra.
+* `--publisher` = Editorial o grupo que publica la obra.
 
-###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta de la carpeta donde se creará el proyecto para el EPUB.
+### Parámetros opcionales:
 
-Para mayor comodidad en el *shell* arrastra el archivo `creator.rb` y después
-haz lo mismo para la carpeta donde se creará el proyecto para el EPUB.
+* `-d` = [directory] Directorio donde se creará el proyecto.
+* `-o` = [output] Nombre del proyecto.
+* `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
+* `-c` = [cover] Ruta a la imagen de portada que se desea incluir.
+* `-i` = [images] Ruta a la carpeta con las imágenes que se desean incluir.
 
-    Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
-    «Start Command Prompt with Ruby» para poder ejecutar esta orden.
+### Parámetros únicos:
 
-    Si no se ingresa algún parámetro, el proyecto se creará en el directorio
-    actual.
+* `-v` = [version] Muestra la versión.
+* `-h` = [help] Muestra esta ayuda.
 
-###### 1. El *script* creará la carpeta del proyecto con el nombre `EPUB-CREATOR` y ¡listo!
+## Ejemplos
 
-## Explicación
+### Ejemplo sencillo:
 
-### Creación de un proyecto EPUB
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial"
+```
 
-Este *script* crea una carpeta de un proyecto genérico para un libro EPUB el cual añade plantillas para la portadilla y la legal (pueden eliminarse) y estilos CSS predeterminados (también eliminables).
+Crea un proyecto EPUB en el directorio actual y con el nombre `epub-creator`.
 
-### Estilos
+### Ejemplo en un directorio específico:
 
-La hoja de estilo cuenta con un reseteador para después agregar los estilos predeterminados, entre los que destacan las siguientes clases:
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado
+```
 
-* `justificado`. Justifica el texto. No existe necesidad de explicitarlo en los párrafos, bloques de cita o listados, ya que sus etiquetas ya cuentan con esta justificación.
-* `derecha`. Alinea el texto a la derecha.
-* `izquierda`. Alinea el texto a la izquierda.
-* `centrado`. Centra el texto.
-* `frances`. Alinea el texto a la izquierda como un párrafo francés.
-* `sangria`. añade un `text-indent` de 1em.
-* `sinSangria`. Elimina el `text-indent`.
-* `oculto`. Oculta el elemento.
-* `versalitas`. Coloca el texto en versalitas.
-* `versales`. Coloca el texto en versales.
-* `titulo`. Para el título de la obra.
-* `subtitulo`. Para el subtítulo de la obra.
-* `legal`. Alinea el texto a la izquierda y sin sangría.
-* `epigrafe`. Para los epígrafes.
-* `espacioArriba`. Agrega un salto de línea.
-* `espacioArriba2`. Agrega dos saltos de línea.
-* `espacioArriba3`. Agrega tres saltos de línea.
+Crea un proyecto EPUB en `directorio/deseado` y con el nombre `epub-creator`.
 
-### Árbol de archivos creados
+### Ejemplo en un directorio y nombre específicos:
 
-* `EPUB-CREATOR`. La carpeta para el EPUB.
-  * `mimetype`
-  * `META-INF`
-    * `container.xml`
-  * `OPS`. Aquí va el contenido del libro.
-    * `content.opf`. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
-    * `css`
-      * `styles.css`. Se crean estilos predeterminados. Vaciar el archivo si no se desean.
-    * `img`. Para colocar las imágenes. Eliminar si el libro no contiene alguna, aunque se recomienda al menos colocar una imagen para la portada.
-    * `toc`. Carpeta para las tablas de contenidos.
-      * `nav.xhtml`. Tabla de contenidos para dispositivos recientes. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
-      * `toc.ncx`. Tabla de contenidos para dispositivos antiguos. Para completar este archivo usa [`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador)
-    * `xhtml`
-      * `001-portadilla.xhtml`. Archivo para la portadilla que solo requiere ingresar el título y autor. Eliminar si no se desea.
-      * `002-legal.xhtml`. Archivo para la legal, sustituir los elementos que contiene. Eliminar si no se desea.
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub
+```
+
+Crea un proyecto EPUB en `directorio/deseado` y con el nombre `proyecto_epub`.
+
+### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:
+
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css
+```
+
+Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo `archivo.css` en lugar del CSS defecto.
+
+### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:
+
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg
+```
+
+Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de `portada.jpg`.
+
+### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:
+
+```
+  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes
+```
+
+Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en `ruta/al/directorio/con/imagenes`.

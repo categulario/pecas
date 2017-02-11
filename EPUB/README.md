@@ -8,9 +8,8 @@ Aquí están presentes una serie de *scripts*
 pensados para agilizar o automatizar el desarrollo
 de libros EPUB. Estos son:
 
-1. `creator.rb`. Crea la estructura del EPUB, con
-la posibilidad de incluir una hoja de estilos CSS
-predeterminada.
+1. `creator.rb`. Crea un proyecto para EPUB con 
+distintas opciones.
 
 2. `divider.rb`. Divide un solo documento HTML o
 XHTML en varios documentos XHTML cada vez que
