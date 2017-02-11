@@ -307,6 +307,10 @@ sub {
     margin-left: 40%;
 }
 
+body > .epigrafe:first-child {
+	margin-top: 3em;
+}
+
 .epigrafe + p {
     margin-top: 2em;
     text-indent: 0;
