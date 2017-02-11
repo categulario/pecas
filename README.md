@@ -121,6 +121,8 @@ Solo es necesario escribir el nombre del binario para llamar al script:
     * En Linux no se ordenan correctamente las notas cuando se crea `9999-notes.xhtml` con división por sección.
   * `cites.rb`.
     * Terminar el desarrollo.
+  * `index.rb`.
+    * Terminar el desarrollo.
   * `recreator.rb`.
     * No guarda la nueva versión cuando obtiene los datos de `recreator-metadata`.
     * Agregar posibilidad de anidar TOC, al menos donde `part` es padre de `chapter`.
