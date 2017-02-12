@@ -4,8 +4,7 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-$css_template = "
-/**************************************************/
+$css_template = "/**************************************************/
 /******************* RESETEADOR *******************/
 /**************************************************/
 
@@ -24,42 +23,42 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 /* Para viejos exploradores */
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block;
 }
 
 body {
-	line-height: 1;
+    line-height: 1;
 }
 
 ol, ul {
-	list-style: none;
+    list-style: none;
 }
 
 blockquote, q {
-	quotes: none;
+    quotes: none;
 }
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+    content: '';
+    content: none;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /**************************************************/
@@ -79,14 +78,18 @@ body {
 /* Encabezados */
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: Georgia, \"Times New Roman\", serif;
+    font-family: Georgia, \"Times New Roman\", serif;
     margin-bottom: 1em;
     text-align: left;
-	-moz-hyphens: none;
+    -moz-hyphens: none;
     -webkit-hyphens: none;
     -o-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
+}
+
+* + h1 {
+    margin-top:5em;
 }
 
 * + h2, h3, h4, h5, h6 {
@@ -127,10 +130,10 @@ h1 + p {
 }
 
 p, blockquote, li {
-	font-family: Georgia, \"Times New Roman\", serif;
-	font-size: 1em;
-	text-align: justify;
-	line-height: 1.25em;
+    font-family: Georgia, \"Times New Roman\", serif;
+    font-size: 1em;
+    text-align: justify;
+    line-height: 1.25em;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     -o-hyphens: auto;
@@ -139,7 +142,7 @@ p, blockquote, li {
 }
 
 p + p {
-	text-indent: 1.5em;
+    text-indent: 1.5em;
 }
 
 blockquote {
@@ -148,26 +151,26 @@ blockquote {
 }
 
 blockquote + blockquote {
-	text-indent: 1.5em;
+    text-indent: 1.5em;
     margin-top: -1em;
 }
 
 .justificado {
-	text-align: justify;
+    text-align: justify;
 }
 
 .derecha {
     text-indent: 0;
-	text-align: right;
+    text-align: right;
 }
 
 .izquierda {
-	text-align: left;
+    text-align: left;
 }
 
 .centrado {
     text-indent: 0;
-	text-align: center;
+    text-align: center;
 }
 
 .frances {
@@ -178,6 +181,10 @@ blockquote + blockquote {
 
 * + .frances {
     margin-top: 1em;
+}
+
+h1 + .frances {
+    margin-top: 10em;
 }
 
 .frances + .frances {
@@ -201,8 +208,12 @@ blockquote + blockquote {
     hyphens: none;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 .oculto {
-	visibility: hidden;
+    display: none;
 }
 
 /* Efectos en las fuentes */
@@ -212,22 +223,22 @@ i, em {
 }
 
 b, strong {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .capitular {
-	font-size: 2em;
-	padding-right: 1px;
+    font-size: 2em;
+    padding-right: 1px;
 }
 
 .versal {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
-@media not amzn-mobi {	/* Para cualquier dispositivo excepto Mobi */
-	.versalita {
+@media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi */
+    .versalita {
         font-variant: small-caps;
-    	-moz-hyphens: auto;
+        -moz-hyphens: auto;
         -webkit-hyphens: auto;
         -o-hyphens: auto;
         -ms-hyphens: auto;
@@ -235,11 +246,11 @@ b, strong {
     }
 }
 
-@media amzn-mobi {	/* Para Mobi ya que no soporta el atributo «font-variant» */
-	.versalita {
-    	text-transform: uppercase;
-    	font-size: .8em;
-    	-moz-hyphens: auto;
+@media amzn-mobi {    /* Para Mobi ya que no soporta el atributo «font-variant» */
+    .versalita {
+        text-transform: uppercase;
+        font-size: .8em;
+        -moz-hyphens: auto;
         -webkit-hyphens: auto;
         -o-hyphens: auto;
         -ms-hyphens: auto;
@@ -250,8 +261,8 @@ b, strong {
 /* Enlaces */
 
 a, a:link, a:visited {
-	text-decoration: none;
-	color: gray;
+    text-decoration: none;
+    color: gray;
 }
 
 /* Listas */
@@ -269,6 +280,22 @@ ul {
     list-style-type:disc;
 }
 
+.li-manual {    /* Colocar en el ol o ul */
+    list-style-type: none;
+}
+
+.li-manual span:first-child {    /* Colocar en el li: <li><span>[viñeta o numeración deseada]</span>... */
+    display: block;
+    margin-left: -1.5em;
+    margin-bottom: -1.25em;
+}
+
+/* Imágenes */
+
+img {    /* Ayuda a detectarlos si no existe el recurso */
+    color: gray;
+}
+
 /* Superíndices y subíndices */
 
 sup, sub {
@@ -283,8 +310,8 @@ sub {
 /* Contenidos especiales */
 
 .forro {
-	display: block;
-	margin: auto;
+    display: block;
+    margin: auto;
     height: 100vh;
 }
 
@@ -301,25 +328,25 @@ sub {
 }
 
 .legal {
-	font-size: 1em;
-	text-align: left;
-	line-height: 1.25em;
-	margin: 0;
+    font-size: 1em;
+    text-align: left;
+    line-height: 1.25em;
+    margin: 0;
 }
 
 .legal + .legal {
-	text-indent: 0;
+    text-indent: 0;
 }
 
 .epigrafe {
-	font-size: .9em;
-	text-align: right;
-	line-height: 1.25em;
+    font-size: .9em;
+    text-align: right;
+    line-height: 1.25em;
     margin-left: 40%;
 }
 
 body > .epigrafe:first-child {
-	margin-top: 3em;
+    margin-top: 3em;
 }
 
 .epigrafe + p {
@@ -332,48 +359,50 @@ body > .epigrafe:first-child {
 }
 
 .espacio-arriba1 {
-	margin-top: 1em;
+    margin-top: 1em;
 }
 
 .espacio-arriba2 {
-	margin-top: 2em;
+    margin-top: 2em;
 }
 
 .espacio-arriba3 {
-	margin-top: 3em;
+    margin-top: 3em;
 }
 
-/* Estilos adicionales */
+/* Notas al pie */
 
 .n-note-sup {
-	font-style: normal;
-	font-weight: normal;
+    font-style: normal;
+    font-weight: normal;
 }
 
 .n-note-hr {
-	margin-top: 2em;
-	width: 25%;
-	margin-left: 0;
-	border: 1px solid gray;
+    margin-top: 2em;
+    width: 25%;
+    margin-left: 0;
+    border: 1px solid gray;
 }
 
 .n-note-a {
-	display: block;
-	margin-left: -3em;
-	margin-bottom: -1.25em;
+    display: block;
+    margin-left: -3em;
+    margin-bottom: -1.25em;
 }
 
 .n-note-p {
-	margin-left: 3em;
-	font-size: .9em;
+    margin-left: 3em;
+    font-size: .9em;
 }
 
 * + .n-note-p {
     margin-top: 1em;
 }
 
-.n-note-p + .n-note-p {
+span.n-note-p {
+    display: block;
     margin-top: 0.5em;
+    margin-left: 0;
     text-indent: 0;
 }
 
@@ -383,11 +412,16 @@ body > .epigrafe:first-child {
 "
 
 # Plantilla minificada
-$css_template_min = $css_template.gsub(/\n/,"")					# Elimina los saltos de línea	
-						.gsub(/\/\*.*?\*\//,"")					# Elimina los comentarios
-						.gsub(/,\s+/,",").gsub(/\s+,\s+/,",")	# Elimina los espacios entre comas
-						.gsub(/;\s+/,";").gsub(/\s+;\s+/,";")	# Elimina los espacios entre puntos y coma
-						.gsub(/{\s+/,"{").gsub(/\s+{\s+/,"{")	# Elimina los espacios entre corchetes
-						.gsub(/}\s+/,"}").gsub(/\s+}\s+/,"}")	# Elimina los espacios entre corchetes
-						.gsub(/:\s+/,":").gsub(/\s+:\s+/,":")	# Elimina los espacios entre dos puntos
-						.gsub(/\s+/," ")						# Elimina los dobles espacios
+$css_template_min = $css_template
+						.gsub(/\/\*.*?\*\//,"")                 # Elimina los comentarios
+						.gsub(/^\s+/, "")						# Elimina espacios al inicio de la línea
+                        .gsub(/,\s+/,",").gsub(/\s+,\s+/,",")	# Elimina los espacios entre comas
+                        .gsub(/:\s+/,":").gsub(/\s+:\s+/,":")   # Elimina los espacios entre dos puntos
+                        .gsub(/\s+{\s+/,"{").gsub(/{\s+/,"{")   # Elimina los espacios entre corchetes
+                        .gsub(/}\s+/,"}").gsub(/\s+}\s+/,"}")   # Elimina los espacios entre corchetes
+                        .gsub(/;\s+/,";").gsub(/\s+;\s+/,";")   # Elimina los espacios entre puntos y coma
+                        .gsub(/\s+\+\s+/, "+")					# Elimina espacios entre el operador «+»
+                        .gsub(/\s+>\s+/, ">")					# Elimina espacios entre el operador «>»
+                        .gsub(/\s+~\s+/, "~")					# Elimina espacios entre el operador «~»
+                        .gsub(/\s+/," ")                        # Elimina los dobles espacios como precaución
+                        .gsub(/\n/,"")                    		# Elimina los saltos de línea como precaución
