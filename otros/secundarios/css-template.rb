@@ -390,9 +390,10 @@ body > .epigrafe:first-child {
     margin-bottom: -1.25em;
 }
 
-.n-note-p {
+.n-note-p, .n-note-p2 {
     margin-left: 3em;
     font-size: .9em;
+    text-indent: 0;
 }
 
 * + .n-note-p {
@@ -404,6 +405,11 @@ span.n-note-p {
     margin-top: 0.5em;
     margin-left: 0;
     text-indent: 0;
+}
+
+.n-note-p2 {
+    margin-top: 0;
+    text-indent: 1.5em;
 }
 
 /* Estilos de esta edición */
