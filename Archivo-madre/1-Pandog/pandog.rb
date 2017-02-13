@@ -11,6 +11,7 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/css-template.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-beautifier.rb"
 
 ## REQUIERE PANDOC
 
@@ -189,6 +190,9 @@ def mdAhtml s_path, s_nombre
 	archivo_abierto.close
 	html_nuevo.close
 	
+	# Acomoda los elementos con los espacios correctos
+	beautifier html_nuevo
+	
 	# Borra el archivo viejo y renombra al nuevo para sustituirlo
 	File.delete(s_nombre_actual)
 	File.rename(".#{s_nombre_actual}", s_nombre_final)
@@ -239,16 +243,16 @@ end
 
 # El plus a pandoc es en el tratamiento entre el MD y el HTML
 if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
-	begin
+	#begin
 		# Por defecto crea un HTML sin cabeza
 		`pandoc #{entrada_sis} -o #{directorioPadreTerminal salida_sis}/#{File.basename(salida_sis,'.*') + $pandog_coletilla + '.html'}`
 		
 		# Llama a las modificaciones
 		mdAhtml directorioPadre(salida), File.basename(salida)
-	rescue
-		puts $l_pg_error_m
-		abort
-	end
+	#rescue
+	#	puts $l_pg_error_m
+	#	abort
+	#end
 elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xml") && ext_s == ".md"
 	begin
 		entrada_html = nil
