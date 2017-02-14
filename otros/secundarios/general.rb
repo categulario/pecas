@@ -25,6 +25,15 @@ module OS
     end
 end
 
+## CLASES
+
+# Para detectar que es un número entero; viene de: http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
+class String
+    def is_i?
+		/\A[-+]?\d+\z/ === self
+    end
+end
+
 ## FUNCIONES
 
 # Obtiene los argumentos
@@ -101,6 +110,7 @@ def arregloRuta elemento
     return elementoFinal
 end
 
+# Enmienda ciertos problemas con la línea de texto pasa su uso directo en el sistema
 def arregloRutaTerminal elemento
 	ruta = elemento
 	
@@ -113,10 +123,12 @@ def arregloRutaTerminal elemento
 	return ruta
 end
 
+# Obtiene el directorio donde se encuentra el archivo
 def directorioPadre archivo
 	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 end
 
+# Obtiene el directorio donde se encuentra el archivo para uso directo en el sistema
 def directorioPadreTerminal archivo
 	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 
@@ -127,4 +139,20 @@ def directorioPadreTerminal archivo
 	end
 	
 	return directorio
+end
+
+# Comprueba el archivo CSS
+def comprobacionCSS css
+	if css != nil
+		css = arregloRuta css
+		if File.extname(css) != ".css"
+			puts $l_g_error_css
+			abort
+		elsif !File.exists?(css)
+			puts $l_g_error_css2
+			abort
+		end
+	end
+	
+	return css
 end
