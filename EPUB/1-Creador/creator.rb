@@ -28,16 +28,7 @@ argumento "-h", $l_cr_h
 comprobacion [epubTitulo, epubAutor, epubEditorial]
 
 # Comprueba el archivo CSS
-if epubCSS != nil
-	epubCSS = arregloRuta epubCSS
-	if File.extname(epubCSS) != ".css"
-		puts $l_cr_error_css
-		abort
-	elsif !File.exists?(epubCSS)
-		puts $l_cr_error_css2
-		abort
-	end
-end
+epubCSS = comprobacionCSS epubCSS
 
 # Comprueba el nombre de la portada
 if epubPortada != nil
@@ -70,7 +61,7 @@ Dir.glob("*") do |archivo|
 		puts $l_cr_error_nombre
 		abort
 	else
-		puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green.bold
+		puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green
 		Dir.mkdir epubNombre
 		break
 	end

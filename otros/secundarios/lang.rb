@@ -43,6 +43,8 @@ langObj = JSON.parse(json)
 
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
 $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
+$l_g_error_css = langObj["general"]["error_css"].red.bold
+$l_g_error_css2 = langObj["general"]["error_css2"].red.bold
 $l_g_fin = langObj["general"]["fin"].blue.bold
 
 # Pandog
@@ -83,8 +85,12 @@ $l_cr_xhtml_editorial = langObj["creator"]["xhtml_editorial"]
 $l_cr_xhtml_autoria = langObj["creator"]["xhtml_autoria"]
 $l_cr_creando = langObj["creator"]["creando"]
 $l_cr_error_nombre = langObj["creator"]["error_nombre"].red.bold
-$l_cr_error_css = langObj["creator"]["error_css"].red.bold
-$l_cr_error_css2 = langObj["creator"]["error_css2"].red.bold
 $l_cr_error_portada = langObj["creator"]["error_portada"].red.bold
 $l_cr_error_portada2 = langObj["creator"]["error_portada2"].red.bold
 $l_cr_error_img = langObj["creator"]["error_img"].red.bold
+
+# Divider
+$l_di_v = langObj["divider"]["v"]
+$l_di_h = langObj["divider"]["h"]
+$l_di_dividiendo = langObj["divider"]["dividiendo"].green
+$l_di_error_i = langObj["divider"]["error_i"].red.bold

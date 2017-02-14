@@ -2,6 +2,8 @@
    "general" : {
 		"error_arg" : "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda.",
 		"error_arg2" : "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda.",
+		"error_css" : "\nLa hoja de estilo tiene que tener una extensión «.css».",
+		"error_css2" : "\nAl parecer la hoja de estilo no existe.",
 		"fin" : "\n¡Operación finalizada exitosamente!\n"
 	},
 	
@@ -42,10 +44,15 @@
 		"xhtml_autoria" : "Autoría",
 		"creando" : ["\nCreando carpeta del EPUB con el nombre «","»..."],
 		"error_nombre" : "\nYa existe una carpeta con el nombre indicado.",
-		"error_css" : "\nLa hoja de estilo tiene que tener una extensión «.css».",
-		"error_css2" : "\nAl parecer la hoja de estilo no existe.",
 		"error_portada" : "\nLa imagen de portada no tiene una extensión válida (JPG, JPEG, GIF, PNG o SVG).",
 		"error_portada2" : "\nAl parecer la imagen de portada no existe.",
 		"error_img" : "\nAl parecer la carpeta con las imágenes no existe."
+	},
+	
+	"divider" : {
+		"v" : "divider 0.1.0",
+		"h" : "AYUDA",
+		"dividiendo" : "\nDividiendo archivos...",
+		"error_i" : "\nSolo se permiten números enteros para la opción -i."
 	}
 }
