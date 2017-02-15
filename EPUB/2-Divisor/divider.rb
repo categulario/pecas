@@ -31,10 +31,6 @@ else
 	indice = indice.to_i
 end
 
-# Otras variables
-epubType = ""
-epubTypeCreacion = true
-
 # Se va a la carpeta para crear los archivos
 Dir.chdir(carpeta)
 
@@ -70,24 +66,22 @@ rutaCSS = archivoCSSBusqueda archivoCSS, carpeta
 # Inicia la división
 puts $l_di_dividiendo
 
-### AQUÍ ME QUEDÉ
-
 # Para ver el contenido
 archivoTodo = File.open(archivo, 'r:UTF-8')
 
 # Variables necesarias para obtener la información
 enEncabezado = false
-$parteArchivo = 0
-$parteArchivoViejo = 1
+parteArchivo = 0
+parteArchivoViejo = 1
 Objecto = Struct.new(:titulo, :encabezado, :contenido)
-$objeto = Objecto.new
-$contenidoConjunto = Array.new
+objeto = Objecto.new
+contenidoConjunto = Array.new
 
 # Crea los archivos
-def creacion
+def creacion objeto, contenidoConjunto, rutaCSS, indice
 
     # Uniforma la numeración basada en tres dígitos
-    def conteoString (numero)
+    def conteoString numero
         if numero < 10
             numeroTexto = "00" + numero.to_s
         elsif numero < 100
@@ -99,72 +93,77 @@ def creacion
         return numeroTexto
     end
 
-    def epubTypeObtencion
-        puts "\nCreando el archivo para «#{$objeto.titulo}»".magenta.bold
-        puts "Ingresa el epub:type ".brown + "[dejar en blanco para ignorar]".bold
-        epubType = $stdin.gets.chomp.strip
-    end
+    objeto.contenido = contenidoConjunto
 
-    if epubTypeCreacion == true
-        epubTypeObtencion
-    end
+    # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el índice y el nombre de extensión
+    nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
+    nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
+    nombreArchivo = nombreArchivo.split("-")[0..4].join("-")
+    nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
 
-    $objeto.contenido = $contenidoConjunto
-
-    # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el conte y el nombre de extensión
-    nombreArchivo = ActiveSupport::Inflector.transliterate($objeto.titulo).to_s
-    nombreArchivo = conteoString(conteo) + "-" + nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase + ".xhtml"
+	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
-    archivo.puts xhtmlTemplateHead $objeto.titulo, rutaCSS, epubType
-    archivo.puts "        " + $objeto.encabezado
-    $objeto.contenido.each do |linea|
+    archivo.puts xhtmlTemplateHead objeto.titulo, rutaCSS
+    archivo.puts "        " + objeto.encabezado
+    objeto.contenido.each do |linea|
         archivo.puts "        " + linea
     end
     archivo.puts $xhtmlTemplateFoot
     archivo.close
 
     # Para aumentar la numeración
-    conteo += 1
+    indice += 1
 end
 
 # Divide el archivo
 archivoTodo.each do |linea|
     # Si se trata de un encabezado h1
-    if linea =~ /<(.*?)h1(.*?)>(.*?)<\/(.*?)h1(.*?)>/i
+    if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 
         # Para no ignorar el contenido posterior aunque no se trate de un encabezado
         enEncabezado = true
 
         # Aumento del conteo de partes
-        $parteArchivo += 1
+        parteArchivo += 1
 
         # De esta manera se detecta una nueva parte
-        if $parteArchivoViejo < $parteArchivo
-            creacion
-            $parteArchivoViejo = $parteArchivo
+        if parteArchivoViejo < parteArchivo
+            indice = creacion objeto, contenidoConjunto, rutaCSS, indice
+            parteArchivoViejo = parteArchivo
         end
+        
+        # Elimina etiquetas HTML y etiquetas PT del encabezado
+        lineaLimpia = linea.strip
+						.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
+						.gsub(/<.*?>/, "")
+						.gsub(/ºº.*?ºº/, "")
 
         # Obtención del título y el encabezado
-        $objeto.titulo = linea.gsub(/<(.*?)>/, "").strip
-        $objeto.encabezado = linea.gsub("H1", "h1").strip
+        if lineaLimpia == ""
+			objeto.titulo = $l_di_sin_titulo
+        else
+			objeto.titulo = lineaLimpia
+        end
+        
+        objeto.encabezado = linea.gsub("H1", "h1").strip
 
         # Se limpia el conjunto con contenido
-        $contenidoConjunto = $contenidoConjunto.clear
+        contenidoConjunto = contenidoConjunto.clear
     # Si se trata de contenido después del primer encabezado
     elsif enEncabezado == true
         # Si es una línea que no tiene </body> o </html>
         if linea !~ /body>/i && linea !~ /html>/i
-            $contenidoConjunto.push(linea.strip)
+            contenidoConjunto.push(linea.strip)
 
             # Si se trata de la última línea, se crea el archivo; por si el documento no cuenta con etiquetas de body o html
             if archivoTodo.eof? == true
-                creacion
+                indice = creacion objeto, contenidoConjunto, rutaCSS, indice
             end
         # Si se llega el fin del body o html, se crea el último archivo y se termina el loop
         else
-            creacion
+            indice = creacion objeto, contenidoConjunto, rutaCSS, indice
             break
         end
     end

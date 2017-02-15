@@ -53,6 +53,8 @@
 		"v" : "divider 0.1.0",
 		"h" : "AYUDA",
 		"dividiendo" : "\nDividiendo archivos...",
+		"creando" : ["\nCreando ", "..."],
+		"sin_titulo" : "Sin título",
 		"error_i" : "\nSolo se permiten números enteros para la opción -i."
 	}
 }
