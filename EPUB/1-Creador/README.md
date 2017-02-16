@@ -27,7 +27,7 @@ Creator crea un proyecto para EPUB con distintas opciones.
 ### Parámetros únicos:
 
 * `-v` = [version] Muestra la versión.
-* `-h` = [help] Muestra esta ayuda.
+* `-h` = [help] Muestra la ayuda, la cual es este contenido.
 
 ## Ejemplos
 

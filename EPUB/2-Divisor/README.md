@@ -23,7 +23,7 @@ Divider separa un documento HTML cada `<h1>`.
 ### Parámetros únicos:
 
 * `-v` = [version] Muestra la versión.
-* `-h` = [help] Muestra esta ayuda.
+* `-h` = [help] Muestra la ayuda, la cual es este contenido.
   
 ## Ejemplos
 
@@ -61,10 +61,10 @@ Divider separa un documento HTML cada `<h1>`.
 
 ## Notas
 
-### Exclusión de etiquetas <h1> de los archivos creados
+### Exclusión de etiquetas \<h1> de los archivos creados
 
 Existen ocasiones en que se desea dividir el documento, pero no se quiere 
-incluir la etiqueta <h1> al archivo creado. Para esto basta con agregar 
+incluir la etiqueta `<h1>` al archivo creado. Para esto basta con agregar 
 la marca `ººignoreºº` (Alt + Shift + M para obtener el símbolo «º»).
 
 Por ejemplo, en el archivo a dividir se tiene:
