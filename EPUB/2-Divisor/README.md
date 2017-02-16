@@ -86,7 +86,7 @@ Esto creará un nuevo archivo sin incluir el `<h1>`:
 
 ### Vinculación de la hoja de estilo
 
-En los archivos creados al que se le vinculan la hoja de estilo, la ruta
+En los archivos creados al que se les vinculan la hoja de estilo, la ruta
 es relativa a la ubicación del archivo CSS y la carpeta destino de estos
 archivos. Por ello, si la hoja de estilo o los archivos son cambiados de
 ubicación, habrá de arreglarse la ruta de manera manual.
