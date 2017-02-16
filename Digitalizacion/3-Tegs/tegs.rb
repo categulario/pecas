@@ -24,11 +24,11 @@ argumento "-h", $l_tg_h
 comprobacion [directorio, lenguaje, nombre]
 
 # Arregla los contenidos de la variable para evitar conflictos
-directorio = arregloRuta directorio
+directorio = comprobacionDirectorio directorio
 nombre = nombre.split(".").first
 
 # Va al directorio donde están las imágenes
-Dir.chdir directorio
+Dir.chdir(directorio)
 
 # Conjunto para los archivos de texto
 txts = Array.new

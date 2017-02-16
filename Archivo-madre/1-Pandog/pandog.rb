@@ -25,7 +25,7 @@ argumento "-h", $l_pg_h
 comprobacion [entrada, salida]
 
 # Arregla rutas
-entrada = arregloRuta entrada
+entrada = comprobacionArchivo entrada, [".md", ".html", ".xhtml", ".htm", ".xml", ".odt", ".docx", ".tex"]
 salida = arregloRuta salida
 entrada_sis = arregloRutaTerminal entrada
 salida_sis = arregloRutaTerminal salida

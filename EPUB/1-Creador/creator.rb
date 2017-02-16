@@ -28,31 +28,21 @@ argumento "-h", $l_cr_h
 comprobacion [epubTitulo, epubAutor, epubEditorial]
 
 # Comprueba el archivo CSS
-epubCSS = comprobacionCSS epubCSS
+epubCSS = comprobacionArchivo epubCSS, [".css"]
+
+# Adquiere el path absoluto del archivo CSS
+if epubCSS != nil
+	epubCSS = File.absolute_path(epubCSS)
+end
 
 # Comprueba el nombre de la portada
-if epubPortada != nil
-	epubPortada = arregloRuta epubPortada
-	if File.extname(epubPortada) != ".jpg" && File.extname(epubPortada) != ".jpeg" && File.extname(epubPortada) != ".gif" && File.extname(epubPortada) != ".png" && File.extname(epubPortada) != ".svg"
-		puts $l_cr_error_portada
-		abort
-	elsif !File.exists?(epubPortada)
-		puts $l_cr_error_portada2
-		abort
-	end
-end
+epubPortada = comprobacionArchivo epubPortada, [".jpg", ".jpeg", ".gif", ".png", ".svg"]
 
 # Comprueba que exista la carpeta de las imágenes
-if epubImagenes != nil
-	epubImagenes = arregloRuta epubImagenes
-	if !File.directory?(epubImagenes)
-		puts $l_cr_error_img
-		abort
-	end
-end
+epubImagenes = comprobacionDirectorio epubImagenes
 
 # Se va a la carpeta para crear los archivos
-epubUbicacion = arregloRuta epubUbicacion
+epubUbicacion = comprobacionDirectorio epubUbicacion
 Dir.chdir(epubUbicacion)
 
 # Crea la carpeta del EPUB si no existe previamente
@@ -137,11 +127,12 @@ Dir.chdir(epubUbicacion + "/css")
 
 # Crea el archivo CSS
 styles = File.new("styles.css", "w:UTF-8")
+
 # Si no se indicó ninguna hoja, se añade una por defecto
 if epubCSS == nil
 	styles.puts $css_template
 else
-	archivo_abierto = File.open(epubCSS, "r:UTF-8")
+	archivo_abierto = File.open(File.absolute_path(epubCSS), "r:UTF-8")
 	archivo_abierto.each do |linea|
 		styles.puts linea
 	end

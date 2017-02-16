@@ -88,6 +88,52 @@ def comprobacion conjunto
 	end
 end
 
+# Comprueba que la carpeta sea válida
+def comprobacionDirectorio carpeta
+	if carpeta != nil
+		c = carpeta
+		carpeta = arregloRuta(File.absolute_path(carpeta))
+
+		if !File.directory?(carpeta)
+			puts "#{$l_g_error_directorio[0] + c + $l_g_error_directorio[1]}".red.bold
+			abort
+		else
+			return carpeta
+		end
+	end
+end
+
+# Comprueba que el archivo sea válido
+def comprobacionArchivo archivo, extension
+	if archivo != nil
+		a = archivo
+		archivo = arregloRuta(File.absolute_path(archivo))
+		valido = false
+		
+		# Comprueba de que exista
+		if !File.exists?(archivo)
+			puts "#{$l_g_error_archivo[0] + a + $l_g_error_archivo[1]}".red.bold
+			abort
+		end
+		
+		# Itera hasta dar con una extensión válida
+		extension.each do |e|
+			if File.extname(archivo) == e
+				valido = true
+				break
+			end
+		end
+		
+		#Comprueba que sea una extensión válida
+		if !valido
+			puts puts "#{$l_g_error_archivo2[0] + a + $l_g_error_archivo2[1]}".red.bold
+			abort
+		end
+		
+		return archivo
+	end
+end
+
 # Enmienda ciertos problemas con la línea de texto
 def arregloRuta elemento
 	# Elimina espacios al inicio y al final
@@ -139,20 +185,4 @@ def directorioPadreTerminal archivo
 	end
 	
 	return directorio
-end
-
-# Comprueba el archivo CSS
-def comprobacionCSS css
-	if css != nil
-		css = arregloRuta css
-		if File.extname(css) != ".css"
-			puts $l_g_error_css
-			abort
-		elsif !File.exists?(css)
-			puts $l_g_error_css2
-			abort
-		end
-	end
-	
-	return css
 end
