@@ -11,11 +11,7 @@ de libros EPUB. Estos son:
 1. `creator.rb`. Crea un proyecto para EPUB con 
 distintas opciones.
 
-2. `divider.rb`. Divide un solo documento HTML o
-XHTML en varios documentos XHTML cada vez que
-detecta encabezados `h1`. Principalmente está
-pensado como un proceso más dentro de la
-metodología del *single source publishing*.
+2. `divider.rb`. Separa un documento HTML cada `<h1>`.
 
 3. `footnotes.rb`. Agrega de manera automatizada
 las notas al pie a un libro EPUB o documentos

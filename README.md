@@ -107,8 +107,6 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * EPUB
   * Todos.
     * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
-  * `divider.rb`.
-    * Evitar que se copien las etiquetas con `ºº` al título.
   * `notes.rb`.
     * No se añade el primer encabezado cuando se reinicia la numeración y se crea el `9999-notes.xhtml`.
     * Los encabezados que se añaden a `9999-notes.xhtml` heredan espacios al principio y al final.

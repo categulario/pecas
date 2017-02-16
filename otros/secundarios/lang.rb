@@ -40,15 +40,14 @@ json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json", :encoding => 'U
 langObj = JSON.parse(json)
 
 # Generales
-
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
 $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
-$l_g_error_css = langObj["general"]["error_css"].red.bold
-$l_g_error_css2 = langObj["general"]["error_css2"].red.bold
+$l_g_error_directorio = langObj["general"]["error_directorio"]
+$l_g_error_archivo = langObj["general"]["error_archivo"]
+$l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_fin = langObj["general"]["fin"].blue.bold
 
 # Pandog
-
 $l_pg_v = langObj["pandog"]["v"]
 $l_pg_h = langObj["pandog"]["h"]
 $l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
@@ -57,7 +56,6 @@ $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
 
 # Tegs
-
 $l_tg_v = langObj["tegs"]["v"]
 $l_tg_h = langObj["tegs"]["h"]
 $l_tg_comprimido = langObj["tegs"]["comprimido"]
@@ -85,9 +83,6 @@ $l_cr_xhtml_editorial = langObj["creator"]["xhtml_editorial"]
 $l_cr_xhtml_autoria = langObj["creator"]["xhtml_autoria"]
 $l_cr_creando = langObj["creator"]["creando"]
 $l_cr_error_nombre = langObj["creator"]["error_nombre"].red.bold
-$l_cr_error_portada = langObj["creator"]["error_portada"].red.bold
-$l_cr_error_portada2 = langObj["creator"]["error_portada2"].red.bold
-$l_cr_error_img = langObj["creator"]["error_img"].red.bold
 
 # Divider
 $l_di_v = langObj["divider"]["v"]
@@ -95,4 +90,5 @@ $l_di_h = langObj["divider"]["h"]
 $l_di_dividiendo = langObj["divider"]["dividiendo"].green
 $l_di_creando = langObj["divider"]["creando"]
 $l_di_sin_titulo = langObj["divider"]["sin_titulo"]
+$l_di_error_f = langObj["divider"]["error_f"].red.bold
 $l_di_error_i = langObj["divider"]["error_i"].red.bold

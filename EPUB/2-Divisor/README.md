@@ -1,104 +1,97 @@
-# Divider.rb
+# Divider
 
-## Índice
+Divider separa un documento HTML cada `<h1>`.
 
-* [Descripción](#descripción)
-* [Uso](#uso)
-* [Explicación](#explicación)
+## Uso:
 
----
+  ```
+  pt-divider -f [archivo a dividir]
+  ```
 
-## Descripción
+## Descripción de los parámetros
 
-Este *script* divide un solo documento HTML o XHTML en varios documentos XHTML
-cada vez que detecta encabezados `h1`. Principalmente está pensado como un proceso más dentro de la metodología del *single source publishing*.
+### Parámetro necesario:
 
-## Uso
+* `-f` = [file] Archivo HTML, XHTML o HTM a dividir.
 
-###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta al archivo HTML o XHTML a dividir.
+### Parámetros opcionales:
 
-Para mayor comodidad en el *shell* arrastra el archivo `recreator.rb` y después
-haz lo mismo con el archivo HTML o XHTML a dividir.
+* `-d` = [directory] Directorio donde se pondrán los archivos creados.
+* `-s` = [style sheet] Ruta al archivo CSS que se desea vincular.
+* `-i` = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.
 
-    Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
-    «Start Command Prompt with Ruby» para poder ejecutar esta orden.
+### Parámetros únicos:
 
-###### 2. Arrastra la carpeta donde deseas que se coloquen los archivos que contienen las partes del documento dividido.
+* `-v` = [version] Muestra la versión.
+* `-h` = [help] Muestra esta ayuda.
+  
+## Ejemplos
 
-###### 3. Arrastra el archivo CSS que desees vincular.
+### Ejemplo sencillo:
 
-###### 4. Indica el número con el cual iniciar la numeración de los documentos.
+```
+  pt-divider -f archivo/a/dividir.xhtml
+```
 
-    Este número se agrega al inicio del nombre de cada uno de los archivos para
-    que queden ordenados alfabéticamente.
+  Dividirá el archivo `dividir.xhtml`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
 
-###### 5. Contesta si deseas agregan un `epub:type` al `<body>` de cada archivo generado.
+### Ejemplo en un directorio específico:
 
-    Por defecto la respuesta es afirmativa.
+```
+  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado
+```
 
-###### 6. El archivo se empezará a dividir para generar archivos XHTML con cada una de las partes.
+  Dividirá como el ejemplo anterior, poniendo los archivos creados en `directorio/deseado`.
 
-    Si se optó por introducir un epub:type, en la creación de cada archivo se te
-    pedirá introducir el valor para este atributo.
+### Ejemplo en un directorio e incluyendo una hoja de estilo:
 
-###### 7. ¡Listo! Ya tendrás una serie de archivos XHTML para continuar con el desarrollo del EPUB.
+```
+  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css
+```
 
-## Explicación
+  Dividirá como el ejemplo anterior, vinculando la hoja de estilo `archivo.css` en cada archivo creado.
 
-### De un archivo de origen a los archivos para el EPUB
+### Ejemplo en un directorio e incluyendo una hoja de estilo y con otro índice:
 
-Este *script* facilita la división de un archivo HTML o XHTML, que al menos
-engloba el contenido principal de una obra, a una serie de archivos XHTML por
-cada parte del libro.
+```
+  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1
+```
 
-La idea detrás de esto es la metodología del *single source publishing*, por el
-cual desde un archivo «madre» se crean diferentes formatos para publicaciones
-digitales o impresas. En particular, la serie de procesos que se están empleando
-son:
+  Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.
 
-1. Translado de un enfoque WYSIWYG, por lo regular de un archivo de procesador
-de texto o del texto extraído de un PDF, a uno de etiquetado ligero con
-Markdown, consiguiéndose así un archivo «madre».
+## Notas
 
-2. Este archivo «madre» se convierte al formato deseado mediante
-[`pandoc`](http://pandoc.org/). Por ejemplo, a `.tex` para TeX, `.xml` para
-InDesign, o `.html` para Scribus o EPUB.
+### Exclusión de etiquetas <h1> de los archivos creados
 
-3. Para el caso del EPUB, con este *script* se particiona el documento para
-crear un archivo XHTML con cada una de las partes de la obra.
+Existen ocasiones en que se desea dividir el documento, pero no se quiere 
+incluir la etiqueta <h1> al archivo creado. Para esto basta con agregar 
+la marca `ººignoreºº` (Alt + Shift + M para obtener el símbolo «º»).
 
-4. Se continúa con el desarrollo del EPUB, mediante el auxilio de las otras
-herramientas presentes en este repositorio. (:
+Por ejemplo, en el archivo a dividir se tiene:
 
-### Índice a los archivos
+```
+	...
+	<h1>Epígrafeººignoreºº</h1>
+	<p class="epigrafe">Esto es un epígrafe.</p>
+	...
+```
 
-La necesidad de un índice para la numeración de los archivos es para evitar que
-estos queden alfabéticamente desordenados una vez divididos, algo que podría
-acarrear resultados indeseados al utilizar
-[`recreator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5%20-%20Recreador).
+Esto creará un nuevo archivo sin incluir el <h1>;
 
-El índice por defecto es tres ya que el proyecto para EPUB generado por
-[`creator.rb`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1%20-%20Creador) produce dos archivos, uno para la portadilla y otro para la legal
-(`001-portadilla.xhtml` y `002-legal.xhtml` respectivamente).
+```
+	...
+	<p class="epigrafe">Esto es un epígrafe.</p>
+	...
+```
 
-La numeración automáticamente se genera en tres dígitos. Por ejemplo, si el
-número de índice elegido es el «1», este se transformará en «001». También es
-posible ingresar directamente «001», aunque no es necesario.
+### Vinculación de la hoja de estilo
 
-### El atributo `epub:type`
+En los archivos creados al que se le vinculan la hoja de estilo, la ruta
+es relativa a la ubicación del archivo CSS y la carpeta destino de estos
+archivos. Por ello, si la hoja de estilo o los archivos son cambiados de
+ubicación, habrá de arreglarse la ruta de manera manual.
 
-Como se especifica en
-[este documento](https://idpf.github.io/epub-vocabs/structure) del IDPF, el
-`epub:type` define un conjunto de propiedades relativas a la descripción de la
-estructura semántica de un trabajo escrito. Es decir, mediante este atributo,
-el cual puede insertarse en cualquier etiqueta HTML, se hace mención sobre qué
-tipo de texto se trata. Por ejemplo, si un párrafo es una nota al pie, entonces
-a su etiqueta de apertura puede añadírsele un valor semántico mediante un
-`epub:type` semejante a `<p epub:type="footnote">`.
+### Índice por defecto
 
-Con este *script* existe la posibilidad de añadir esta estructura semántica al
-`<body>`, manifestándose así que todo el archivo es de un tipo de texto. Con
-esto se evita la molestia de añadir previamente atributos `epub:type` al
-documento HTML o XHTML a dividir. Si se desea una estructuración más detenida o
-no se desea esta estructura semántica, solo indíquese que no se quiere agregar
-un `epub:type` al `<body>` de cada archivo creado.
+El índice por defecto es 3 ya que [pt-creator](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
+por defecto crea archivos hasta el número 2.

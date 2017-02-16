@@ -2,8 +2,9 @@
    "general" : {
 		"error_arg" : "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda.",
 		"error_arg2" : "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda.",
-		"error_css" : "\nLa hoja de estilo tiene que tener una extensión «.css».",
-		"error_css2" : "\nAl parecer la hoja de estilo no existe.",
+		"error_directorio" : ["\nERROR: Al parecer el directorio «", "» no existe."],
+		"error_archivo" : ["\nERROR: Al parecer el archivo «", "» no existe."],
+		"error_archivo2" : ["\nERROR: El archivo «", "» no tiene una extensión válida."],
 		"fin" : "\n¡Operación finalizada exitosamente!\n"
 	},
 	
@@ -43,18 +44,16 @@
 		"xhtml_legal" : "Legal",
 		"xhtml_autoria" : "Autoría",
 		"creando" : ["\nCreando carpeta del EPUB con el nombre «","»..."],
-		"error_nombre" : "\nYa existe una carpeta con el nombre indicado.",
-		"error_portada" : "\nLa imagen de portada no tiene una extensión válida (JPG, JPEG, GIF, PNG o SVG).",
-		"error_portada2" : "\nAl parecer la imagen de portada no existe.",
-		"error_img" : "\nAl parecer la carpeta con las imágenes no existe."
+		"error_nombre" : "\nERROR: ya existe una carpeta con el nombre indicado."
 	},
 	
 	"divider" : {
 		"v" : "divider 0.1.0",
-		"h" : "AYUDA",
+		"h" : "\nDivider separa un documento HTML cada <h1>.\n\nUso:\n  pt-divider -f [archivo a dividir]\n\nParámetro necesario:\n  -f = [file] Archivo HTML, XHTML o HTM a dividir.\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se pondrán los archivos creados.\n  -s = [style sheet] Ruta al archivo CSS que se desea vincular.\n  -i = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pt-divider -f archivo/a/dividir.xhtml\n  Dividirá el archivo «dividir.xhtml», poniendo los archivos creados en el directorio actual y empezando con el índice número 3.\n\nEjemplo en un directorio específico:\n  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado\n  Dividirá como el ejemplo anterior, poniendo los archivos creados en «directorio/deseado».\n\nEjemplo en un directorio e incluyendo una hoja de estilo:\n  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css\n  Dividirá como el ejemplo anterior, vinculando la hoja de estilo «archivo.css» en cada archivo creado.\n\nEjemplo en un directorio e incluyendo una hoja de estilo y con otro índice:\n  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1\n  Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.",
 		"dividiendo" : "\nDividiendo archivos...",
 		"creando" : ["\nCreando ", "..."],
 		"sin_titulo" : "Sin título",
-		"error_i" : "\nSolo se permiten números enteros para la opción -i."
+		"error_f" : "\nERROR: el archivo no tiene una extensión válida (HTML, XHTML o HTM).",
+		"error_i" : "\nERROR: solo se permiten números enteros para la opción -i."
 	}
 }
