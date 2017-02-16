@@ -8,3 +8,7 @@ automatizar la creación y mantenimiento del archivo madre. Estos son:
 1. `pandog.rb`. Utiliza el poder de Pandoc para convertir archivos con 
 elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o 
 visceversa.
+
+2. `sanbox.rb`. Analiza el documento MD, HTML, XHTML, HTM o XML para 
+encontrar, analizar, modificar o eliminar diversos elementos estructurales
+o de cuidado editorial.
