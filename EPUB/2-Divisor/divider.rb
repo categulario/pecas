@@ -14,14 +14,17 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Argumentos
 archivo = argumento "-f", archivo
-carpeta = argumento "-d", carpeta
+carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd end
 archivoCSS = argumento "-s", archivoCSS
 indice = if argumento "-i", indice != nil then argumento "-i", indice else "3" end
 argumento "-v", $l_di_v
 argumento "-h", $l_di_h
 
 # Comprueba que existan los argumentos necesarios
-comprobacion [archivo, carpeta]
+comprobacion [archivo]
+
+# Comprueba que el archivo tenga la extensión correcta
+archivo = comprobacionArchivo archivo, [".html", ".xhtml", ".htm"]
 
 # Comprueba que el índice sea un número
 if indice.is_i? == false
@@ -31,34 +34,41 @@ else
 	indice = indice.to_i
 end
 
+if carpeta == nil
+	carpeta = Dir.pwd
+end
+
 # Se va a la carpeta para crear los archivos
+carpeta = comprobacionDirectorio carpeta
 Dir.chdir(carpeta)
 
 # Obtiene la ruta al archivo CSS
 def archivoCSSBusqueda archivoCSS, carpeta
-	# Comprueba el archivo CSS
-	archivoCSS = comprobacionCSS archivoCSS
+	if archivoCSS != nil
+		# Comprueba el archivo CSS
+		archivoCSS = comprobacionArchivo archivoCSS, [".css"]
 
-	# Para sacar la ruta relativa al archivo CSS
-	archivoConjuntoCSS = archivoCSS.split('/')
-	separacionesConjuntoCarpeta = carpeta.split('/')
+		# Para sacar la ruta relativa al archivo CSS
+		archivoConjuntoCSS = archivoCSS.split('/')
+		separacionesConjuntoCarpeta = carpeta.split('/')
 
-	# Ayuda a determinar el número de índice donde ambos conjutos difieren
-	indice = 0
-	archivoConjuntoCSS.each do |parte|
-		if parte === separacionesConjuntoCarpeta[indice]
-			indice += 1
-		else
-			break
+		# Ayuda a determinar el número de índice donde ambos conjutos difieren
+		indice = 0
+		archivoConjuntoCSS.each do |parte|
+			if parte === separacionesConjuntoCarpeta[indice]
+				indice += 1
+			else
+				break
+			end
 		end
+
+		# Elimina los elementos similares según el índice obtenido
+		archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
+		separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
+
+		# Crea la ruta
+		rutaCSS = ("..#{'/'}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join('/')
 	end
-
-	# Elimina los elementos similares según el índice obtenido
-	archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
-	separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
-
-	# Crea la ruta
-	rutaCSS = ("..#{'/'}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join('/')
 end
 
 rutaCSS = archivoCSSBusqueda archivoCSS, carpeta
@@ -75,10 +85,10 @@ parteArchivo = 0
 parteArchivoViejo = 1
 Objecto = Struct.new(:titulo, :encabezado, :contenido)
 objeto = Objecto.new
-contenidoConjunto = Array.new
+objeto.contenido = Array.new
 
 # Crea los archivos
-def creacion objeto, contenidoConjunto, rutaCSS, indice
+def creacion objeto, rutaCSS, indice
 
     # Uniforma la numeración basada en tres dígitos
     def conteoString numero
@@ -93,23 +103,27 @@ def creacion objeto, contenidoConjunto, rutaCSS, indice
         return numeroTexto
     end
 
-    objeto.contenido = contenidoConjunto
-
     # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el índice y el nombre de extensión
     nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
     nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
     nombreArchivo = nombreArchivo.split("-")[0..4].join("-")
     nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
 
+	# Inicia la creación
 	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
     archivo.puts xhtmlTemplateHead objeto.titulo, rutaCSS
-    archivo.puts "        " + objeto.encabezado
+    
+    if objeto.encabezado !~ /ººignoreºº/
+		archivo.puts "        " + objeto.encabezado
+    end
+    
     objeto.contenido.each do |linea|
         archivo.puts "        " + linea
     end
+    
     archivo.puts $xhtmlTemplateFoot
     archivo.close
 
@@ -122,7 +136,7 @@ archivoTodo.each do |linea|
     # Si se trata de un encabezado h1
     if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 
-        # Para no ignorar el contenido posterior aunque no se trate de un encabezado
+        # Para detectar que ya se encuentra adentro del body
         enEncabezado = true
 
         # Aumento del conteo de partes
@@ -130,40 +144,41 @@ archivoTodo.each do |linea|
 
         # De esta manera se detecta una nueva parte
         if parteArchivoViejo < parteArchivo
-            indice = creacion objeto, contenidoConjunto, rutaCSS, indice
+            indice = creacion objeto, rutaCSS, indice
             parteArchivoViejo = parteArchivo
         end
         
-        # Elimina etiquetas HTML y etiquetas PT del encabezado
+        # Elimina etiquetas HTML y marcas PT del encabezado
         lineaLimpia = linea.strip
 						.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
 						.gsub(/<.*?>/, "")
 						.gsub(/ºº.*?ºº/, "")
 
-        # Obtención del título y el encabezado
+        # Obtención del título
         if lineaLimpia == ""
 			objeto.titulo = $l_di_sin_titulo
         else
 			objeto.titulo = lineaLimpia
         end
         
+        # Obtención del encabezado
         objeto.encabezado = linea.gsub("H1", "h1").strip
 
         # Se limpia el conjunto con contenido
-        contenidoConjunto = contenidoConjunto.clear
-    # Si se trata de contenido después del primer encabezado
+        objeto.contenido = objeto.contenido.clear
+        
     elsif enEncabezado == true
         # Si es una línea que no tiene </body> o </html>
         if linea !~ /body>/i && linea !~ /html>/i
-            contenidoConjunto.push(linea.strip)
+            objeto.contenido.push(linea.strip)
 
             # Si se trata de la última línea, se crea el archivo; por si el documento no cuenta con etiquetas de body o html
             if archivoTodo.eof? == true
-                indice = creacion objeto, contenidoConjunto, rutaCSS, indice
+                indice = creacion objeto, rutaCSS, indice
             end
         # Si se llega el fin del body o html, se crea el último archivo y se termina el loop
         else
-            indice = creacion objeto, contenidoConjunto, rutaCSS, indice
+            indice = creacion objeto, rutaCSS, indice
             break
         end
     end
