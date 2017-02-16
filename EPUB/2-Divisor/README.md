@@ -89,9 +89,9 @@ Esto creará un nuevo archivo sin incluir el `<h1>`:
 En los archivos creados al que se les vinculan la hoja de estilo, la ruta
 es relativa a la ubicación del archivo CSS y la carpeta destino de estos
 archivos. Por ello, si la hoja de estilo o los archivos son cambiados de
-ubicación, habrá de arreglarse la ruta de manera manual.
+ubicación, habrán de arreglarse las rutas de manera manual.
 
 ### Índice por defecto
 
 El índice por defecto es 3 ya que [pt-creator](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
-por defecto crea archivos hasta el número 2.
+por defecto crea archivos hasta el índice 2.
