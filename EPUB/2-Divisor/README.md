@@ -65,7 +65,7 @@ Divider separa un documento HTML cada `<h1>`.
 
 Existen ocasiones en que se desea dividir el documento, pero no se quiere 
 incluir la etiqueta `<h1>` al archivo creado. Para esto basta con agregar 
-la marca `ººignoreºº` (Alt + Shift + M para obtener el símbolo «º»).
+la marca `ººignoreºº` (Alt + Shift + M para obtener el símbolo `º`).
 
 Por ejemplo, en el archivo a dividir se tiene:
 
@@ -76,7 +76,7 @@ Por ejemplo, en el archivo a dividir se tiene:
 	...
 ```
 
-Esto creará un nuevo archivo sin incluir el <h1>;
+Esto creará un nuevo archivo sin incluir el `<h1>`:
 
 ```
 	...
