@@ -43,10 +43,6 @@ else
 	criterio = /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 end
 
-if carpeta == nil
-	carpeta = Dir.pwd
-end
-
 # Se va a la carpeta para crear los archivos
 carpeta = comprobacionDirectorio carpeta
 Dir.chdir(carpeta)
