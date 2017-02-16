@@ -1,6 +1,6 @@
 # Divider
 
-Divider separa un documento HTML cada `<h1>`.
+Divider separa un documento HTML cada `<h1>` o `<section>`.
 
 ## Uso:
 
@@ -19,6 +19,7 @@ Divider separa un documento HTML cada `<h1>`.
 * `-d` = [directory] Directorio donde se pondrán los archivos creados.
 * `-s` = [style sheet] Ruta al archivo CSS que se desea vincular.
 * `-i` = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.
+* `--section` = Divide el documento cada <section>.
 
 ### Parámetros únicos:
 
@@ -33,7 +34,7 @@ Divider separa un documento HTML cada `<h1>`.
   pt-divider -f archivo/a/dividir.xhtml
 ```
 
-  Dividirá el archivo `dividir.xhtml`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
+  Dividirá el archivo `dividir.xhtml` cada `<h1>`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
 
 ### Ejemplo en un directorio específico:
 
@@ -58,14 +59,22 @@ Divider separa un documento HTML cada `<h1>`.
 ```
 
   Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.
+  
+### Ejemplo en un directorio, dividido cada `<section>` e incluyendo una hoja de estilo y con otro índice:
+
+```
+  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section
+```
+
+  Semejante al ejemplo anterior, solo que la división es cada `<section>` en lugar de cada `<h1>`.
 
 ## Notas
 
-### Exclusión de etiquetas \<h1> de los archivos creados
+### Exclusión de líneas de los archivos creados
 
-Existen ocasiones en que se desea dividir el documento, pero no se quiere 
-incluir la etiqueta `<h1>` al archivo creado. Para esto basta con agregar 
-la marca `ººignoreºº` (Alt + Shift + M para obtener el símbolo `º`).
+Existen ocasiones en que se desea dividir el documento, pero no se quieren
+ignorar algunas líneas. Para esto basta con agregar la marca `ººignoreºº` 
+(Alt + Shift + M para obtener el símbolo `º`).
 
 Por ejemplo, en el archivo a dividir se tiene:
 
@@ -76,7 +85,7 @@ Por ejemplo, en el archivo a dividir se tiene:
 	...
 ```
 
-Esto creará un nuevo archivo sin incluir el `<h1>`:
+Esto crearía un nuevo archivo sin incluir el `<h1>`:
 
 ```
 	...

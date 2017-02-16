@@ -11,12 +11,14 @@ Encoding.default_internal = Encoding::UTF_8
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-beautifier.rb"
 
 # Argumentos
 archivo = argumento "-f", archivo
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd end
 archivoCSS = argumento "-s", archivoCSS
 indice = if argumento "-i", indice != nil then argumento "-i", indice else "3" end
+seccion = argumento "--section", seccion, 1
 argumento "-v", $l_di_v
 argumento "-h", $l_di_h
 
@@ -32,6 +34,13 @@ if indice.is_i? == false
 	abort
 else
 	indice = indice.to_i
+end
+
+# Define el criterio de división
+if seccion
+	criterio = /<(?!\/|.)*?section.*?>/i
+else
+	criterio = /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 end
 
 if carpeta == nil
@@ -83,7 +92,7 @@ archivoTodo = File.open(archivo, 'r:UTF-8')
 enEncabezado = false
 parteArchivo = 0
 parteArchivoViejo = 1
-Objecto = Struct.new(:titulo, :encabezado, :contenido)
+Objecto = Struct.new(:titulo, :contenido)
 objeto = Objecto.new
 objeto.contenido = Array.new
 
@@ -111,21 +120,29 @@ def creacion objeto, rutaCSS, indice
 
 	# Inicia la creación
 	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green
+	
+	# Prepara todo el contenido para el archivo
+	contenidoTodo = Array.new
+    
+    # Añade cuerpo
+    objeto.contenido.each do |linea|
+		if linea !~ /ººignoreºº/
+			contenidoTodo.push(linea)
+        end
+    end
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
     archivo.puts xhtmlTemplateHead objeto.titulo, rutaCSS
-    
-    if objeto.encabezado !~ /ººignoreºº/
-		archivo.puts "        " + objeto.encabezado
-    end
-    
-    objeto.contenido.each do |linea|
-        archivo.puts "        " + linea
-    end
-    
+    archivo.puts contenidoTodo
     archivo.puts $xhtmlTemplateFoot
     archivo.close
+    
+    # Embellece el archivo
+    beautifier archivo
+    
+    # Se limpia el conjunto con contenido
+	objeto.contenido = objeto.contenido.clear
 
     # Para aumentar la numeración
     indice += 1
@@ -133,41 +150,39 @@ end
 
 # Divide el archivo
 archivoTodo.each do |linea|
-    # Si se trata de un encabezado h1
-    if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
+	# Si se da con el criterio
+	if linea =~ criterio
 
-        # Para detectar que ya se encuentra adentro del body
-        enEncabezado = true
+		# Para detectar que ya se encuentra adentro del body
+		enEncabezado = true
 
-        # Aumento del conteo de partes
-        parteArchivo += 1
+		# Aumento del conteo de partes
+		parteArchivo += 1
+		
+		# De esta manera se detecta una nueva parte
+		if parteArchivoViejo < parteArchivo
+			indice = creacion objeto, rutaCSS, indice
+			parteArchivoViejo = parteArchivo
+		end
+	end
+		
+	if enEncabezado
+		# Para obtener el título
+		if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
+			# Elimina etiquetas HTML y marcas PT del encabezado
+			lineaLimpia = linea.strip
+							.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
+							.gsub(/<.*?>/, "")
+							.gsub(/ºº.*?ºº/, "")
 
-        # De esta manera se detecta una nueva parte
-        if parteArchivoViejo < parteArchivo
-            indice = creacion objeto, rutaCSS, indice
-            parteArchivoViejo = parteArchivo
-        end
-        
-        # Elimina etiquetas HTML y marcas PT del encabezado
-        lineaLimpia = linea.strip
-						.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
-						.gsub(/<.*?>/, "")
-						.gsub(/ºº.*?ºº/, "")
-
-        # Obtención del título
-        if lineaLimpia == ""
-			objeto.titulo = $l_di_sin_titulo
-        else
-			objeto.titulo = lineaLimpia
-        end
-        
-        # Obtención del encabezado
-        objeto.encabezado = linea.gsub("H1", "h1").strip
-
-        # Se limpia el conjunto con contenido
-        objeto.contenido = objeto.contenido.clear
-        
-    elsif enEncabezado == true
+			# Obtención del título
+			if lineaLimpia == ""
+				objeto.titulo = $l_di_sin_titulo
+			else
+				objeto.titulo = lineaLimpia
+			end
+		end
+			
         # Si es una línea que no tiene </body> o </html>
         if linea !~ /body>/i && linea !~ /html>/i
             objeto.contenido.push(linea.strip)
