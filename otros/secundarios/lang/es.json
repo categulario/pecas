@@ -17,6 +17,18 @@
 		"modificando" : "\nModificando el archivo creado por Pandoc..."
 	},
 	
+	"sandbox" : {
+		"v" : "sandbox 0.1.0",
+		"h" : "AYUDA",
+		"txt_marcado" : "marcado.txt",
+		"txt_uniones" : "uniones.txt",
+		"fichero" : "sandbox",
+		"fichero_interior" : "analítica",
+		"divisor" : "---------",
+		"advertencia_archivo" : ["\nADVERTENCIA: creando «","» en «","» para no comprometer el archivo original. Este archivo podrás convertirlo al formato deseado con Pandog..."],
+		"error_carpeta" : ["\nERROR: al parecer ya existe un análisis. Para uno nuevo, elimina la carpeta «","»."]
+	},
+	
 	"tegs" : {
 		"v" : "tegs 0.1.0",
 		"h" : "\nTegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con OCR o TXT a partir de imágenes TIFF, PNG o BMP.\n\nUso:\n  pt-tegs -d [directorio] -l [idioma] -o [nombre del archivo]\n\nParámetros necesarios:\n  -d = [directory] Directorio que contiene las imágenes.\n  -l = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages\n  -o = [output] Nombre para el o los archivos que se crearán.\n\nParámetros opcionales:\n  -t = [text] Crea un TXT adicional al PDF creado.\n  -c = [compressed] Crea un PDF comprimido adcional al PDF creado.\n  -32 = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba\n  Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en «directorio/de/las/imágenes».\n\nEjemplo con PDF comprimido:\n  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -c\n  Además del PDF con OCR, se crea otro PDF con compresión.\n\nEjemplo con archivo de texto:\n  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -t\n  Además del PDF con OCR, se crea un archivo de texto con el contenido de las imágenes.\n\nEjemplo con PDF comprimido y archivo de texto:\n  pt-tegs -d directorio/de/las/imágenes -l spa -o prueba -c -t\n  Además del PDF con OCR, se crea otro PDF con compresión y un archivo de texto.",

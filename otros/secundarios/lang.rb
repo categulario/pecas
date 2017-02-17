@@ -55,6 +55,17 @@ $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
 
+# Sandbox
+$l_sb_v = langObj["sandbox"]["v"]
+$l_sb_h = langObj["sandbox"]["h"]
+$l_sb_txt_marcado = langObj["sandbox"]["txt_marcado"]
+$l_sb_txt_uniones = langObj["sandbox"]["txt_uniones"]
+$l_sb_fichero = langObj["sandbox"]["fichero"]
+$l_sb_fichero_interior = langObj["sandbox"]["fichero_interior"]
+$l_sb_divisor = langObj["sandbox"]["divisor"]
+$l_sb_advertencia_archivo = langObj["sandbox"]["advertencia_archivo"]
+$l_sb_error_carpeta = langObj["sandbox"]["error_carpeta"]
+
 # Tegs
 $l_tg_v = langObj["tegs"]["v"]
 $l_tg_h = langObj["tegs"]["h"]
