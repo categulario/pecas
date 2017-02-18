@@ -26,6 +26,11 @@ def beautifier archivo
 			$beautifier_nivel = $beautifier_nivel - 1
 		end
 		
+		# Evita niveles negativos
+		if $beautifier_nivel < 0
+			$beautifier_nivel = 0
+		end
+		
 		# El espacio en este elemento es igual al espacio por defecto por el nivel
 		e = $beautifier_espacio * $beautifier_nivel
 		
