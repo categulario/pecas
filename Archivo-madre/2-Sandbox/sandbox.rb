@@ -39,6 +39,7 @@ contenido = Array.new
 etiquetas = Array.new
 atributos = Array.new
 palabras = Array.new
+cifras = Array.new
 
 # Para el nombre del directorio y el clon del archivo
 directorio = $l_sb_fichero + "_" + File.basename(archivo).gsub(".","-").gsub(/\s/, "-")
@@ -98,13 +99,36 @@ else
 		end
 		
 		# Obtiene las palabras de manera «sucia»
-		palabrasLinea = linea.gsub(/<\/.*?sup.*?>/,"]^")
-								.gsub(/<.*?sup.*?>/,"^[")
-								.gsub(/<\/.*?sub.*?>/,"~")
-								.gsub(/<.*?sub.*?>/,"~")
-								.gsub(/<.*?>/,"").split(/\s/)
+		palabrasLinea = linea.gsub(/<.*?>/,"").split(/\s/)
+								
 		palabrasLinea.each do |p|
-			palabras.push(p)
+			c = p
+			
+			# Elimina los caracteres indeseados
+			def limpiar e, p
+				e.each do |s|
+					s.each do |x|
+						p = p.gsub(x, "")
+					end
+				end
+				return p
+			end
+			
+			# Elimina caracteres que no son letras al inicio o al final de una palabra		
+			escaneo = p.scan(/(^[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ]+|[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ]+$)/)
+			p = limpiar escaneo, p
+
+			# Palabras
+			if p.strip != ""
+				palabras.push(p.strip)
+			# Para cifras se toma la palabra original y se limpia de la manera deseada
+			else
+				escaneo = c.scan(/(^[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ0-9]+|[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ0-9]+$)/)
+				c = limpiar escaneo, c
+				if c.strip != ""
+					cifras.push(c.strip)
+				end
+			end
 		end
 	end
 	
@@ -138,10 +162,15 @@ else
 	end
 	archivo_marcado.close
 	
+	# Crea una lista de cifras
+	archivo_cifras = File.open($l_sb_txt_cifras, "w")
+	archivo_cifras.puts cifras
+	archivo_cifras.close
+	
 	# Crea una lista de palabras con uniones
 	archivo_uniones = File.open($l_sb_txt_uniones, "w")
 	palabrasU.each do |p|
-		if p =~ /\w+?[^A-Za-z0-9_ñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]\w+?/
+		if p =~ /\w+?[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ]\w+?/
 			archivo_uniones.puts p
 		end
 	end
@@ -151,25 +180,7 @@ else
 	palabrasLimpias = Array.new
 	palabras.each do |p|
 		# Elimina caracteres indeseados
-		p = p.gsub(/[^\wA-Za-z0-9_ñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]+/, "")
-		
-		# Obtiene las palabras que empiezan con número y terminan con al menos dos letras
-		nYp1 = /^([0-9]+)[A-Za-zñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]{2,}$/.match(p)
-		nYp2 = /^[A-Za-zñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]{2,}([0-9]+)$/.match(p)
-		
-		# Elimina los números del match
-		def eliminacionMatch m, p
-			if m
-				m.captures.each do |c|
-					p = p.gsub(c, "")
-				end
-			end
-			
-			return p
-		end
-		
-		p = eliminacionMatch nYp1, p
-		p = eliminacionMatch nYp2, p
+		p = p.gsub(/[^A-Za-zñÑçÇáéíóúäëïöüâêîôûàèìòùãẽĩõũÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ]+/, "")
 		
 		# Manda la palabra
 		palabrasLimpias.push(p)
@@ -182,7 +193,7 @@ else
 	# Obtiene las palabras con versal inicial
 	archivo_versales = File.open($l_sb_txt_versales, "w")
 	palabrasLimpiasU.each do |p|
-		if p =~ /^[A-ZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]/
+		if p =~ /^[A-ZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙÃẼĨÕŨ]/
 			archivo_versales.puts p
 		end
 	end
@@ -190,14 +201,19 @@ else
 	
 	# Crea el archivo de las estadísticas
 	archivo_estadisticas = File.open("estadísticas.txt", "w")
-	archivo_estadisticas.puts "Cantidad de palabras: " + palabrasLimpias.length.to_s
-	archivo_estadisticas.puts "Cantidad de palabras únicas: " + palabrasLimpiasU.length.to_s
-	archivo_estadisticas.puts "Índice de diversidad: " + (palabrasLimpiasU.length.to_f / palabrasLimpias.length.to_f).to_s
+	archivo_estadisticas.puts $l_sb_e[0] + (palabrasLimpias.length + cifras.length).to_s
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts $l_sb_e[1] + palabrasLimpias.length.to_s
+	archivo_estadisticas.puts $l_sb_e[2] + palabrasLimpiasU.length.to_s
+	archivo_estadisticas.puts $l_sb_e[3] + (palabrasLimpiasU.length.to_f / palabrasLimpias.length.to_f).to_s
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts $l_sb_e[4] + cifras.length.to_s
+	archivo_estadisticas.puts $l_sb_e[5] + cifras.uniq.length.to_s
 	archivo_estadisticas.puts ""
 	archivo_estadisticas.puts ""
-	archivo_estadisticas.puts "Cantidad de etiquetas: " + atributos.length.to_s
-	archivo_estadisticas.puts "Cantidad de etiquetas únicas con atributos: " + atributosU.length.to_s
-	archivo_estadisticas.puts "Cantidad de etiquetas únicas sin atributos: " + etiquetasU.length.to_s
+	archivo_estadisticas.puts $l_sb_e[6] + atributos.length.to_s
+	archivo_estadisticas.puts $l_sb_e[7] + atributosU.length.to_s
+	archivo_estadisticas.puts $l_sb_e[8] + etiquetasU.length.to_s
 	archivo_estadisticas.puts ""
 	
 	# Obtiene las estadísticas del marcado
@@ -221,13 +237,13 @@ else
 		
 		x += 1
 		
-		archivo_estadisticas.puts x.to_s + ". Etiqueta <" + e + ">:\n    Total: " + i.to_s + "\n    Únicas: " + j.to_s
+		archivo_estadisticas.puts x.to_s + $l_sb_e[9] + e + $l_sb_e[10] + i.to_s + $l_sb_e[11] + j.to_s
 	end
 	
 	# Obtiene las estadísticas de la frecuencia de palabras
 	archivo_estadisticas.puts ""
 	archivo_estadisticas.puts ""
-	archivo_estadisticas.puts "Tabla de palabras y frecuencia de uso"
+	archivo_estadisticas.puts $l_sb_e[12]
 	archivo_estadisticas.puts ""
 	
 	# Obtiene la frecuencia de cada palabra
@@ -243,7 +259,7 @@ else
 	x = 0
 	palabrasFrecuencia.each do |pf|
 		x += 1
-		archivo_estadisticas.puts x.to_s + ". Palabra «" + pf[0] + "»:\n    Frecuencia: " + pf[1].to_s + "\n    Porcentaje: " + ((pf[1].to_f / palabrasLimpias.length.to_f) * 100).to_s
+		archivo_estadisticas.puts x.to_s + $l_sb_e[13] + pf[0] + $l_sb_e[14] + pf[1].to_s + $l_sb_e[15] + ((pf[1].to_f / palabrasLimpias.length.to_f) * 100).to_s
 	end
 	archivo_estadisticas.close
 end

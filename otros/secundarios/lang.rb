@@ -59,11 +59,13 @@ $l_pg_modificando = langObj["pandog"]["modificando"].green
 $l_sb_v = langObj["sandbox"]["v"]
 $l_sb_h = langObj["sandbox"]["h"]
 $l_sb_txt_marcado = langObj["sandbox"]["txt_marcado"]
+$l_sb_txt_cifras = langObj["sandbox"]["txt_cifras"]
 $l_sb_txt_uniones = langObj["sandbox"]["txt_uniones"]
 $l_sb_txt_versales = langObj["sandbox"]["txt_versales"]
 $l_sb_fichero = langObj["sandbox"]["fichero"]
 $l_sb_fichero_interior = langObj["sandbox"]["fichero_interior"]
 $l_sb_divisor = langObj["sandbox"]["divisor"]
+$l_sb_e = langObj["sandbox"]["e"]
 $l_sb_advertencia_archivo = langObj["sandbox"]["advertencia_archivo"]
 $l_sb_error_carpeta = langObj["sandbox"]["error_carpeta"]
 
