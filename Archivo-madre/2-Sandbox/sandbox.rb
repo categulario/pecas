@@ -98,7 +98,11 @@ else
 		end
 		
 		# Obtiene las palabras de manera «sucia»
-		palabrasLinea = linea.gsub(/<.*?>/,"").split(/\s/)
+		palabrasLinea = linea.gsub(/<\/.*?sup.*?>/,"]^")
+								.gsub(/<.*?sup.*?>/,"^[")
+								.gsub(/<\/.*?sub.*?>/,"~")
+								.gsub(/<.*?sub.*?>/,"~")
+								.gsub(/<.*?>/,"").split(/\s/)
 		palabrasLinea.each do |p|
 			palabras.push(p)
 		end
@@ -143,9 +147,105 @@ else
 	end
 	archivo_uniones.close
 	
+	# Obtiene las palabras limpias
+	palabrasLimpias = Array.new
 	palabras.each do |p|
-		puts p.scan(/[\wA-Za-z0-9_ñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]+/)
+		# Elimina caracteres indeseados
+		p = p.gsub(/[^\wA-Za-z0-9_ñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]+/, "")
+		
+		# Obtiene las palabras que empiezan con número y terminan con al menos dos letras
+		nYp1 = /^([0-9]+)[A-Za-zñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]{2,}$/.match(p)
+		nYp2 = /^[A-Za-zñÑáéíóúäëïöâêîôûàèìòùÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]{2,}([0-9]+)$/.match(p)
+		
+		# Elimina los números del match
+		def eliminacionMatch m, p
+			if m
+				m.captures.each do |c|
+					p = p.gsub(c, "")
+				end
+			end
+			
+			return p
+		end
+		
+		p = eliminacionMatch nYp1, p
+		p = eliminacionMatch nYp2, p
+		
+		# Manda la palabra
+		palabrasLimpias.push(p)
 	end
+	palabrasLimpias = palabrasLimpias.sort
+	
+	# Obtiene las palabras limpias únicas
+	palabrasLimpiasU = palabrasLimpias.uniq
+
+	# Obtiene las palabras con versal inicial
+	archivo_versales = File.open($l_sb_txt_versales, "w")
+	palabrasLimpiasU.each do |p|
+		if p =~ /^[A-ZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙ]/
+			archivo_versales.puts p
+		end
+	end
+	archivo_versales.close
+	
+	# Crea el archivo de las estadísticas
+	archivo_estadisticas = File.open("estadísticas.txt", "w")
+	archivo_estadisticas.puts "Cantidad de palabras: " + palabrasLimpias.length.to_s
+	archivo_estadisticas.puts "Cantidad de palabras únicas: " + palabrasLimpiasU.length.to_s
+	archivo_estadisticas.puts "Índice de diversidad: " + (palabrasLimpiasU.length.to_f / palabrasLimpias.length.to_f).to_s
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts "Cantidad de etiquetas: " + atributos.length.to_s
+	archivo_estadisticas.puts "Cantidad de etiquetas únicas con atributos: " + atributosU.length.to_s
+	archivo_estadisticas.puts "Cantidad de etiquetas únicas sin atributos: " + etiquetasU.length.to_s
+	archivo_estadisticas.puts ""
+	
+	# Obtiene las estadísticas del marcado
+	x = 0
+	etiquetasU.each do |e|
+		# Cantidad de etiquetas
+		i = 0
+		atributos.each do |a|
+			if a =~ /<#{e}\s/
+				i += 1
+			end
+		end
+		
+		# Cantidad de etiquetas únicas
+		j = 0
+		atributosU.each do |a|
+			if a =~ /<#{e}\s/
+				j += 1
+			end
+		end
+		
+		x += 1
+		
+		archivo_estadisticas.puts x.to_s + ". Etiqueta <" + e + ">:\n    Total: " + i.to_s + "\n    Únicas: " + j.to_s
+	end
+	
+	# Obtiene las estadísticas de la frecuencia de palabras
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts ""
+	archivo_estadisticas.puts "Tabla de palabras y frecuencia de uso"
+	archivo_estadisticas.puts ""
+	
+	# Obtiene la frecuencia de cada palabra
+	palabrasFrecuencia = Hash.new(0)
+	palabrasLimpias.each do |i|
+		palabrasFrecuencia[i]+=1
+	end
+	
+	# Acomoda por la frecuencia de menor a mayor
+	palabrasFrecuencia = palabrasFrecuencia.sort_by{|k,v| v}.reverse
+	
+	# Imprime la estadística de la frecuencia de las palabras
+	x = 0
+	palabrasFrecuencia.each do |pf|
+		x += 1
+		archivo_estadisticas.puts x.to_s + ". Palabra «" + pf[0] + "»:\n    Frecuencia: " + pf[1].to_s + "\n    Porcentaje: " + ((pf[1].to_f / palabrasLimpias.length.to_f) * 100).to_s
+	end
+	archivo_estadisticas.close
 end
 
 puts $l_g_fin
