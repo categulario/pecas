@@ -47,7 +47,7 @@ archivoNuevo = $l_sb_fichero + "_" + File.basename(archivo).gsub(/\s/, "-")
 
 # Para realizar cambios
 if cambio
-
+	puts directorio, archivoNuevo
 # Para iniciar el análisis
 else	
 	# Si no existe el directorio
@@ -164,7 +164,7 @@ else
 	
 	# Crea una lista de cifras
 	archivo_cifras = File.open($l_sb_txt_cifras, "w")
-	archivo_cifras.puts cifras
+	archivo_cifras.puts cifras.uniq
 	archivo_cifras.close
 	
 	# Crea una lista de palabras con uniones
