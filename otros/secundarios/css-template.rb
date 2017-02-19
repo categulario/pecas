@@ -398,6 +398,7 @@ body > .epigrafe:first-child {
 
 * + .n-note-p {
     margin-top: 1em;
+    text-indent: 0;
 }
 
 span.n-note-p {
