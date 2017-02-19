@@ -89,8 +89,12 @@ else
 			# Agrega los atributos de manera «sucia»
 			atributos.push(e)
 			
-			# Obtiene las etiquetas de manera «sucia»
-			a = /^.(.*?)\s/.match(e).to_s[1..-2].to_s
+			# Limpia las etiquetas
+			if e =~ /<\w+>/
+				a = e[1..-2]
+			else
+				a = /^.(.*?)\s/.match(e).to_s[1..-2].to_s
+			end
 			
 			# Solo se consideran las tienen contenido
 			if a.strip != ""
@@ -136,7 +140,7 @@ else
 	etiquetas = etiquetas.sort
 	atributos = atributos.sort
 	palabras = palabras.sort
-	
+
 	# Elimina repeticiones
 	etiquetasU = etiquetas.uniq
 	atributosU = atributos.uniq
