@@ -110,6 +110,7 @@ end
 # Cuenta la cantidad de notas al pie en los archivos
 $conteoArchivos = 0
 
+$archivos = $archivos.sort
 $archivos.each do |archivo|
     archivo = File.open(archivo, 'r:UTF-8')
 
