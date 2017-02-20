@@ -112,7 +112,7 @@ else
 			def limpiar e, p
 				e.each do |s|
 					s.each do |x|
-						p = p.gsub(x, "")
+						p = p.gsub(x, "").gsub(/\Wnote$/, "")
 					end
 				end
 				return p
