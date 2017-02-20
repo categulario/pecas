@@ -43,6 +43,9 @@ else
 	criterio = /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 end
 
+# Comprueba el archivo CSS
+archivoCSS = comprobacionArchivo archivoCSS, [".css"]
+
 # Se va a la carpeta para crear los archivos
 carpeta = comprobacionDirectorio carpeta
 Dir.chdir(carpeta)
@@ -50,9 +53,6 @@ Dir.chdir(carpeta)
 # Obtiene la ruta al archivo CSS
 def archivoCSSBusqueda archivoCSS, carpeta
 	if archivoCSS != nil
-		# Comprueba el archivo CSS
-		archivoCSS = comprobacionArchivo archivoCSS, [".css"]
-
 		# Para sacar la ruta relativa al archivo CSS
 		archivoConjuntoCSS = archivoCSS.split('/')
 		separacionesConjuntoCarpeta = carpeta.split('/')
