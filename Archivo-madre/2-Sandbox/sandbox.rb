@@ -241,6 +241,15 @@ else
 		
 		x += 1
 		
+		if i == 0
+			etiquetas.each do |e2|
+				if e == e2
+					i += 1
+					j = i/i
+				end
+			end
+		end
+		
 		archivo_estadisticas.puts x.to_s + $l_sb_e[9] + e + $l_sb_e[10] + i.to_s + $l_sb_e[11] + j.to_s
 	end
 	
