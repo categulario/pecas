@@ -497,7 +497,7 @@ def Tipo (extension)
         return 'application/xhtml+xml'
     elsif extension == '.ncx'
         return 'application/x-dtbncx+xml'
-    elsif extension == '.ttf'
+    elsif extension == '.ttf' || extension == '.otf'
         return 'application/vnd.ms-opentype'
     elsif extension == '.woff'
         return 'application/font-woff'
