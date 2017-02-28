@@ -122,7 +122,7 @@ def creacion objeto, rutaCSS, indice
     
     # Añade cuerpo
     objeto.contenido.each do |linea|
-		if linea !~ /ººignoreºº/
+		if linea !~ /#{$l_g_ignore}/
 			contenidoTodo.push(linea)
         end
     end
