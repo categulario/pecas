@@ -5,7 +5,14 @@
 		"error_directorio" : ["\nERROR: Al parecer el directorio «", "» no existe."],
 		"error_archivo" : ["\nERROR: Al parecer el archivo «", "» no existe."],
 		"error_archivo2" : ["\nERROR: El archivo «", "» no tiene una extensión válida."],
-		"fin" : "\n¡Operación finalizada exitosamente!\n"
+		"fin" : "\n¡Operación finalizada exitosamente!\n",
+		"marca" : "ºº",
+		"marca_interior" : "[",
+		"ignore" : "ººignoreºº",
+		"delete" : "ººdeleteºº",
+		"change" : ["ººchange", "ºº"],
+		"note" : ["ººnote", "ºº"],
+		"note_content" : "ººnote-contentºº"
 	},
 	
 	"pandog" : {
@@ -24,12 +31,17 @@
 		"txt_cifras" : "cifras.txt",
 		"txt_uniones" : "uniones.txt",
 		"txt_versales" : "versales.txt",
+		"txt_estadisticas" : "estadisticas.txt",
 		"fichero" : "sandbox",
 		"fichero_interior" : "analítica",
 		"divisor" : "---------",
 		"e" : ["Cantidad de palabras y cifras: ","Cantidad de palabras: ","Cantidad de palabras únicas: ","Índice de diversidad: ","Cantidad de cifras: ","Cantidad de cifras únicas: ","Cantidad de etiquetas: ","Cantidad de etiquetas únicas con atributos: ","Cantidad de etiquetas únicas sin atributos: ",". Etiqueta <",">:\n    Total: ","\n    Únicas: ","Tabla de palabras y frecuencia de uso",". Palabra «","»:\n    Frecuencia: ","\n    Porcentaje: "],
 		"advertencia_archivo" : ["\nADVERTENCIA: creando «","» en «","» para no comprometer el archivo original. Este archivo podrás convertirlo al formato deseado con Pandog..."],
-		"error_carpeta" : ["\nERROR: al parecer ya existe un análisis. Para uno nuevo, elimina la carpeta «","»."]
+		"error_carpeta" : ["\nERROR: al parecer ya existe un análisis. Para ingresar modificaciones usa la opción -c. Para uno nuevo, elimina la carpeta «","»."],
+		"error_carpeta2" : ["\nERROR: no se encontró ninguna carpeta «","» con los análisis."],
+		"error_carpeta3" : ["\nERROR: no se encontró ninguna carpeta «","» en «", "» con los análisis."],
+		"error_archivo" : ["\nERROR: Al parecer el archivo «", "» en «", "» no existe."],
+		"error_archivo2" : "\nERROR: Al parecer no hay archivos con análisis."
 	},
 	
 	"tegs" : {

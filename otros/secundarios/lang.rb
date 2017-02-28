@@ -46,6 +46,13 @@ $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_fin = langObj["general"]["fin"].blue.bold
+$l_g_marca = langObj["general"]["marca"]
+$l_g_marca_interior = langObj["general"]["marca_interior"]
+$l_g_ignore = langObj["general"]["ignore"]
+$l_g_delete = langObj["general"]["delete"]
+$l_g_change = langObj["general"]["change"]
+$l_g_note = langObj["general"]["note"]
+$l_g_note_content = langObj["general"]["note_content"]
 
 # Pandog
 $l_pg_v = langObj["pandog"]["v"]
@@ -62,12 +69,17 @@ $l_sb_txt_marcado = langObj["sandbox"]["txt_marcado"]
 $l_sb_txt_cifras = langObj["sandbox"]["txt_cifras"]
 $l_sb_txt_uniones = langObj["sandbox"]["txt_uniones"]
 $l_sb_txt_versales = langObj["sandbox"]["txt_versales"]
+$l_sb_txt_estadisticas = langObj["sandbox"]["txt_estadisticas"]
 $l_sb_fichero = langObj["sandbox"]["fichero"]
 $l_sb_fichero_interior = langObj["sandbox"]["fichero_interior"]
 $l_sb_divisor = langObj["sandbox"]["divisor"]
 $l_sb_e = langObj["sandbox"]["e"]
 $l_sb_advertencia_archivo = langObj["sandbox"]["advertencia_archivo"]
 $l_sb_error_carpeta = langObj["sandbox"]["error_carpeta"]
+$l_sb_error_carpeta2 = langObj["sandbox"]["error_carpeta2"]
+$l_sb_error_carpeta3 = langObj["sandbox"]["error_carpeta3"]
+$l_sb_error_archivo = langObj["sandbox"]["error_archivo"]
+$l_sb_error_archivo2 = langObj["sandbox"]["error_archivo2"].red.bold
 
 # Tegs
 $l_tg_v = langObj["tegs"]["v"]

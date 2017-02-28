@@ -24,15 +24,11 @@ comprobacion [archivo]
 
 # Comprueba que el archivo tenga la extensión correcta
 archivo = comprobacionArchivo archivo, [".html", ".xhtml", ".htm", ".xml"]
+archivo = arregloRuta archivo
 
 # Se va a la carpeta para crear los archivos
 carpeta = directorioPadre archivo
 Dir.chdir carpeta
-
-# Para saber si es un MD
-if File.extname(File.basename(archivo)) == ".md"
-	md = true
-end
 
 # Variables que se necesitarán
 contenido = Array.new
@@ -40,6 +36,10 @@ etiquetas = Array.new
 atributos = Array.new
 palabras = Array.new
 cifras = Array.new
+archivos = Array.new
+mod = Hash.new { |hash, key| hash[key] = [] }	# Crea un hash cuyas llaves serán conjuntos; hash para modificaciones generales
+modM = Hash.new { |hash, key| hash[key] = [] }	# Hash para modificaciones en las marcas principales
+modMs = Hash.new { |hash, key| hash[key] = [] }	# Has para las modificaciones en las marcas secundarias
 
 # Para el nombre del directorio y el clon del archivo
 directorio = $l_sb_fichero + "_" + File.basename(archivo).gsub(".","-").gsub(/\s/, "-")
@@ -47,37 +47,134 @@ archivoNuevo = $l_sb_fichero + "_" + File.basename(archivo).gsub(/\s/, "-")
 
 # Para realizar cambios
 if cambio
-	puts directorio, archivoNuevo
-# Para iniciar el análisis
-else	
-	# Si no existe el directorio
+	# Comprueba que exista un análisis
 	if !File.directory?(directorio)
-		# Creación y movimiento al directorio donde estarán los análisis
-		Dir.mkdir directorio
+		puts "#{$l_sb_error_carpeta2[0] + directorio + $l_sb_error_carpeta2[1]}".red.bold
+		abort
+	else
 		Dir.chdir directorio
 		
-		# Extracción del contenido del documento
-		archivo_abierto = File.open(archivo, "r:UTF-8")
+		# Comprueba de que exista el archivo
+		if !File.exists?(archivoNuevo)
+			puts "#{$l_sb_error_archivo[0] + archivoNuevo + $l_sb_error_archivo[1] + directorio + $l_sb_error_archivo[2]}".red.bold
+			abort
+		end
+		
+		# Comprueba de que exista el directorio con los análisis
+		if !File.directory?($l_sb_fichero_interior)
+			puts "#{$l_sb_error_carpeta3[0] + $l_sb_fichero_interior + $l_sb_error_carpeta3[1] + directorio + $l_sb_error_carpeta3[2]}".red.bold
+			abort
+		else 
+			# Obtiene los archivos de análisis, excepto las estadísticas
+			Dir.chdir $l_sb_fichero_interior
+			Dir.glob("*") do |archivo|
+				if File.extname(archivo) == "." + $l_sb_txt_marcado.split(".")[1] && File.basename(archivo) != $l_sb_txt_estadisticas
+					archivos.push(archivo)
+				end
+			end
+			
+			# Comprueba de que al menos exista un archivo de análisis
+			if archivos.length == 0
+				puts $l_sb_error_archivo2
+				abort
+			end
+			
+			# Regresa a la carpeta padre de los análisis
+			Dir.chdir ".."
+		end
+	end
+	
+	# Estipula el tipo de modificación
+	def modificacionTipo m, linea
+		if linea =~ /#{$l_g_delete}/ || linea =~ /#{$l_g_note_content}/
+			# Elimina la marca para solo tener el contenido
+			lineaLimpia = linea.split($l_g_marca)[0].strip
+
+			# Agrega la marca al hash según su tipo
+			if linea =~ /#{$l_g_delete}/
+				m["borrar"].push(lineaLimpia)
+			elsif linea =~ /#{$l_g_note_content}/
+				m["notaContenido"].push(lineaLimpia)
+			end
+		elsif linea =~ /#{$l_g_change[0]}/ || linea =~ /#{$l_g_note[0]}/
+			# Separa el contenido de la marca
+			lineaLimpia = linea.split($l_g_marca)
+			linea0 = lineaLimpia[0].strip
+			linea1 = lineaLimpia[1].split($l_g_marca_interior)[1].to_s[0..-2]
+			lineaConjunto = [linea0, linea1]
+			
+			# Agrega la marca al hash según su tipo
+			if linea =~ /#{$l_g_change[0]}/
+				m["modificar"].push(lineaConjunto)
+			elsif linea =~ /#{$l_g_note[0]}/
+				m["nota"].push(lineaConjunto)
+			end
+		end
+	end
+	
+	# Obtiene los elementos que se habrán de modificar
+	def modificaciones mod, modM, modMs, archivoAnalisis
+		# Abre el archivo con el análisis
+		archivo_abierto = File.open($l_sb_fichero_interior + "/" + archivoAnalisis, "r:UTF-8")
 		archivo_abierto.each do |linea|
-			contenido.push(linea.strip)
+			linea = linea.strip
+			
+			# Si se encuentra algún marcado, es que hay una modificación
+			if linea =~ /#{$l_g_marca}/
+				# Cualquier archivo excepto el que contiene las marcas
+				if archivoAnalisis != $l_sb_txt_marcado
+					modificacionTipo mod, linea
+				# El archivo de marcas
+				else
+					# Si es una marca principal
+					if linea =~ /^\w/
+						modificacionTipo modM, linea
+					# Si es una marca secundaria
+					elsif linea =~ /^</
+						modificacionTipo modMs, linea
+					end
+				end
+			end
 		end
 		archivo_abierto.close
-		
-		puts "#{$l_sb_advertencia_archivo[0] + archivoNuevo + $l_sb_advertencia_archivo[1] + directorio + $l_sb_advertencia_archivo[2]}".gray
-		
-		# Crea el archivo clon
-		archivo_clon = File.open(archivoNuevo, "w")
-		archivo_clon.puts contenido
-		archivo_clon.close
-		beautifier archivo_clon
-		
-		# Creación y movimiento del directorio donde se guardará la analítica
-		Dir.mkdir $l_sb_fichero_interior
-		Dir.chdir $l_sb_fichero_interior
-	else
+	end
+	
+	archivos.each do |a|
+		modificaciones mod, modM, modMs, a
+	end
+	
+	# De mod, modM y modMs, solo modM necesita un trato especial con regex
+	puts "mod: " + mod.keys.to_s, "modM: " + modM.keys.to_s, "modMs: " + modMs.keys.to_s
+# Para iniciar el análisis
+else	
+	# Comprueba de que no exita un análisis
+	if File.directory?(directorio)
 		puts "#{$l_sb_error_carpeta[0] + directorio + $l_sb_error_carpeta[1]}".red.bold
 		abort
 	end
+	
+	# Creación y movimiento al directorio donde estarán los análisis
+	Dir.mkdir directorio
+	Dir.chdir directorio
+		
+	# Extracción del contenido del documento
+	archivo_abierto = File.open(archivo, "r:UTF-8")
+	archivo_abierto.each do |linea|
+		contenido.push(linea.strip)
+	end
+	archivo_abierto.close
+		
+	puts "#{$l_sb_advertencia_archivo[0] + archivoNuevo + $l_sb_advertencia_archivo[1] + directorio + $l_sb_advertencia_archivo[2]}".gray
+		
+	# Crea el archivo clon
+	archivo_clon = File.open(archivoNuevo, "w")
+	archivo_clon.puts contenido
+	archivo_clon.close
+	beautifier archivo_clon
+		
+	# Creación y movimiento del directorio donde se guardará la analítica
+	Dir.mkdir $l_sb_fichero_interior
+	Dir.chdir $l_sb_fichero_interior
 
 	# Obtiene todas las etiquetas, atributos y palabras
 	contenido.each do |linea|
@@ -204,7 +301,7 @@ else
 	archivo_versales.close
 	
 	# Crea el archivo de las estadísticas
-	archivo_estadisticas = File.open("estadísticas.txt", "w")
+	archivo_estadisticas = File.open($l_sb_txt_estadisticas, "w")
 	archivo_estadisticas.puts $l_sb_e[0] + (palabrasLimpias.length + cifras.length).to_s
 	archivo_estadisticas.puts ""
 	archivo_estadisticas.puts $l_sb_e[1] + palabrasLimpias.length.to_s
