@@ -174,6 +174,8 @@ if cambio
 				end
 			# Si son expresiones regulares
 			else
+				elementoViejo = elemento
+				
 				# Se limpia el elemento
 				elemento = elemento.gsub("<","").gsub(">","")
 				
@@ -216,7 +218,12 @@ if cambio
 				# Hace el reemplazo
 				capturas.each do |captura|
 					reemplazoFinal = reemplazo.to_s + captura.split("<")[1].split(">")[1].to_s + reemplazoCierre.to_s
-					contenido = contenido.gsub(captura, reemplazoFinal)
+
+					if cierre != nil
+						contenido = contenido.gsub(/#{elemento}.*?#{cierre}.*?>/, reemplazoFinal)
+					else
+						contenido = contenido.gsub(/#{elementoViejo}/, reemplazoFinal)
+					end
 				end
 			end
 			
