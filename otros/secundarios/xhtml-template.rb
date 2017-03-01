@@ -41,6 +41,10 @@ template = "<!DOCTYPE html>
 
 end
 
+$xmlTemplateHead = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<body>
+"
+
 $xhtmlTemplateFoot = "    </body>
 </html>
 "
