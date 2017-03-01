@@ -139,12 +139,127 @@ if cambio
 		archivo_abierto.close
 	end
 	
+	puts $l_sb_analizando
+	
 	archivos.each do |a|
 		modificaciones mod, modM, modMs, a
 	end
 	
-	# De mod, modM y modMs, solo modM necesita un trato especial con regex
-	puts "mod: " + mod.keys.to_s, "modM: " + modM.keys.to_s, "modMs: " + modMs.keys.to_s
+	puts $l_sb_realizando
+	
+	# Clona el archivo a modificar
+	contenidoArchivo = Array.new
+	archivo_abierto = File.open(archivoNuevo, "r")
+	archivo_abierto.each do |linea|
+		contenidoArchivo.push(linea.strip)
+	end
+	archivo_abierto.close
+	contenidoArchivo = contenidoArchivo.join("ººº")
+	
+	# Realiza los cambios
+	def cambios m, contenido, tipo = 0
+		def reemplazarOborrar elemento, reemplazo, contenido, tipo
+			
+			# Indica lo que se está haciendo
+			if reemplazo == ""
+				puts $l_sb_eliminando[0] + elemento + $l_sb_eliminando[1]
+			else
+				puts $l_sb_reemplazando[0] + elemento + $l_sb_reemplazando[1] + reemplazo + $l_sb_reemplazando[2]
+			end
+			
+			# Si es literal el cambio se hace directo
+			if tipo == 0
+				if elemento != nil
+					contenido = contenido.gsub!(elemento, reemplazo)
+				end
+			# Si son expresiones regulares
+			else
+				# Se limpia el elemento
+				elemento = elemento.gsub("<","").gsub(">","")
+				
+				# Según el tipo se establece su cierre
+				if tipo == 1
+					cierre = elemento
+				else
+					cierre = elemento.split(" ")[0]
+				end
+				
+				# Si se encuentra que es una etiqueta sin cierre, este se hace nulo
+				conjunto = ["area","base","br","col","command","embed","hr","img","input","link","meta","param","source"]
+				conjunto.each do |e|
+					if e == cierre
+						cierre = nil
+						break
+					end
+				end
+				
+				# Acorde a su cierre hace la captura
+				if cierre
+					capturas = contenido.scan(/<#{elemento}>.*?<.*?\/#{cierre}.*?>/)
+				else
+					capturas = contenido.scan(/<#{elemento}.*?>/)
+				end
+				
+				# Obtiene las etiquetas de cierre para el reemplazo
+				reemplazoCierre = Array.new
+				reemplazoCierreT = reemplazo.gsub(">","").split("<")
+				reemplazoCierreT.each do |e|
+					if e.strip != ""
+						e = e.split(/\s/)[0]
+							reemplazoCierre.push("</" + e + ">")
+					end
+				end
+				reemplazoCierre = reemplazoCierre.reverse
+				reemplazoCierre = reemplazoCierre.join("")
+				
+				
+				# Hace el reemplazo
+				capturas.each do |captura|
+					reemplazoFinal = reemplazo.to_s + captura.split("<")[1].split(">")[1].to_s + reemplazoCierre.to_s
+					contenido = contenido.gsub(captura, reemplazoFinal)
+				end
+			end
+			
+			return contenido
+		end
+		
+		# Itera cada uno de los hash según su llave
+		m.each do |llave, valor|
+			
+			# Itera cada elemento según su valor
+			valor.each do |elemento|
+				# Llama a las respectivas funciones
+				if llave == "borrar"
+					contenido = reemplazarOborrar elemento, "", contenido, tipo
+				elsif llave == "modificar"
+					contenido = reemplazarOborrar elemento[0], elemento[1], contenido, tipo
+				elsif llave == "notaContenido"
+					# FALTA
+				elsif llave == "nota"						# Da un conjunto
+					# FALTA
+				end
+			end
+		end
+		
+		return contenido
+	end
+
+	contenidoFinal = cambios mod, contenidoArchivo
+	#contenidoFinal = cambios modM, contenidoArchivo, 1		# FALTA
+	contenidoFinal = cambios modMs, contenidoArchivo, 2
+	
+	# Vuelve a añadir los saltos
+	contenidoFinal = contenidoFinal.split("ººº")
+
+	# Agrega los cambios en un nuevo archivo oculto
+	archivo_final = File.open(".#{archivoNuevo}", "w")
+	archivo_final.puts contenidoFinal
+	archivo_final.close
+	beautifier archivo_final
+	
+	# Sustituye el archivo
+	File.rename(".#{archivoNuevo}", archivoNuevo)
+	
 # Para iniciar el análisis
 else	
 	# Comprueba de que no exita un análisis
