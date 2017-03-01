@@ -77,7 +77,7 @@ def mdAhtml s_path, s_nombre
 	
 	# Agrega cabezas
 	if File.extname(s_nombre_final) == ".xml"
-		html_nuevo.puts "<body>"
+		html_nuevo.puts $xmlTemplateHead
 		espacio = "    "
 	else
 		if File.extname(s_nombre_final) == ".xhtml"
@@ -94,6 +94,11 @@ def mdAhtml s_path, s_nombre
 	# Empiezaa leer línea por línea del archivo de salida
 	archivo_abierto = File.open(s_nombre_actual, "r:UTF-8")
 	archivo_abierto.each do |linea|
+		# En XML se eliimna el espacio de nombres
+		if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
+			linea = linea.split(/\s/)[0] + ">"
+		end
+	
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
