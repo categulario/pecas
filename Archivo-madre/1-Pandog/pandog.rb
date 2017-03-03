@@ -250,7 +250,7 @@ end
 if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
 	begin
 		# Por defecto crea un HTML sin cabeza
-		`pandoc #{entrada_sis} -o #{directorioPadreTerminal salida_sis}/#{File.basename(salida_sis,'.*') + $pandog_coletilla + '.html'}`
+		`pandoc #{entrada_sis} -o #{directorioPadreTerminal salida_sis}/#{File.basename(salida_sis,'.*') + $pandog_coletilla + '.html -f markdown_phpextra'}`
 		
 		# Llama a las modificaciones
 		mdAhtml directorioPadre(salida), File.basename(salida)
