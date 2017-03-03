@@ -63,7 +63,7 @@ def carpetaBusqueda
 
     # Si dentro de los directorios hay un opf, entonces se supone que hay archivos para un EPUB
     Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
-        if File.extname(archivo) == ".xhtml" || File.extname(archivo) == ".html" || File.extname(archivo) == ".tex"
+        if File.extname(archivo) == ".xhtml" || File.extname(archivo) == ".html" || File.extname(archivo) == ".xml" || File.extname(archivo) == ".tex"
 
             # Se indica que si existen algún archivo xhtml, html o tex
             archivosExistentes = true
