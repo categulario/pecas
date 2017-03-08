@@ -290,10 +290,10 @@ ul {
     list-style-type: none;
 }
 
-.li-manual span:first-child {    /* Colocar en el li: <li><span>[viñeta o numeración deseada]</span>... */
-    display: block;
-    margin-left: -1.5em;
-    margin-bottom: -1.25em;
+.li-manual > li > p:first-child > span:first-of-type {    /* Colocar en el li: <li><p><span>[viñeta o numeración deseada]</span>... */
+	display: block;
+	margin-left: -1.5em;
+	margin-bottom: -1.25em;
 }
 
 /* Imágenes */
