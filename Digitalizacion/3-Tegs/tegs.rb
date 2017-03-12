@@ -11,7 +11,7 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 ## REQUIERE TESSERACT y GHOSTSCRIPT
 
 # Argumentos
-directorio = argumento "-d", directorio
+directorio = if argumento "-d", directorio != nil then argumento "-d", directorio else Dir.pwd end
 lenguaje = argumento "-l", lenguaje
 nombre = argumento "-o", nombre
 txt = argumento "-t", txt, 1
@@ -21,7 +21,7 @@ argumento "-v", $l_tg_v
 argumento "-h", $l_tg_h
 
 # Comprueba que existan los argumentos necesarios
-comprobacion [directorio, lenguaje, nombre]
+comprobacion [lenguaje, nombre]
 
 # Arregla los contenidos de la variable para evitar conflictos
 directorio = comprobacionDirectorio directorio

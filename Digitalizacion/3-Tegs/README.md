@@ -17,12 +17,12 @@ Tegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con 
 
 ### Parámetros necesarios
 
-* `-d` = [directory] Directorio que contiene las imágenes.
 * `-l` = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. [Lista de acrónimos](https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages).
 * `-o` = [output] Nombre para el o los archivos que se crearán.
 
 ### Parámetros opcionales
 
+* `-d` = [directory] Directorio que contiene las imágenes.
 * `-t` = [text] Crea un TXT adicional al PDF creado.
 * `-c` = [compressed] Crea un PDF comprimido adcional al PDF creado.
 

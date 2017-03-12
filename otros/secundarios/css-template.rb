@@ -408,10 +408,11 @@ body > .epigrafe:first-child {
 }
 
 span.n-note-p {
-    display: block;
-    margin-top: 0.5em;
+	display: block;
+    margin-top: 0;
     margin-left: 0;
-    text-indent: 0;
+    text-indent: 1.5em;
+    font-size: 1em;
 }
 
 .n-note-p2 {
