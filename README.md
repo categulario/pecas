@@ -79,7 +79,7 @@ Los binarios permiten acceder a las herramientas desde la terminal sin necesidad
 de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencilla:
 
 ###### 1. Ingresa a esta carpeta (`Herramientas`) en la terminal.
-###### 2. Llama al instalador con `./instalar.sh` o `sh instalar.sh`.
+###### 2. Llama al instalador con `./instalar.sh` o `sh instalar.sh` o `bash instalar.sh`.
 ###### 3. ¡Listo!
 
 ## Utilización de los binarios

@@ -32,7 +32,7 @@ else
   exit 1
 fi
 
-# La condición también biene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
+# La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if ! grep PT_HERRAMIENTAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
     echo "# Herramientas de Perro Triste" >> $profile_script_full
