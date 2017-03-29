@@ -1,6 +1,5 @@
 /*
-    Hasta el fin existen tres opciones que están comentadas.
-    Para habilitarse, solo es necesario descomentarse.
+    Hasta el final existen las siquientes opciones:
 
     Las opciones son:
     1. zoom.computadora
@@ -8,19 +7,17 @@
         en computadoras de escritorio. Por defecto es falso.
     2. zoom.restaurar
         Indica si se desea restaurar el zoom por defecto
-        al abrirse un archivo. El script guarda el zoom
-        puesto en un documento para aplicarlo a los demás,
-        con esta opción se evita que se herede el zoom
-        aplicado. Por defecto es falso.
+        al abrirse un archivo, evitándose que se herede el 
+        zoom aplicado. Por defecto es falso.
     3. zoom.animacion.mostrar
-        Indica si se desea un fadein al momento en que se
+        Indica si se desea un fade-in al momento en que se
         adapta el documento al zoom guardado con anterioridad.
-        Es ignorado si zoom.restaurar es verdadero. Por
+        Es ignorado si "zoom.restaurar" es verdadero. Por
         defecto es verdadero.
 	4. zoom.poetryjs
-		Indica si también se añadió el script poetry.js.
+		Indica si también se añadió el script "poetry.js".
 		OJO: poetry.js se coloca antes que este script en
-		el html. Por defecto es falso.
+		el HTML. Por defecto es falso.
 */
 
 var zoom = {
@@ -273,5 +270,5 @@ window.addEventListener('load', function () {
     // zoom.restaurar = true;
     // zoom.animacion.mostrar = false;
     // zoom.poetryjs = true;
-    zoom.crear();
+    zoom.crear();	// Aplica el script
 });
