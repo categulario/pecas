@@ -1,6 +1,65 @@
 /*
-    Ojo:
-        - Todos los espacios en los versos tienen que ser manuales; a saber, sin que sean a partir de CSS
+    Hasta el final existen las siquientes opciones:
+    
+    1. poetry.clase
+        Indica los elementos HTML que empleará el script. 
+        Por defecto no tiene clase y toma los elementos <p>.
+    2. poetry.claseVerso
+		Indica la clase que se ha de agregar a cada verso
+		de manera automática. Por defecto es "py-v".
+    3. poetry.clasePalabra
+        Indica la clase que se ha de agregar a cada palabra
+		de manera automática. Por defecto es "py-w".
+	4. poetry.claseCorte
+		Indica la clase que se ha de agregar a cada verso
+		cortado de manera automática. Por defecto es "py-b".
+	5. poetry.claseContenido
+		Indica la clase que se ha de agregar a cada contenido
+		inicial de manera automática. Por defecto es "py-c".
+	6. poetry.contenidoInicial
+		Indica el contenido que se ha de agregar antes del
+		corte de cada verso. Por defecto es "[".
+	7. poetry.estilo
+		Indica el estilo que se ha de agegar a cada verso
+		cortado. Por defecto es alineado a la derecha.
+	
+	En la estructura HTML un párrafo equivale a una estrofa
+	y cada verso se divide con un salto. Por ejemplo:
+	
+	Este es un primer verso.
+	Este es un segundo verso de la primera estrofa.
+	Este es un tercer verso.
+	
+	Se estructura así:
+	
+	<p>Este es un primer verso.<br />Este es un segundo verso de la primera estrofa.<br />Este es un tercer verso.</p>
+	
+	Se pueden colocar clases e identificadores y otros
+	elementos HTML, incluso que abarquen toda la 
+	etiqueta <p>, por ejemplo:
+	
+	<p class="poema"><em>Este es un <strong>primer</strong> verso.<br />Este es un <b>segundo</b> verso de la primera estrofa.<br />Este es un tercer verso.</em></p>
+
+	Con esto el resultado obtenido por defecto es:
+	
+	Este es un primer verso.
+	Este es un segundo verso
+	 [de la primera estrofa.
+	Este es un tercer verso.
+	
+	E incluso puede generar varias líneas cortadas:
+	
+	Este es un primer
+	          [verso.
+	Este es un 
+	[segundo verso de
+	      [la primera
+	         [estrofa.
+	Este es un tercer
+	           [verso.
+
+    Ojo: Los espacios y sangrías en los versos tienen
+    que ser manuales, el uso de CSS causa conflicto.
 */
 
 //	Todo lo relativo al control ortotipográfico de los cortes de verso
@@ -416,16 +475,17 @@ TextResizeDetector = function() {
 	}
 }();
 
-//  Todo empezará hasta que se cargue el DOM
-window.addEventListener('load', function () {
-    poetry.clase = "poema";
-    // poetry.claseVerso = "NOMBRE_1";
-    // poetry.clasePalabra = "NOMBRE_2";
-    // poetry.claseCorte = "NOMBRE_3";
-    // poetry.estilo = "color:blue;";
-    // poetry.contenidoInicial = "CONTENIDO";
-    poetry.aplicar();
-});
-
 //  Al modificarse el tamaño de pantalla se reinicia para aplicar los cambios
 window.addEventListener('resize', function () {console.log("ASDAS");poetry.reiniciar();});
+
+//  Todo empezará hasta que se cargue el DOM
+window.addEventListener('load', function () {
+    // poetry.clase = "CLASE_CSS";
+    // poetry.claseVerso = "CLASE_CSS";
+    // poetry.clasePalabra = "CLASE_CSS";
+    // poetry.claseCorte = "CLASE_CSS";
+    // poetry.claseContenido = _"CLASE_CSS";
+    // poetry.contenidoInicial = "CONTENIDO";
+    // poetry.estilo = "CODIGO_CSS";
+    poetry.aplicar();	// Aplica el script
+});
