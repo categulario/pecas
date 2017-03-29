@@ -58,7 +58,7 @@
 	Este es un tercer
 	           [verso.
 
-    Ojo: Los espacios y sangrías en los versos tienen
+    OJO: Los espacios y sangrías en los versos tienen
     que ser manuales, el uso de CSS causa conflicto.
 */
 

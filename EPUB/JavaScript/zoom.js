@@ -16,8 +16,10 @@
         defecto es verdadero.
 	4. zoom.poetryjs
 		Indica si también se añadió el script "poetry.js".
-		OJO: poetry.js se coloca antes que este script en
-		el HTML. Por defecto es falso.
+		Por defecto es falso
+	
+	OJO: si se vinculará "poetry.js" este se declara en el
+	HTML antes que este script.
 */
 
 var zoom = {
