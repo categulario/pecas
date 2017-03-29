@@ -18,10 +18,13 @@ inicio de estos archivos.
 
 # *Scripts* disponibles
 
+* `poetry.js`. Posibilita un control ortotipográfico
+cuando existe un corte de verso.
+
 * `zoom.js`. Posibilita el aumento o disminución
 del tamaño de la tipografía.
 
 # *Scripts* en desarrollo
 
-* `poetry.js`. Posibilita un control ortotipográfico
-cuando existe un corte de verso.
+Ninguno por el momento :D
+
