@@ -6,17 +6,21 @@
     1. zoom.computadora
         Indica si se desea que el zoom también se habilite
         en computadoras de escritorio. Por defecto es falso.
-    3. zoom.restaurar
+    2. zoom.restaurar
         Indica si se desea restaurar el zoom por defecto
         al abrirse un archivo. El script guarda el zoom
         puesto en un documento para aplicarlo a los demás,
         con esta opción se evita que se herede el zoom
         aplicado. Por defecto es falso.
-    2. zoom.animacion.mostrar
+    3. zoom.animacion.mostrar
         Indica si se desea un fadein al momento en que se
         adapta el documento al zoom guardado con anterioridad.
         Es ignorado si zoom.restaurar es verdadero. Por
         defecto es verdadero.
+	4. zoom.poetryjs
+		Indica si también se añadió el script poetry.js.
+		OJO: poetry.js se coloca antes que este script en
+		el html. Por defecto es falso.
 */
 
 var zoom = {
@@ -28,6 +32,9 @@ var zoom = {
 
     //  Indica si también se hay zoom en versiones de escritorio
     computadora: false,
+    
+    //	Indica si se añadió el script poetry.js
+    poetryjs: false,
 
     //  Para añadir animacion
     animacion: {
@@ -98,7 +105,7 @@ var zoom = {
     cambiar: function (id, restablece) {
         var contenedor = document.getElementById("contenedor"),
             etiquetas = contenedor.getElementsByTagName("*");
-
+		
         //  Por defecto es nulo
         restablece = restablece || null;
 
@@ -130,6 +137,10 @@ var zoom = {
             //  Se cambia el tamaño
             etiqueta.style.fontSize = relacion + "px";
         }
+        
+        //	Se reinicia poetry si se indicó su existencia
+        if (zoom.poetryjs)
+			poetry.reiniciar();
     },
 
     //  Crea los elementos para poder aumentar o disminuir la fuente
@@ -257,9 +268,10 @@ var zoom = {
 };
 
 //  Todo empezará hasta que se cargue el DOM
-window.onload = function () {
+window.addEventListener('load', function () {
     // zoom.computadora = true;
     // zoom.restaurar = true;
     // zoom.animacion.mostrar = false;
+    // zoom.poetryjs = true;
     zoom.crear();
-};
+});
