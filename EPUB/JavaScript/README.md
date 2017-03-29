@@ -19,10 +19,10 @@ inicio de estos archivos.
 # *Scripts* disponibles
 
 * `poetry.js`. Posibilita un control ortotipográfico
-cuando existe un corte de verso.
+cuando el verso excede el tamaño de la caja.
 
 * `zoom.js`. Posibilita el aumento o disminución
-del tamaño de la tipografía.
+del tamaño de la tipografía en EPUB de diseño fijo.
 
 # *Scripts* en desarrollo
 

@@ -1,4 +1,7 @@
 /*
+	Posibilita un control ortotipográfico cuando el verso 
+	                        [excede el tamaño de la caja.
+
     Hasta el final existen las siquientes opciones:
     
     1. poetry.clase
@@ -32,13 +35,17 @@
 	
 	Se estructura así:
 	
-	<p>Este es un primer verso.<br />Este es un segundo verso de la primera estrofa.<br />Este es un tercer verso.</p>
+	<p>Este es un primer verso.<br />
+	Este es un segundo verso de la primera estrofa.<br />
+	Este es un tercer verso.</p>
 	
 	Se pueden colocar clases e identificadores y otros
 	elementos HTML, incluso que abarquen toda la 
 	etiqueta <p>, por ejemplo:
 	
-	<p class="poema"><em>Este es un <strong>primer</strong> verso.<br />Este es un <b>segundo</b> verso de la primera estrofa.<br />Este es un tercer verso.</em></p>
+	<p class="poema"><em>Este es un <b>primer</b> verso.<br />
+	Este es un <u>segundo</i> verso de la primera estrofa.<br />
+	Este es un <s>tercer</s> verso.</em></p>
 
 	Con esto el resultado obtenido por defecto es:
 	

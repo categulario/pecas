@@ -1,4 +1,7 @@
 /*
+	Posibilita el aumento o disminución del tamaño de la 
+	tipografía en EPUB de diseño fijo.
+
     Hasta el final existen las siquientes opciones:
 
     Las opciones son:
