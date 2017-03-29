@@ -44,7 +44,7 @@
 	etiqueta <p>, por ejemplo:
 	
 	<p class="poema"><em>Este es un <b>primer</b> verso.<br />
-	Este es un <u>segundo</i> verso de la primera estrofa.<br />
+	Este es un <u>segundo</u> verso de la primera estrofa.<br />
 	Este es un <s>tercer</s> verso.</em></p>
 
 	Con esto el resultado obtenido por defecto es:
@@ -374,7 +374,7 @@ var poetry = {
     }
 }
 
-//	Todo lo relativo al cambio de fuente, viene de: https://alistapart.com/d/fontresizing/textresizedetector.js; iBase: base font size; iDelta: difference in pixels from previous setting; iSize: size in pixel of text
+//	TDetecta un cambio de fuente, viene de: https://alistapart.com/d/fontresizing/textresizedetector.js; iBase: base font size; iDelta: difference in pixels from previous setting; iSize: size in pixel of text
 TextResizeDetector = function() { 
     var TARGET_ELEMENT_ID = 'header',
 		USER_INIT_FUNC = poetry.reiniciar(),
