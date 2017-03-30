@@ -170,12 +170,11 @@ $l_cr_xhtml_portadilla.close
 # Crea la legal
 legal = $l_cr_xhtml_legal
 $l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
-$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css", "copyright-page"
-$l_cr_xhtml_legal.puts "	    <p id=\"title\" class=\"legal\"><i>#{epubTitulo}</i></p>"
-$l_cr_xhtml_legal.puts "	    <p id=\"publisher\" class=\"legal\">#{epubEditorial}</p>"
-$l_cr_xhtml_legal.puts "	    <br /><br />"
-$l_cr_xhtml_legal.puts "	    <p class=\"legal\">#{$l_cr_xhtml_autoria}</p>"
-$l_cr_xhtml_legal.puts "	    <p id=\"creator\" class=\"legal\">#{epubAutor}</p>"
+$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css", "copyright-page\" class=\"legal"
+$l_cr_xhtml_legal.puts "	    <p id=\"title\"><i>#{epubTitulo}</i></p>"
+$l_cr_xhtml_legal.puts "	    <p id=\"publisher\">#{epubEditorial}</p>"
+$l_cr_xhtml_legal.puts "	    <p class=\"espacio-arriba2\">#{$l_cr_xhtml_autoria}</p>"
+$l_cr_xhtml_legal.puts "	    <p id=\"creator\">#{epubAutor}</p>"
 $l_cr_xhtml_legal.puts $xhtmlTemplateFoot
 $l_cr_xhtml_legal.close
 

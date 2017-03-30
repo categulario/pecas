@@ -333,14 +333,7 @@ sub {
     margin-left: 0;
 }
 
-.legal {
-    font-size: 1em;
-    text-align: left;
-    line-height: 1.25em;
-    margin: 0;
-}
-
-.legal + .legal {
+.legal * {
     text-indent: 0;
 }
 
