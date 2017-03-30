@@ -152,8 +152,10 @@ if epubPortada
 	FileUtils.cp(epubPortada, epubUbicacion + "/img/" + File.basename(epubPortada))
 	portada = $l_cr_xhtml_portada
 	$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
-	$l_cr_xhtml_portada.puts xhtmlTemplateHead portada, "../css/styles.css", "cover"
-	$l_cr_xhtml_portada.puts "        <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
+	$l_cr_xhtml_portada.puts xhtmlTemplateHead portada, "../css/styles.css"
+	$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\">"
+	$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
+	$l_cr_xhtml_portada.puts "	    </section>"
 	$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
 	$l_cr_xhtml_portada.close
 end
@@ -161,20 +163,24 @@ end
 # Crea la portadilla
 portadilla = $l_cr_xhtml_portadilla
 $l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
-$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css", "titlepage"
-$l_cr_xhtml_portadilla.puts "        <h1 class=\"centrado titulo\">#{epubTitulo}</h1>"
-$l_cr_xhtml_portadilla.puts "        <p class=\"centrado\">#{epubAutor}</p>"
+$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
+$l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
+$l_cr_xhtml_portadilla.puts "            <h1 class=\"centrado titulo\">#{epubTitulo}</h1>"
+$l_cr_xhtml_portadilla.puts "            <p class=\"centrado\">#{epubAutor}</p>"
+$l_cr_xhtml_portadilla.puts "	    </section>"
 $l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
 $l_cr_xhtml_portadilla.close
 
 # Crea la legal
 legal = $l_cr_xhtml_legal
 $l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
-$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css", "copyright-page\" class=\"legal"
-$l_cr_xhtml_legal.puts "	    <p id=\"title\"><i>#{epubTitulo}</i></p>"
-$l_cr_xhtml_legal.puts "	    <p id=\"publisher\">#{epubEditorial}</p>"
-$l_cr_xhtml_legal.puts "	    <p class=\"espacio-arriba2\">#{$l_cr_xhtml_autoria}</p>"
-$l_cr_xhtml_legal.puts "	    <p id=\"creator\">#{epubAutor}</p>"
+$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css"
+$l_cr_xhtml_legal.puts "	    <section epub:type=\"copyright-page\" class=\"legal\">"
+$l_cr_xhtml_legal.puts "	        <p id=\"title\"><i>#{epubTitulo}</i></p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"publisher\">#{epubEditorial}</p>"
+$l_cr_xhtml_legal.puts "	        <p class=\"espacio-arriba2\">#{$l_cr_xhtml_autoria}</p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"creator\">#{epubAutor}</p>"
+$l_cr_xhtml_legal.puts "	    </section>"
 $l_cr_xhtml_legal.puts $xhtmlTemplateFoot
 $l_cr_xhtml_legal.close
 

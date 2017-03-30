@@ -367,10 +367,10 @@ def adicion (archivoNotes)
         # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
         if $boolColocacion
             arreglo $notasTXT[$conteoId - 1]
-            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#c-n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
+            archivoNotes.puts "            <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#c-n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
         else
             arreglo linea
-            archivoNotes.puts "        <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
+            archivoNotes.puts "            <p class=\"n-note-p\" id=\"n#{$conteoId}\"><a class=\"n-note-a\" href=\"#{$rutasRelativas[$conteoId - 1]}#n#{$conteoId}\">[#{$conteoFinal[$conteo]}]</a> #{$lineaCorregida}</p>"
         end
 
         $conteo = $conteo + 1
@@ -418,11 +418,13 @@ if $boolColocacion
 
         # Se añade una barra horizontal como divisor entre el contenido y las notas
         archivoNotes.puts "        <hr class=\"n-note-hr\" />"
+	archivoNotes.puts "        <section epub:type=\"footnotes\">"
 
         # Añade las notas al final
         adicion archivoNotes
 
         # Últimos elementos necesarios para el archivo
+	archivoNotes.puts "        </section>"
         archivoNotes.puts "    </body>"
         archivoNotes.puts "</html>"
 
@@ -491,8 +493,9 @@ else
 
     # Crea el archivo $archivoCreado
     archivoNotes = File.new("#{$archivoCreado}", "w:UTF-8")
-	archivoNotes.puts xhtmlTemplateHead "Notas", $rutaCSS, "footnotes"
-    archivoNotes.puts "        <h1>Notas</h1>"
+    archivoNotes.puts xhtmlTemplateHead "Notas", $rutaCSS
+    archivoNotes.puts "	    <section epub:type=\"footnotes\">"
+    archivoNotes.puts "            <h1>Notas</h1>"
 
     # Ayuda a detectar si existe un cambio de ruta
     $rutaVieja = $rutasRelativas.first
