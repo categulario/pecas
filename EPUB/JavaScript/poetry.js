@@ -91,7 +91,40 @@ var poetry = {
 
     //  Determina el contenido inicial del verso cortado
     contenidoInicial: "<span style='font-style:normal; font-weight: normal;'>[</span>",
+    
+    //	Determina el identificador para el iframe
+    iframe: "py-i",
 
+	//	Inicialización
+	init: function () {
+		//	Crea un iframe que ayudará a detectar los cambios de fuente
+		iframe = document.createElement("iframe");
+		iframe.id = poetry.iframe;
+		iframe.style.top = "0";
+		iframe.style.left = "0";
+		iframe.style.width = "100%";
+		iframe.style.height = "5em";
+		iframe.style.zIndex = "-1";
+		iframe.style.visibility = "hidden";
+		
+		document.body.insertBefore(iframe, document.body.childNodes[0]);
+		
+		//	Determina si hay cortes para aplicar la corrección ortotipográfica
+		poetry.aplicar();
+		
+		//  Al modificarse el tamaño de pantalla se reinicia para aplicar los cambios
+		window.addEventListener("resize", function () {
+			poetry.reiniciar();
+			console.log("Ventana");
+		});
+		
+		//  Al modificarse el tamaño de fuente se reinicia para aplicar los cambios
+		window.frames[poetry.iframe].addEventListener("resize", function () {
+			poetry.reiniciar();
+			console.log("Fuente");
+		});
+	},
+	
     // Obtiene las estrofas
     obtener: function (e) {
         if (!poetry.clase)
@@ -212,7 +245,7 @@ var poetry = {
 				for (var j = 0; j < versos.length; j++) {
 					var conjunto = [];
 
-					// Saca medidas de cada verso para identificar quiebres
+					//	Saca medidas de cada verso para identificar quiebres
 					function medicion () {
 						var palabras = versos[j].getElementsByClassName(poetry.clasePalabra),
 							inicio = false,
@@ -365,7 +398,7 @@ var poetry = {
     },
 
     //  Reinicia los cambios para refrescar los estilos
-    reiniciar: function () {console.log("Reiniciar");
+    reiniciar: function () {
         //  Se eliminan los cambios aplicados
         poetry.eliminar();
 
@@ -374,119 +407,9 @@ var poetry = {
     }
 }
 
-//	TDetecta un cambio de fuente, viene de: https://alistapart.com/d/fontresizing/textresizedetector.js; iBase: base font size; iDelta: difference in pixels from previous setting; iSize: size in pixel of text
-TextResizeDetector = function() { 
-    var TARGET_ELEMENT_ID = 'header',
-		USER_INIT_FUNC = poetry.reiniciar(),
-		el  = null,
-		iIntervalDelay  = 200,
-		iInterval = null,
-		iCurrSize = -1,
-		iBase = -1,
-		aListeners = [],
-		createControlElement = function () {
-			var elC = document.getElementById(TARGET_ELEMENT_ID);
-			
-			el = document.createElement('span');
-			el.id='textResizeControl';
-			el.innerHTML='&nbsp;';
-			el.style.position="absolute";
-			el.style.left="-9999px";
-			
-			// Insert before firstChild
-			if (elC)
-				elC.insertBefore(el,elC.firstChild);
-			iBase = iCurrSize = TextResizeDetector.getSize();
-		},
-		onAvailable = function () {
-			if (!TextResizeDetector.onAvailableCount_i ) {
-				TextResizeDetector.onAvailableCount_i =0;
-			}
-
-			if (document.getElementById(TARGET_ELEMENT_ID)) {
-				TextResizeDetector.init();
-				if (USER_INIT_FUNC){
-					USER_INIT_FUNC();
-				}
-				TextResizeDetector.onAvailableCount_i = null;
-			} else {
-				if (TextResizeDetector.onAvailableCount_i<600) {
-					TextResizeDetector.onAvailableCount_i++;
-					setTimeout(onAvailable,200)
-				}
-			}
-		};
-
- 	function _stopDetector () {
-		window.clearInterval(iInterval);
-		iInterval=null;
-	};
-	
-	function _startDetector () {
-		if (!iInterval) {
-			iInterval = window.setInterval('TextResizeDetector.detect()',iIntervalDelay);
-		}
-	};
- 	
- 	function _detect () {
- 		var iNewSize = TextResizeDetector.getSize();
-		
- 		if(iNewSize!== iCurrSize) {
-			for (var 	i=0;i <aListeners.length;i++) {
-				aListnr = aListeners[i];
-				var oArgs = {  iBase: iBase,iDelta:((iCurrSize!=-1) ? iNewSize - iCurrSize + 'px' : "0px"),iSize:iCurrSize = iNewSize};
-				if (!aListnr.obj) {
-					aListnr.fn('textSizeChanged',[oArgs]);
-				} else  {
-					aListnr.fn.apply(aListnr.obj,['textSizeChanged',[oArgs]]);
-				}
-			}
- 		}
- 		
- 		return iCurrSize;
- 	};
-	
-	setTimeout(onAvailable,500);
-
- 	return {
-		//	Initializes the detector; @param {String} sId The id of the element in which to create the control element
-		init: function() {		
-				createControlElement();		
-			_startDetector();
- 		},
-		//	Adds listeners to the ontextsizechange event; returns the base font size
- 		addEventListener:function(fn,obj,bScope) {
-			aListeners[aListeners.length] = {
-				fn: fn,
-				obj: obj
-			}
-			return iBase;
-		},
-		//	performs the detection and fires textSizeChanged event; @return the current font size; @type {integer}
- 		detect:function() {
- 			return _detect();
- 		},
- 		//	Returns the height of the control element; @return the current height of control element; @type {integer}
- 		getSize:function() {
-	 			var iSize;
-		 		return el.offsetHeight;
- 		},
- 		//	Stops the detector
- 		stopDetector:function() {
-			return _stopDetector();
-		},
-		//	Starts the detector
- 		startDetector:function() {
-			return _startDetector();
-		}
-	}
-}();
-
-//  Al modificarse el tamaño de pantalla se reinicia para aplicar los cambios
-window.addEventListener('resize', function () {console.log("ASDAS");poetry.reiniciar();});
 
 //  Todo empezará hasta que se cargue el DOM
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
     // poetry.clase = "CLASE_CSS";
     // poetry.claseVerso = "CLASE_CSS";
     // poetry.clasePalabra = "CLASE_CSS";
@@ -494,5 +417,5 @@ window.addEventListener('load', function () {
     // poetry.claseContenido = _"CLASE_CSS";
     // poetry.contenidoInicial = "CONTENIDO";
     // poetry.estilo = "CODIGO_CSS";
-    poetry.aplicar();	// Aplica el script
+    poetry.init();	// Aplica el script
 });
