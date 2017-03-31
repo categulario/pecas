@@ -115,13 +115,11 @@ var poetry = {
 		//  Al modificarse el tamaño de pantalla se reinicia para aplicar los cambios
 		window.addEventListener("resize", function () {
 			poetry.reiniciar();
-			console.log("Ventana");
 		});
 		
 		//  Al modificarse el tamaño de fuente se reinicia para aplicar los cambios
 		window.frames[poetry.iframe].addEventListener("resize", function () {
 			poetry.reiniciar();
-			console.log("Fuente");
 		});
 	},
 	
