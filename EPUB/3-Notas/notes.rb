@@ -503,6 +503,7 @@ else
     # Añade las notas
     adicion archivoNotes
 
+	archivoNotes.puts "	    </section>"
     archivoNotes.puts $xhtmlTemplateFoot
 
     archivoNotes.close
