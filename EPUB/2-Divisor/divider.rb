@@ -107,9 +107,13 @@ def creacion objeto, rutaCSS, indice
 
         return numeroTexto
     end
-
+    
     # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el índice y el nombre de extensión
-    nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
+    begin
+		nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
+	rescue
+		nombreArchivo = ""
+	end
     nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
     nombreArchivo = nombreArchivo.split("-")[0..4].join("-")
     nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
