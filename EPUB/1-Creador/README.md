@@ -5,16 +5,10 @@ Creator crea un proyecto para EPUB con distintas opciones.
 ## Uso:
 
   ```
-  pt-creator --title "[Título]" --creator "[Autoría]" --publisher "[Editorial]"
+  pt-creator
   ```
 
 ## Descripción de los parámetros
-
-### Parámetros necesarios:
-
-* `--title` = Título de la obra.
-* `--creator` = Persona o grupo a quien se le atribuye la obra.
-* `--publisher` = Editorial o grupo que publica la obra.
 
 ### Parámetros opcionales:
 
@@ -34,7 +28,7 @@ Creator crea un proyecto para EPUB con distintas opciones.
 ### Ejemplo sencillo:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial"
+  pt-creator
 ```
 
 Crea un proyecto EPUB en el directorio actual y con el nombre `epub-creator`.
@@ -42,7 +36,7 @@ Crea un proyecto EPUB en el directorio actual y con el nombre `epub-creator`.
 ### Ejemplo en un directorio específico:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado
+  pt-creator -d directorio/deseado
 ```
 
 Crea un proyecto EPUB en `directorio/deseado` y con el nombre `epub-creator`.
@@ -50,7 +44,7 @@ Crea un proyecto EPUB en `directorio/deseado` y con el nombre `epub-creator`.
 ### Ejemplo en un directorio y nombre específicos:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub
+  pt-creator -d directorio/deseado -o proyecto_epub
 ```
 
 Crea un proyecto EPUB en `directorio/deseado` y con el nombre `proyecto_epub`.
@@ -58,7 +52,7 @@ Crea un proyecto EPUB en `directorio/deseado` y con el nombre `proyecto_epub`.
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css
+  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo `archivo.css` en lugar del CSS defecto.
@@ -66,7 +60,7 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo `ar
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg
+  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de `portada.jpg`.
@@ -74,7 +68,7 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra 
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:
 
 ```
-  pt-creator --title "Un título" --creator "Nombre y apellido" --publisher "Una editorial" -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes
+  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en `ruta/al/directorio/con/imagenes`.
