@@ -39,10 +39,13 @@ epubImagenes = comprobacionDirectorio epubImagenes
 epubUbicacion = comprobacionDirectorio epubUbicacion
 Dir.chdir(epubUbicacion)
 
-# Crea la carpeta del EPUB si no existe previamente
+# Crea la carpeta del EPUB si no existe previamente o no hay conflictos con el nombre del archivo de los metadatos
 Dir.glob("*") do |archivo|
 	if File.exists?(epubNombre) == true
 		puts $l_cr_error_nombre
+		abort
+	elsif File.exists?($l_cr_meta_data) == true
+		puts $l_cr_error_meta
 		abort
 	else
 		puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green
@@ -50,6 +53,11 @@ Dir.glob("*") do |archivo|
 		break
 	end
 end
+
+metadata = $l_cr_meta_data
+$l_cr_meta_data = File.new($l_cr_meta_data, "w:UTF-8")
+$l_cr_meta_data.puts $l_cr_yaml
+$l_cr_meta_data.close
 
 # Se mete a la carpeta padre
 epubUbicacion = epubUbicacion + "/" + epubNombre

@@ -102,8 +102,10 @@ $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
 # Creator
 $l_cr_v = langObj["creator"]["v"]
 $l_cr_h = langObj["creator"]["h"]
+$l_cr_meta_data = langObj["creator"]["meta_data"]
 $l_cr_epub_nombre = langObj["creator"]["epub_nombre"]
 $l_cr_aviso = langObj["creator"]["aviso"]
+$l_cr_yaml = langObj["creator"]["yaml"]
 $l_cr_xhtml_portada = langObj["creator"]["xhtml_portada"]
 $l_cr_xhtml_portadilla = langObj["creator"]["xhtml_portadilla"]
 $l_cr_xhtml_legal = langObj["creator"]["xhtml_legal"]
@@ -113,6 +115,7 @@ $l_cr_xhtml_editorial = langObj["creator"]["xhtml_editorial"]
 $l_cr_xhtml_autoria = langObj["creator"]["xhtml_autoria"]
 $l_cr_creando = langObj["creator"]["creando"]
 $l_cr_error_nombre = langObj["creator"]["error_nombre"].red.bold
+$l_cr_error_meta = langObj["creator"]["error_meta"].red.bold
 
 # Divider
 $l_di_v = langObj["divider"]["v"]
