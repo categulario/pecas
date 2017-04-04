@@ -18,14 +18,8 @@ epubNombre = if argumento "-o", epubNombre != nil then argumento "-o", epubNombr
 epubCSS = argumento "-s", epubCSS
 epubPortada = argumento "-c", epubPortada
 epubImagenes = argumento "-i", epubImagenes
-epubTitulo = argumento "--title", epubTitulo
-epubAutor = argumento "--creator", epubAutor
-epubEditorial = argumento "--publisher", epubEditorial
 argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
-
-# Comprueba que existan los argumentos necesarios
-comprobacion [epubTitulo, epubAutor, epubEditorial]
 
 # Comprueba el archivo CSS
 epubCSS = comprobacionArchivo epubCSS, [".css"]
@@ -165,8 +159,8 @@ portadilla = $l_cr_xhtml_portadilla
 $l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
 $l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
 $l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
-$l_cr_xhtml_portadilla.puts "            <h1 class=\"centrado titulo\">#{epubTitulo}</h1>"
-$l_cr_xhtml_portadilla.puts "            <p class=\"centrado\">#{epubAutor}</p>"
+$l_cr_xhtml_portadilla.puts "            <h1 class=\"centrado titulo\">#{$l_cr_xhtml_titulo}</h1>"
+$l_cr_xhtml_portadilla.puts "            <p class=\"centrado\">#{$l_cr_xhtml_autor}</p>"
 $l_cr_xhtml_portadilla.puts "	    </section>"
 $l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
 $l_cr_xhtml_portadilla.close
@@ -176,10 +170,10 @@ legal = $l_cr_xhtml_legal
 $l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
 $l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css"
 $l_cr_xhtml_legal.puts "	    <section epub:type=\"copyright-page\" class=\"legal\">"
-$l_cr_xhtml_legal.puts "	        <p id=\"title\"><i>#{epubTitulo}</i></p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"publisher\">#{epubEditorial}</p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"title\"><i>#{$l_cr_xhtml_titulo}</i></p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"publisher\">#{$l_cr_xhtml_editorial}</p>"
 $l_cr_xhtml_legal.puts "	        <p class=\"espacio-arriba2\">#{$l_cr_xhtml_autoria}</p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"creator\">#{epubAutor}</p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"creator\">#{$l_cr_xhtml_autor}</p>"
 $l_cr_xhtml_legal.puts "	    </section>"
 $l_cr_xhtml_legal.puts $xhtmlTemplateFoot
 $l_cr_xhtml_legal.close
