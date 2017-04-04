@@ -90,22 +90,22 @@ La estructura del archivo es:
 ```
 ---
 # Generales
-titulo: Sin título
-autoria: Anónimo
-editorial: 
-sinopsis: 
-categoria: 
+title: Sin título
+author: Anónimo
+publisher: 
+synopsis: 
+category: 
 version: 1.0.0
-portada: portada.jpg
-navegacion: nav.xhtml
+cover: portada.jpg
+navigation: nav.xhtml
 
 # Tabla de contenidos
 no-toc: 
-no-espina: 
+no-spine: 
 
 # Si se quiere EPUB fijo
-px-anchura: 
-px-altura: 	
+px-width: 
+px-height: 
 ```
 
 Solo basta señalar la información deseada después de los dos puntos. Estos
