@@ -24,11 +24,6 @@ argumento "-h", $l_cr_h
 # Comprueba el archivo CSS
 epubCSS = comprobacionArchivo epubCSS, [".css"]
 
-# Adquiere el path absoluto del archivo CSS
-if epubCSS != nil
-	epubCSS = File.absolute_path(epubCSS)
-end
-
 # Comprueba el nombre de la portada
 epubPortada = comprobacionArchivo epubPortada, [".jpg", ".jpeg", ".gif", ".png", ".svg"]
 
