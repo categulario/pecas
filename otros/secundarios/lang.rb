@@ -46,6 +46,7 @@ $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_fin = langObj["general"]["fin"].blue.bold
+$l_g_meta_data = langObj["general"]["meta_data"]
 $l_g_marca = langObj["general"]["marca"]
 $l_g_marca_interior = langObj["general"]["marca_interior"]
 $l_g_ignore = langObj["general"]["ignore"]
@@ -102,7 +103,6 @@ $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
 # Creator
 $l_cr_v = langObj["creator"]["v"]
 $l_cr_h = langObj["creator"]["h"]
-$l_cr_meta_data = langObj["creator"]["meta_data"]
 $l_cr_epub_nombre = langObj["creator"]["epub_nombre"]
 $l_cr_aviso = langObj["creator"]["aviso"]
 $l_cr_yaml = langObj["creator"]["yaml"]

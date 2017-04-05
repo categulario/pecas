@@ -44,7 +44,7 @@ Dir.glob("*") do |archivo|
 	if File.exists?(epubNombre) == true
 		puts $l_cr_error_nombre
 		abort
-	elsif File.exists?($l_cr_meta_data) == true
+	elsif File.exists?($l_g_meta_data) == true
 		puts $l_cr_error_meta
 		abort
 	else
@@ -54,10 +54,10 @@ Dir.glob("*") do |archivo|
 	end
 end
 
-metadata = $l_cr_meta_data
-$l_cr_meta_data = File.new($l_cr_meta_data, "w:UTF-8")
-$l_cr_meta_data.puts $l_cr_yaml
-$l_cr_meta_data.close
+metadata = $l_g_meta_data
+$l_g_meta_data = File.new($l_g_meta_data, "w:UTF-8")
+$l_g_meta_data.puts $l_cr_yaml
+$l_g_meta_data.close
 
 # Se mete a la carpeta padre
 epubUbicacion = epubUbicacion + "/" + epubNombre
