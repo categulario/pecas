@@ -6,6 +6,9 @@ este archivo **es innecesario y puede eliminarse**.
 
 ## Estructura
 
+Sea que se quiera trabajar con el archivo `meta-data.yaml` o crear
+uno desde cero, la estructura básica es la siguiente:
+
 ```
 ---
 # Generales
@@ -36,12 +39,12 @@ px-height:
 	* `publisher`. Institución u organización que editó la obra. Por defecto no tiene valor.
 	* `synopsis`. Reseña de la obra. Por defecto no tiene valor.
 	* `category`. Categoría de la obra; p. ej., `Ficción, Novela`. Por defecto no tiene valor.
-	* `version`. Versión de la obra. Este dato no es visible al usuario. Por defecto es `1.0.0`.
+	* `version`. Versión de la obra. Este dato no es visible para el usuario. Por defecto es `1.0.0`.
 	* `cover`. Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. Por defecto no tiene valor.
 	* `navigation`. Archivo XHTML para la tabla de contenidos. Por defecto es `nav.xhtml`.
 * Tabla de contenidos:
-	* `no-toc`. Conjunto de los archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. Por defecto no tiene valor.
-	* `no-spine`. Conjunto de los archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. Por defecto no tiene valor.
+	* `no-toc`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. Por defecto no tiene valor.
+	* `no-spine`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. Por defecto no tiene valor.
 	* `custom`. Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. Por defecto no tiene valor.
 * Si se quiere EPUB fijo:
 	* `px-width`. Anchura en pixeles para el EPUB. Por defecto no tiene valor.
@@ -60,7 +63,7 @@ de la anchura y la altura con `px-width` y `px-height` respectivamente.
 
 ### `no-toc` y `no-spine`
 
-Para especificar el conjuto de archivo a ignorar, pueden usarse dos tipos
+Para especificar el conjuto de archivos a ignorar, pueden usarse dos tipos
 de sintaxis:
 
 ```
