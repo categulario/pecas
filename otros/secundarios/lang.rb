@@ -125,3 +125,15 @@ $l_di_creando = langObj["divider"]["creando"]
 $l_di_sin_titulo = langObj["divider"]["sin_titulo"]
 $l_di_error_f = langObj["divider"]["error_f"].red.bold
 $l_di_error_i = langObj["divider"]["error_i"].red.bold
+
+# Recreator
+$l_re_v = langObj["recreator"]["v"]
+$l_re_h = langObj["recreator"]["h"]
+$l_re_recreando_opf = langObj["recreator"]["recreando_opf"].green
+$l_re_recreando_ncx = langObj["recreator"]["recreando_ncx"].green
+$l_re_recreando_nav = langObj["recreator"]["recreando_nav"].green
+$l_re_recreando_fijo = langObj["recreator"]["recreando_fijo"].green
+$l_re_error_y = langObj["recreator"]["error_y"]
+$l_re_error_e = langObj["recreator"]["error_e"]
+$l_re_error_a = langObj["recreator"]["error_a"]
+$l_re_error_m = langObj["recreator"]["error_m"].red.bold

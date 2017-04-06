@@ -68,10 +68,10 @@
 	
 	"creator" : {
 		"v" : "creator 0.1.0",
-		"h" : "\nCreator crea un proyecto para EPUB con distintas opciones.\n\nUso:\n  pt-creator\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se creará el proyecto.\n  -o = [output] Nombre del proyecto.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  -c = [cover] Ruta a la imagen de portada que se desea incluir.\n  -i = [images] Ruta a la carpeta con las imágenes que se desean incluir.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pt-creator\n  Crea un proyecto EPUB en el directorio actual y con el nombre «epub-creator».\n\nEjemplo en un directorio específico:\n  pt-creator -d directorio/deseado\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «epub-creator».\n\nEjemplo en un directorio y nombre específicos:\n  pt-creator -d directorio/deseado -o proyecto_epub\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «proyecto_epub».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo «archivo.css» en lugar del CSS por defecto.\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de «portada.jpg».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en «ruta/al/directorio/con/imagenes».\n  \nNota: también se generará «meta-data.yaml», que sirve para los metadatos del libro. Si se desconoce cómo usar el archivo, consúltese el sitio del repositorio: https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador#yaml. Si no se usará pt-recreator para generar el EPUB, este archivo es innecesario y puede eliminarse.",
+		"h" : "\nCreator crea un proyecto para EPUB con distintas opciones.\n\nUso:\n  pt-creator\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se creará el proyecto.\n  -o = [output] Nombre del proyecto.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  -c = [cover] Ruta a la imagen de portada que se desea incluir.\n  -i = [images] Ruta a la carpeta con las imágenes que se desean incluir.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pt-creator\n  Crea un proyecto EPUB en el directorio actual y con el nombre «epub-creator».\n\nEjemplo en un directorio específico:\n  pt-creator -d directorio/deseado\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «epub-creator».\n\nEjemplo en un directorio y nombre específicos:\n  pt-creator -d directorio/deseado -o proyecto_epub\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «proyecto_epub».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo «archivo.css» en lugar del CSS por defecto.\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de «portada.jpg».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:\n  pt-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en «ruta/al/directorio/con/imagenes».\n  \nNota: también se generará «meta-data.yaml», que sirve para los metadatos del libro. Si se desconoce cómo usar el archivo, consúltese el sitio del repositorio: https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/YAML. Si no se usará pt-recreator para generar el EPUB, este archivo es innecesario y puede eliminarse.",
 		"epub_nombre" : "epub-creator",
 		"aviso" : "Se usa pt-recreator para completar este archivo.",
-		"yaml" : "---\n# Generales\ntitle: Sin título\nauthor: Anónimo\npublisher: \nsynopsis: \ncategory: \nversion: 1.0.0\ncover: portada.jpg\nnavigation: nav.xhtml\n\n# Tabla de contenidos\nno-toc: \nno-spine: \n\n# Si se quiere EPUB fijo\npx-width: \npx-height: ",
+		"yaml" : "---\n# Generales\ntitle: Sin título\nauthor: Anónimo\npublisher: \nsynopsis: \ncategory: \nversion: 1.0.0\ncover: \nnavigation: nav.xhtml\n\n# Tabla de contenidos\nno-toc: \nno-spine: \ncustom: \n\n# Si se quiere EPUB fijo\npx-width: \npx-height: ",
 		"xhtml_portada" : "Portada",
 		"xhtml_portadilla" : "Portadilla",
 		"xhtml_legal" : "Legal",
@@ -92,5 +92,18 @@
 		"sin_titulo" : "Sin título",
 		"error_f" : "\nERROR: el archivo no tiene una extensión válida (HTML, XHTML o HTM).",
 		"error_i" : "\nERROR: solo se permiten números enteros para la opción -i."
+	},
+	
+	"recreator" : {
+		"v" : "recreator 0.1.0",
+		"h" : "AYUDA",
+		"recreando_opf" : "\nRecreando OPF...",
+		"recreando_ncx" : "Recreando NCX...",
+		"recreando_nav" : "Recreando NAV...",
+		"recreando_fijo" : "Se han detectado medidas para un EPUB fijo, realizando cambios a los XHTML...",
+		"error_y" : ["\nERROR: al parecer el archivo «","» no tiene una sintaxis correcta."],
+		"error_e" : ["\nERROR: al parecer la capeta «","» no es un proyecto para EPUB."],
+		"error_a" : ["\nERROR: no se encontró un archivo ","."],
+		"error_m" : "\nERROR: problema con las medidas para el EPUB fijo."
 	}
 }

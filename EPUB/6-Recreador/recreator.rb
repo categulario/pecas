@@ -5,486 +5,76 @@
 Encoding.default_internal = Encoding::UTF_8
 
 require 'fileutils'
+require 'yaml'
+require 'active_support/inflector'
+require 'securerandom'
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
-# Obtiene los argumentos necesarios
-if ARGF.argv.length < 1
-    $carpeta = Dir.pwd
-elsif ARGF.argv.length == 1
-    $carpeta = ARGF.argv[0]
-else
-    puts "\nSolo se permite un argumento, el de la ruta de la carpeta para el EPUB.".red.bold
-    abort
-end
-
-# Elementos comunes de lo que se imprime
-$blanco = ' [dejar en blanco para terminar]:'.bold
-$necesario = ' [campo necesario]:'.bold
-
-# Elemento común para crear los archivos
-$divisor = '/'
-$primerosArchivos = Array.new
-$comillas = '\''
-
-if OS.windows?
-    $comillas = ''
-end
-
-# Ayuda a crear el uid del libro y elementos de los tocs
-$titulo = ''
-identificadorLibro = ''
-$creador = ''
-
-# Identifica el nav
-$nav = ''
-
 # Determina si en la carpeta hay un EPUB
-def carpetaBusqueda
-    if OS.windows?
-        $carpeta = $carpeta.gsub('\\', '/')
-    end
-
-    $carpeta = arregloRuta $carpeta
-
+def carpetaBusqueda carpeta, carpetasPrincipales
     # Se parte del supuesto de que la carpeta no es para un EPUB
     epub = false
 
-    # Si dentro de los directorios hay un opf, entonces se supone que hay archivos para un EPUB
-    Dir.glob($carpeta + $divisor + '**') do |archivo|
-        if File.basename(archivo) == "mimetype"
+    # Si dentro de los directorios hay un mimetype, entonces se supone que hay archivos para un EPUB
+    Dir.glob(carpeta + "/*") do |fichero|
+        if File.basename(fichero) == "mimetype"
             epub = true
         else
             # Sirve para la creación del EPUB
-            $primerosArchivos.push(File.basename(archivo))
+            carpetasPrincipales.push(File.basename(fichero))
         end
     end
 
     # Ofrece un resultado
     if epub == false
-        puts "\nAl parecer en la carpeta seleccionada no es proyecto para un EPUB.".red.bold
+        puts "#{$l_re_error_e[0] + carpeta + $l_re_error_e[1]}".red.bold
         abort
-    else
-        puts "\nEste script recrea los archivos opf, ncx y nav.".gray.bold
-        puts "Al finalizar también creará o modificará el archivo EPUB.".gray.bold
     end
 end
 
-# Obtiene la carpeta de los archivos del EPUB
-carpetaBusqueda
-
-# Se obtiene la ruta para el EPUB
-ruta = $carpeta.split($divisor)
-rutaPadre = ''
-ruta.each do |parte|
-    if parte != ruta.last
-        if parte != ruta.first
-            rutaPadre += $divisor + parte
-        else
-            rutaPadre += parte
-        end
-    end
+# Comprueba que no quede una variable vacía
+def noVacio nombre, archivo
+	if archivo == ""
+		puts "#{$l_re_error_a[0] + nombre + $l_re_error_a[1]}".red.bold
+		abort
+	end
 end
 
-rutaPadre = arregloRuta rutaPadre
+# Obtiene la fecha de modificación
+def fechaModificacion
+	# Ajusta el tiempo para que siempre sean dos cifras
+	def ajuste (numero)
+		cantidad = ''
+		if numero < 10
+			cantidad = '0' + numero.to_s
+		else
+			cantidad = numero.to_s
+		end
+		return cantidad
+	end
 
-# Verifica si existe un archivo oculto de metadatos
-Dir.chdir($carpeta)
+	# Obtiene el tiempo actual
+	fecha = Time.new
 
-metadatosPreexistentes = false
-$metadatoPreexistenteNombre = ".recreator-metadata"
+	# Ajusta las cifras
+	ano = ajuste fecha.year
+	mes = ajuste fecha.month
+	dia = ajuste fecha.day
+	hora = ajuste fecha.hour
+	minuto = ajuste fecha.min
+	segundo = ajuste fecha.sec
 
-Dir.glob($carpeta + $divisor + '.*') do |archivo|
-    if File.basename(archivo) == $metadatoPreexistenteNombre
-        metadatosPreexistentes = true
-    end
+	# Crea la fecha completa
+	return  ano + '-' + mes + '-' + dia + 'T' + hora + ':' + minuto + ':' + segundo + 'Z'
 end
-
-# Ayuda para la creación u obtención de los metadatos
-$metadatosInicial = Array.new
-$archivosNoLineales = Array.new
-$archivosNoToc = Array.new
-$portada = ''
-$fijo = Array.new
-
-# Define si se trata de un EPUB fijo
-def fijo
-    puts "\n" + "¿Se trata de un EPUB con diseño fijo?".blue + " [s/N]:"
-    respuesta = $stdin.gets.chomp.downcase
-
-    # La respuesta por defecto es no, por lo que solo deja un texto vacío
-    if respuesta == '' or respuesta == 'n'
-        $fijo.push(" ")
-    elsif respuesta == 's'
-        puts "\nATENCIÓN: ".bold + "en http://www.idpf.org/epub/fxl/#property-orientation viene la explicación de los datos que se piden a continuación."
-        $fijo = Array.new
-        $fijo.push("pre-paginated@rendition:layout")
-
-        # Obtiene los renditions necesarios
-        def fijoData opciones, rendition
-            puts "\nElige una de las siguientes opciones para #{rendition} ".brown + "[#{opciones}]:".bold
-            r = $stdin.gets.chomp.downcase
-            o = opciones.split(",")
-            v = false
-
-            # Busca si la opción ingresada es una de las disponibles
-            o.each do |opcion|
-                if r == opcion.strip.downcase
-                    v = true
-                    break
-                end
-            end
-
-            # Si es una opción válida, se escribe; si no, vuelve a preguntar
-            if v
-                $fijo.push(r + "@" + rendition)
-            else
-                puts "\nOpción no válida.".red.bold
-                fijoData opciones, rendition
-            end
-        end
-
-        # Obtiene el tamaño por defecto
-        def fijoSize opcion
-            # Determina si será la anchura o la altura
-            if opcion == "w"
-                lado = "anchura"
-            else
-                lado = "altura"
-            end
-
-            puts "\nElige el tamaño de la #{lado} en pixeles:".brown
-            r = $stdin.gets.chomp.downcase
-
-            # Se busca que la respuesta convertida a número íntegro sea la misma
-            if r.to_i.to_s == r
-                $fijo.push(r + "@" + opcion)
-            # Si no lo es, vuelve a preguntar
-            else
-                puts "\nOpción no válida. Un número entero es necesario.".red.bold
-                fijoSize opcion
-            end
-
-        end
-
-        fijoData "landscape, portrait, auto", "rendition:orientation"
-        fijoData "none, landscape, portrait, both, auto", "rendition:spread"
-        fijoSize "w"
-        fijoSize "h"
-
-    # Se repite si no se indica un «s» o un «n»
-    else
-        fijo
-    end
-end
-
-# Crea un array para definir los archivos metadatos
-def Metadatos (texto, dc)
-    puts texto.blue + $necesario
-    metadato = $stdin.gets.chomp
-    coletilla = "@" + dc
-    if metadato != ""
-        $metadatosInicial.push(metadato + coletilla)
-    else
-        Metadatos texto, dc
-    end
-end
-
-# Obtiene todos los metadatos
-def metadatosTodo
-
-    # Pregunta si se desea un EPUB fijo
-    fijo
-
-    # Obtiene los metadatos
-    Metadatos "\nTítulo", "dc:title"
-    Metadatos "\nNombre del autor o editor principal " + "(ejemplo: Apellido, Nombre)".bold, "dc:creator"
-    Metadatos "\nEditorial", "dc:publisher"
-    Metadatos "\nSinopsis", "dc:description"
-    Metadatos "\nTema " + "(ejemplo: Ficción, Novela)".bold, "dc:subject"
-    Metadatos "\nVersión " + "(ejemplo: 1.0.0)".bold, "dc:identifier"
-
-    # Asigna el nombre de la portada para ponerle su atributo
-    puts "\nNombre de la portada ".blue + "(ejemplo: portada.jpg)".blue.bold + $blanco
-    $portada = $stdin.gets.chomp.strip
-
-    if $portada == ''
-        $portada = ' '
-    end
-
-    # Crea un array para definir los archivos XHTML ocultos
-    def noMostrar (archivosConjunto)
-        puts "\nNombre del archivo XHTML".brown + $blanco
-        archivoOculto = $stdin.gets.chomp
-        if archivoOculto != ""
-            archivoOculto = archivoOculto.split(".")[0].strip
-            archivosConjunto.push(archivoOculto)
-            noMostrar archivosConjunto
-        end
-    end
-
-    # Determina si es necesario definir archivos ocultos
-    def noMostrarRespuesta (archivosConjunto, texto)
-        puts "\n" + texto.blue + " [s/N]:"
-        respuesta = $stdin.gets.chomp.downcase
-        if (respuesta != "")
-            if (respuesta != "n")
-                if (respuesta == "s")
-                    noMostrar archivosConjunto
-                else
-                    noMostrarRespuesta archivosConjunto, texto
-                end
-            end
-        end
-    end
-
-    # Obtiene los archivos ocultos
-    noMostrarRespuesta $archivosNoLineales, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos ni en la espina?"
-    noMostrarRespuesta $archivosNoToc, "¿Existen archivos XHTML que no se desean mostrar en la tabla de contenidos?"
-
-    # Obtiene el nombre del nav
-    def ElementosNombre (elemento, porDefecto)
-        elemento = porDefecto
-        elementos = porDefecto.split(".")
-        elementoNombre = elementos[0]
-        extension = elementos[1]
-
-        puts "\nIndica el nombre del ".blue + elementoNombre.blue + " [".bold + porDefecto.bold + " por defecto]:".bold
-        elementoPosible = $stdin.gets.chomp.strip
-
-        if elementoPosible.gsub(' ', '') == ''
-            return elemento
-        else
-            if elementoPosible.split(".")[-1] == extension
-                elemento = elementoPosible
-                return elemento
-            else
-                puts "\nNombre no válido.".red.bold
-                ElementosNombre elemento, porDefecto
-            end
-        end
-    end
-
-    $nav = ElementosNombre $nav, 'nav.xhtml'
-
-    # Ayuda a la creación u obtención de metadatos
-    $archivosNoLineales.push(' ')
-    $archivosNoToc.push(' ')
-
-    # Crea el archivo oculto con metadatos
-    archivoMetadatos = File.new(".recreator-metadata", "w:UTF-8")
-
-    $fijo.each do |f|
-        archivoMetadatos.puts "_R_" + f
-    end
-
-    $metadatosInicial.each do |mI|
-        archivoMetadatos.puts "_M_" + mI
-    end
-
-    $archivosNoLineales.each do |aNl|
-        archivoMetadatos.puts "_O_" + aNl
-    end
-
-    $archivosNoToc.each do |aNt|
-        archivoMetadatos.puts "_T_" + aNt
-    end
-
-    archivoMetadatos.puts "_P_" + $portada.to_s
-    archivoMetadatos.puts "_N_" + $nav.to_s
-
-    archivoMetadatos.close
-end
-
-# Continúa con la petición de información adicional
-puts "\nResponde lo siguiente.".blink
-
-# Si existen metadatos
-if metadatosPreexistentes == true
-    $respuestaMetadatos = ''
-
-    # Pregunta sobre la pertinencia de reutilizar los metadatos
-    def preguntaMetadatos
-        puts "\nSe han encontrado metadatos preexistentes, ¿deseas conservarlos? ".magenta.bold + "[S/n]:"
-        $respuestaMetadatos = $stdin.gets.chomp.downcase
-
-        if $respuestaMetadatos == '' or $respuestaMetadatos == 's'
-            reutilizacionMetadatos
-        elsif $respuestaMetadatos == 'n'
-            metadatosTodo
-        else
-            preguntaMetadatos
-        end
-    end
-
-    # Reutiliza los metadatos
-    def reutilizacionMetadatos
-        metadatoPreexistente = File.open($metadatoPreexistenteNombre, 'r:UTF-8')
-        metadatoPreexistente.each do |linea|
-            lineaCortaInicio = linea[0...3]
-            lineaCortaFinal = linea[3...-1]
-
-            # Permite separar los metadatos según su tipo
-            if lineaCortaInicio == "_R_"
-                $fijo.push(lineaCortaFinal)
-            elsif lineaCortaInicio == "_M_"
-                # Evita copiar la versión
-                if linea[-11...-1] != "identifier"
-                    $metadatosInicial.push(lineaCortaFinal)
-                end
-            elsif lineaCortaInicio == "_O_"
-                $archivosNoLineales.push(lineaCortaFinal)
-            elsif lineaCortaInicio == "_T_"
-                $archivosNoToc.push(lineaCortaFinal)
-            elsif lineaCortaInicio == "_P_"
-                $portada = lineaCortaFinal
-            elsif lineaCortaInicio == "_N_"
-                $nav = lineaCortaFinal
-            end
-        end
-
-        # Pregunta de nuevo por la versión
-        Metadatos "\nVersión (ejemplo: 1.0.0)", "dc:identifier"
-    end
-
-    preguntaMetadatos
-# Si no existen metadatos, los pide
-else
-    metadatosTodo
-end
-
-# Sirve para añadir elementos
-indice = 0
-
-# Para obtener elementos constantes en el opf, el ncx y el nav
-rutaAbsoluta = Array.new
-rutaRelativa = Array.new
-rutaComun = ''
-nombreOpf = ''
-identificadorNcx = ''
-
-# Obtiene las rutas absolutas
-Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
-    # Los únicos dos archivos que no se necesitan es el container y el opf
-    if File.extname(archivo) != '.xml' and File.extname(archivo) != '.opf'
-        rutaAbsoluta.push(archivo)
-        if File.extname(archivo) == '.ncx'
-            identificadorNcx = File.basename(archivo)
-        end
-        if File.basename(archivo) == $nav
-            $nav = File.basename(archivo)
-        end
-    elsif File.extname(archivo) == '.opf'
-        nombreOpf = File.basename(archivo)
-    end
-end
-
-# Crea otro conjunto que servirá para las rutas relativas
-Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoCorto|
-    if File.extname(archivoCorto) != '.xml' and File.extname(archivoCorto) != '.opf'
-        rutaRelativa.push(archivoCorto)
-    # Obtiene la ruta común de los archivos
-    elsif File.extname(archivoCorto) == '.opf'
-        rutaComun = archivoCorto
-        rutaComun[File.basename(archivoCorto)] = ''
-    end
-end
-
-# Sustituye la ruta común por nada
-rutaRelativa.each do |elemento|
-    elemento[rutaComun] = ''
-end
-
-# Para recrear el opf
-metadatos = Array.new
-manifiesto = Array.new
-espina = Array.new
-
-# Inicia la creación de los metadatos
-metadatos.push('    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">')
-metadatos.push('        <dc:language>' + $lang + '</dc:language>')
-
-# Añade cada uno de los metadatos
-$metadatosInicial.each do |dc|
-    conjunto = dc.split('@')
-    uid = ''
-    if conjunto[0] != 'NA'
-        if conjunto[1] == 'dc:title'
-            $titulo = conjunto[0]
-        elsif conjunto[1] == 'dc:identifier'
-            uid = ' id="uid"'
-            identificadorLibro = $titulo + '-'+ conjunto[0]
-            conjunto[0] = identificadorLibro
-        elsif conjunto[1] == 'dc:creator'
-            $creador = conjunto[0]
-        end
-        metadatos.push('        <' + conjunto[1] + uid + '>' + conjunto[0] + '</' + conjunto[1] + '>')
-    end
-end
-
-# Ajusta el tiempo para que siempre sean dos cifras
-def Ajuste (numero)
-    cantidad = ''
-    if numero < 10
-        cantidad = '0' + numero.to_s
-    else
-        cantidad = numero.to_s
-    end
-    return cantidad
-end
-
-# Obtiene el tiempo actual
-fecha = Time.new
-
-# Ajusta las cifras
-ano = Ajuste fecha.year
-mes = Ajuste fecha.month
-dia = Ajuste fecha.day
-hora = Ajuste fecha.hour
-minuto = Ajuste fecha.min
-segundo = Ajuste fecha.sec
-
-# Crea la fecha completa
-fechaCompleta =  ano + '-' + mes + '-' + dia + 'T' + hora + ':' + minuto + ':' + segundo + 'Z'
-
-# Termina los metadatos
-metadatos.push('        <meta property="dcterms:modified">' + fechaCompleta + '</meta>')
-
-# Si es EPUB fijo, se agregan esas propiedades, se lo contrario solo se agrega el «reflowable»
-if $fijo.first != " "
-    $fijo.each do |r|
-        a = r.split("@").first
-        z = r.split("@").last
-
-        # No agrega como metadato la anchura y la altura
-        if z != "w" && z != "h"
-            metadatos.push('        <meta property="' + z + '">' + a + '</meta>')
-        else
-            # Si es la anchura, guarda la variable para utilizarse más adelante
-            if z == "w"
-                $width = a
-            # Mismo caso pero para la altura
-            else
-                $height = a
-            end
-        end
-    end
-else
-    metadatos.push('        <meta property="rendition:layout">reflowable</meta>')
-end
-
-metadatos.push('        <meta property="ibooks:specified-fonts">true</meta>')
-metadatos.push('    </metadata>')
-
-# Acomoda el identificador del ncx
-identificadorNcx['.'] = '_'
-identificadorNcx = 'id_' + identificadorNcx
 
 # Identifica los tipos de recursos existentes en el opf según su tipo de extensión
-def Tipo (extension)
+def tipo (archivo)
+	extension = File.extname(archivo)
     if extension == '.gif'
         return 'image/gif'
     elsif extension == '.jpg' or extension == '.jpeg'
@@ -516,8 +106,455 @@ def Tipo (extension)
     end
 end
 
+# Obtiene el id a partir de la ruta del archivo
+def id archivo
+	return "id_" + File.basename(archivo).to_s.gsub(" ","").gsub(".","_")
+end
+
+# Obtiene el texto de la etiqueta <title>
+def extraerTitulo archivo
+	archivo_abierto = File.open(archivo, 'r:UTF-8')
+	archivo_abierto.each do |linea|
+		if linea =~ /\s+<.*?title.*?>/
+			return linea.gsub(/<.*?>/, "").strip
+		end
+	end
+	return nil
+	archivo_abierto.close
+end
+
+# Busca los niveles de diferencia entre los archivos del toc y los XHTML
+def niveles? archivo1, archivo2
+	archivo1 = File.absolute_path(archivo1).split("/")[0..-2]
+	archivo2 = File.absolute_path(archivo2).split("/")[0..-2]
+	arriba = "../"
+	final = 0
+	i = 0
+	
+	# Iteración donde si no hay coincidencia empieza el conteo final de niveles
+	while i < archivo1.length do
+		if archivo1[i] != archivo2[i] then final +=1 end
+		i += 1
+	end
+	
+	# Regresa el valor multiplicado por la cantidad de niveles
+	return arriba * final
+end
+
+# Agrega si no fue excluido
+def incluir? conjunto, yaml, nombre, lugar, ncx = nil, archivoBase = nil, i = nil
+	# Itera el conjunto para analizar cada uno de los archivos
+	conjunto.each do |archivo|
+		# Solo si es un archivo XHTML
+		if File.extname(archivo) == ".xhtml"
+			mostrar = true
+			
+			# Si el nombre del archivo se encuentra en la propiedad de no mostrar
+			if yaml[nombre].kind_of?(Array)
+				yaml[nombre].each do |p|
+					if p.split(".")[0] == File.basename(archivo).split(".")[0]
+						mostrar = false
+						break
+					end
+				end
+			end
+			
+			# Si se trata de la espina
+			if nombre == "no-spine"
+				# Agrega la propiedad si es que no se va a mostrar
+				if mostrar then lineal = "" else lineal = "\" linear=\"no" end
+				
+				# Agrega la línea al documento
+				lugar.puts "        <itemref idref=\"#{id archivo}#{lineal}\"/>"
+			# Si se trata de las tablas de contenidos y el archivo es mostrable
+			elsif nombre == "no-toc" && mostrar
+				titulo = extraerTitulo archivo
+				niveles = niveles? archivoBase, archivo
+			
+				# Si es el NCX
+				if ncx
+					lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/></navPoint>"
+				# Si es el NAV
+				else
+					lugar.puts "                <li><a href=\"#{niveles + archivo}\">#{titulo}</a></li>"
+				end
+				
+				# Aumenta el índice si existe
+				if i != nil
+					i += 1
+				end
+			end
+		end
+	end
+end
+
+# Crea las tablas de contenidos personalizados
+def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espacio
+	
+	# Examina si los archivos existen
+	def aplicar? archivoOtros, archivo
+		# Si existe regresa un verdadero
+		archivoOtros.each do |a|
+			if File.basename(a.split(".")[0]) == archivo
+				return a
+			end
+		end
+		
+		# Si no encontró nada, regresa un falso
+		return false
+	end
+	
+	# Iteración para crear la estructura
+	array.each do |key, value|
+		nombre = key.split(".")[0].to_s
+		
+		# Solo si el archivo existe
+		if aplicar? archivoOtros, nombre
+		
+			# Obtiene ruta y título
+			ruta = aplicar? archivoOtros, nombre
+			titulo = extraerTitulo ruta
+			niveles = niveles? archivoBase, ruta
+			
+			# Si se trata de un Hash
+			if value.kind_of?(Hash)
+				# Si es el NCX
+				if tipo == "ncx"
+					lista.push("#{espacio}<navPoint id=\"navPoint-@\" playOrder=\"@\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + ruta}\"/>")
+					iterarHash yaml, archivoOtros, lista, value, archivoBase, tipo, nivel + 1, espacio + "    "
+					lista.push("#{espacio}</navPoint>")
+				# Si es el NAV
+				else
+					lista.push("#{espacio}<li><a href=\"#{niveles + ruta}\">#{titulo}</a>")
+					lista.push("#{espacio}    <ol>")
+					iterarHash yaml, archivoOtros, lista, value, archivoBase, tipo, nivel + 1, espacio + "        "
+					lista.push("#{espacio}    </ol>")
+					lista.push("#{espacio}</li>")
+				end
+			# Si ya es solo texto
+			else	
+				# Si es el NCX
+				if tipo == "ncx"
+					lista.push("#{espacio}<navPoint id=\"navPoint-@\" playOrder=\"@\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + ruta}\"/></navPoint>")
+				# Si es el NAV
+				else
+					lista.push("#{espacio}<li><a href=\"#{niveles + ruta}\">#{titulo}</a></li>")
+				end
+			end
+		end
+	end
+end
+
+# Argumentos
+carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd + "/#{$l_cr_epub_nombre}" end
+yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_g_meta_data end
+argumento "-v", $l_re_v
+argumento "-h", $l_re_h
+
+# Variables que se usarán
+carpetasPrincipales = Array.new
+archivoOtros = Array.new
+carpetaContenido = ""
+archivoOpf = ""
+archivoNcx = ""
+archivoNav = ""
+archivoPor = ""
+uid = ""
+
+# Comprueba y adquiere el path absoluto de la carpeta para el EPUB
+carpeta = comprobacionDirectorio carpeta
+
+# Comprueba, adquiere el path absoluto del archivo YAML y obtiene su información
+yaml = comprobacionArchivo yaml, [".yaml"]
+
+begin
+	yaml = YAML.load_file(yaml)
+rescue
+	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
+	abort
+end
+
+# Se va al directorio para el EPUB
+Dir.chdir(carpeta)
+
+# Obtiene la carpeta de los archivos del EPUB
+carpetaBusqueda carpeta, carpetasPrincipales
+
+# Obtiene los archivos OPF, NVX, NAV y el resto
+carpetasPrincipales.each do |carpeta|
+	# Si la carpeta tiene más de un archivo, quiere decir que es donde están todos los contenidos
+	if Dir[carpeta+"/**/*"].length > 1
+		carpetaContenido = carpeta
+		
+		# Se itera para analizar cada uno de los ficheros y obtiene la ruta de los archivos sin el nombre de la carpeta que los contiene
+		Dir.glob(carpeta + "/**/*") do |fichero|
+			if File.file?(fichero)
+				if File.extname(fichero) == ".opf"
+					archivoOpf = fichero.gsub(carpeta+"/","")
+				elsif File.extname(fichero) == ".ncx"
+					archivoNcx = fichero.gsub(carpeta+"/","")
+				elsif File.basename(fichero) == yaml["navigation"]
+					archivoNav = fichero.gsub(carpeta+"/","")
+				elsif File.basename(fichero) == yaml["cover"]
+					archivoPor = fichero.gsub(carpeta+"/","")
+				else
+					archivoOtros.push(fichero.gsub(carpeta+"/",""))
+				end
+			end
+		end
+	end
+end
+
+# Comprueba que no quede una variable vacía
+noVacio "OPF", archivoOpf
+noVacio "NCX", archivoNcx
+noVacio "NAV", archivoNav
+
+# Ordena el resto de los archivos
+archivoOtros = archivoOtros.sort
+
+# Se va a la carpeta con todos los contenidos
+Dir.chdir(carpetaContenido)
+
+# Crea el uuid
+uuid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
+
+# Recrea el OPF
+puts $l_re_recreando_opf
+
+opf = File.open(archivoOpf, 'w:UTF-8')
+opf.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+opf.puts "<package xmlns=\"http://www.idpf.org/2007/opf\" xml:lang=\"#{$lang}\" unique-identifier=\"uuid\" prefix=\"ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/\" version=\"3.0\">"
+opf.puts "    <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\">"
+opf.puts "        <dc:language>#{$lang}</dc:language>"
+
+# Se agrega solo si se establecieron	
+if yaml["title"] != nil
+	opf.puts "        <dc:title>#{yaml["title"]}</dc:title>"
+end
+if yaml["author"] != nil
+	opf.puts "        <dc:creator>#{yaml["author"]}</dc:creator>"
+end
+if yaml["publisher"] != nil
+	opf.puts "        <dc:publisher>#{yaml["publisher"]}</dc:publisher>"
+end
+if yaml["synopsis"] != nil
+	opf.puts "        <dc:description>#{yaml["synopsis"]}</dc:description>"
+end
+if yaml["category"] != nil
+	opf.puts "        <dc:subject>#{yaml["category"]}</dc:subject>"
+end
+
+opf.puts "        <dc:identifier id=\"uuid\">#{uuid}</dc:identifier>"
+opf.puts "        <meta property=\"dcterms:modified\">#{fechaModificacion}</meta>"
+
+# Según si es un EPUB fijo o no
+if yaml["px-width"] != nil && yaml["px-height"] != nil 
+	opf.puts "        <meta property=\"rendition:layout\">pre-paginated</meta>"
+	opf.puts "        <meta property=\"rendition:orientation\">portrait</meta>"
+	opf.puts "        <meta property=\"rendition:spread\">none</meta>"
+else 
+	opf.puts "        <meta property=\"rendition:layout\">reflowable</meta>"
+end
+
+opf.puts "        <meta property=\"ibooks:specified-fonts\">true</meta>"
+opf.puts "    </metadata>"
+opf.puts "    <manifest>"
+opf.puts "        <item href=\"#{archivoNcx}\" id=\"#{id archivoNcx}\" media-type=\"#{tipo archivoNcx}\" />"
+opf.puts "        <item href=\"#{archivoNav}\" id=\"#{id archivoNav}\" media-type=\"#{tipo archivoNav}\" properties=\"nav\" />"	
+
+# Se agrega solo si la portada se indicó y existe en el EPUB
+if yaml["cover"] != nil && archivoPor != ""
+	opf.puts "        <item href=\"#{archivoPor}\" id=\"#{id archivoPor}\" media-type=\"#{tipo archivoPor}\" properties=\"cover-image\" />"
+end
+
+# Agrega el resto de los archivos encontrados
+archivoOtros.each do |archivo|
+	propiedadesConjunto = Array.new
+	propiedades = ""
+	
+	# Busca si hay scripts o imágenes svg en el archivo
+	archivo_abierto = File.open(archivo, 'r:UTF-8')
+	archivo_abierto.each do |linea|
+		# Si se encuentra una etiqueta de script andentro del head, entonces se considera que hay un script en el archivo
+		if (linea =~ /^\s+<script.*?>/ )
+			propiedadesConjunto.push("scripted")
+		end
+
+		# Identifica si se encuentra una imagen svg
+		if (linea =~ /<.*?img.*?src=".*?\.svg.*?".*?\/>/ )
+			propiedadesConjunto.push("svg")
+		end
+	end
+	archivo_abierto.close
+	
+	# Añade las propiedades si es que fueron encontradas
+	if propiedadesConjunto.length > 0
+		propiedades = "\" properties=\"" + propiedadesConjunto.to_s.gsub("[","").gsub("]","").gsub("\"","").gsub(",","")
+	end
+	
+	opf.puts "        <item href=\"#{archivo}\" id=\"#{id archivo}\" media-type=\"#{tipo archivo}#{propiedades}\" />"
+end
+
+opf.puts "    </manifest>"
+opf.puts "    <spine toc=\"#{id archivoNcx}\">"
+
+incluir? archivoOtros, yaml, "no-spine", opf
+
+opf.puts "    </spine>"
+opf.puts "</package>"
+opf.close
+
+# Recrea el NCX
+puts $l_re_recreando_ncx
+
+ncx = File.open(archivoNcx, 'w:UTF-8')
+ncx.puts "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
+ncx.puts "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"#{$lang}\">"
+ncx.puts "    <head>"
+ncx.puts "        <meta content=\"#{uuid}\" name=\"dtb:uuid\"/>"
+ncx.puts "        <meta content=\"1\" name=\"dtb:depth\"/>"
+ncx.puts "        <meta content=\"0\" name=\"dtb:totalPageCount\"/>"
+ncx.puts "        <meta content=\"0\" name=\"dtb:maxPageNumber\"/>"
+ncx.puts "    </head>"
+ncx.puts "    <docTitle>"
+ncx.puts "        <text>#{yaml["title"]}</text>"
+ncx.puts "    </docTitle>"
+ncx.puts "    <docAuthor>"
+ncx.puts "        <text>#{yaml["author"]}</text>"
+ncx.puts "    </docAuthor>"
+ncx.puts "    <navMap>"
+
+# Si es personalizado
+if yaml["custom"].kind_of?(Hash)
+	lista = Array.new
+	indice = 1
+	
+	# Llama a la creación de la estructura
+	iterarHash yaml, archivoOtros, lista, yaml["custom"], archivoNcx, "ncx", 1, "        "
+	
+	# Iteración para agregar los número de índice e imprimirlo en el documento
+	lista.each do |elemento|
+		if elemento =~ /\s+<.*?@.*?>/
+			elemento = elemento.gsub("@", indice.to_s)
+			indice += 1
+		end
+		
+		ncx.puts elemento
+	end
+# Si es estándar
+else
+	incluir? archivoOtros, yaml, "no-toc", ncx, true, archivoNcx, 1
+end
+
+ncx.puts "    </navMap>"
+ncx.puts "</ncx>"
+ncx.close
+
+# Recrea el NAV
+puts $l_re_recreando_nav
+
+nav = File.open(archivoNav, 'w:UTF-8')
+nav.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+nav.puts "<!DOCTYPE html>"
+nav.puts "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"#{$lang}\" lang=\"#{$lang}\">"
+nav.puts "    <head>"
+nav.puts "        <meta charset=\"UTF-8\" />"
+nav.puts "        <title>#{yaml["title"]}</title>"
+nav.puts "    </head>"
+nav.puts "    <body>"
+nav.puts "        <nav epub:type=\"toc\">"
+nav.puts "            <ol>"
+
+# Si es personalizado
+if yaml["custom"].kind_of?(Hash)
+	lista = Array.new
+	
+	# Llama a la creación de la estructura
+	iterarHash yaml, archivoOtros, lista, yaml["custom"], archivoNav, "nav", 1, "                "
+	
+	# Agrega la estructura
+	nav.puts lista
+# Si es estándar
+else
+	incluir? archivoOtros, yaml, "no-toc", nav, false, archivoNav, 1
+end
+
+nav.puts "            </ol>"
+nav.puts "        </nav>"
+nav.puts "    </body>"
+nav.puts "</html>"
+nav.close
+
+# Si es un EPUB fijo, agrega o cambio los metadatos de los archivos XHTML
+if yaml["px-width"] != nil && yaml["px-height"] != nil
+	puts $l_re_recreando_fijo
+	
+	# Verifica que las medidas puedan ser convertibles a números enteros
+	if yaml["px-width"].to_i == 0 || yaml["px-height"].to_i == 0
+		puts $l_re_error_m
+		abort
+	end
+	
+	# ABRIR ARCHIVO, buscar o crear el meta
+end
+
+# Creación del EPUB
+
+# Opción necesaria para Windows que es el zip.exe
+
+#QUITAR
+abort
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Si es EPUB fijo, se agregan esas propiedades, se lo contrario solo se agrega el «reflowable»
+if $fijo.first != " "
+    $fijo.each do |r|
+        a = r.split("@").first
+        z = r.split("@").last
+
+        # No agrega como metadato la anchura y la altura
+        if z != "w" && z != "h"
+            metadatos.push('        <meta property="' + z + '">' + a + '</meta>')
+        else
+            # Si es la anchura, guarda la variable para utilizarse más adelante
+            if z == "w"
+                $width = a
+            # Mismo caso pero para la altura
+            else
+                $height = a
+            end
+        end
+    end
+else
+    metadatos.push('        <meta property="rendition:layout">reflowable</meta>')
+end
+
+metadatos.push('        <meta property="ibooks:specified-fonts">true</meta>')
+metadatos.push('    </metadata>')
+
+# Acomoda el identificador del ncx
+identificadorNcx['.'] = '_'
+identificadorNcx = 'id_' + identificadorNcx
+
 # Recorre todos los archivos en busca de los recursos para el manifiesto y la espina
-Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
+Dir.glob(carpeta + $divisor + '**' + $divisor + '*.*') do |archivoManifiesto|
     if File.extname(archivoManifiesto) != '.xml' and File.extname(archivoManifiesto) != '.opf'
 
         $archivoNombre = File.basename(archivoManifiesto)
@@ -645,7 +682,7 @@ espina.insert(0, '    <spine toc="' + identificadorNcx + '">')
 manifiesto.push('    </manifest>')
 espina.push('    </spine>')
 
-Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
+Dir.glob(carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
     if File.extname(archivo) == '.opf'
         # Inicia la recreación del opf
         puts "\nRecreando el ".magenta.bold + File.basename(archivo).magenta.bold + "...".magenta.bold
@@ -995,7 +1032,7 @@ def Recreador (comparativo, archivosToc)
     archivoEncontrado = ''
 
     # Localiza el archivo que se pretende recrear
-    Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
+    Dir.glob(carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
         if comparativo == ".ncx"
             if File.extname(archivo) == comparativo
                 archivoEncontrado = archivo
@@ -1046,7 +1083,7 @@ end
 espacio = ' '
 
 # Elimina el EPUB previo
-Dir.glob($carpeta + $divisor + '..' + $divisor + '**') do |archivo|
+Dir.glob(carpeta + $divisor + '..' + $divisor + '**') do |archivo|
     if File.basename(archivo) == ruta.last + '.epub'
         espacio = ' nuevo '
         puts "\nEliminando EPUB previo...".magenta.bold
@@ -1058,7 +1095,7 @@ puts "\nCreando#{espacio}EPUB...".magenta.bold
 
 # Crea el EPUB
 system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -X mimetype")
-system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]} #{$primerosArchivos[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
+system ("#{zip} #{$comillas}#{rutaEPUB}#{$comillas} -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x \*.DS_Store \*._* #{$metadatoPreexistenteNombre}")
 
 # Finaliza la creación
 puts "\n#{ruta.last}.epub creado en: #{rutaPadre}".magenta.bold
