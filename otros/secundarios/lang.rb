@@ -18,6 +18,7 @@ class String
     def magenta;        "\e[35m#{self}\e[0m" end
     def cyan;           "\e[36m#{self}\e[0m" end
     def gray;           "\e[37m#{self}\e[0m" end
+    def yellow;         "\e[1;33m#{self}\e[0m" end
 
     def bg_black;       "\e[40m#{self}\e[0m" end
     def bg_red;         "\e[41m#{self}\e[0m" end
@@ -131,7 +132,9 @@ $l_re_h = langObj["recreator"]["h"]
 $l_re_recreando_opf = langObj["recreator"]["recreando_opf"].green
 $l_re_recreando_ncx = langObj["recreator"]["recreando_ncx"].green
 $l_re_recreando_nav = langObj["recreator"]["recreando_nav"].green
-$l_re_recreando_fijo = langObj["recreator"]["recreando_fijo"].green
+$l_re_recreando_fijo = langObj["recreator"]["recreando_fijo"]
+$l_re_recreando_fluido = langObj["recreator"]["recreando_fluido"].green
+$l_re_advertencia_fijo = langObj["recreator"]["advertencia_fijo"]
 $l_re_error_y = langObj["recreator"]["error_y"]
 $l_re_error_e = langObj["recreator"]["error_e"]
 $l_re_error_a = langObj["recreator"]["error_a"]

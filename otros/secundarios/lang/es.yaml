@@ -3,9 +3,9 @@
 general: 
   error_arg: "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda."
   error_arg2: "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda."
-  error_directorio: ["\nERROR: Al parecer el directorio «", "» no existe."]
-  error_archivo: ["\nERROR: Al parecer el archivo «", "» no existe."]
-  error_archivo2: ["\nERROR: El archivo «", "» no tiene una extensión válida."]
+  error_directorio: ["\nERROR: al parecer el directorio «", "» no existe."]
+  error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
+  error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
   fin: "\n¡Operación finalizada exitosamente!\n"
   meta_data: "meta-data.yaml"
   marca: "ºº"
@@ -46,8 +46,8 @@ sandbox:
   error_carpeta: ["\nERROR: al parecer ya existe un análisis; para ingresar modificaciones usa la opción -c; para un nuevo análisis, elimina la carpeta «","»."]
   error_carpeta2: ["\nERROR: no se encontró ninguna carpeta «","» con los análisis."]
   error_carpeta3: ["\nERROR: no se encontró ninguna carpeta «","» en «", "» con los análisis."]
-  error_archivo: ["\nERROR: Al parecer el archivo «", "» en «", "» no existe."]
-  error_archivo2: "\nERROR: Al parecer no hay archivos con análisis."
+  error_archivo: ["\nERROR: al parecer el archivo «", "» en «", "» no existe."]
+  error_archivo2: "\nERROR: al parecer no hay archivos con análisis."
 
 # pt-tegs
 tegs: 
@@ -100,7 +100,9 @@ recreator:
   recreando_opf: "\nRecreando OPF..."
   recreando_ncx: "Recreando NCX..."
   recreando_nav: "Recreando NAV..."
-  recreando_fijo: "Se han detectado medidas para un EPUB fijo, realizando cambios a los XHTML..."
+  recreando_fijo: ["EPUB fijo detectado de ",", agregando cambios a los XHTML..."]
+  recreando_fluido: "Eliminando viewports por ser conflictivos en EPUB fluido..."
+  advertencia_fijo: ["\nADVERTENCIA: «","» no tiene valor, ignorando medidas para el EPUB fijo..."]
   error_y: ["\nERROR: al parecer el archivo «","» no tiene una sintaxis correcta."]
   error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para EPUB."]
   error_a: ["\nERROR: no se encontró un archivo ","."]

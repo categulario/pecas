@@ -259,7 +259,7 @@ archivoOpf = ""
 archivoNcx = ""
 archivoNav = ""
 archivoPor = ""
-uid = ""
+uuid = ""
 
 # Comprueba y adquiere el path absoluto de la carpeta para el EPUB
 carpeta = comprobacionDirectorio carpeta
@@ -272,6 +272,24 @@ begin
 rescue
 	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
 	abort
+end
+
+# Comprueba las medidas del EPUB fijo, si lo hay
+if yaml["px-width"] != nil && yaml["px-height"] != nil	
+	if yaml["px-width"].to_i == 0 || yaml["px-height"].to_i == 0
+		puts $l_re_error_m
+		abort
+	else
+		anchura = yaml["px-width"].to_i
+		altura = yaml["px-height"].to_i
+	end
+# Si solo una medida fue introducida, lanza una advertencia
+elsif yaml["px-width"] != nil || yaml["px-height"] != nil
+	if yaml["px-width"] != nil
+		puts "#{$l_re_advertencia_fijo[0] + "px-width" + $l_re_advertencia_fijo[1]}".yellow.bold
+	else
+		puts "#{$l_re_advertencia_fijo[0] + "px-height" + $l_re_advertencia_fijo[1]}".yellow.bold
+	end
 end
 
 # Se va al directorio para el EPUB
@@ -487,19 +505,71 @@ nav.puts "</html>"
 nav.close
 
 # Si es un EPUB fijo, agrega o cambio los metadatos de los archivos XHTML
-if yaml["px-width"] != nil && yaml["px-height"] != nil
-	puts $l_re_recreando_fijo
+if anchura && altura
+	puts "#{$l_re_recreando_fijo[0] + anchura.to_s + "x" + altura.to_s + $l_re_recreando_fijo[1]}".green
 	
-	# Verifica que las medidas puedan ser convertibles a números enteros
-	if yaml["px-width"].to_i == 0 || yaml["px-height"].to_i == 0
-		puts $l_re_error_m
-		abort
+	# Itera cada archivo
+	archivoOtros.each do |archivo|
+		if File.extname(archivo) == ".xhtml"
+			archivoFinal = Array.new
+			cambio = false
+			
+			# Abre para leer el archivo y extraer las líneas
+			archivo_abierto = File.open(archivo, 'r:UTF-8')
+			archivo_abierto.each do |linea|
+				# Si encuentra un viewport, le cambia las medidas
+				if linea =~ /^\s+<meta.*?viewport.*?>/
+					archivoFinal.push(linea.gsub(/width=\d+/, "width=#{anchura}").gsub(/height=\d+/, "height=#{altura}"))
+					cambio = true
+				# Si no encontró un viewport al final del head, lo agrega
+				elsif linea =~ /^\s+<.*?\/.*?head>/ && !cambio
+					archivoFinal.push("        <meta name=\"viewport\" content=\"width=#{anchura}, height=#{altura}\" />")
+					archivoFinal.push(linea)
+				# Para los demás casos agrega la línea sin cambios
+				else
+					archivoFinal.push(linea)
+				end
+			end
+			archivo_abierto.close
+			
+			# Abre para meter los cambios al archivo
+			archivo_abierto = File.open(archivo, 'w:UTF-8')
+			archivo_abierto.puts archivoFinal
+			archivo_abierto.close
+		end
 	end
+# Si es un EPUB fluido, elimina viewports que encuentre
+else
+	primera = true
 	
-	# ABRIR ARCHIVO, buscar o crear el meta
+	# Itera cada archivo
+	archivoOtros.each do |archivo|
+		if File.extname(archivo) == ".xhtml"
+			archivoFinal = Array.new
+			
+			# Abre para leer el archivo y analizar las líneas
+			archivo_abierto = File.open(archivo, 'r:UTF-8')
+			archivo_abierto.each do |linea|
+				# Agrega las líneas, excepto si es un viewport
+				if linea !~ /^\s+<meta.*?viewport.*?>/
+					archivoFinal.push(linea)
+				elsif primera
+					puts $l_re_recreando_fluido
+					primera = false
+				end
+			end
+			archivo_abierto.close
+			
+			# Abre para meter los cambios al archivo
+			archivo_abierto = File.open(archivo, 'w:UTF-8')
+			archivo_abierto.puts archivoFinal
+			archivo_abierto.close
+		end
+	end
 end
 
 # Creación del EPUB
+puts Dir.pwd
 
 # Opción necesaria para Windows que es el zip.exe
 
@@ -692,7 +762,7 @@ Dir.glob(carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
 
         # Añade los primeros elementos necesarios
         opf.puts '<?xml version="1.0" encoding="UTF-8"?>'
-        opf.puts '<package xmlns="http://www.idpf.org/2007/opf" xml:lang="' + $lang + '" unique-identifier="uid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" version="3.0">'
+        opf.puts '<package xmlns="http://www.idpf.org/2007/opf" xml:lang="' + $lang + '" unique-identifier="uuid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" version="3.0">'
 
         # Añade los metadatos
         metadatos.each do |lineaMetadatos|
@@ -921,7 +991,7 @@ $archivosNav = Array.new
 $archivosNcx.push('<?xml version="1.0" encoding="UTF-8" standalone="no" ?>')
 $archivosNcx.push('<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="' + $lang + '">')
 $archivosNcx.push('    <head>')
-$archivosNcx.push('        <meta content="' + identificadorLibro + '" name="dtb:uid"/>')
+$archivosNcx.push('        <meta content="' + identificadorLibro + '" name="dtb:uuid"/>')
 $archivosNcx.push('        <meta content="1" name="dtb:depth"/>')
 $archivosNcx.push('        <meta content="0" name="dtb:totalPageCount"/>')
 $archivosNcx.push('        <meta content="0" name="dtb:maxPageNumber"/>')
