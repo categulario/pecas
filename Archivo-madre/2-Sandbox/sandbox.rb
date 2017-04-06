@@ -286,7 +286,7 @@ else
 	end
 	archivo_abierto.close
 		
-	puts "#{$l_sb_advertencia_archivo[0] + archivoNuevo + $l_sb_advertencia_archivo[1] + directorio + $l_sb_advertencia_archivo[2]}".gray
+	puts "#{$l_sb_advertencia_archivo[0] + archivoNuevo + $l_sb_advertencia_archivo[1] + directorio + $l_sb_advertencia_archivo[2]}".yellow.bold
 		
 	# Crea el archivo clon
 	archivo_clon = File.open(archivoNuevo, "w")
