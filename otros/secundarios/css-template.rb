@@ -69,10 +69,18 @@ body {
     margin: 4em;
 }
 
+.sin-margen {
+	margin: -4em;
+}
+
 @media screen and (min-width: 1025px) {
     body {
         margin: 5em;
     }
+    
+    .sin-margen {
+		margin: -5em;
+	}
 }
 
 /* Secciones */
