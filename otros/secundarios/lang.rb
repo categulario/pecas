@@ -4,7 +4,7 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-require "json"
+require 'yaml'
 
 $lang = "es"
 
@@ -35,9 +35,8 @@ class String
     def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
-# Obtiene el JSON
-json = File.read(File.dirname(__FILE__) + "/lang/#{$lang}.json", :encoding => 'UTF-8')
-langObj = JSON.parse(json)
+# Obtiene el YAML
+langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
 
 # Generales
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
