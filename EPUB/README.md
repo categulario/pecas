@@ -30,6 +30,11 @@ NAV así como crea o recrea el archivo EPUB.
 
 7. `index.rb`. Agrega índices analíticos.
 
+## YAML
+
+Para la creación de metadatos, se utiliza un archivo con extensión `.yaml`.
+Si se desconoce cómo usar el archivo, [consúltese el apartado de YAML](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/YAML).
+
 ## *Scripts* de JavaScript para EPUB
 
 Estos *scripts* implementan algunas funcionalidades
