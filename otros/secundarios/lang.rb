@@ -129,11 +129,14 @@ $l_di_error_i = langObj["divider"]["error_i"].red.bold
 # Recreator
 $l_re_v = langObj["recreator"]["v"]
 $l_re_h = langObj["recreator"]["h"]
+$l_re_nuevo = langObj["recreator"]["nuevo"]
 $l_re_recreando_opf = langObj["recreator"]["recreando_opf"].green
 $l_re_recreando_ncx = langObj["recreator"]["recreando_ncx"].green
 $l_re_recreando_nav = langObj["recreator"]["recreando_nav"].green
 $l_re_recreando_fijo = langObj["recreator"]["recreando_fijo"]
-$l_re_recreando_fluido = langObj["recreator"]["recreando_fluido"].green
+$l_re_eliminando_viewports = langObj["recreator"]["eliminando_viewports"].green
+$l_re_eliminando_epub = langObj["recreator"]["eliminando_epub"].green
+$l_re_creando_epub = langObj["recreator"]["creando_epub"]
 $l_re_advertencia_fijo = langObj["recreator"]["advertencia_fijo"]
 $l_re_error_y = langObj["recreator"]["error_y"]
 $l_re_error_e = langObj["recreator"]["error_e"]
