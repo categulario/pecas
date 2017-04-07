@@ -403,6 +403,9 @@ archivoOtros.each do |archivo|
 	# Busca si hay scripts o imágenes svg en el archivo
 	archivo_abierto = File.open(archivo, 'r:UTF-8')
 	archivo_abierto.each do |linea|
+		
+		linea = codificacionValida? linea
+		
 		# Si se encuentra una etiqueta de script andentro del head, entonces se considera que hay un script en el archivo
 		if (linea =~ /^\s+<script.*?>/ )
 			propiedadesConjunto.push("scripted")

@@ -186,3 +186,13 @@ def directorioPadreTerminal archivo
 	
 	return directorio
 end
+
+# Verifica que la codificación sea UTF-8, de lo contrario, la corrige
+def codificacionValida? elemento
+	if ! elemento.valid_encoding?
+		elemento = elemento.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
+		elemento.gsub(/dr/i,'med')
+	end
+	
+	return elemento
+end
