@@ -308,6 +308,7 @@ ul {
 
 img {    /* Ayuda a detectarlos si no existe el recurso */
     color: gray;
+    width: 100%;
 }
 
 /* Superíndices y subíndices */
