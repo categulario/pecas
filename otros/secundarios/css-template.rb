@@ -170,27 +170,27 @@ blockquote + blockquote {
 }
 
 .justificado {
-    text-align: justify;
+    text-align: justify !important;
 }
 
 .derecha {
     text-indent: 0;
-    text-align: right;
+    text-align: right !important;
 }
 
 .izquierda {
-    text-align: left;
+    text-align: left !important;
 }
 
 .centrado {
     text-indent: 0;
-    text-align: center;
+    text-align: center !important;
 }
 
 .frances {
     margin-left: 1.5em;
     text-indent: -1.5em;
-    text-align: left;
+    text-align: left !important;
 }
 
 * + .frances {
