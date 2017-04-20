@@ -378,6 +378,10 @@ body > .epigrafe:first-child {
     margin-top: 3em;
 }
 
+.espacio {
+    white-space: pre-wrap;
+}
+
 /* Notas al pie */
 
 .n-note-sup {
