@@ -230,6 +230,10 @@ h1 + .frances {
     display: none;
 }
 
+.bloque {
+    display: block;
+}
+
 /* Efectos en las fuentes */
 
 i, em {
