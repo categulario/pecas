@@ -371,15 +371,15 @@ body > .epigrafe:first-child {
 }
 
 .espacio-arriba1 {
-    margin-top: 1em;
+    margin-top: 1em !important;
 }
 
 .espacio-arriba2 {
-    margin-top: 2em;
+    margin-top: 2em !important;
 }
 
 .espacio-arriba3 {
-    margin-top: 3em;
+    margin-top: 3em !important;
 }
 
 .espacio {
