@@ -268,7 +268,7 @@ archivoOpf = ""
 archivoNcx = ""
 archivoNav = ""
 archivoPor = ""
-uuid = ""
+uid = ""
 
 # Comprueba y adquiere el path absoluto de la carpeta para el EPUB
 carpeta = comprobacionDirectorio carpeta
@@ -343,15 +343,15 @@ archivoOtros = archivoOtros.sort
 # Se va a la carpeta con todos los contenidos
 Dir.chdir(carpetaContenido)
 
-# Crea el uuid
-uuid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
+# Crea el uid
+uid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
 
 # Recrea el OPF
 puts $l_re_recreando_opf
 
 opf = File.open(archivoOpf, 'w:UTF-8')
 opf.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-opf.puts "<package xmlns=\"http://www.idpf.org/2007/opf\" xml:lang=\"#{$lang}\" unique-identifier=\"uuid\" prefix=\"ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/\" version=\"3.0\">"
+opf.puts "<package xmlns=\"http://www.idpf.org/2007/opf\" xml:lang=\"#{$lang}\" unique-identifier=\"uid\" prefix=\"ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/\" version=\"3.0\">"
 opf.puts "    <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\">"
 opf.puts "        <dc:language>#{$lang}</dc:language>"
 
@@ -372,7 +372,7 @@ if yaml["category"] != nil
 	opf.puts "        <dc:subject>#{yaml["category"]}</dc:subject>"
 end
 
-opf.puts "        <dc:identifier id=\"uuid\">#{uuid}</dc:identifier>"
+opf.puts "        <dc:identifier id=\"uid\">#{uid}</dc:identifier>"
 opf.puts "        <meta property=\"dcterms:modified\">#{fechaModificacion}</meta>"
 
 # Según si es un EPUB fijo o no
@@ -442,7 +442,7 @@ ncx = File.open(archivoNcx, 'w:UTF-8')
 ncx.puts "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
 ncx.puts "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"#{$lang}\">"
 ncx.puts "    <head>"
-ncx.puts "        <meta content=\"#{uuid}\" name=\"dtb:uuid\"/>"
+ncx.puts "        <meta content=\"#{uid}\" name=\"dtb:uid\"/>"
 ncx.puts "        <meta content=\"1\" name=\"dtb:depth\"/>"
 ncx.puts "        <meta content=\"0\" name=\"dtb:totalPageCount\"/>"
 ncx.puts "        <meta content=\"0\" name=\"dtb:maxPageNumber\"/>"
