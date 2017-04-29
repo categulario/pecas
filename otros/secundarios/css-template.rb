@@ -253,6 +253,10 @@ b, strong {
     text-transform: uppercase;
 }
 
+.redonda {
+	 font-variant: none;
+}
+
 @media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi */
     .versalita {
         font-variant: small-caps;
