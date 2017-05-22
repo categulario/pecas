@@ -336,6 +336,7 @@ sub {
     display: block;
     margin: auto;
     height: 100vh;
+    width: auto;
 }
 
 .titulo {
