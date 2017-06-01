@@ -19,7 +19,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 * `-d` = [directory] Directorio donde se pondrán los archivos creados.
 * `-s` = [style sheet] Ruta al archivo CSS que se desea vincular.
 * `-i` = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.
-* `--section` = Divide el documento cada <section>.
+* `--section` = Divide el documento cada `<section>`.
 
 ### Parámetros únicos:
 
