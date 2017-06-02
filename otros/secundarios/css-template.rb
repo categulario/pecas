@@ -332,13 +332,6 @@ sub {
 
 /* Contenidos especiales */
 
-.forro {
-    display: block;
-    margin: auto;
-    height: 100vh;
-    width: auto;
-}
-
 .titulo {
     margin-top: 3em;
     margin-left: 0;

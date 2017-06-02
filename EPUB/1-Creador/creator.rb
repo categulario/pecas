@@ -149,8 +149,8 @@ if epubPortada
 	FileUtils.cp(epubPortada, epubUbicacion + "/img/" + File.basename(epubPortada))
 	portada = $l_cr_xhtml_portada
 	$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
-	$l_cr_xhtml_portada.puts xhtmlTemplateHead portada, "../css/styles.css"
-	$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\" class=\"sin-margen\">"
+	$l_cr_xhtml_portada.puts xhtmlTemplateHeadCover portada
+	$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\">"
 	$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
 	$l_cr_xhtml_portada.puts "	    </section>"
 	$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
