@@ -162,8 +162,8 @@ portadilla = $l_cr_xhtml_portadilla
 $l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
 $l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
 $l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
-$l_cr_xhtml_portadilla.puts "            <h1 class=\"centrado titulo\">#{$l_cr_xhtml_titulo}</h1>"
-$l_cr_xhtml_portadilla.puts "            <p class=\"centrado\">#{$l_cr_xhtml_autor}</p>"
+$l_cr_xhtml_portadilla.puts "            <h1 id=\"#{$l_g_id_title}\" class=\"centrado titulo\"></h1>"
+$l_cr_xhtml_portadilla.puts "            <p id=\"#{$l_g_id_author}\" class=\"centrado\"></p>"
 $l_cr_xhtml_portadilla.puts "	    </section>"
 $l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
 $l_cr_xhtml_portadilla.close
@@ -173,10 +173,9 @@ legal = $l_cr_xhtml_legal
 $l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
 $l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css"
 $l_cr_xhtml_legal.puts "	    <section epub:type=\"copyright-page\" class=\"legal\">"
-$l_cr_xhtml_legal.puts "	        <p id=\"title\"><i>#{$l_cr_xhtml_titulo}</i></p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"publisher\">#{$l_cr_xhtml_editorial}</p>"
-$l_cr_xhtml_legal.puts "	        <p class=\"espacio-arriba2\">#{$l_cr_xhtml_autoria}</p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"creator\">#{$l_cr_xhtml_autor}</p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_title}\"></p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_publisher}\"></p>"
+$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_author}\" class=\"espacio-arriba2\"></p>"
 $l_cr_xhtml_legal.puts "	    </section>"
 $l_cr_xhtml_legal.puts $xhtmlTemplateFoot
 $l_cr_xhtml_legal.close

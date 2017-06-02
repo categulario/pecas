@@ -54,3 +54,9 @@ Crea un archivo EPUB de `directorio/para/epub` usando el fichero `archivo/meta-d
 
 Se requiere un archivo YAML con una estructura específica para poder general el EPUB. 
 Si se desconoce esta información, [consúltese aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/YAML) para mayor información.
+
+## Portadilla y legal
+
+Por defecto el título, el autor y el nombre de la editorial son incrustados
+según lo especificado en el archivo YAML. Si no se desea este comportamiento
+solo elimínese los `id` que inician con `pt-` en alguno de estos dos archivos.

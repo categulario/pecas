@@ -245,6 +245,44 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 	end
 end
 
+# Inserta título, autor o editorial al XHTML
+def insertar buscado, texto, archivo
+	# Busca el archivo
+	Dir.glob(Dir.pwd + "/*/*") do |a|
+		# Si se encuentra el archivo
+		if File.basename(a) == archivo
+
+			# Conjunto que copiará todas las líneas
+			lineas = Array.new
+
+			# Abre el archivo para analizarlo
+			archivo_abierto = File.open(a, 'r:UTF-8')
+			archivo_abierto.each do |linea|
+
+				# Si se encuentra el id buscado
+				if linea =~ /id="#{buscado}"/
+					# Obtiene el tag de apertura y la línea hasta donde debe de ir el contenido
+					tag = /(\w.*?)\s/.match(linea.strip)
+					mi_match = /(.*?)>.*?(.*?>$)/.match(linea)	
+	
+					# Agrega la línea con el nuevo texto
+					lineas.push("#{mi_match.captures[0]}>#{texto}</#{tag.captures[0]}>")
+				
+				# Si no se encuentra el id buscado, simplemente copia la línea
+				else
+					lineas.push(linea)
+				end
+			end
+			archivo_abierto.close
+
+			# Abre el archivo para meter los cambios
+			archivo_abierto = File.open(a, 'w:UTF-8')
+			archivo_abierto.puts lineas
+			archivo_abierto.close
+		end
+	end
+end
+
 # Argumentos
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd + "/#{$l_cr_epub_nombre}" end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_g_meta_data end
@@ -579,6 +617,15 @@ else
 		end
 	end
 end
+
+# Inserta título y autor en la portadilla si se encuentran los id
+insertar $l_g_id_title, yaml["title"], $l_re_recreando_portadilla
+insertar $l_g_id_author, yaml["author"], $l_re_recreando_portadilla
+
+# Inserta título, autor y editor en la legal si se encuentran los id
+insertar $l_g_id_title, yaml["title"] != nil ? "<i>" + yaml["title"] + "</i>" : nil, $l_re_recreando_legal
+insertar $l_g_id_author, yaml["author"] != nil ? $l_re_recreando_autoria + "<br/>" + yaml["author"] : nil, $l_re_recreando_legal
+insertar $l_g_id_publisher, yaml["publisher"], $l_re_recreando_legal
 
 # Para la creación del EPUB
 rutaEpub = "#{carpeta}.epub"

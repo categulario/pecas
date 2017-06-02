@@ -7,6 +7,9 @@ general:
   error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
   error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
   fin: "\n¡Operación finalizada exitosamente!\n"
+  id_title: "pt-title"
+  id_author: "pt-author"
+  id_publisher: "pt-publisher"
   meta_data: "meta-data.yaml"
   marca: "ºº"
   marca_interior: "["
@@ -75,10 +78,6 @@ creator:
   xhtml_portada: "Portada"
   xhtml_portadilla: "Portadilla"
   xhtml_legal: "Legal"
-  xhtml_titulo: "Título"
-  xhtml_autor: "Autor"
-  xhtml_editorial: "Editorial"
-  xhtml_autoria: "Autoría"
   creando: ["\nCreando carpeta del EPUB con el nombre «","»..."]
   error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
   error_meta: "\nERROR: ya existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
@@ -102,6 +101,9 @@ recreator:
   recreando_ncx: "Recreando NCX..."
   recreando_nav: "Recreando NAV..."
   recreando_fijo: ["EPUB fijo detectado de ",", agregando cambios a los XHTML..."]
+  recreando_portadilla: "001-portadilla.xhtml"
+  recreando_legal: "002-legal.xhtml"
+  recreando_autoria: "Autoría"
   eliminando_viewports: "Eliminando viewports para evitar conflictos con el EPUB fluido..."
   eliminando_epub: "Eliminando EPUB previo..."
   creando_epub: ["Creando","EPUB en «","» con el nombre «","»..."]
