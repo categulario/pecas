@@ -169,7 +169,7 @@ archivoTodo.each do |linea|
 		
 	if enEncabezado
 
-		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo
+		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo cuando se divide por sección
 		tituloViejo = objeto.titulo
 		
 		# Para obtener el título
