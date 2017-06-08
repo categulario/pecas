@@ -116,7 +116,11 @@ def extraerTitulo archivo
 	archivo_abierto = File.open(archivo, 'r:UTF-8')
 	archivo_abierto.each do |linea|
 		if linea =~ /\s+<.*?title.*?>/
-			return linea.gsub(/<.*?>/, "").strip
+			if linea.gsub(/<.*?>/, "").strip == ""
+				return $l_g_sin_titulo
+			else
+				return linea.gsub(/<.*?>/, "").strip
+			end
 		end
 	end
 	return nil

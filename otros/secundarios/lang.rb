@@ -46,6 +46,7 @@ $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_fin = langObj["general"]["fin"].blue.bold
+$l_g_sin_titulo = langObj["general"]["sin_titulo"]
 $l_g_id_title = langObj["general"]["id_title"]
 $l_g_id_author = langObj["general"]["id_author"]
 $l_g_id_publisher = langObj["general"]["id_publisher"]
