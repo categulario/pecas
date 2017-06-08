@@ -40,7 +40,7 @@ end
 if seccion
 	criterio = /<(?!\/|.)*?section.*?>/i
 else
-	criterio = /<.*?h1.*?>.*?<\/.*?h1.*?>/i
+	criterio = /<\s*?h1.*?>/i
 end
 
 # Comprueba el archivo CSS
@@ -134,7 +134,7 @@ def creacion objeto, rutaCSS, indice
 
     # Crea el archivo
     archivo = File.new(nombreArchivo, "w:UTF-8")
-    archivo.puts xhtmlTemplateHead objeto.titulo, rutaCSS
+    archivo.puts xhtmlTemplateHead objeto.titulo == nil ? $l_g_sin_titulo : objeto.titulo, rutaCSS
     archivo.puts contenidoTodo
     archivo.puts $xhtmlTemplateFoot
     archivo.close
@@ -171,9 +171,10 @@ archivoTodo.each do |linea|
 
 		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo
 		tituloViejo = objeto.titulo
-
+		
 		# Para obtener el título
-		if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
+		if linea =~ /<\s*?h1/i
+
 			# Elimina etiquetas HTML y marcas PT del encabezado
 			lineaLimpia = linea.strip
 							.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
@@ -185,17 +186,17 @@ archivoTodo.each do |linea|
 		end
 
         # Si es una línea que no tiene </body> o </html>
-        if linea !~ /body>/i && linea !~ /html>/i
+        if linea !~ /<\s*\/body>/i && linea !~ /\s*\/html>/i
             objeto.contenido.push(linea.strip)
 
             # Si se trata de la última línea, se crea el archivo; por si el documento no cuenta con etiquetas de body o html
             if archivoTodo.eof? == true
-				objeto.titulo = objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
+				objeto.titulo = seccion && objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
                 indice = creacion objeto, rutaCSS, indice
             end
         # Si se llega el fin del body o html, se crea el último archivo y se termina el loop
         else
-			objeto.titulo = objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
+			objeto.titulo = seccion && objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
             indice = creacion objeto, rutaCSS, indice
             break
         end
