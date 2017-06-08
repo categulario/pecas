@@ -112,8 +112,9 @@ def creacion objeto, rutaCSS, indice
     begin
 		nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
 	rescue
-		nombreArchivo = ""
+		nombreArchivo = $l_g_sin_titulo
 	end
+
     nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
     nombreArchivo = nombreArchivo.split("-")[0..4].join("-")
     nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
@@ -176,13 +177,9 @@ archivoTodo.each do |linea|
 							.gsub(/ºº.*?ºº/, "")
 
 			# Obtención del título
-			if lineaLimpia == ""
-				objeto.titulo = $l_di_sin_titulo
-			else
-				objeto.titulo = lineaLimpia
-			end
+			objeto.titulo = lineaLimpia
 		end
-			
+
         # Si es una línea que no tiene </body> o </html>
         if linea !~ /body>/i && linea !~ /html>/i
             objeto.contenido.push(linea.strip)

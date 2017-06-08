@@ -122,7 +122,6 @@ $l_di_v = langObj["divider"]["v"]
 $l_di_h = langObj["divider"]["h"]
 $l_di_dividiendo = langObj["divider"]["dividiendo"].green
 $l_di_creando = langObj["divider"]["creando"]
-$l_di_sin_titulo = langObj["divider"]["sin_titulo"]
 $l_di_error_f = langObj["divider"]["error_f"].red.bold
 $l_di_error_i = langObj["divider"]["error_i"].red.bold
 
