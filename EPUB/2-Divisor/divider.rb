@@ -112,7 +112,7 @@ def creacion objeto, rutaCSS, indice
     begin
 		nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
 	rescue
-		nombreArchivo = $l_g_sin_titulo
+		nombreArchivo = ActiveSupport::Inflector.transliterate($l_g_sin_titulo).to_s
 	end
 
     nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
@@ -168,6 +168,10 @@ archivoTodo.each do |linea|
 	end
 		
 	if enEncabezado
+
+		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo
+		tituloViejo = objeto.titulo
+
 		# Para obtener el título
 		if linea =~ /<.*?h1.*?>.*?<\/.*?h1.*?>/i
 			# Elimina etiquetas HTML y marcas PT del encabezado
@@ -186,10 +190,12 @@ archivoTodo.each do |linea|
 
             # Si se trata de la última línea, se crea el archivo; por si el documento no cuenta con etiquetas de body o html
             if archivoTodo.eof? == true
+				objeto.titulo = objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
                 indice = creacion objeto, rutaCSS, indice
             end
         # Si se llega el fin del body o html, se crea el último archivo y se termina el loop
         else
+			objeto.titulo = objeto.titulo == tituloViejo ? $l_g_sin_titulo : objeto.titulo
             indice = creacion objeto, rutaCSS, indice
             break
         end
