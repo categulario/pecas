@@ -150,6 +150,7 @@ def creacion objeto, rutaCSS, indice
 end
 
 # Divide el archivo
+tituloViejo = ""
 archivoTodo.each do |linea|
 	# Si se da con el criterio
 	if linea =~ criterio
@@ -165,12 +166,12 @@ archivoTodo.each do |linea|
 			indice = creacion objeto, rutaCSS, indice
 			parteArchivoViejo = parteArchivo
 		end
+		
+		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo cuando se divide por sección
+		tituloViejo = objeto.titulo
 	end
 		
 	if enEncabezado
-
-		# Evita que se herede el título anterior si no hay h1 en el siguiente archivo cuando se divide por sección
-		tituloViejo = objeto.titulo
 		
 		# Para obtener el título
 		if linea =~ /<\s*?h1/i
