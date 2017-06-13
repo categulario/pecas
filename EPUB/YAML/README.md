@@ -73,6 +73,9 @@ no-toc:
 no-spine: [archivo03,archivo04]
 ```
 
+> Es posible usar expresiones regulares en lugar de nombres específicos,
+solo es necesario poner la expresión entre barras, p. ej. `/regex/`.
+
 > Si no se crea un conjunto, `pt-creator` ignorará estas especificaciones.
 
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya

@@ -156,7 +156,19 @@ def incluir? conjunto, yaml, nombre, lugar, ncx = nil, archivoBase = nil, i = ni
 			# Si el nombre del archivo se encuentra en la propiedad de no mostrar
 			if yaml[nombre].kind_of?(Array)
 				yaml[nombre].each do |p|
-					if p.split(".")[0] == File.basename(archivo).split(".")[0]
+					# Si es pretende usar una expresión regular
+					if p =~ /\/.*?\//
+						# Se crea el elemento regex
+						rgx = Regexp.new(p.gsub("/",""))
+						
+						# Se busca si existe coincidencia
+						if rgx =~ File.basename(archivo).split(".")[0]
+							mostrar = false
+							break
+						end
+						
+					# Si es literal, se busca si existe coincidencia
+					elsif p.split(".")[0] == File.basename(archivo).split(".")[0]
 						mostrar = false
 						break
 					end
