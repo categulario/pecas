@@ -54,33 +54,33 @@ Nota 4 con \textsuperscript{superíndice} y \textsubscriptsubíndice}.
 
 #### Marcadores
 
-Para ubicar cada una de las notas, solo en necesario colocar un `ººnoteºº`
+Para ubicar cada una de las notas, solo en necesario colocar un `--note--`
 en el lugar donde se desea colocar la nota.
 
 ##### Ejemplo para HTML o XHTML
 
 ```
-<p>Este es un párrafo de alguna obra.ººnoteºº No hay necesidad de agregar
-otros elementos.ººnoteºº El <b><i>script</i> automáticamente creará la
-secuencia</b>.ººnoteºº ¡Así de sencillo!ººnoteºº</p>
+<p>Este es un párrafo de alguna obra.--note-- No hay necesidad de agregar
+otros elementos.--note-- El <b><i>script</i> automáticamente creará la
+secuencia</b>.--note-- ¡Así de sencillo!--note--</p>
 ```
 
 ##### Ejemplo para TeX
 
 ```
-Este es un párrafo de alguna obra.ººnoteºº No hay necesidad de agregar
-otros elementos.ººnoteºº El \textbf\textit{script} automáticamente creará la
-secuencia}.ººnoteºº ¡Así de sencillo!ººnoteºº
+Este es un párrafo de alguna obra.--note-- No hay necesidad de agregar
+otros elementos.--note-- El \textbf\textit{script} automáticamente creará la
+secuencia}.--note-- ¡Así de sencillo!--note--
 ```
 
 **También existe la posibilidad de agregar notas con texto personalizado en
-el superíndice**. Para este propósito la marca habrá de ser `ººnote[TEXTO]ºº`
+el superíndice**. Para este propósito la marca habrá de ser `--note(TEXTO)--`
 donde `TEXTO` es igual al superíndice que se desea de la nota.
 
 ##### Ejemplo de una nota personalizada
 
 ```
-Este es un párrafo de alguna obra.ººnote[*]ºº De esta manera el superíndice
+Este es un párrafo de alguna obra.--note(*)-- De esta manera el superíndice
 de la nota será «*» en lugar de un número.
 ```
 
@@ -138,7 +138,7 @@ haz lo mismo con la carpeta y con el archivo que contiene las notas.
 ###### 5. Se añadirán las referencias a los archivos HTML, XHTML o TeX
 
     Si el script fue utilizado para archivos TeX, ¡es todo! Las etiquetas
-    ººnoteºº se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
+    --note-- se habrán remplazado con etiquetas \footnote{} cuyo contenido será la nota correspondiente.
 
 ###### 6. Se creará o recreará el archivo con todas las notas
 
@@ -239,7 +239,7 @@ aullaría este perro si eso pasara!
 
 Por este motivo, el *script* se detiene si no existe una coincidencia. El
 *script* es de gran utilidad y nos ahorrará mucho tiempo, pero no puede hacer
-nada si no colocamos la cantidad correcta de marcadores `ººnoteºº` o si los
+nada si no colocamos la cantidad correcta de marcadores `--note--` o si los
 ponemos en el lugar incorrecto. (:
 
 ### Archivo `9999-notes.xhtml`

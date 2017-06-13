@@ -180,7 +180,7 @@ archivoTodo.each do |linea|
 			lineaLimpia = linea.strip
 							.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
 							.gsub(/<.*?>/, "")
-							.gsub(/ºº.*?ºº/, "")
+							.gsub(/--.*?--/, "")
 
 			# Obtención del título
 			objeto.titulo = lineaLimpia

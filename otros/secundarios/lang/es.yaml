@@ -12,13 +12,13 @@ general:
   id_author: "pt-author"
   id_publisher: "pt-publisher"
   meta_data: "meta-data.yaml"
-  marca: "ºº"
-  marca_interior: "["
-  ignore: "ººignoreºº"
-  delete: "ººdeleteºº"
-  change: ["ººchange", "ºº"]
-  note: ["ººnote", "ºº"]
-  note_content: "ººnote-contentºº"
+  marca: "--"
+  marca_interior: "("
+  ignore: "--ignore--"
+  delete: "--delete--"
+  change: ["--change", "--"]
+  note: ["--note", "--"]
+  note_content: "--note-content--"
 
 # pt-pandog
 pandog: 

@@ -11,8 +11,8 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Variables
 $divisor = '/'
-$note = "ººnoteºº"
-$noteRegEx = /ººnote(.*?)ºº/
+$note = "--note--"
+$noteRegEx = /--note(.*?)--/
 $archivos = Array.new
 $rutasRelativas = Array.new
 $archivoCreado = "9999-notes.xhtml"
@@ -188,14 +188,14 @@ $archivos.each do |archivo|
         # En cada línea busca palabra por palabra
         linea.each do |palabra|
 
-            # Si la palabra tiene un «ººnoteºº», lo cambia por la nota correspondiente
+            # Si la palabra tiene un «--note--», lo cambia por la nota correspondiente
             if palabra =~ $noteRegEx
 
                 # El superíndice varía según si existe un texto personalizado o no
                 if palabra =~ /#{$note}/
                     $sup = $conteo
                 else
-                    $sup = palabra.gsub(/(.*?)ººnote\[/, "").gsub(/]ºº(.*)/, "")
+                    $sup = palabra.gsub(/(.*?)--note\(/, "").gsub(/\)--(.*)/, "")
                 end
 
                 # Añade el conteo final

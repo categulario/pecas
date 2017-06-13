@@ -73,14 +73,13 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Exclusión de líneas de los archivos creados
 
 Existen ocasiones en que se desea dividir el documento, pero no se quieren
-ignorar algunas líneas. Para esto basta con agregar la marca `ººignoreºº` 
-(Alt + Shift + M para obtener el símbolo `º`).
+ignorar algunas líneas. Para esto basta con agregar la marca `--ignore--`.
 
 Por ejemplo, en el archivo a dividir se tiene:
 
 ```
 	...
-	<h1>Epígrafeººignoreºº</h1>
+	<h1>Epígrafe--ignore--</h1>
 	<p class="epigrafe">Esto es un epígrafe.</p>
 	...
 ```
