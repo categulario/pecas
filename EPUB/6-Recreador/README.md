@@ -5,7 +5,7 @@ Recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.
 ## Uso:
 
   ```
-  pt-recreator
+  pc-recreator
   ```
 
 ## Descripción de los parámetros
@@ -29,7 +29,7 @@ Recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.
 ### Ejemplo sencillo:
 
 ```
-  pt-recreator
+  pc-recreator
 ```
 
 Crea un archivo EPUB buscando dentro del directorio actual los ficheros `epub-creator` y `meta-data.yaml`.
@@ -37,7 +37,7 @@ Crea un archivo EPUB buscando dentro del directorio actual los ficheros `epub-cr
 ### Ejemplo con un proyecto EPUB específico:
 
 ```
-  pt-recreator -d directorio/para/epub
+  pc-recreator -d directorio/para/epub
 ```
 
 Crea un archivo EPUB de `directorio/para/epub` buscando dentro del directorio actual el fichero `meta-data.yaml`.
@@ -45,7 +45,7 @@ Crea un archivo EPUB de `directorio/para/epub` buscando dentro del directorio ac
 ### Ejemplo con un proyecto EPUB y metadatos específicos:
 
 ```
-  pt-recreator -d directorio/para/epub -y archivo/meta-datos.yaml
+  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml
 ```
 
 Crea un archivo EPUB de `directorio/para/epub` usando el fichero `archivo/meta-datos.yaml`.
@@ -59,4 +59,4 @@ Si se desconoce esta información, [consúltese aquí](https://github.com/Colect
 
 Por defecto el título, el autor y el nombre de la editorial son incrustados
 según lo especificado en el archivo YAML. Si no se desea este comportamiento
-solo elimínese los `id` que inician con `pt-` en alguno de estos dos archivos.
+solo elimínese los `id` que inician con `pc-` en alguno de estos dos archivos.

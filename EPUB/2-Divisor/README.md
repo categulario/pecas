@@ -5,7 +5,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ## Uso:
 
   ```
-  pt-divider -f [archivo a dividir]
+  pc-divider -f [archivo a dividir]
   ```
 
 ## Descripción de los parámetros
@@ -31,7 +31,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo sencillo:
 
 ```
-  pt-divider -f archivo/a/dividir.xhtml
+  pc-divider -f archivo/a/dividir.xhtml
 ```
 
   Dividirá el archivo `dividir.xhtml` cada `<h1>`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
@@ -39,7 +39,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo en un directorio específico:
 
 ```
-  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado
+  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado
 ```
 
   Dividirá como el ejemplo anterior, poniendo los archivos creados en `directorio/deseado`.
@@ -47,7 +47,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo en un directorio e incluyendo una hoja de estilo:
 
 ```
-  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css
+  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css
 ```
 
   Dividirá como el ejemplo anterior, vinculando la hoja de estilo `archivo.css` en cada archivo creado.
@@ -55,7 +55,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo en un directorio e incluyendo una hoja de estilo y con otro índice:
 
 ```
-  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1
+  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1
 ```
 
   Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.
@@ -63,7 +63,7 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo en un directorio, dividido cada `<section>` e incluyendo una hoja de estilo y con otro índice:
 
 ```
-  pt-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section
+  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section
 ```
 
   Semejante al ejemplo anterior, solo que la división es cada `<section>` en lugar de cada `<h1>`.
@@ -101,5 +101,5 @@ ubicación, habrán de arreglarse las rutas de manera manual.
 
 ### Índice por defecto
 
-El índice por defecto es 3 ya que [pt-creator](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
+El índice por defecto es 3 ya que [pc-creator](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
 por defecto crea archivos hasta el índice 2.

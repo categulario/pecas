@@ -16,10 +16,6 @@ cantidad de notas que contiene la obra. ¿Qué pasa cuando son más de cincuenta
 cien o trecientes notas? ¡Más vale que te prepares varios días a hacer lo mismo
 una y otra vez!
 
-Para que este perro tenga más tiempo para dormir o ladrar, este *script* está
-pensado para que esta tarea se realice de manera automatizada en cuestión de
-¡segundos!
-
 ## Ubicación del *script*
 
 Este *script* no solo se emplea para documentos de TeX, sino también para

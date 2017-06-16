@@ -1,7 +1,7 @@
 # YAML
 
-Al usar `pt-creator` se genera el archivo `meta-data.yaml` que sirve para 
-los metadatos del libro. Si no se usará `pt-recreator` para generar el EPUB, 
+Al usar `pc-creator` se genera el archivo `meta-data.yaml` que sirve para 
+los metadatos del libro. Si no se usará `pc-recreator` para generar el EPUB, 
 este archivo **es innecesario y puede eliminarse**.
 
 ## Estructura
@@ -57,7 +57,7 @@ px-height:
 Para elaborar un epub fijo es necesario ingresar el tamaño en pixeles
 de la anchura y la altura con `px-width` y `px-height` respectivamente.
 	
-> Si solo se especifica una medida, `pt-recreator` no creará un EPUB fijo.
+> Si solo se especifica una medida, `pc-recreator` no creará un EPUB fijo.
 
 > Si las medidas no son convertibles a números enteros, marcará error.
 
@@ -76,14 +76,14 @@ no-spine: [archivo03,archivo04]
 > Es posible usar expresiones regulares en lugar de nombres específicos,
 solo es necesario poner la expresión entre barras, p. ej. `/regex/`.
 
-> Si no se crea un conjunto, `pt-creator` ignorará estas especificaciones.
+> Si no se crea un conjunto, `pc-creator` ignorará estas especificaciones.
 
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
 
 ### `custom`
 
-Por defecto `pt-recreator` crea una tabla de contenidos corrida y ordenada
+Por defecto `pc-recreator` crea una tabla de contenidos corrida y ordenada
 alfabéticamente. Si no se desea este comportamiento, es posible crear
 una tabla de contenidos personalizada, con el orden y jerarquías deseadas,
 por ejemplo:
@@ -120,7 +120,7 @@ Esto generaría esté índice:
 > Para crear una nueva jerarquía se agregan dos espacios adicionales al
 inicio.
 
-> Si no se crean los objetos similares al ejemplo, `pt-creator` ignorará 
+> Si no se crean los objetos similares al ejemplo, `pc-creator` ignorará 
 estas especificaciones.
 
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya

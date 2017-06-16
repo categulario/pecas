@@ -173,10 +173,6 @@ cantidad de notas que contiene la obra. ¿Qué pasa cuando son más de cincuenta
 cien o trecientes notas? ¡Más vale que te prepares varios días a hacer lo mismo
 una y otra vez!
 
-Para que este perro tenga más tiempo para dormir o ladrar, este *script* está
-pensado para que esta tarea se realice de manera automatizada en cuestión de
-¡segundos!
-
 ### Análisis secuencial
 
 El *script* organiza los archivos según dos criterios: 1) por orden alfabético
@@ -234,8 +230,7 @@ archivos para un EPUB (HTML o XHTML) con archivos para TeX.
 Un orden adecuado para la adición de notas no es lo único importante. Una
 coincidencia entre la cantidad de marcadores y la cantidad de notas presentes en
 `.txt` es fundamental. La falta de coincidencia ocasionaría un tremendo dolor
-de cabeza ya que las notas no se añadirían en el lugar correcto, ¡cuánto
-aullaría este perro si eso pasara!
+de cabeza ya que las notas no se añadirían en el lugar correcto.
 
 Por este motivo, el *script* se detiene si no existe una coincidencia. El
 *script* es de gran utilidad y nos ahorrará mucho tiempo, pero no puede hacer

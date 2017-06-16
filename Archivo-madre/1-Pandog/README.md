@@ -9,7 +9,7 @@ Pandog utiliza el poder de Pandoc para convertir archivos con elementos adiciona
 ## Uso:
 
   ```
-  pt-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]
+  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]
   ```
 
 ## Descripción de los parámetros
@@ -27,7 +27,7 @@ Pandog utiliza el poder de Pandoc para convertir archivos con elementos adiciona
 ## Ejemplo
 
 ```
-  pt-pandog -i directorio/al/archivo.md -o archivo.xhtml
+  pc-pandog -i directorio/al/archivo.md -o archivo.xhtml
 ```
 
 Crea un archivo XHTML a partir de `archivo.md` presente en `directorio/al`.

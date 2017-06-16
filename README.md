@@ -1,6 +1,6 @@
-# Herramientas
+# Pecas: herramientas editoriales
 
-Perro triste está creando un conjunto de *scripts* pensados para agilizar
+Pecas es un conjunto de *scripts* pensados para agilizar
 o automatizar varios de los procesos del quehacer editorial con el fin
 de que las posibilidades tecnológicas no se presenten como un reto o un
 inconveniente para quien edita o diseña una publicación.
@@ -86,16 +86,16 @@ de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencil
 
 Solo es necesario escribir el nombre del binario para llamar al script:
 
-* `pt-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`Archivo-madre/1-Pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog).
-* `pt-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`Archivo-madre/2-Sandbox`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/2-Sandbox).
-* `pt-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
-* `pt-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
-* `pt-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
-* `pt-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
-* `pt-cites` llama a `cites.rb`, cuya documentación se encuentra en [`EPUB/4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
-* `pt-index` llama a `index.rb`, cuya documentación se encuentra en [`EPUB/5-Indice`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Indice).
-* `pt-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/6-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Recreador).
-* `pt-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
+* `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`Archivo-madre/1-Pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog).
+* `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`Archivo-madre/2-Sandbox`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/2-Sandbox).
+* `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
+* `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
+* `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
+* `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
+* `pc-cites` llama a `cites.rb`, cuya documentación se encuentra en [`EPUB/4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
+* `pc-index` llama a `index.rb`, cuya documentación se encuentra en [`EPUB/5-Indice`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Indice).
+* `pc-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/6-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Recreador).
+* `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
 
     **Nota**: si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
@@ -125,6 +125,10 @@ Solo es necesario escribir el nombre del binario para llamar al script:
   * `changer.rb`.
     * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
     * ¿Compatibilidad para versión EPUB 2.0.1?
+
+# ¿Pecas?
+
+Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el mundo exterior, ¡larga vida a Pecas!
 
 # Licencia
 

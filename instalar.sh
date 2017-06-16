@@ -35,14 +35,14 @@ fi
 # La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if ! grep PT_HERRAMIENTAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
-    echo "# Herramientas de Perro Triste" >> $profile_script_full
+    echo "# Herramientas de Pecas" >> $profile_script_full
     echo "export PT_HERRAMIENTAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
     echo "export PATH=\$PT_HERRAMIENTAS_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
 
     source $profile_script_full
 
-    echo "Se han agregado las herramientas de Perro Triste a $profile_script_short."
+    echo "Se han agregado las herramientas de Pecas a $profile_script_short."
 else
-    echo "Al parecer ya se han agregado las herramientas de Perro Triste a $profile_script_short."
+    echo "Al parecer ya se han agregado las herramientas de Pecas a $profile_script_short."
 fi
