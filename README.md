@@ -78,7 +78,7 @@ Las herramientas pueden utilizarse de tres maneras:
 Los binarios permiten acceder a las herramientas desde la terminal sin necesidad
 de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencilla:
 
-###### 1. Ingresa a esta carpeta (`Herramientas`) en la terminal.
+###### 1. Ingresa a esta carpeta en la terminal.
 ###### 2. Llama al instalador con `./instalar.sh` o `sh instalar.sh` o `bash instalar.sh`.
 ###### 3. ¡Listo!
 
@@ -132,4 +132,4 @@ Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el mundo ext
 
 # Licencia
 
-Las herramientas están bajo licencia GPL v3.
+Las herramientas de Pecas están bajo licencia GPL v3.
