@@ -36,8 +36,8 @@ fi
 if ! grep PT_HERRAMIENTAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
     echo "# Herramientas de Pecas" >> $profile_script_full
-    echo "export PT_HERRAMIENTAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
-    echo "export PATH=\$PT_HERRAMIENTAS_ROOT:\$PATH" >> $profile_script_full
+    echo "export PC_HERRAMIENTAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
+    echo "export PATH=\$PC_HERRAMIENTAS_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
 
     source $profile_script_full
