@@ -70,27 +70,80 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 
 ## Notas
 
-### Delimitación de las notas en el Markdown
+### Etiquetas de Pecas para las notas
 
-El archivo **no** necesita nada en especial, solo considérese que cada 
-párrafo es igual a una nota al pie. Según los archivos de salida, es como
-se hará la conversión a través de Pandoc.
+Este *script* supone dos elementos para su ejecución:
 
-### Notas con múltiples párrafos en archivos tipo HTML
+1. Que existe alguna marca en los archivos principales que indican el lugar de la nota.
+2. Que existe un archivo secundario con todos los contenidos de las notas.
 
-Para tener una nota con múltiples párrafos solo es necesario añadir un
-salto de línea forzado. Por ejemplo:
+#### Marcas en los archivos principales
 
+La etiqueta por defecto es `--note--`, la cual indicará dónde irá una nota.
+Por ejemplo:
+
+```markdown
+# Encabezado 1--note--
+
+Esto es un párrafo con una nota al pie--note--.
 ```
-  Esta es la **nota 1**.
 
-  Esto es el párrafo 1 de la **nota 2**. \
-  Pero este es
-  el párrafo 2. \
-  Y aquí está el párrafo 3.
+Esta herramienta sustituirá la nota por defecto por una nota numerada (el usuario
+no tiene que preocuparse por la numeración o la referencia).
+
+Hay ocasiones que se requiere una mayor personalización, como agregar una letra, 
+un símbolo o texto. Para este caso se puede usar esta sintaxis: `--note(CONTENIDO)--`, 
+donde `CONTENIDO` es lo que se desea mostrar en lugar de un número. Por ejemplo:
+
+```markdown
+# Encabezado 1--note(*)--
+
+Esto es un párrafo con una nota al pie--note(sup)--.
+```
+
+Esta herramienta sustituirá la nota personalizada por el contenido y referencia
+correspondiente.
+
+#### Archivo con las notas
+
+El archivo de las notas no necesita nada en especial, únicamente considérese
+que el orden de aparación es como se asociará la marca con su contenido. Por ejemplo:
+
+```markdown
+Esta es la **nota 1**.
+
+Esta es la **nota 2** y así sucesivamente.
+```
+
+Esta herramienta considerará que cada párrafo es igual a una nota al pie. Esto
+permite utilizar más de una línea para un párrafo. Por ejemplo:
+
+```markdown
+Esta es la **nota 1**.
+
+Esta es la **nota 2** y así sucesivamente.
+
+Esta es la **nota 3**
+que está mucho
+*más larga*, pero no
+hay problema.
+```
+
+Si una nota contempla más de un párrafo, es necesario añadir un salto de línea 
+forzado. Por ejemplo:
+
+```markdown
+Esta es la **nota 1**.
+
+Esto es el párrafo 1 de la **nota 2**. \
+Pero este es
+el párrafo 2. \
+Y aquí está el párrafo 3.
   
-  Esta es la **nota 3**
-  que está *más larga*.
+Esta es la **nota 3**
+que está mucho
+*más larga*, pero no
+hay problema.
 ```
 
-Este `script` reemplazará cada salto de línea forzado por un nuevo párrafo.
+Esta herramienta reemplazará cada salto de línea forzado por un nuevo párrafo.
