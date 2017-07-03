@@ -73,5 +73,5 @@ de manera análoga a como ya Pandoc permite estas definiciones para los encabeza
 ## CSS
 
 Por estas posibilidades, es posible añadir clases ya predefinidas. La hoja de 
-estilos CSS incluye varios elementos que ayudar a mejorar el diseño y estructura 
+estilos CSS incluye varios elementos que mejoran el diseño y estructura 
 del EPUB que pueden [consultarse aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/CSS).

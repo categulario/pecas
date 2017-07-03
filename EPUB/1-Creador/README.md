@@ -86,5 +86,5 @@ para mayor información.
 ## CSS
 
 Al usar `pc-creator` se genera una hoja de estilos CSS por defecto si no se
-usa la opción `-s`. Esta plantilla incluye varios elementos que ayudar a
-mejorar el diseño y estructura del EPUB que pueden [consultarse aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/CSS).
+usa la opción `-s`. Esta plantilla incluye varios elementos que mejoran 
+el diseño y estructura del EPUB que pueden [consultarse aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/CSS).
