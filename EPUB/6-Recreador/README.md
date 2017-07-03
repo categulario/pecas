@@ -10,10 +10,6 @@ Recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.
 
 ## Descripción de los parámetros
 
-### Parámetros necesarios
-
-* `-z` = [zip] SOLO WINDOWS, indica la ruta al archivo zip.exe.
-
 ### Parámetros opcionales:
 
 * `-d` = [directory] Directorio del proyecto EPUB.
@@ -23,6 +19,7 @@ Recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.
 
 * `-v` = [version] Muestra la versión.
 * `-h` = [help] Muestra la ayuda, la cual es este contenido.
+* `-32` = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits.
 
 ## Ejemplos
 

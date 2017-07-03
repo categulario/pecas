@@ -303,13 +303,17 @@ end
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd + "/#{$l_cr_epub_nombre}" end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_g_meta_data end
 zip = if argumento "-z", zip != nil then argumento "-z", zip else nil end
+win32 = argumento "-32", win32, 1
 argumento "-v", $l_re_v
 argumento "-h", $l_re_h
 
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
-	comprobacion [zip]
-	zip = comprobacionArchivo zip, [".exe"]
+	if win32
+		zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x32.exe"}"
+	else
+		zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x64.exe"}"
+	end
 else
 	zip = "zip"
 end
