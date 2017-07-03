@@ -34,18 +34,18 @@ Crea un archivo XHTML a partir de `archivo.md` presente en `directorio/al`.
 
 ------
 
-## Notas
+# Notas
 
 Pandog está pensado a limpiar el texto en vísperas de una publicación, por
 lo que elimina, modifica y agrega elementos al trabajo hecho por Pandoc.
 
-### De HTML, XHTML, HTM o XML a MD
+## De HTML, XHTML, HTM o XML a MD
 
 Las etiquetas HTML que no pueden ser traducidas a MD **son eliminadas**, 
 ya que se consideran como elementos adicionales al archivo madre que podrán
 agregarse según la salida de publicación específica.
 
-### De MD a HTML, XHTML, HTM o XML
+## De MD a HTML, XHTML, HTM o XML
 
 1. Evita saltos de línea si aparece un elemento `<br />`.
 2. Agrega cabeza y pies según la salida específica.
@@ -69,3 +69,9 @@ de manera análoga a como ya Pandoc permite estas definiciones para los encabeza
     ```html
     <p id="id-ejemplo" class="derecha versalita">Este es un párrafo con identificador y clases.</p>
     ```
+
+## CSS
+
+Por estas posibilidades, es posible añadir clases ya predefinidas. La hoja de 
+estilos CSS incluye varios elementos que ayudar a mejorar el diseño y estructura 
+del EPUB que pueden [consultarse aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/CSS).
