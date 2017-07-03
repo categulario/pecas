@@ -68,6 +68,8 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
   
   Igual que el ejemplo anterior pero el contenido de las notas se añaden al final de cada archivo.
 
+------
+
 ## Notas
 
 ### Etiquetas de Pecas para las notas

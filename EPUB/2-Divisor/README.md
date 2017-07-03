@@ -68,6 +68,8 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 
   Semejante al ejemplo anterior, solo que la división es cada `<section>` en lugar de cada `<h1>`.
 
+------
+
 ## Notas
 
 ### Exclusión de líneas de los archivos creados
@@ -77,7 +79,7 @@ ignorar algunas líneas. Para esto basta con agregar la marca `--ignore--`.
 
 Por ejemplo, en el archivo a dividir se tiene:
 
-```
+```html
 	...
 	<h1>Epígrafe--ignore--</h1>
 	<p class="epigrafe">Esto es un epígrafe.</p>
@@ -86,7 +88,7 @@ Por ejemplo, en el archivo a dividir se tiene:
 
 Esto crearía un nuevo archivo sin incluir el `<h1>`:
 
-```
+```html
 	...
 	<p class="epigrafe">Esto es un epígrafe.</p>
 	...

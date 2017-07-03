@@ -32,7 +32,9 @@ Pandog utiliza el poder de Pandoc para convertir archivos con elementos adiciona
 
 Crea un archivo XHTML a partir de `archivo.md` presente en `directorio/al`.
 
-## Modificaciones adicionales
+------
+
+## Notas
 
 Pandog está pensado a limpiar el texto en vísperas de una publicación, por
 lo que elimina, modifica y agrega elementos al trabajo hecho por Pandoc.
@@ -57,13 +59,13 @@ agregarse según la salida de publicación específica.
 de manera análoga a como ya Pandoc permite estas definiciones para los encabezados.
   * Este párrafo en MD:
   
-    ```
+    ```markdown
     Este es un párrafo con identificador 
     y clases. {#id-ejemplo .derecha .versalita}
     ```
     
   * En HTML quedaría como:
   
-    ```
+    ```html
     <p id="id-ejemplo" class="derecha versalita">Este es un párrafo con identificador y clases.</p>
     ```

@@ -73,6 +73,10 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra 
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en `ruta/al/directorio/con/imagenes`.
 
+------
+
+# Notas
+
 ## YAML
 
 Este *script* genera un archivo con extensión `.yaml` para los metadatos

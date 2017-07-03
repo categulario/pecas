@@ -47,6 +47,10 @@ Crea un archivo EPUB de `directorio/para/epub` buscando dentro del directorio ac
 
 Crea un archivo EPUB de `directorio/para/epub` usando el fichero `archivo/meta-datos.yaml`.
 
+------
+
+# Notas
+
 ## YAML
 
 Se requiere un archivo YAML con una estructura específica para poder general el EPUB. 
