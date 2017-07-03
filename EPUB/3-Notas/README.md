@@ -93,10 +93,10 @@ no tiene que preocuparse por la numeración o la referencia).
 
 Hay ocasiones que se requiere una mayor personalización, como agregar una letra, 
 un símbolo o texto. Para este caso se puede usar esta sintaxis: `--note(CONTENIDO)--`, 
-donde `CONTENIDO` es lo que se desea mostrar en lugar de un número. Por ejemplo:
+donde `CONTENIDO` es lo que se desea mostrar en lugar del número. Por ejemplo:
 
 ```markdown
-# Encabezado 1--note(*)--
+# Encabezado 1--note(†)--
 
 Esto es un párrafo con una nota al pie--note(sup)--.
 ```
@@ -106,8 +106,9 @@ correspondiente.
 
 #### Archivo con las notas
 
-El archivo de las notas no necesita nada en especial, únicamente considérese
-que el orden de aparación es como se asociará la marca con su contenido. Por ejemplo:
+El archivo con las notas no necesita nada en especial, únicamente considérese
+que el orden de aparación es como se define la referencia entre la marca y su contenido. 
+Por ejemplo:
 
 ```markdown
 Esta es la **nota 1**.
