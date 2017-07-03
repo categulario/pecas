@@ -40,7 +40,7 @@ end
 
 $version = ARGF.argv[0].to_i
 $epub = ARGF.argv[1]
-$epub = arregloRuta $epub
+$epub = arregloRutaTerminal $epub
 
 # Obtiene la ruta absoluta
 path = File.dirname(__FILE__)
