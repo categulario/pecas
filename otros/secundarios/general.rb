@@ -187,6 +187,32 @@ def directorioPadreTerminal archivo
 	return directorio
 end
 
+# Obtiene la ruta al archivo CSS
+def archivoCSSBusqueda archivoCSS, carpeta
+	if archivoCSS != nil
+		# Para sacar la ruta relativa al archivo CSS
+		archivoConjuntoCSS = archivoCSS.split('/')
+		separacionesConjuntoCarpeta = carpeta.split('/')
+
+		# Ayuda a determinar el número de índice donde ambos conjutos difieren
+		indice = 0
+		archivoConjuntoCSS.each do |parte|
+			if parte === separacionesConjuntoCarpeta[indice]
+				indice += 1
+			else
+				break
+			end
+		end
+
+		# Elimina los elementos similares según el índice obtenido
+		archivoConjuntoCSS = archivoConjuntoCSS[indice..archivoConjuntoCSS.length - 1]
+		separacionesConjuntoCarpeta = separacionesConjuntoCarpeta[indice..separacionesConjuntoCarpeta.length - 1]
+
+		# Crea la ruta
+		rutaCSS = ("..#{'/'}" * separacionesConjuntoCarpeta.length) + archivoConjuntoCSS.join('/')
+	end
+end
+
 # Verifica que la codificación sea UTF-8, de lo contrario, la corrige
 def codificacionValida? elemento
 	if ! elemento.valid_encoding?
