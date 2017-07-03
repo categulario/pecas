@@ -29,6 +29,9 @@ carpeta = comprobacionDirectorio carpeta
 txt = comprobacionArchivo txt, [".md"]
 css = comprobacionArchivo css, [".css"]
 
+# Obtiene la ruta al archivo CSS
+css = archivoCSSBusqueda css, carpeta
+
 # Variables que se usarán
 txtEsMD = if File.extname(txt) == ".md" then txtEsMD = true else txtEsMD = false end
 texHay = false
@@ -62,10 +65,17 @@ end
 # Convierte archivo MD
 if txtEsMD
 	# Se determina la ruta y nombre del archivo convertido
-	txt_oculto = directorioPadre(txt) + "/" + $l_no_oculto + if texHay then ".tex" else ".html" end
-	
+	txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
+
 	# Se usa Pandog, que a su vez usa Pandoc
-	system("pc-pandog -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}")
+	if OS.windows?
+		system "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
+	else
+		system "pc-pandog -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
+	end
+	
+	# Crea la ruta absoluta
+	txt_oculto = directorioPadre(txt) + "/" + txt_oculto
 		
 	# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
 	archivo = File.open(txt_oculto, 'r:UTF-8')
