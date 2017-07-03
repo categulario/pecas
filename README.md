@@ -108,21 +108,12 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * EPUB
   * Todos.
     * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
-  * `notes.rb`.
-    * No se añade el primer encabezado cuando se reinicia la numeración y se crea el `9999-notes.xhtml`.
-    * Los encabezados que se añaden a `9999-notes.xhtml` heredan espacios al principio y al final.
-    * Evitar que los encabeazados añadidos a `9999-notes.xhtml` hereden etiquetas HTML indeseadas.
-    * Se detectó que no se elimina la etiqueta de cierre de párrafo en la nota
-    cuando está viene en el archivo de texto; el caso particular es que en el
-    archivo de texto hay una nota como esta `<p><em>Algo</em>.</p>`.
-    * Se están creando espacios antes del `body` sin importar que las notas se creen en `9999-notes.xhtml`.
-    * Agregar la clase `n-note-p` a los subsiguientes párrafos de una nota cuando está tiene más de un párrafo.
-    * En Linux no se ordenan correctamente las notas cuando se crea `9999-notes.xhtml` con división por sección.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `index.rb`.
     * Terminar el desarrollo.
   * `changer.rb`.
+    * Falta reformar.
     * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
     * ¿Compatibilidad para versión EPUB 2.0.1?
 

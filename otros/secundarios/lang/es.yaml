@@ -106,11 +106,17 @@ divider:
 # pc-notes
 notes:
   v: "notes 0.1.0"
-  h: "\nAlguna ayuda."
+  h: "\nNotes agrega de manera automatizada las notas al pie a archivos con sintaxis tipo HTML o documentos TeX.\n\nUso:\n  pc-notes -f [archivo con las notas]\n\nParámetro necesario:\n  -f = [file] Archivo con las notas en formato MD.\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se encuentran los archivos para añadir las notas.\n  -s = [style sheet] SOLO HTML, Ruta al archivo CSS que se desea incluir.\n  --reset =  Resetea el contador cada vez que se modifica un archivo.\n  --inner = SOLO HTML, incluye las notas al pie al final del archivo.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-recreator -f directorio/a/notas.md\n  Añade las notas presentes en «notas.md» a los archivos que se encuentren en el directorio actual.\n \nEjemplo con un directorio específico:\n  pc-recreator -f directorio/a/notas.md -d directorio/html/o/tex\n  Añade las notas presentes en «notas.md» a los archivos que se encuentren en «directorio/html/o/tex».\n  \nEjemplo con un directorio específico y con una hoja de estilo:\n  pc-recreator -f directorio/a/notas.md -d directorio/html -s ruta/al/archivo.css\n  Igual que el ejemplo anterior pero se añade una hoja de estilo; ojo: se ignora si hay «--inner».\n  \nEjemplo con un directorio específico y reseteo de la numeración:\n  pc-recreator -f directorio/a/notas.md -d directorio/html/o/tex --reset\n  Añade las notas presentes en «notas.md» a los archivos que se encuentren en «directorio/html/o/tex» y el contador inicia en 1 en cada archivo.\n  \nEjemplo con un directorio específico, reseteo de la numeración e incrustado en los archivos:\n  pc-recreator -f directorio/a/notas.md -d directorio/html --reset --inner\n  Igual que el ejemplo anterior pero el contenido de las notas se añaden al final de cada archivo."
   comparando: "Comparando cantidad de notas..."
   anadiendo: "Añadiendo referencias a los archivos..."
   oculto: ".pc-notes"
   archivo_notas: "9999-notes.xhtml"
+  archivo_notas_titulo: "Notas"
+  nota_sup: "n-note-sup"
+  nota_hr: "n-note-hr"
+  nota_a: "n-note-a"
+  nota_p: "n-note-p"
+  nota_p2: "n-note-p2"
   error_f: "\nERROR: hay archivos con lenguajes de marcado no compatibles, verifique que solo sean archivos TeX o con sintaxis tipo HTML."
   error_c: ["\nERROR: la cantidad de notas al pie no coinciden.", " notas en «", "».", " notas en los archivos."]
 

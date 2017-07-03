@@ -4,6 +4,9 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
+# Funciones y módulos comunes a todas las herramientas
+require File.dirname(__FILE__) + "/../secundarios/lang.rb"
+
 $css_template = "/**************************************************/
 /******************* RESETEADOR *******************/
 /**************************************************/
@@ -386,44 +389,36 @@ body > .epigrafe:first-child {
 
 /* Notas al pie */
 
-.n-note-sup {
+.#{$l_no_nota_sup} {
     font-style: normal;
     font-weight: normal;
 }
 
-.n-note-hr {
+.#{$l_no_nota_hr} {
     margin-top: 2em;
     width: 25%;
     margin-left: 0;
     border: 1px solid gray;
 }
 
-.n-note-a {
+.#{$l_no_nota_a} {
     display: block;
     margin-left: -3em;
     margin-bottom: -1.25em;
 }
 
-.n-note-p, .n-note-p2 {
+.#{$l_no_nota_p}, .#{$l_no_nota_p2} {
     margin-left: 3em;
     font-size: .9em;
     text-indent: 0;
 }
 
-* + .n-note-p {
+* + .#{$l_no_nota_p} {
     margin-top: 1em;
     text-indent: 0;
 }
 
-span.n-note-p {
-	display: block;
-    margin-top: 0;
-    margin-left: 0;
-    text-indent: 1.5em;
-    font-size: 1em;
-}
-
-.n-note-p2 {
+.#{$l_no_nota_p2} {
     margin-top: 0;
     text-indent: 1.5em;
 }

@@ -14,8 +14,8 @@ distintas opciones.
 2. `divider.rb`. Separa un documento HTML cada `<h1>`.
 
 3. `footnotes.rb`. Agrega de manera automatizada
-las notas al pie a un libro EPUB o documentos
-TeX.
+las notas a archivos con sintaxis tipo HTML o 
+documentos TeX.
 
 4. `cites.rb`. Agrega de manera automatizada la
 bibliografía en formato `.bib`

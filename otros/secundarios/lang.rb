@@ -143,6 +143,12 @@ $l_no_comparando = langObj["notes"]["comparando"].green
 $l_no_anadiendo = langObj["notes"]["anadiendo"].green
 $l_no_oculto = langObj["notes"]["oculto"]
 $l_no_archivo_notas = langObj["notes"]["archivo_notas"]
+$l_no_nota_sup = langObj["notes"]["nota_sup"]
+$l_no_nota_hr = langObj["notes"]["nota_hr"]
+$l_no_nota_a = langObj["notes"]["nota_a"]
+$l_no_nota_p = langObj["notes"]["nota_p"]
+$l_no_nota_p2 = langObj["notes"]["nota_p2"]
+$l_no_archivo_notas_titulo = langObj["notes"]["archivo_notas_titulo"]
 $l_no_error_f = langObj["notes"]["error_f"].red.bold
 $l_no_error_c = langObj["notes"]["error_c"]
 
