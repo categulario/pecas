@@ -102,6 +102,11 @@ def mdAhtml s_path, s_nombre
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
+		# Evita que los identificadores de los encabezados hereden sintaxis de Pecas
+		if linea =~ /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
+			linea = linea.gsub(/(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/, /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/.match(linea).captures.join)
+		end
+		
 		# Servirá para agregar atributos si los hay
 		atributos_final = Array.new
 		
