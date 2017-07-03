@@ -98,7 +98,7 @@ def mdAhtml s_path, s_nombre
 		if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
 			linea = linea.split(/\s/)[0] + ">"
 		end
-	
+		
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
@@ -107,7 +107,7 @@ def mdAhtml s_path, s_nombre
 		
 		# Si la línea no quedo vacía se agrega
 		if linea != ""
-		
+			
 			# Si se localizan párrafos que se desean con identificadores o clases
 			p = /\s?+{.*?}<\/p>$/
 			if linea =~ p
@@ -164,7 +164,7 @@ def mdAhtml s_path, s_nombre
 			end
 		
 			# Si se detecta un <br /> al final de la línea se guarda en lugar de agregarla
-			if linea =~ /<[^>]*?br.*?\/.*?>$/
+			if linea =~ /<\s*?br.*?\/.*?>$/
 				linea_pasada += linea
 			# Si no se detecta un <br />
 			else

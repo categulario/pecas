@@ -8,6 +8,232 @@ Encoding.default_internal = Encoding::UTF_8
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-beautifier.rb"
+
+# Argumentos
+txt = if argumento "-f", txt != nil then argumento "-f", txt end
+carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd end
+css = if argumento "-s", css != nil then argumento "-s", css end
+reset = argumento "--reset", reset, 1
+inner = argumento "--inner", inner, 1
+argumento "-v", $l_no_v
+argumento "-h", $l_no_h
+
+# Comprueba que existan los argumentos necesarios
+comprobacion [txt]
+
+# Comprueba y adquiere el path absoluto de la carpeta para el EPUB
+carpeta = comprobacionDirectorio carpeta
+
+# Comprueba que el archivo tenga la extensión correcta
+txt = comprobacionArchivo txt, [".md"]
+css = comprobacionArchivo css, [".css"]
+
+# Variables que se usarán
+txtEsMD = if File.extname(txt) == ".md" then txtEsMD = true else txtEsMD = false end
+texHay = false
+htmlHay = false
+archivos = Array.new
+txtNotas = Array.new
+txtConteo = 0
+arcConteo = 0
+md = nil
+
+# Se va a la carpeta y busca los archivos para insertar las notas
+Dir.chdir carpeta
+Dir.glob(carpeta + '/*.*') do |archivo|
+	if File.extname(archivo) == ".xhtml" || File.extname(archivo) == ".html" || File.extname(archivo) == ".htm" || File.extname(archivo) == ".xml" || File.extname(archivo) == ".tex"
+		if File.extname(archivo) == ".tex"
+			texHay = true
+		else
+			htmlHay = true
+		end
+		archivos.push(archivo)
+	end
+end
+archivos = archivos.sort
+
+# Si hay archivos mezclados
+if texHay == true && htmlHay == true
+	puts $l_no_error_f
+	abort
+end
+
+# Convierte archivo MD
+if txtEsMD
+	# Se determina la ruta y nombre del archivo convertido
+	txt_oculto = directorioPadre(txt) + "/" + $l_no_oculto + if texHay then ".tex" else ".html" end
+	
+	# Se usa Pandog, que a su vez usa Pandoc
+	system("pc-pandog -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}")
+		
+	# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
+	archivo = File.open(txt_oculto, 'r:UTF-8')
+	linea_tmp = Array.new
+	archivo.each do |linea|
+		linea = linea.strip
+		if texHay
+			if linea != ""
+				linea_tmp.push(linea)
+			else
+				txtNotas.push(linea_tmp.join(" "))
+				txtConteo = txtConteo + 1
+				linea_tmp = []
+			end
+		else
+			if linea =~ /^<p/
+				txtNotas.push(linea)
+				txtConteo = txtConteo + 1
+			end
+		end
+	end
+	archivo.close
+	
+	# Si es TeX, se tiene que añadir una línea más y un conteo más, sino nunca se añadirá la última nota
+	if texHay
+		txtNotas.push(linea_tmp.join(" "))
+		txtConteo = txtConteo + 1
+	end
+	
+	# Modifica los elementos innecesarios
+	archivo = File.open(txt_oculto, 'w:UTF-8')
+	archivo.puts txtNotas
+	archivo.close
+end
+
+puts $l_no_comparando
+
+# Cuenta la cantidad de notas al pie en los archivos
+archivos.each do |archivo|
+    archivo = File.open(archivo, 'r:UTF-8')
+    archivo.each do |linea|
+        palabras = linea.split
+        palabras.each do |palabra|
+            if palabra =~ /#{$l_g_note[0]}.*?#{$l_g_note[1]}/
+                arcConteo = arcConteo + 1
+            end
+        end
+    end
+    archivo.close
+end
+
+# Aborta si no hay coincidencia en el conteo
+if txtConteo != arcConteo
+	puts $l_no_error_c[0].red.bold
+	puts "  #{txtConteo.to_s + $l_no_error_c[1] + File.basename(txt) + $l_no_error_c[2]}".red.bold
+	puts "  #{arcConteo.to_s + $l_no_error_c[3]}".red.bold
+    abort
+end
+
+puts $l_no_anadiendo
+
+# Añade las notas a los archivos
+notaNum = 1
+notaReal = 0
+archivos.each do |archivo|
+	
+	# Reinicia la numeración en cada archivo si así se deseo
+	if reset
+		notaNum = 1
+	end
+	
+	# Determina la ruta según si estará en un archivo externo o no
+	if inner
+		href = "#c-"
+	else
+		href = $l_no_archivo_notas + "#"
+	end
+	
+	# Para reconstruir el archivo
+	archivo_tmp = Array.new
+	if htmlHay && inner
+		archivo_tmp_footer = Array.new
+		archivo_tmp_footer.push("        <hr class=\"n-note-hr\" />")
+    end
+
+	# Analiza por palabra para cambiar la nota
+    archivo = File.open(archivo, 'r:UTF-8')
+    archivo.each_with_index do |linea, i|
+		# Obtiene el espacio al inicio de la línea
+		espacio = /(^\s*)/.match(linea).captures.first
+		
+		# Pone la referencia a la nota si es necesario
+		palabras_tmp = Array.new
+		palabras = linea.split
+        palabras.each do |palabra|
+			# Si es una nota sencilla
+            if palabra =~ /#{$l_g_note[0] + $l_g_note[1]}/
+				if texHay
+					if reset
+						nota = "\\footnote[#{notaNum}]{#{txtNotas[notaReal]}}"
+					else
+						nota = "\\footnote{#{txtNotas[notaReal]}}"
+					end
+				else					
+					nota = "<sup class=\"n-note-sup\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">[#{notaNum}]</a></sup>"
+					
+					if inner
+						puts 
+					end
+				end
+				
+				# Hace los cambios a la palabra
+				palabra = palabra.gsub(/#{$l_g_note[0] + $l_g_note[1]}/, nota)
+				
+				# Suma un elemento
+				notaNum = notaNum + 1
+				notaReal = notaReal + 1
+			# Si es una nota personalizada
+			elsif palabra =~ /#{$l_g_note[0]}(.*?)#{$l_g_note[1]}/
+				
+				# Obtiene el contenido mediante un match que obtiene capturas de las cuales solo se usa la primera, quitándole los elementos innecesarios
+				contenido = /#{$l_g_note[0]}(.*?)#{$l_g_note[1]}/.match(palabra).captures.first.gsub($l_g_marca_in_1,"").gsub($l_g_marca_in_2,"")
+				
+				if texHay
+					nota = "\\let\\svthefootnote\\thefootnote\\let\\thefootnote\\relax\\textsuperscript{#{contenido}}\\footnote{\\textsuperscript{#{contenido}} #{txtNotas[notaReal]}}\\addtocounter{footnote}{-1}\\let\\thefootnote\\svthefootnote"
+				else
+					nota = "<sup class=\"n-note-sup\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">[#{contenido}]</a></sup>"
+				end
+				
+				# Hace los cambios a la palabra
+				palabra = palabra.gsub(/#{$l_g_note[0]}.*?#{$l_g_note[1]}/, nota)
+				
+				# Suma un elemento
+				notaNum = notaNum + 1
+				notaReal = notaReal + 1
+			end
+			
+			palabras_tmp.push(palabra)
+        end
+        
+        # Añade la información al archivo temporal
+        archivo_tmp.push(espacio + palabras_tmp.join(" "))
+    end
+    archivo.close
+    
+    if htmlHay && inner
+		# Imprimir para ver cómo va
+    end
+    
+    # Modifica los elementos innecesarios
+	#archivo = File.open(archivo, 'w:UTF-8')
+	#archivo.puts archivo_tmp
+	#archivo.close
+end
+
+# Si es sintaxis tipo HTML, se añade el contenido abajo o en un nuevo archivo
+if htmlHay
+	# Resetea los valores
+	notaNum = 1
+	notaReal = 0
+end
+
+# Elimina el archivo oculto que sirvió para las notas
+File.delete(txt_oculto)
+
+puts $l_g_fin
+
+abort
 
 # Variables
 $divisor = '/'
@@ -24,276 +250,8 @@ $conteo = 1
 $conteoId = 1
 $mensajeFinal = "\nEl proceso ha terminado.".gray.bold
 
-# Obtiene los argumentos necesarios
-if ARGF.argv.length < 1
-    puts "\nLa ruta al archivo de texto que contiene las notas al pie es necesaria.".red.bold
-    abort
-elsif ARGF.argv.length == 1 || ARGF.argv.length == 2
-    if ARGF.argv.length == 1
-        $carpeta = Dir.pwd
-        $archivoNotas = ARGF.argv[0]
-    else
-        $carpeta = ARGF.argv[0]
-        $archivoNotas = ARGF.argv[1]
-    end
-
-    $archivoNotas = arregloRuta $archivoNotas
-
-    if $archivoNotas.split(".").last != "txt"
-        puts "\nEl archivo indicado no tiene extensión .txt.".red.bold
-        abort
-    end
-else
-    puts "\nNo se permiten más de dos argumentos.".red.bold
-    abort
-end
-
-# Busca la existencia de archivos xhtml, html o tex
-def carpetaBusqueda
-    if OS.windows?
-        $carpeta = $carpeta.gsub('\\', '/')
-    end
-
-    $carpeta = arregloRuta $carpeta
-    $separacionesCarpeta = $carpeta.split($divisor).length
-
-    # Se parte del supuesto de que no hay archivos xhtml, html o tex
-    archivosExistentes = false
-    $archivosExistentesHTML = false
-
-    # Si dentro de los directorios hay un opf, entonces se supone que hay archivos para un EPUB
-    Dir.glob($carpeta + $divisor + '**' + $divisor + '*.*') do |archivo|
-        if File.extname(archivo) == ".xhtml" || File.extname(archivo) == ".html" || File.extname(archivo) == ".xml" || File.extname(archivo) == ".tex"
-
-            # Se indica que si existen algún archivo xhtml, html o tex
-            archivosExistentes = true
-
-            # Se indica si existen algún archivo xhtml o html
-            if File.extname(archivo) == ".xhtml" || File.extname(archivo) == ".html"
-                $archivosExistentesHTML = true
-            end
-
-            archivo = arregloRuta File.expand_path(archivo).to_s
-
-            # Se agregan los archivos a un conjunto que servirá para verificar la cantidad de notas y para agregarlas
-            $archivos.push(archivo)
-        end
-    end
-
-    # Ofrece un resultado
-    if archivosExistentes == false
-        puts "\nAl parecer en la carpeta seleccionada no existen archivos xhtml, html o tex.".red.bold
-        abort
-    else
-        puts "\nEste script añade las notas al pie a los archivos xhtml, html o tex.".gray.bold
-    end
-end
-
-# Obtiene los archivos xhtml, html o tex
-carpetaBusqueda
-
-puts "\nComparando cantidad de notas...".magenta.bold
-
-# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
-$conteoTXT = 0
-$notasTXT = Array.new
-archivoTXT = File.open($archivoNotas, 'r:UTF-8')
-
-archivoTXT.each do |linea|
-    linea = linea.strip
-    if linea != ""
-        $conteoTXT = $conteoTXT + 1
-        $notasTXT.push(linea)
-    end
-end
-
-# Cuenta la cantidad de notas al pie en los archivos
-$conteoArchivos = 0
-
-$archivos = $archivos.sort
-$archivos.each do |archivo|
-    archivo = File.open(archivo, 'r:UTF-8')
-
-    archivo.each do |linea|
-        palabras = linea.split
-
-        palabras.each do |palabra|
-            if palabra =~ $noteRegEx
-                $conteoArchivos = $conteoArchivos + 1
-            end
-        end
-    end
-end
-
-# Aborta si no hay coincidencia en el conteo
-if $conteoTXT != $conteoArchivos
-    puts "\nLa cantidad de notas al pie no coinciden.".red.bold
-    puts "#{$conteoTXT} notas en el archivo de texto.".red
-    puts "#{$conteoArchivos} notas en los archivos.".red
-    abort
-end
-
-# Preguntas relativas al modo de crear las notas
-def pregunta (texto, booleano)
-    puts "\n" + texto.blue + " [s/N]:"
-    respuesta = $stdin.gets.chomp.downcase
-    if (respuesta == "" || respuesta == "n")
-        booleano = false;
-        return booleano
-    elsif (respuesta == "s")
-        booleano = true;
-        return booleano
-    else
-        pregunta texto, booleano
-    end
-end
-
-# Obtiene el booleano para determinar si se reinicia la numeración
-preguntaReinicio = "¿Reiniciar la numeración en cada sección?"
-$boolReinicio = pregunta preguntaReinicio, $boolReinicio
-
-# En TeX se agregan las notas en los archivos, pero en HTML o XHTML existe la posibilidad de añadirlos al mismo documento o crear uno nuevo
-if $archivosExistentesHTML == true
-    # Obtiene el booleano para determinar el lugar de las notas
-    preguntaColocacion = "¿Colocar las notas en el documento de cada sección?"
-    $boolColocacion = pregunta preguntaColocacion, $boolColocacion
-end
-
-puts "\nAñadiendo referencias a los archivos...".magenta.bold
-
 # Un conjunto para utilizarlo al colocar las notas con la numeración correcta
 $conteoFinal = Array.new
-
-# Agrega la referencia a los archivos
-$archivos.each do |archivo|
-    separacionesArchivo = archivo.split($divisor).length - 1
-    nivel = "..#{$divisor}"
-    rutaDiferencia = separacionesArchivo - $separacionesCarpeta
-    rutaArchivoCreado = (nivel * rutaDiferencia) + $archivoCreado
-    lineas = Array.new
-
-    # Abre el archivo para sustituir las referencias
-    archivoAbrir = File.open(archivo, 'r:UTF-8')
-
-    # Se reinicia el contador si así se ha indicado
-    if $boolReinicio
-        $conteo = 1
-    end
-
-    archivoAbrir.each do |linea|
-        inicio = linea.match(/(^\s+)/)
-        linea = linea.split
-        palabras = Array.new
-
-        # En cada línea busca palabra por palabra
-        linea.each do |palabra|
-
-            # Si la palabra tiene un «--note--», lo cambia por la nota correspondiente
-            if palabra =~ $noteRegEx
-
-                # El superíndice varía según si existe un texto personalizado o no
-                if palabra =~ /#{$note}/
-                    $sup = $conteo
-                else
-                    $sup = palabra.gsub(/(.*?)--note\(/, "").gsub(/\)--(.*)/, "")
-                end
-
-                # Añade el conteo final
-                $conteoFinal.push($sup)
-
-                # Aquí irá el texto de la nota final
-                nota = ""
-
-                # La sustitución varía según si es un tex o no
-                if File.extname(archivo) == ".tex"
-                    notaAdentro = $notasTXT[$conteoId - 1]
-
-                    # Elimina etiquetas de párrafo de HTML por si hay un despiste y da una advertencia
-                    if notaAdentro =~ /<("[^"]*"|'[^']*'|[^'">])*>/
-                        notaAdentro = notaAdentro.gsub(/<\/p>(.*?)<p(.*?)>/, "\\newline\\indent ").gsub(/<p(.*?)>/, "").gsub("</p>", "")
-                        puts "\nADVERTENCIA: se han detectado etiquetas HTML en la nota «#{$sup}» para #{archivo.split($divisor).last}."
-                    end
-
-                    # En el caso de ser un superíndice numérico
-                    if $sup.is_a? Numeric
-                        # Si se reinicia la numeración cada sección, se agrega manualmente el número de nota
-                        if $boolReinicio
-                            nota = "\\footnote[#{$sup}]{#{notaAdentro}}"
-                        else
-                            nota = "\\footnote{#{notaAdentro}}"
-                        end
-                    # En el caso de ser un superíndice personalizado
-                    else
-                        nota = "\\let\\svthefootnote\\thefootnote\\let\\thefootnote\\relax\\textsuperscript{#{$sup}}\\footnote{\\textsuperscript{#{$sup}} #{notaAdentro}}\\addtocounter{footnote}{-1}\\let\\thefootnote\\svthefootnote"
-                    end
-                else
-                    # Se modifica levemente el id del número de nota según se coloque adentro del mismo archivo o no
-                    if $boolColocacion
-                        nota = "<sup class=\"n-note-sup\" id=\"c-n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$sup}]</a></sup>"
-                    else
-                        nota = "<sup class=\"n-note-sup\" id=\"n#{$conteoId}\"><a href=\"#{rutaArchivoCreado}#n#{$conteoId}\">[#{$sup}]</a></sup>"
-                    end
-                end
-
-                # Realiza el cambio en la palabra
-                palabra = palabra.gsub($noteRegEx, nota)
-
-                # Añade las rutas relativas a cada documento para el $archivoCreado
-                $rutasRelativas.push(archivo.split($divisor)[$separacionesCarpeta..(archivo.length - 1)].join($divisor))
-
-                # Solo aumenta cuando el superíndice es numérico
-                if $sup.is_a? Numeric
-                    $conteo = $conteo + 1
-                end
-
-                # Siempre aumenta porque los id siempre son numéricos
-                $conteoId = $conteoId + 1
-            end
-
-            # Agrega la palabra modificada para crear una nueva línea
-            palabras.push(palabra)
-        end
-
-        # Crea la nueva línea donde al inicio se respeta el espacio que tenía previamente
-        lineas.push(inicio.to_s + palabras.join(" "))
-    end
-
-    # Abre el archivo para guardar los cambios
-    archivoModificar = File.open(archivo, 'w:UTF-8')
-
-    # Sustituye las antiguas líneas por las nuevas que ya tienen la nota
-    lineas.each do |linea|
-        archivoModificar.puts linea
-    end
-
-    # Cierra el archivo
-    archivoModificar.close
-end
-
-# Finaliza si solo se trata de archivos tex
-if $archivosExistentesHTML != true
-    puts $mensajeFinal
-    abort
-else
-    if $boolColocacion
-        puts "\nColocando notas en cada uno de los archivos...".magenta.bold
-    else
-        archivoExistente = $carpeta + $divisor + $archivoCreado
-        archivoExistenteBool = File.exist?(archivoExistente)
-        if archivoExistenteBool == false
-            puts "\nCreando archivo 9999-notes.xhtml...".magenta.bold
-        else
-            puts "\nRecreando archivo 9999-notes.xhtml...".magenta.bold
-        end
-    end
-end
-
-# Va a la carpeta
-Dir.chdir($carpeta)
-
-# Se resetea el contador
-$conteo = 0
-$conteoId = 1
 
 # Para añadir las notas a los archivos o en un nuevo documento
 def adicion (archivoNotes)

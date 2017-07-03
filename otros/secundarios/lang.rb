@@ -40,11 +40,16 @@ end
 langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
 
 # Generales
-$l_g_error_arg = langObj["general"]["error_arg"].red.bold
-$l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
-$l_g_error_directorio = langObj["general"]["error_directorio"]
-$l_g_error_archivo = langObj["general"]["error_archivo"]
-$l_g_error_archivo2 = langObj["general"]["error_archivo2"]
+$l_g_pc_pandog = langObj["general"]["pc_pandog"]
+$l_g_pc_sandbox = langObj["general"]["pc_sandbox"]
+$l_g_pc_tegs = langObj["general"]["pc_tegs"]
+$l_g_pc_creator = langObj["general"]["pc_creator"]
+$l_g_pc_divider = langObj["general"]["pc_divider"]
+$l_g_pc_notes = langObj["general"]["pc_notes"]
+$l_g_pc_cites = langObj["general"]["pc_cites"]
+$l_g_pc_index = langObj["general"]["pc_index"]
+$l_g_pc_recreator = langObj["general"]["pc_recreator"]
+$l_g_pc_changer = langObj["general"]["pc_changer"]
 $l_g_fin = langObj["general"]["fin"].blue.bold
 $l_g_sin_titulo = langObj["general"]["sin_titulo"]
 $l_g_id_title = langObj["general"]["id_title"]
@@ -52,12 +57,18 @@ $l_g_id_author = langObj["general"]["id_author"]
 $l_g_id_publisher = langObj["general"]["id_publisher"]
 $l_g_meta_data = langObj["general"]["meta_data"]
 $l_g_marca = langObj["general"]["marca"]
-$l_g_marca_interior = langObj["general"]["marca_interior"]
+$l_g_marca_in_1 = langObj["general"]["marca_in_1"]
+$l_g_marca_in_2 = langObj["general"]["marca_in_2"]
+$l_g_note_content = langObj["general"]["note_content"]
 $l_g_ignore = langObj["general"]["ignore"]
 $l_g_delete = langObj["general"]["delete"]
 $l_g_change = langObj["general"]["change"]
 $l_g_note = langObj["general"]["note"]
-$l_g_note_content = langObj["general"]["note_content"]
+$l_g_error_arg = langObj["general"]["error_arg"].red.bold
+$l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
+$l_g_error_directorio = langObj["general"]["error_directorio"]
+$l_g_error_archivo = langObj["general"]["error_archivo"]
+$l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 
 # Pandog
 $l_pg_v = langObj["pandog"]["v"]
@@ -124,6 +135,16 @@ $l_di_dividiendo = langObj["divider"]["dividiendo"].green
 $l_di_creando = langObj["divider"]["creando"]
 $l_di_error_f = langObj["divider"]["error_f"].red.bold
 $l_di_error_i = langObj["divider"]["error_i"].red.bold
+
+# Notes
+$l_no_v = langObj["notes"]["v"]
+$l_no_h = langObj["notes"]["h"]
+$l_no_comparando = langObj["notes"]["comparando"].green
+$l_no_anadiendo = langObj["notes"]["anadiendo"].green
+$l_no_oculto = langObj["notes"]["oculto"]
+$l_no_archivo_notas = langObj["notes"]["archivo_notas"]
+$l_no_error_f = langObj["notes"]["error_f"].red.bold
+$l_no_error_c = langObj["notes"]["error_c"]
 
 # Recreator
 $l_re_v = langObj["recreator"]["v"]

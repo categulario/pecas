@@ -100,7 +100,7 @@ if cambio
 			# Separa el contenido de la marca
 			lineaLimpia = linea.split($l_g_marca)
 			linea0 = lineaLimpia[0].strip
-			linea1 = lineaLimpia[1].split($l_g_marca_interior)[1].to_s[0..-2]
+			linea1 = lineaLimpia[1].split($l_g_marca_in_1)[1].to_s[0..-2]
 			lineaConjunto = [linea0, linea1]
 			
 			# Agrega la marca al hash según su tipo

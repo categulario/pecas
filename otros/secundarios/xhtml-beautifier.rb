@@ -50,7 +50,7 @@ def beautifier archivo
 	archivo_abierto = File.open(archivo, "r")
 	archivo_abierto.each do |l|
 		# Se eliminan los espacios al inicio y los saltos de línea
-		elementos.push(l.gsub(/^\s+/, "").gsub(/\n/, ""))
+		elementos.push(l.strip.gsub(/\n/, ""))
 	end
 	archivo_abierto.close
 	
