@@ -187,6 +187,26 @@ def directorioPadreTerminal archivo
 	return directorio
 end
 
+def cambioContenido archivo_cambio, regex, contenido
+	archivo_actualizado = Array.new
+	
+	# Analiza el archivo viejo y sustituye la línea deseada
+	archivo = File.open(archivo_cambio, 'r:UTF-8')
+	archivo.each do |linea|
+		if linea =~ regex
+			archivo_actualizado.push(contenido)
+		else
+			archivo_actualizado.push(linea)
+		end
+	end
+	archivo.close
+	
+	# Se actualiza la información
+	archivo = File.new(archivo_cambio, 'w:UTF-8')
+	archivo.puts archivo_actualizado
+	archivo.close
+end
+
 # Obtiene la ruta al archivo CSS
 def archivoCSSBusqueda archivoCSS, carpeta
 	if archivoCSS != nil

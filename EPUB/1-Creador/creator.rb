@@ -49,10 +49,16 @@ end
 puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green
 Dir.mkdir epubNombre
 
+# Crea el archivo de metadatos
 metadata = $l_g_meta_data
 $l_g_meta_data = File.new($l_g_meta_data, "w:UTF-8")
 $l_g_meta_data.puts $l_cr_yaml
 $l_g_meta_data.close
+
+# Se añade el nombre de la portada a los metadatos si se especificó uno
+if epubPortada != nil
+	cambioContenido $l_g_meta_data, /cover/, "cover: #{File.basename(epubPortada)}"
+end
 
 # Se mete a la carpeta padre
 epubUbicacion = epubUbicacion + "/" + epubNombre
