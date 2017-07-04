@@ -401,8 +401,13 @@ archivoOtros = archivoOtros.sort
 # Se va a la carpeta con todos los contenidos
 Dir.chdir(carpetaContenido)
 
-# Crea el uid
-uid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
+# Crea el uid a partir del título
+begin
+	uid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
+rescue
+	puts $l_re_error_t
+	abort
+end
 
 # Recrea el OPF
 puts $l_re_recreando_opf

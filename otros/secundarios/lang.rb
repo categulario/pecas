@@ -171,3 +171,4 @@ $l_re_error_y = langObj["recreator"]["error_y"]
 $l_re_error_e = langObj["recreator"]["error_e"]
 $l_re_error_a = langObj["recreator"]["error_a"]
 $l_re_error_m = langObj["recreator"]["error_m"].red.bold
+$l_re_error_t = langObj["recreator"]["error_t"].red.bold

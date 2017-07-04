@@ -140,3 +140,4 @@ recreator:
   error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para EPUB."]
   error_a: ["\nERROR: no se encontró un archivo ","."]
   error_m: "\nERROR: problema con las medidas para el EPUB fijo."
+  error_t: "\nERROR: el metadato «title» en el archivo YAML es obligatorio."
