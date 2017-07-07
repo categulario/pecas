@@ -26,6 +26,9 @@ no-toc:
 no-spine: 
 custom: 
 
+# Fallbacks
+fallback: 
+
 # Si se quiere EPUB fijo
 px-width: 
 px-height: 
@@ -46,6 +49,8 @@ px-height:
 	* `no-toc`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. Por defecto no tiene valor.
 	* `no-spine`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. Por defecto no tiene valor.
 	* `custom`. Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. Por defecto no tiene valor.
+* Fallbacks:
+    * `fallback`. Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. Por defecto no tiene valor.
 * Si se quiere EPUB fijo:
 	* `px-width`. Anchura en pixeles para el EPUB. Por defecto no tiene valor.
 	* `px-height`. Altura en pixeles para el EPUB. Por defecto no tiene valor.
@@ -120,11 +125,48 @@ Esto generaría esté índice:
 > Para crear una nueva jerarquía se agregan dos espacios adicionales al
 inicio.
 
-> Si no se crean los objetos similares al ejemplo, `pc-creator` ignorará 
-estas especificaciones.
+> Si no se crean los objetos similares al ejemplo, `pc-recreator` 
+ignorará estas especificaciones.
 
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
+
+### *Fallbacks*
+
+En ciertas ocasiones en el EPUB se querrá incluir un recurso externo
+(un tipo de archivo que no es soportado directamente), por ejemplo un
+PDF embebido.
+
+Para ello es necesario indicar un *fallback* y así tener un EPUB
+válido. La indicación es sencilla:
+
+```
+fallback: 
+  anexo.pdf: algun_archivo.xhtml
+```
+
+En primer elemento antes de los dos puntos es el recurso externo. El 
+elemento después de los dos puntos es el archivo XHTML desde donde se 
+llama al recurso a partir de un enlace; siguiendo con el ejemplo,
+en `algun_archivo.xhtml` se tiene:
+
+```html
+...
+<p><a href="anexo.pdf">Abrir archivo</a>.</p>
+...
+```
+
+> Por el momento solo se admiten archivo PDF, si hay otro recurso externo
+que quieras agregar, ¡ponte en contacto!
+
+> Para crear una nueva jerarquía se agregan dos espacios adicionales al
+inicio.
+
+> Si no se crean los objetos similares al ejemplo, `pc-recreator` 
+ignorará estas especificaciones.
+
+> Puede indicarse la extensión del archivo externo o del XHTML, aunque 
+no es necesario.
 
 ## Validadores
 

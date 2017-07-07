@@ -99,6 +99,8 @@ def tipo (archivo)
         return 'application/mpeg'
     elsif extension == '.mp4'
         return 'application/mp4'
+	elsif extension == '.pdf'
+        return 'application/pdf'
     elsif extension == '.css'
         return 'text/css'
     elsif extension == '.js'
@@ -458,6 +460,9 @@ if yaml["cover"] != nil && archivoPor != ""
 	opf.puts "        <item href=\"#{archivoPor}\" id=\"#{id archivoPor}\" media-type=\"#{tipo archivoPor}\" properties=\"cover-image\" />"
 end
 
+# Para archivos externos, si los hay
+externos = Array.new
+
 # Agrega el resto de los archivos encontrados
 archivoOtros.each do |archivo|
 	propiedadesConjunto = Array.new
@@ -486,13 +491,36 @@ archivoOtros.each do |archivo|
 		propiedades = "\" properties=\"" + propiedadesConjunto.to_s.gsub("[","").gsub("]","").gsub("\"","").gsub(",","")
 	end
 	
-	opf.puts "        <item href=\"#{archivo}\" id=\"#{id archivo}\" media-type=\"#{tipo archivo}#{propiedades}\" />"
+	# Para el caso particular de recursos externos; OJO: actualmente solo se han contemplado PDF
+	if tipo(archivo) == "application/pdf"
+		if yaml["fallback"].kind_of?(Hash)
+			yaml["fallback"].each do |key, value|
+				key = key.split(".")[0]
+				value = value.split(".")[0]
+				
+				# Si conincide el nombre del archivo con el del YAML se agrega
+				if key == File.basename(archivo).split(".")[0]
+					externos.push(id archivo)
+					opf.puts "        <item href=\"#{archivo}\" id=\"#{id archivo}\" media-type=\"#{tipo archivo}#{propiedades}\" fallback=\"id_#{value.gsub(".","_")}_xhtml\" />"
+				end
+			end
+		end
+	else
+		opf.puts "        <item href=\"#{archivo}\" id=\"#{id archivo}\" media-type=\"#{tipo archivo}#{propiedades}\" />"
+	end
 end
 
 opf.puts "    </manifest>"
 opf.puts "    <spine toc=\"#{id archivoNcx}\">"
 
 incluir? archivoOtros, yaml, "no-spine", opf
+
+# Agrega los archivos externos de manera oculta, si los hay
+if externos.length > 0
+	externos.each do |archivo|
+		opf.puts "        <itemref idref=\"#{archivo}\" linear=\"no\"/>"
+	end
+end
 
 opf.puts "    </spine>"
 opf.puts "</package>"
