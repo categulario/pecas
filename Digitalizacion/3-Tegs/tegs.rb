@@ -37,7 +37,7 @@ pdfs = Array.new	# Solo para Windows
 # Cuenta la cantidad de archivos a reconocer
 total = 0
 Dir.foreach(directorio) do |archivo|
-	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
+	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif' or File.extname(archivo) == '.jpeg' or File.extname(archivo) == '.jpg'
 		total = total + 1
 	end
 end
@@ -45,7 +45,7 @@ end
 # Inicia Tesseract
 actual = 0
 Dir.foreach(directorio) do |archivo|
-	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif'
+	if File.extname(archivo) == '.bmp' or File.extname(archivo) == '.png' or File.extname(archivo) == '.tiff' or File.extname(archivo) == '.tif' or File.extname(archivo) == '.jpeg' or File.extname(archivo) == '.jpg'
   
 		archivo_sin_extension = archivo.split(".").first
 		
