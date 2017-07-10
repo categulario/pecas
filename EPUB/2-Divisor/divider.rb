@@ -26,7 +26,7 @@ argumento "-h", $l_di_h
 comprobacion [archivo]
 
 # Comprueba que el archivo tenga la extensión correcta
-archivo = comprobacionArchivo archivo, [".html", ".xhtml", ".htm"]
+archivo = comprobacionArchivo archivo, [".html", ".xhtml", ".xml", ".htm"]
 
 # Comprueba que el índice sea un número
 if indice.is_i? == false
