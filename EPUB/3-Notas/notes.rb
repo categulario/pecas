@@ -68,11 +68,7 @@ if txtEsMD
 	txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
 
 	# Se usa Pandog, que a su vez usa Pandoc
-	if OS.windows?
-		system "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
-	else
-		system "pc-pandog -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
-	end
+	system "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
 	
 	# Crea la ruta absoluta
 	txt_oculto = directorioPadre(txt) + "/" + txt_oculto
