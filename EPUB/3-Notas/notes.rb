@@ -166,6 +166,7 @@ archivos.each do |archivo|
 	end
 
 	# Analiza por palabra para cambiar la nota
+	notaHay = false
     archivo = File.open(archivo, 'r:UTF-8')
     archivo.each_with_index do |linea, i|
 		if linea !~ /<\s*?\/\s*?body/ && linea !~ /<\s*?\/\s*?html/
@@ -191,6 +192,9 @@ archivos.each do |archivo|
 				
 				# Si es una nota sencilla
 				if palabra =~ /#{$l_g_note[0] + $l_g_note[1]}/
+					# Indica que hay nota
+					notaHay = true
+					
 					# Identifica si es la primera nota del archivo
 					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
 				
@@ -214,6 +218,9 @@ archivos.each do |archivo|
 					notaReal = notaReal + 1
 				# Si es una nota personalizada
 				elsif palabra =~ /#{$l_g_note[0]}(.*?)#{$l_g_note[1]}/
+					# Indica que hay nota
+					notaHay = true
+					
 					# Identifica si es la primera nota del archivo
 					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
 					
@@ -247,7 +254,7 @@ archivos.each do |archivo|
     # Modifica los elementos innecesarios
 	archivo = File.open(archivo, 'w:UTF-8')
 	archivo.puts archivo_tmp
-	if htmlHay && inner
+	if htmlHay && inner && notaHay
 		archivo.puts "<hr class=\"#{$l_no_nota_hr}\" />"
 		archivo.puts "<section epub:type=\"footnotes\">"
 		archivo.puts archivo_tmp_footer
