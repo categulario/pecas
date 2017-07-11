@@ -15,9 +15,9 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 # Argumentos
 epubUbicacion = if argumento "-d", epubUbicacion != nil then argumento "-d", epubUbicacion else Dir.pwd end
 epubNombre = if argumento "-o", epubNombre != nil then argumento "-o", epubNombre else $l_cr_epub_nombre end
-epubCSS = argumento "-s", epubCSS
-epubPortada = argumento "-c", epubPortada
-epubImagenes = argumento "-i", epubImagenes
+epubCSS = if argumento "-s", epubCSS != nil then argumento "-s", epubCSS end
+epubPortada = if argumento "-c", epubPortada != nil then argumento "-c", epubPortada end
+epubImagenes = if argumento "-i", epubImagenes != nil then argumento "-i", epubImagenes end
 argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
 
@@ -37,7 +37,7 @@ Dir.chdir(epubUbicacion)
 # Verifica que no existan conflictos con el nombre de los archivos a crear
 Dir.glob("*") do |archivo|
 	if File.exists?(epubNombre) == true
-		puts $l_cr_error_nombre
+		puts $l_g_error_nombre
 		abort
 	elsif File.exists?($l_g_meta_data) == true
 		puts $l_cr_error_meta
