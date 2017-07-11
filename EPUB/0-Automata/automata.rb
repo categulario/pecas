@@ -83,7 +83,7 @@ def verificacion epub, version, log
 	ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub}"
 	
 	# Si mo se encontró EpubCheck 4.0.2
-	if !$?.success?
+	if $?.exitstatus == 127
 		$log.push("\nADVERTENCIA: " + log + "\n" + $l_au_epubcheck)
 		puts $l_au_epubcheck.yellow
 	end
@@ -185,7 +185,7 @@ else
 		end
 	end
 	
-	xhtml = proyecto.to_s + "/#{File.basename(archivo_madre).split(".")[0]}.xhtml"
+	xhtml = proyecto.to_s + "/.#{File.basename(archivo_madre).split(".")[0]}.xhtml"
 	
 	# Conversión si es necesaria
 	if File.extname(archivo_madre) == ".md"
@@ -227,7 +227,7 @@ else
 	ejecutar "\n# kindlegen", "kindlegen #{$l_cr_epub_nombre + ".epub"}"
 	
 	# Si no se encontró KindleGen
-	if !$?.success?
+	if $?.exitstatus == 127
 		$log.push("\nADVERTENCIA: # kindlegen\n" + $l_au_kindlegen)
 		puts $l_au_kindlegen.yellow
 	end
@@ -238,42 +238,4 @@ end
 
 reporte
 
-puts $l_g_fin
-
-=begin
-
-* HAY UN ERROR EN NOTES, pone el hr en donde no hay notas
-* pc-automata -f 3-lsd.md -d automata/ -n 3-lsd_notas.md -c imag\ énes/portada.jpg -i imag\ énes/ -s estilos.css --index 10 --section --reset --inner -y automata/automata_meta-data2.yaml 
-* FALTA modificar gráfico flujo-de-trabajo.jpg para incluir a pc-automata
-* FALTA ayuda
-
-pc-automata
-
-Parámetro necesario para la inicialización
-  --init = Crea la carpeta del proyecto y el archivo YAML necesarios para la automatización.
-
-Parámetros opcionales para la inicialización
-  -o = [output] Nombre del proyecto.
-  --directory = Directorio donde se creará el proyecto.
-  
-Parámetro necesario para la automatización
-  -f = [file] Archivo madre en MD, HTML, XHTML, XML o HTM.
-  
-Parámetros opcionales para la autmatización
-  -c = [cover] Ruta a la imagen de portada que se desea incluir.
-  -d = [directory] Ruta al proyecto.
-  -i = [images] Ruta a la carpeta con las imágenes que se desean incluir.
-  -n = [notes] Archivo con las notas en formato MD.
-  -s = [style sheet] Ruta al archivo CSS que se desea incluir.
-  -y = [yaml] Ruta al archivo con los metadatos para el EPUB.
-  -32 = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits.
-  --index = Índice con el que ha de comenzar la numeración de los archivos divididos.
-  --inner = SOLO HTML, incluye las notas al pie al final del archivo.
-  --reset =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
-  --section = Divide el archivo madre cada <section>.
-
-Parámetros únicos:
-  -v = [version] Muestra la versión.
-  -h = [help] Muestra esta ayuda.
-
-=end
+puts "\n" + $l_g_fin
