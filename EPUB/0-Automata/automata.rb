@@ -234,8 +234,8 @@ else
 	
 	# Elimina el archivo XHTML porque ya no es necesario
 	FileUtils.rm_rf(xhtml)
+	
+	reporte
 end
-
-reporte
 
 puts "\n" + $l_g_fin
