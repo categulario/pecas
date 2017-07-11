@@ -89,6 +89,7 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`Archivo-madre/1-Pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog).
 * `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`Archivo-madre/2-Sandbox`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/2-Sandbox).
 * `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
+* `pc-automata` llama a `automata.rb`, cuya documentación se encuentra en [`EPUB/0-Automata`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/0-Automata).
 * `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
 * `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
 * `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).

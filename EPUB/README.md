@@ -13,14 +13,13 @@ distintas opciones.
 
 2. `divider.rb`. Separa un documento HTML cada `<h1>`.
 
-3. `footnotes.rb`. Agrega de manera automatizada
+3. `notes.rb`. Agrega de manera automatizada
 las notas a archivos con sintaxis tipo HTML o 
 documentos TeX.
 
 4. `cites.rb`. Agrega de manera automatizada la
 bibliografía en formato `.bib`
-([BibTeX](http://www.bibtex.org/)) a un libro
-EPUB.
+([BibTeX](http://www.bibtex.org/)) a un EPUB.
 
 5. `recreator.rb`. Recrea los archivos OPF, NCX y
 NAV así como crea o recrea el archivo EPUB.
@@ -28,7 +27,13 @@ NAV así como crea o recrea el archivo EPUB.
 6. `changer.rb`. Cambia versiones de EPUB entre
 `3.0.0` y `3.0.1`.
 
-7. `index.rb`. Agrega índices analíticos.
+7. `index.rb`. Agrega índices analíticos para un
+EPUB.
+
+## Automatización
+
+* `automata.rb`. Automatiza el flujo de trabajo al poder
+usar todos los *scripts* para EPUB con una sola línea de comandos.
 
 ## YAML
 

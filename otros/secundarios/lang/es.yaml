@@ -30,6 +30,7 @@ general:
   error_directorio: ["\nERROR: al parecer el directorio «", "» no existe."]
   error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
   error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
+  error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
 
 # pc-pandog
 pandog: 
@@ -43,7 +44,7 @@ pandog:
 # pc-sandbox
 sandbox: 
   v: "sandbox 0.1.0"
-  h: "AYUDA"
+  h: "\nAYUDA"
   txt_marcado: "marcado.txt"
   txt_cifras: "cifras.txt"
   txt_uniones: "uniones.txt"
@@ -79,6 +80,26 @@ tegs:
   error: 
     te: "\nERROR: no fue posible iniciar Tesseract."
     gs: "\nERROR: no fue posible iniciar Ghostscript."
+    
+# pc-automata
+automata:
+  v: "automata 0.1.0"
+  h: "\nAYUDA"
+  nombre: "epub-automata"
+  prefijo: "automata_"
+  init_archivo: ".automata_init"
+  init_contenido: "Archivo para detectar que se trata de un proyecto de Automata, no borrar."
+  log: "log.txt"
+  creando: ["Creando carpeta del proyecto con el nombre «","»..."]
+  eliminando: "Eliminando ficheros excepto los archivos YAML o TXT..."
+  verificando: ["\nVerificando «","»..."]
+  convirtiendo: ["\nConvirtiendo «","» a MOBI..."]
+  epubcheck: "EpubCheck no pudo ser localizado, los EPUB no pueden ser verificados..."
+  kindlegen: "KindleGen no pudo ser localizado, no fue posible crear un archivo MOBI..."
+  pregunta: "La automatización solo permite la existencia de archivos YAML, ¿eliminar el resto de los archivos? [Y/n] "
+  error_a: "\nERROR: proceso abortado por el usuario."
+  error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para Automata."]
+  error_r: ["\nERROR: algo salió mal, eliminando archivos creados...","ERROR: proceso abortado satisfactoriamente, un log ha sido creado para su análisis."]
 
 # pc-creator
 creator: 
@@ -91,7 +112,6 @@ creator:
   xhtml_portadilla: "Portadilla"
   xhtml_legal: "Legal"
   creando: ["Creando carpeta del EPUB con el nombre «","»..."]
-  error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
   error_meta: "\nERROR: ya existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
 
 # pc-divider
@@ -141,3 +161,9 @@ recreator:
   error_a: ["\nERROR: no se encontró un archivo ","."]
   error_m: "\nERROR: problema con las medidas para el EPUB fijo."
   error_t: "\nERROR: el metadato «title» en el archivo YAML es obligatorio."
+
+# pc-changer
+changer:
+  v: "changer 0.1.0"
+  h: "\nAYUDA"
+  sufijo: "-3.0.0"

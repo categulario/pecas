@@ -69,6 +69,7 @@ $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
 $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
+$l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
 
 # Pandog
 $l_pg_v = langObj["pandog"]["v"]
@@ -115,6 +116,25 @@ $l_tg_limpiando = langObj["tegs"]["limpiando"].green
 $l_tg_error_te = langObj["tegs"]["error"]["te"].red.bold
 $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
 
+# Automata
+$l_au_v = langObj["automata"]["v"]
+$l_au_h = langObj["automata"]["h"]
+$l_au_nombre = langObj["automata"]["nombre"]
+$l_au_prefijo = langObj["automata"]["prefijo"]
+$l_au_init_archivo = langObj["automata"]["init_archivo"]
+$l_au_init_contenido = langObj["automata"]["init_contenido"]
+$l_au_log = langObj["automata"]["log"]
+$l_au_creando = langObj["automata"]["creando"]
+$l_au_eliminando = langObj["automata"]["eliminando"].green
+$l_au_verificando = langObj["automata"]["verificando"]
+$l_au_convirtiendo = langObj["automata"]["convirtiendo"]
+$l_au_pregunta = langObj["automata"]["pregunta"]
+$l_au_epubcheck = langObj["automata"]["epubcheck"]
+$l_au_kindlegen = langObj["automata"]["kindlegen"]
+$l_au_error_a = langObj["automata"]["error_a"].red.bold
+$l_au_error_e = langObj["automata"]["error_e"]
+$l_au_error_r = langObj["automata"]["error_r"]
+
 # Creator
 $l_cr_v = langObj["creator"]["v"]
 $l_cr_h = langObj["creator"]["h"]
@@ -125,7 +145,6 @@ $l_cr_xhtml_portada = langObj["creator"]["xhtml_portada"]
 $l_cr_xhtml_portadilla = langObj["creator"]["xhtml_portadilla"]
 $l_cr_xhtml_legal = langObj["creator"]["xhtml_legal"]
 $l_cr_creando = langObj["creator"]["creando"]
-$l_cr_error_nombre = langObj["creator"]["error_nombre"].red.bold
 $l_cr_error_meta = langObj["creator"]["error_meta"].red.bold
 
 # Divider
@@ -172,3 +191,8 @@ $l_re_error_e = langObj["recreator"]["error_e"]
 $l_re_error_a = langObj["recreator"]["error_a"]
 $l_re_error_m = langObj["recreator"]["error_m"].red.bold
 $l_re_error_t = langObj["recreator"]["error_t"].red.bold
+
+# Cambiador
+$l_ch_v = langObj["changer"]["v"]
+$l_ch_h = langObj["changer"]["h"]
+$l_ch_sufijo = langObj["changer"]["sufijo"]
