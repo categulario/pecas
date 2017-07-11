@@ -28,7 +28,7 @@ elif [[ -f ~/.profile ]]; then
   profile_script_short="~/.profile"
   profile_script_full=~/.profile
 else
-  echo "No se encontró archivo de configuración, creando archivo .bash_profile en la carpeta raíz del usuario"
+  echo "No se encontró archivo de configuración, creando archivo .bash_profile en la carpeta raíz del usuario."
   echo ""
   touch ~/.bash_profile
   profile_script_short="~/.bash_profile"
@@ -83,4 +83,4 @@ fi
 
 # Fin, lo ideal es que fuera automático
 echo ""
-echo "Cierra y abre la terminal, o ingresa «source ~/.bash_profile» para que los cambios tomen efecto"
+echo "Cierra y abre la terminal, o ingresa «source ~/.bash_profile» para que los cambios tomen efecto."
