@@ -9,6 +9,9 @@ require 'fileutils'
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
+require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+
+# OJO: FileUtils.rm_rf no elimina la carpeta oculta del EPUB viejo descomprimido
 
 # Obtiene los argumentos necesarios
 if ARGF.argv.length <= 1
@@ -47,11 +50,7 @@ if OS.windows?
 end
 
 # Obtiene la ruta del EPUB y su nombre
-if OS.windows?
-    $rutaEpubArray = $rutaConEpub.split('\\')
-else
-    $rutaEpubArray = $rutaConEpub.split($divisor)
-end
+$rutaEpubArray = $rutaConEpub.split($divisor)
 
 $rutaEpubArray.each do |c|
 
@@ -70,24 +69,21 @@ end
 # Va a la carpeta
 Dir.chdir($carpeta)
 
-# Por defecto usa el comando de las terminales UNIX
-unzip = 'unzip'
-
-# Reajustes para Windows
+# Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
-    $rutaConEpub = $rutaConEpub.gsub('/', '\\')
-    puts "\nArrastra el unzip.exe".blue
-    unzip = $stdin.gets.chomp
+	unzip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/unzip.exe"}"
+else
+	unzip = "unzip"
 end
 
 puts "\nDescomprimiendo EPUB...".magenta.bold
 
-system ("#{unzip} -qq #{$comillas}#{$rutaConEpub}#{$comillas} -d #{$directorio}")
+system ("#{unzip} -qq #{arregloRutaTerminal $rutaConEpub} -d #{$directorio}")
 
 # Elimina la carpeta temporal
 def removerCarpeta
     ruta = $carpeta + $directorio
-    FileUtils.rm_rf(ruta)
+	FileUtils.rm_rf(ruta)
 end
 
 # Para obtener la línea del OPF donde se indica su versión y todas las líneas
@@ -184,13 +180,11 @@ Dir.chdir($carpeta + $directorio)
 # La ruta para crear el EPUB
 $rutaEPUB = "../#{$epub}-#{$version}.epub"
 
-# Por defecto se usa el comando de las terminales UNIX
-zip = 'zip'
-
-# Reajustes para Windows
+# Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
-    puts "\nArrastra el zip.exe".blue
-    zip = $stdin.gets.chomp
+	zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x64.exe"}"
+else
+	zip = "zip"
 end
 
 espacio = ' '

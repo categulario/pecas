@@ -139,7 +139,7 @@ def arregloRuta elemento
 	# Elimina espacios al inicio y al final
     elemento = elemento.strip
 
-    # Elimina caracteres conficlitos
+    # Elimina caracteres confictivos
     elementoFinal = elemento.gsub("file:","").gsub("%20"," ")
 
     if OS.windows?
@@ -176,11 +176,12 @@ end
 
 # Obtiene el directorio donde se encuentra el archivo para uso directo en el sistema
 def directorioPadreTerminal archivo
-	directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 
 	if OS.windows?
+		directorio = (arregloRuta(archivo).split("/"))[0..-2].join("/")
 		directorio = '"' + directorio + '"'
 	else
+		directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 		directorio = directorio.gsub(/\s/, "\\ ")
 	end
 	

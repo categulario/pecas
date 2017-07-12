@@ -66,12 +66,12 @@ end
 if txtEsMD
 	# Se determina la ruta y nombre del archivo convertido
 	txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
-
-	# Se usa Pandog, que a su vez usa Pandoc
-	system "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{txt_oculto}"
 	
 	# Crea la ruta absoluta
 	txt_oculto = directorioPadre(txt) + "/" + txt_oculto
+
+	# Se usa Pandog, que a su vez usa Pandoc
+	system "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}"
 		
 	# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
 	archivo = File.open(txt_oculto, 'r:UTF-8')
