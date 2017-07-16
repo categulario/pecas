@@ -15,6 +15,8 @@ según el modelo del *single source and online publishing*.
 * [Instalación](#instalación)
 * [Utilización](#utilización)
 * [Pendientes](#pendientes)
+* [¿Pecas?](#pecas)
+* [Cursitos](#cursitos)
 * [Licencia](#licencia)
 
 ---
