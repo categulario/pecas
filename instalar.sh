@@ -83,4 +83,4 @@ fi
 
 # Fin, lo ideal es que fuera automático
 echo ""
-echo "Cierra y abre la terminal, o ingresa «source ~/.bash_profile» para que los cambios tomen efecto."
+echo "Cierra y abre la terminal, o ingresa «source $profile_script_short» para que los cambios tomen efecto."
