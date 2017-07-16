@@ -12,8 +12,8 @@ según el modelo del *single source and online publishing*.
 
 * [SSOP](#single-source-and-online-publishing-ssop)
 * [Requisitos](#requisitos)
+* [Instalación](#instalación)
 * [Utilización](#utilización)
-* [Binarios](#binarios)
 * [Pendientes](#pendientes)
 * [Licencia](#licencia)
 
@@ -51,36 +51,41 @@ de un formato de salida a otro.
 
 ## Todos
 
-* [Ruby](https://www.ruby-lang.org/es/) > 1.9.3
-  * Gema `activesupport` => `gem install activesupport`
+* [Ruby](https://www.ruby-lang.org/es/) >= 1.9.3
+  * Gema `activesupport`:
+  
+	`gem install activesupport` si es Ruby >= 2.2.2
+	
+	`gem install activesupport -v 4.2.6` si es Ruby < 2.2.2
   
 ## Digitalización
 
 * [Tesseract](https://github.com/tesseract-ocr/tesseract)
 * [Ghostscript](https://www.ghostscript.com/)
+* [Scan Tailor](http://scantailor.org/) (opcional)
 
 ## Archivo Madre
 
-* [Pandoc](http://pandoc.org/) > 1.19
+* [Pandoc](http://pandoc.org/) >= 1.19
 
-# Utilización
-
-Las herramientas pueden utilizarse de tres maneras:
-
-1. Escribiendo `ruby` en la terminal y arrastrando el *script* correspondiente.
-2. Arrastrando el *script* deseado a la terminal.
-3. Instalando los binarios para utilizar los *script* directamente.
-
-# Binarios
+# Instalación
 
 **Solo para sistemas UNIX (Linux y Mac OS X).**
 
 Los binarios permiten acceder a las herramientas desde la terminal sin necesidad
-de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencilla:
+de indicar la ruta del `script` ni de arrastrarlo. Su instalación es muy sencilla,
+desde la terminal:
 
-###### 1. Ingresa a esta carpeta en la terminal.
-###### 2. Llama al instalador con `bash instalar.sh`.
-###### 3. ¡Listo!
+1. Escribir `bash `.
+2. Arrastrar el archivo `instalar.sh`.
+3. Presionar enter para ejecutar.
+
+## Instalación con terceros
+
+Existe la posibilidad de instalar las herramientas junto con el *software*
+de terceros necesario. Su instalación es muy sencilla, 
+[véase este enlace](https://github.com/NikaZhenya/cursitos/tree/master/instalacion)
+para más información.
 
 ## Utilización de los binarios
 
@@ -99,10 +104,18 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 * `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
 
     **Nota**: si ningún binario se encuentra, es necesario refrescar el archivo de
-    inicialización de usuario que `./instalar.sh` nos menciona. Para hacer esto
+    inicialización de usuario que `instalar.sh` nos menciona. Para hacer esto
     solo tiene que cerrar y volver a abrir la terminal. Si no se desea cerrarla,
-    se ha de escribir `source [archivo de inicialización de usuario]`. Este
+    se ha de escribir `source <archivo de inicialización de usuario>`. Este
     procedimiento solo se hace una vez, cuando se termina la instalación.
+
+# Utilización
+
+Las herramientas pueden utilizarse de tres maneras:
+
+1. Escribiendo `ruby` en la terminal y arrastrando el *script* correspondiente.
+2. Arrastrando el *script* deseado a la terminal.
+3. Instalando las herramientas como se indicó en la sección anterior.
 
 # Pendientes
 
@@ -121,6 +134,12 @@ Solo es necesario escribir el nombre del binario para llamar al script:
 # ¿Pecas?
 
 Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el mundo exterior, ¡larga vida a Pecas!
+
+# Cursitos
+
+Para aprender más sobre la metodología de trabajo a la que se orienta Pecas,
+así como para practicar en el uso de estas herramientas, [consúltese Cursitos](http://www.cursitos.cliteratu.re/),
+un repositorio pensado para la elaboración de talleres.
 
 # Licencia
 
