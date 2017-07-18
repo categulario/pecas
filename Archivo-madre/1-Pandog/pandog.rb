@@ -94,7 +94,7 @@ def mdAhtml s_path, s_nombre
 	# Empiezaa leer línea por línea del archivo de salida
 	archivo_abierto = File.open(s_nombre_actual, "r:UTF-8")
 	archivo_abierto.each do |linea|
-		# En XML se eliimna el espacio de nombres
+		# En XML se elimina el espacio de nombres
 		if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
 			linea = linea.split(/\s/)[0] + ">"
 		end
@@ -103,7 +103,7 @@ def mdAhtml s_path, s_nombre
 		linea = linea.gsub(/<[^>]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
 		# Evita que los identificadores de los encabezados hereden sintaxis de Pecas
-		if linea =~ /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
+		if linea =~ /(id=".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
 			linea = linea.gsub(/(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/, /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/.match(linea).captures.join)
 		end
 		
