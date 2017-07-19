@@ -190,6 +190,10 @@ else
 	# Conversión si es necesaria
 	if File.extname(archivo_madre) == ".md"
 		ejecutar "# pc-pandog", "ruby #{File.dirname(__FILE__)+ "/../../Archivo-madre/1-Pandog/pandog.rb"} -i #{arregloRutaTerminal archivo_madre} -o #{arregloRutaTerminal xhtml}"
+	# De lo contrario copia el archivo y lo renombra
+	else
+		FileUtils.cp(archivo_madre, Dir.pwd)
+		File.rename(File.basename(archivo_madre), "." + File.basename(archivo_madre))
 	end
 	
 	# Agrega la portada al YAML
