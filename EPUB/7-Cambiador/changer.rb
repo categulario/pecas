@@ -178,7 +178,7 @@ end
 Dir.chdir($carpeta + $directorio)
 
 # La ruta para crear el EPUB
-$rutaEPUB = "../#{$epub}-#{$version}.epub"
+$rutaEPUB = "../#{$epub}_#{$version.gsub(".","-")}.epub"
 
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
@@ -191,7 +191,7 @@ espacio = ' '
 
 # Elimina el EPUB previo
 Dir.glob($carpeta + $divisor + '**') do |archivo|
-    if File.basename(archivo) == "#{$epub}-#{$version}.epub"
+    if File.basename(archivo) == "#{$epub}_#{$version.gsub(".","-")}.epub"
         espacio = ' nuevo '
         puts "\nEliminando EPUB versión #{$version} previo...".magenta.bold
         FileUtils.rm_rf($rutaEPUB)
@@ -207,5 +207,5 @@ system ("#{zip} #{$comillas}#{$rutaEPUB}#{$comillas} -r #{$primerosArchivos[-2]}
 removerCarpeta
 
 # Finaliza la creación
-puts "\n#{$epub}-#{$version}.epub creado en: #{$carpeta}".magenta.bold
+puts "\n#{$epub}_#{$version.gsub(".","-")}.epub creado en: #{$carpeta}".magenta.bold
 puts "\nEl proceso ha terminado.".gray.bold
