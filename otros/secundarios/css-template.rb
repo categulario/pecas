@@ -347,6 +347,10 @@ sub {
     margin-left: 0;
 }
 
+.autor {
+	width: auto; /* Se añade a la imagen del autor para que no abarque el 100% */
+}
+
 .legal * {
     text-indent: 0;
 }
