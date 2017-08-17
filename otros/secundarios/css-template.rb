@@ -348,7 +348,7 @@ sub {
 }
 
 .autor {
-	width: auto; /* Se añade a la imagen del autor para que no abarque el 100% */
+	width: 250px; /* Se añade a la imagen del autor para que no abarque el 100% */
 }
 
 .legal * {
