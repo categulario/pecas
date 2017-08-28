@@ -75,7 +75,7 @@ def ejecutar texto, comando
 		else
 			m = `#{comando}`
 			puts m
-			$log.push(m.gsub(/\n/,"\n  "))
+			$log.push(m.gsub(/\n/,"\n  ").gsub("  Info(prcgen):I1037","=>Info(prcgen):I1037").gsub("  Info(prcgen):I1038","=>Info(prcgen):I1038"))
 		end
 	rescue
 		error texto
