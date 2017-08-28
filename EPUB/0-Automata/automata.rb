@@ -80,13 +80,27 @@ def verificacion epub, version, log
 	epubcheck = File.dirname(__FILE__) + "/../EpubCheck/"
 
 	puts "#{$l_au_verificando[0] + epub + $l_au_verificando[1]}".green
-	ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub}"
+	ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub} -out log.xml -q"
+	
+	# Guarda el log de EpubCheck
+	log_abierto = File.open("log.xml", "r:UTF-8")
+	log_abierto.each do |linea|
+		if linea =~ /FATAL/ || linea =~ /ERROR/ || linea =~ /WARNING/
+			$log.push(">>" + linea)
+		else
+			$log.push("  " + linea)
+		end
+	end
+	log_abierto.close
 	
 	# Si mo se encontró EpubCheck 4.0.2
 	if $?.exitstatus == 127
 		$log.push("\nADVERTENCIA: " + log + "\n" + $l_au_epubcheck)
 		puts $l_au_epubcheck.yellow
 	end
+
+	# Elimina el log de EpubCheck
+	File.delete("log.xml")
 end
 
 # Sirve para detectar si existe un parámetro o no
@@ -228,6 +242,7 @@ else
 	verificacion $l_cr_epub_nombre + $l_ch_sufijo + ".epub", 3, "# epubcheck 3.0.1"
 	
 	# KindleGen
+	puts "#{$l_au_convirtiendo[0] + $l_cr_epub_nombre + ".epub" + $l_au_convirtiendo[1]}".green
 	ejecutar "\n# kindlegen", "kindlegen #{$l_cr_epub_nombre + ".epub"}"
 	
 	# Si no se encontró KindleGen
