@@ -68,7 +68,15 @@ end
 def ejecutar texto, comando
 	begin
 		$log.push(texto + "\n" + comando)
-		system comando
+
+		# Para KindleGen y EpubCheck se guarda la salida
+		if comando !~ /kindlegen/ && comando !~ /epubcheck/
+			system comando
+		else
+			m = `#{comando}`
+			puts m
+			$log.push(m.gsub(/\n/,"\n  "))
+		end
 	rescue
 		error texto
 		reversion
@@ -86,7 +94,7 @@ def verificacion epub, version, log
 	log_abierto = File.open("log.xml", "r:UTF-8")
 	log_abierto.each do |linea|
 		if linea =~ /FATAL/ || linea =~ /ERROR/ || linea =~ /WARNING/
-			$log.push(">>" + linea)
+			$log.push("=>" + linea)
 		else
 			$log.push("  " + linea)
 		end
