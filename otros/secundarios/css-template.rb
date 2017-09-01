@@ -351,6 +351,15 @@ sub {
 	width: 250px; /* Se añade a la imagen del autor para que no abarque el 100% */
 }
 
+.contribuidor + p {
+	text-indent: 0;
+}
+
+h1 + .contribuidor {
+	margin-top: -1em;
+	margin-bottom: 10em;
+}
+
 .legal * {
     text-indent: 0;
 }
