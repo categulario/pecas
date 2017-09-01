@@ -356,8 +356,8 @@ sub {
 }
 
 h1 + .contribuidor {
-	margin-top: -1em;
-	margin-bottom: 10em;
+	margin-top: 0em;
+	margin-bottom: 4em;
 }
 
 .legal * {
