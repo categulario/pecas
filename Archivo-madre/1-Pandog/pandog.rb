@@ -100,7 +100,7 @@ def mdAhtml s_path, s_nombre
 		end
 		
 		# Elimina todas las etiquetas HTML que quedaron y espacios de más
-		linea = linea.gsub(/<\s*?div.*?>/, "").gsub(/^\s+$/, "").strip
+		linea = linea.gsub(/<[\s|\/]*?div.*?>/, "").gsub(/^\s+$/, "").strip
 		
 		# Evita que los identificadores de los encabezados hereden sintaxis de Pecas
 		if linea =~ /(id=".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
