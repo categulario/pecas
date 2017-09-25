@@ -405,8 +405,8 @@ Dir.chdir(carpetaContenido)
 
 # Crea el uid a partir del título
 begin
-	uid = transliterar(yaml["title"].to_s) + "-" + yaml["version"].to_s.gsub(".","_") + "-" + SecureRandom.uuid.gsub("-","")
-	uid_corto = uid.split("-")[2][0..7]
+	uid = yaml["version"].to_s.gsub(".","_") + "-" + SecureRandom.uuid.gsub("-","")
+	uid_corto = uid.split("-")[1][0..7]
 rescue
 	puts $l_re_error_t
 	abort
