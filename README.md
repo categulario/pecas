@@ -54,11 +54,6 @@ de un formato de salida a otro.
 ## Todos
 
 * [Ruby](https://www.ruby-lang.org/es/) >= 1.9.3
-  * Gema `activesupport`:
-  
-	`gem install activesupport` si es Ruby >= 2.2.2
-	
-	`gem install activesupport -v 4.2.6` si es Ruby < 2.2.2
   
 ## Digitalización
 

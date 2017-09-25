@@ -2,9 +2,6 @@
 # encoding: UTF-8
 # coding: UTF-8
 
-# Es para eliminar tildes y ñ en los nombres de los archivos
-require 'active_support/inflector'
-
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
@@ -83,16 +80,38 @@ def creacion objeto, rutaCSS, indice
         return numeroTexto
     end
     
+    # Translitera el nombre de los archivos para evitar errores
+    def depuracion texto, indice
+		
+		# Elementos particulares a cambiar
+		elementos1 = ["ñ","á","é","í","ó","ú","ü"]
+		elementos2 = ["n","a","e","i","o","u","u"]
+		
+		# Pone el texto en bajas
+		texto = texto.downcase
+		
+		# Limita el nombre a cinco palabras
+		texto = texto.split(/\s+/)
+		texto = texto[0..4].join("_")
+		
+		# Cambia los elementos particulares
+		elementos1.each_with_index do |e,i|
+			texto = texto.gsub(e,elementos2[i])
+		end
+		
+		# Todo lo que son etiquetas viejas o nuevas de Pecas o caracteres no alfanuméricos se eliminan
+		texto = texto.gsub(/ºº\w+?ºº/,"").gsub(/--\w+?--/,"").gsub(/\W/,"")
+		
+		# Regresa con un índice inicial y con el nombre de extensión
+		return conteoString(indice) + "-" + texto + ".xhtml"
+    end
+    
     # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el índice y el nombre de extensión
     begin
-		nombreArchivo = ActiveSupport::Inflector.transliterate(objeto.titulo).to_s
+		nombreArchivo = depuracion(objeto.titulo.to_s, indice)
 	rescue
-		nombreArchivo = ActiveSupport::Inflector.transliterate($l_g_sin_titulo).to_s
+		nombreArchivo = depuracion($l_g_sin_titulo.to_s, indice)
 	end
-
-    nombreArchivo = nombreArchivo.gsub(/[^a-z0-9\s]/i, "").gsub(" ", "-").downcase
-    nombreArchivo = nombreArchivo.split("-")[0..4].join("-")
-    nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
 
 	# Inicia la creación
 	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green
