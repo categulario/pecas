@@ -6,7 +6,6 @@ Encoding.default_internal = Encoding::UTF_8
 
 require 'fileutils'
 require 'yaml'
-require 'active_support/inflector'
 require 'securerandom'
 
 # Funciones y módulos comunes a todas las herramientas
@@ -329,6 +328,7 @@ archivoNcx = ""
 archivoNav = ""
 archivoPor = ""
 uid = ""
+uid_corto = ""
 
 # Comprueba y adquiere el path absoluto de la carpeta para el EPUB
 carpeta = comprobacionDirectorio carpeta
@@ -405,7 +405,8 @@ Dir.chdir(carpetaContenido)
 
 # Crea el uid a partir del título
 begin
-	uid = ActiveSupport::Inflector.transliterate(yaml["title"]).to_s.gsub(" ",".").downcase + "-v" + yaml["version"].to_s + "-" + SecureRandom.uuid
+	uid = transliterar(yaml["title"].to_s) + "-" + yaml["version"].to_s.gsub(".","_") + "-" + SecureRandom.uuid.gsub("-","")
+	uid_corto = uid.split("-")[2][0..7]
 rescue
 	puts $l_re_error_t
 	abort
@@ -425,7 +426,9 @@ if yaml["title"] != nil
 	opf.puts "        <dc:title>#{yaml["title"]}</dc:title>"
 end
 if yaml["author"] != nil
-	opf.puts "        <dc:creator>#{yaml["author"]}</dc:creator>"
+	yaml["author"].each do |a|
+		opf.puts "        <dc:creator>#{a}</dc:creator>"
+	end
 end
 if yaml["publisher"] != nil
 	opf.puts "        <dc:publisher>#{yaml["publisher"]}</dc:publisher>"
@@ -542,7 +545,11 @@ ncx.puts "    <docTitle>"
 ncx.puts "        <text>#{yaml["title"]}</text>"
 ncx.puts "    </docTitle>"
 ncx.puts "    <docAuthor>"
-ncx.puts "        <text>#{yaml["author"]}</text>"
+if yaml["author"] != nil
+	ncx.puts "        <text>#{yaml["author"].join("; ")}</text>"
+else
+	ncx.puts "        <text></text>"
+end
 ncx.puts "    </docAuthor>"
 ncx.puts "    <navMap>"
 
@@ -671,17 +678,39 @@ else
 	end
 end
 
+# Modifica el orden del nombre
+def nombre_apellido author
+	if author != nil
+		autores = []
+		
+		# Itera cada autor para invertir el orden
+		author.each do |autor|
+			autor = autor.split(",")
+			if autor.length > 1
+				autores.push(autor[1].strip + " " + autor[0].strip)
+			else
+				autores.push(autor[0].strip)
+			end
+		end
+		
+		# Regresa como una línea de texto donde cada autor los separa un salto de línea
+		return autores.join("<br />")
+	else
+		return ""
+	end
+end
+
 # Inserta título y autor en la portadilla si se encuentran los id
 insertar $l_g_id_title, yaml["title"], $l_re_recreando_portadilla
-insertar $l_g_id_author, yaml["author"], $l_re_recreando_portadilla
+insertar $l_g_id_author, nombre_apellido(yaml["author"]), $l_re_recreando_portadilla
 
 # Inserta título, autor y editor en la legal si se encuentran los id
 insertar $l_g_id_title, yaml["title"] != nil ? "<i>" + yaml["title"] + "</i>" : nil, $l_re_recreando_legal
-insertar $l_g_id_author, yaml["author"] != nil ? $l_re_recreando_autoria + "<br/>" + yaml["author"] : nil, $l_re_recreando_legal
+insertar $l_g_id_author, yaml["author"] != nil ? $l_re_recreando_autoria + "<br/>" + nombre_apellido(yaml["author"]) : nil, $l_re_recreando_legal
 insertar $l_g_id_publisher, yaml["publisher"], $l_re_recreando_legal
 
 # Para la creación del EPUB
-rutaEpub = "#{carpeta}.epub"
+rutaEpub = "#{carpeta + "-" + uid_corto}.epub"
 espacio = " "
 
 # Elimina el EPUB previo si lo hay

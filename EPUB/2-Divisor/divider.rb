@@ -80,38 +80,15 @@ def creacion objeto, rutaCSS, indice
         return numeroTexto
     end
     
-    # Translitera el nombre de los archivos para evitar errores
-    def depuracion texto, indice
-		
-		# Elementos particulares a cambiar
-		elementos1 = ["ñ","á","é","í","ó","ú","ü"]
-		elementos2 = ["n","a","e","i","o","u","u"]
-		
-		# Pone el texto en bajas
-		texto = texto.downcase
-		
-		# Limita el nombre a cinco palabras
-		texto = texto.split(/\s+/)
-		texto = texto[0..4].join("_")
-		
-		# Cambia los elementos particulares
-		elementos1.each_with_index do |e,i|
-			texto = texto.gsub(e,elementos2[i])
-		end
-		
-		# Todo lo que son etiquetas viejas o nuevas de Pecas o caracteres no alfanuméricos se eliminan
-		texto = texto.gsub(/ºº\w+?ºº/,"").gsub(/--\w+?--/,"").gsub(/\W/,"")
-		
-		# Regresa con un índice inicial y con el nombre de extensión
-		return conteoString(indice) + "-" + texto + ".xhtml"
-    end
-    
     # Obtiene el nombre del archivo a partir del título, eliminándose caracteres conflictivos, agregando el índice y el nombre de extensión
     begin
-		nombreArchivo = depuracion(objeto.titulo.to_s, indice)
+		nombreArchivo = transliterar objeto.titulo.to_s
 	rescue
-		nombreArchivo = depuracion($l_g_sin_titulo.to_s, indice)
+		nombreArchivo = transliterar $l_g_sin_titulo.to_s
 	end
+	
+	# Añade un índice y la extensión
+	nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
 
 	# Inicia la creación
 	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green

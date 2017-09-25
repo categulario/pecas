@@ -243,3 +243,26 @@ def codificacionValida? elemento
 	
 	return elemento
 end
+
+# Translitera el nombre de los archivos para evitar errores
+def transliterar texto
+	
+	# Elementos particulares a cambiar
+	elementos1 = ["ñ","á","é","í","ó","ú","ü"]
+	elementos2 = ["n","a","e","i","o","u","u"]
+	
+	# Pone el texto en bajas
+	texto = texto.downcase
+	
+	# Limita el nombre a cinco palabras
+	texto = texto.split(/\s+/)
+	texto = texto[0..4].join("_")
+	
+	# Cambia los elementos particulares
+	elementos1.each_with_index do |e,i|
+		texto = texto.gsub(e,elementos2[i])
+	end
+	
+	# Todo lo que son etiquetas viejas o nuevas de Pecas o caracteres no alfanuméricos se eliminan
+	return texto.gsub(/ºº\w+?ºº/,"").gsub(/--\w+?--/,"").gsub(/\W/,"")
+end

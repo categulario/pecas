@@ -13,7 +13,8 @@ uno desde cero, la estructura básica es la siguiente:
 ---
 # Generales
 title: Sin título
-author: Anónimo
+author:
+  - Apellido, Nombre
 publisher: 
 synopsis: 
 category: 
@@ -38,7 +39,7 @@ px-height:
 
 * Generales:
 	* `title`. Título de la obra. Por defecto `Sin título`.
-	* `author`. Persona o colectivo que escribió la obra. Por defecto `Anónimo`.
+	* `author`. Personas o colectivos que escribieron la obra. Por defecto `Apellido, Nombre`.
 	* `publisher`. Institución u organización que editó la obra. Por defecto no tiene valor.
 	* `synopsis`. Reseña de la obra. Por defecto no tiene valor.
 	* `category`. Categoría de la obra; p. ej., `Ficción, Novela`. Por defecto no tiene valor.
@@ -56,6 +57,35 @@ px-height:
 	* `px-height`. Altura en pixeles para el EPUB. Por defecto no tiene valor.
 	
 ## Consideraciones particulares
+
+### Nombre de los autores
+
+Es posible indicar cero o más autores. Si no se desea autores, solo
+déjese en blanco:
+
+```
+author:
+publisher: 
+```
+
+Para uno o más autores se requiere de un conjunto con la forma:
+
+```
+author:
+  - Apellido1, Nombre1
+  - Apellido2, Nombre2
+```
+
+O con la forma:
+
+```
+author: ["Apellido1, Nombre1", "Apellido2, Nombre2"]
+```
+
+> La separación `Apellido, Nombre` no es obligatoria; si no se desea,
+> porque el autor no tiene alguno de los elementos, o no se quiere, 
+> porque se trata de un colectivo, solo evítese el uso de comas; por 
+> ejemplo: `Anónimo` o `Algún colectivo`.
 
 ### EPUB fijo
 
