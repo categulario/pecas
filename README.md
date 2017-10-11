@@ -119,6 +119,10 @@ Las herramientas pueden utilizarse de tres maneras:
 * EPUB
   * Todos.
     * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
+  * `divider.rb`.
+    * Autoadición de id en encabezados si no los tiene.
+  * `recreator.rb`.
+    * Posibilidad de crear sumario.
   * `cites.rb`.
     * Terminar el desarrollo.
   * `index.rb`.
@@ -127,6 +131,9 @@ Las herramientas pueden utilizarse de tres maneras:
     * Falta reformar.
     * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
     * ¿Compatibilidad para versión EPUB 2.0.1?
+  * `joiner.rb`.
+    * Desarrollar script periférico que una todos los XHTML en uno solo y con sus estilos dentro del documento (sin referencia externa).
+    * Podría ser el mismo que se plantea como idea para *web*, con opción de adición del TOC.
 
 # ¿Pecas?
 
