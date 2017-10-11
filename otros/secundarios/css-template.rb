@@ -200,10 +200,6 @@ blockquote + blockquote {
     margin-top: 1em;
 }
 
-h1 + .frances {
-    margin-top: 10em;
-}
-
 .frances + .frances {
     margin-top: 0.5em;
     text-indent: -1.5em;
