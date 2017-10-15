@@ -76,6 +76,16 @@ body {
 	margin: -4em;
 }
 
+@media amzn-mobi {    /* Para Mobi ya que Kindle Fire genera mucho margen */
+	body {
+		margin: 0;
+	}
+
+	.sin-margen {
+		margin: 0;
+	}
+}
+
 @media screen and (min-width: 1025px) {
     body {
         margin: 5em;
@@ -83,6 +93,16 @@ body {
     
     .sin-margen {
 		margin: -5em;
+	}
+
+	@media amzn-mobi {    /* Para Mobi ya que Kindle Fire genera mucho margen */
+		body {
+			margin: 0;
+		}
+
+		.sin-margen {
+			margin: 0;
+		}
 	}
 }
 
