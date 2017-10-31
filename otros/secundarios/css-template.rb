@@ -276,8 +276,9 @@ b, strong {
 	 font-variant: none;
 }
 
-@media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi */
+@media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi: <span class=\"versalita\">ACRÓNIMO</span> */
     .versalita {
+        text-transform: lowercase;
         font-variant: small-caps;
         -moz-hyphens: auto;
         -webkit-hyphens: auto;
@@ -287,7 +288,7 @@ b, strong {
     }
 }
 
-@media amzn-mobi {    /* Para Mobi ya que no soporta el atributo «font-variant» */
+@media amzn-mobi {    /* Para Mobi ya que no soporta el atributo «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
     .versalita {
         text-transform: uppercase;
         font-size: .8em;
