@@ -339,6 +339,25 @@ img {    /* Ayuda a detectarlos si no existe el recurso */
     width: 100%;
 }
 
+p + img {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.caption {
+	font-size: .9em;
+	margin-top: -1.5em;
+	margin-bottom: 2em;
+}
+
+.caption + img {
+	margin-top: 0;
+}
+
+.caption + p {
+	text-indent: 0;
+}
+
 /* Superíndices y subíndices */
 
 sup, sub {
