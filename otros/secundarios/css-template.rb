@@ -115,7 +115,7 @@ section + section {
 /* Encabezados */
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, \"Times New Roman\", serif;
+    font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     margin-bottom: 1em;
     text-align: left;
     -moz-hyphens: none;
@@ -167,7 +167,7 @@ h1 + p {
 }
 
 p, blockquote, li {
-    font-family: Georgia, \"Times New Roman\", serif;
+    font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-size: 1em;
     text-align: justify;
     line-height: 1.25em;
