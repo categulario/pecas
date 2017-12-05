@@ -354,6 +354,10 @@ p + img {
 	margin-top: 0;
 }
 
+img + .caption {
+	margin-top: .5em;
+}
+
 .caption + p {
 	text-indent: 0;
 }
