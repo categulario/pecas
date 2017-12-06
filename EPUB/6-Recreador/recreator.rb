@@ -151,7 +151,7 @@ def extraerEncabezado depth, yaml
 			# Si se encuentra una línea con encabezado
 			if linea =~ /^\s+<\s*?h\d.*?>/
 				h_num = linea.gsub(/^\s+/,"")[2..-1].to_i
-				h_id = linea =~ /id="/ ? linea.gsub(/^\s+<\s*?h\d.*?id="/,"").gsub(/".*$/,"").strip : ""
+				h_id = linea =~ /id="/ ? linea.gsub(/^\s+<\s*?h\d.*?id="/,"").gsub(/".*$/,"").gsub(".","@@").strip : ""
 				
 				# Se empieza a crear el YAML solo si la profundidad es menor o igual a la buscada
 				if h_num <= depth
@@ -291,10 +291,40 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 	
 	# Examina si los archivos existen
 	def aplicar? archivoOtros, archivo
-		# Si existe regresa un verdadero
-		archivoOtros.each do |a|
-			if File.basename(a.split(".")[0]) == archivo
-				return a
+		
+		# Si se trata de un identificador
+		if archivo.strip =~ /--id\(/
+			# Busca el identificador
+			def id_buscar archivoOtros, nombre
+				archivoOtros.each do |archivo|
+					# Si se trata de un archivo XHTML y tiene el indentificador
+					if File.extname(archivo) == ".xhtml"
+						archivo_abierto = File.open(File.absolute_path(archivo), 'r:UTF-8')
+						archivo_abierto.each do |linea|
+							if linea =~ /id="#{nombre.gsub("@@",".")}"/
+								ruta = (archivo + "#" + nombre.gsub("@@",".")).strip
+								texto = linea.gsub(/<.*?>/,"").strip
+								
+								# Regresa la ruta del archivo donde se encuentra y el texto del encabezado
+								return [ruta, texto]
+							end
+						end
+						archivo_abierto.close
+					end
+				end
+				
+				return false
+			end
+		
+			# Llama a la búsqueda del identificador
+			return id_buscar archivoOtros, archivo.gsub(/^.*?--id\((.*?)\).*$/,'\1')
+		# Si se trata de un archivo
+		else
+			archivoOtros.each do |a|
+				# Si el archivo se encuentra, recresa su ruta
+				if File.basename(a.split(".")[0]) == archivo
+					return [a, nil]
+				end
 			end
 		end
 		
@@ -309,9 +339,9 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 		# Solo si el archivo existe
 		if aplicar? archivoOtros, nombre
 		
-			# Obtiene ruta y título
-			ruta = aplicar? archivoOtros, nombre
-			titulo = extraerTitulo ruta
+			resultado = aplicar? archivoOtros, nombre
+			ruta = resultado[0]
+			titulo = resultado[1] == nil ? extraerTitulo(ruta) : resultado[1]
 			niveles = niveles? archivoBase, ruta
 			
 			# Si se trata de un Hash
@@ -816,7 +846,6 @@ Dir.chdir(carpeta)
 
 # Crea el EPUB
 puts "#{$l_re_creando_epub[0] + espacio + $l_re_creando_epub[1] + carpeta + $l_re_creando_epub[2] + File.basename(rutaEpub) + $l_re_creando_epub[3]}".green
-exit
 system ("#{zip} \"#{rutaEpub}\" -X mimetype")
 system ("#{zip} \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .*")
 
