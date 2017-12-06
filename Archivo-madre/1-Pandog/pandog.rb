@@ -262,7 +262,7 @@ if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" |
 		archivo_contenido = []
 		archivo_abierto = File.open(entrada_sis, 'r:UTF-8')
 		archivo_abierto.each do |linea|
-			archivo_contenido.push(linea.gsub("--", "-@-"))
+			archivo_contenido.push(linea.gsub(/--([a-z])/, "-@-" + '\1'))
 		end
 		archivo_abierto.close
 		
