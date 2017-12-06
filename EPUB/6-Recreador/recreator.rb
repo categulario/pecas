@@ -13,6 +13,13 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
+# Objeto para los encabezados que contiene la ruta del archivo y su estructura
+class Encabezados
+	def initialize(a, e)
+		@path, @encabezados = a, e
+	end
+end
+
 # Determina si en la carpeta hay un EPUB
 def carpetaBusqueda carpeta, carpetasPrincipales
     # Se parte del supuesto de que la carpeta no es para un EPUB
@@ -128,6 +135,54 @@ def extraerTitulo archivo
 	archivo_abierto.close
 end
 
+# Obtiene los encabezados
+def extraerEncabezado
+
+	# Primero obtiene y ordena alfabéticamente todos los documentos XHTML
+	archivos = []
+	Dir.glob(Dir.pwd + "/**/*.xhtml") do |archivo|
+		archivos.push(archivo)
+	end
+	archivos = archivos.sort
+	
+	# El contenido que se regresará
+	encabezados_todos = []
+	
+	# Itinera cada uno de los archivos
+	archivos.each do |archivo|
+	
+		# Da el número de encabezado, su id y su contenido
+		elementos = []
+	
+		# Analiza el archivo
+		archivo_abierto = File.open(archivo, 'r:UTF-8')
+		archivo_abierto.each do |linea|
+		
+			# Si se encuentra una línea con encabezado
+			if linea =~ /^\s+<\s*?h\d.*?>/
+				h_num = linea.gsub(/^\s+/,"")[2..-1].to_i
+				h_id = linea =~ /id="/ ? linea.gsub(/^\s+<\s*?h\d.*?id="/,"").gsub(/".*$/,"").strip : ""
+				h_texto = linea.gsub(/<.*?>/,"").strip
+
+				# Crea el hash con los elementos de cada encabezado
+				elemento = {"num" => h_num, "id" => h_id, "texto" => h_texto}
+				
+				# Se agrega al conjunto de encabezados
+				elementos.push(elemento)
+			end
+		end
+		archivo_abierto.close
+
+		# Se crea un nuevo objeto de encabezados con su ruta y el hash de los encabezados
+		encabezados = Encabezados.new(archivo, elementos)
+		
+		# Se coloca en un conjunto para todos los archivos
+		encabezados_todos.push(encabezados)
+	end
+	
+	return encabezados_todos
+end
+
 # Busca los niveles de diferencia entre los archivos del toc y los XHTML
 def niveles? archivo1, archivo2
 	archivo1 = File.absolute_path(archivo1).split("/")[0..-2]
@@ -147,7 +202,11 @@ def niveles? archivo1, archivo2
 end
 
 # Agrega si no fue excluido
-def incluir? conjunto, yaml, nombre, lugar, ncx = nil, archivoBase = nil, i = nil
+def incluir? conjunto, yaml, depth, nombre, lugar, ncx = nil, archivoBase = nil, i = nil
+
+	# Para el orden en el NCX
+	i = 1
+	
 	# Itera el conjunto para analizar cada uno de los archivos
 	conjunto.each do |archivo|
 		# Solo si es un archivo XHTML
@@ -187,18 +246,59 @@ def incluir? conjunto, yaml, nombre, lugar, ncx = nil, archivoBase = nil, i = ni
 			elsif nombre == "no-toc" && mostrar
 				titulo = extraerTitulo archivo
 				niveles = niveles? archivoBase, archivo
+				profundidad = depth.to_i && depth.to_i > 1 ? depth.to_i : nil
 			
-				# Si es el NCX
-				if ncx
-					lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/></navPoint>"
-				# Si es el NAV
-				else
-					lugar.puts "                <li><a href=\"#{niveles + archivo}\">#{titulo}</a></li>"
-				end
-				
-				# Aumenta el índice si existe
-				if i != nil
+				# Si no se quiere mayor profundidad al h1
+				if profundidad == nil
+					# Si es el NCX
+					if ncx
+						lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/></navPoint>"
+					# Si es el NAV
+					else
+						lugar.puts "                <li><a href=\"#{niveles + archivo}\">#{titulo}</a></li>"
+					end
+					
 					i += 1
+				# Si se requiere profundidad
+				else
+					# Aplica la profundidad
+					def aplicar_profundidad i, titulo, niveles, profundidad, archivo, lugar, e, ncx
+					
+						# Si el encabezado es menor o igual a la profunidad buscada y tiene identificador
+						if e["num"] <= profundidad && e["id"] != ""
+						
+							# Si es el NCX
+							if ncx
+								lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\">"
+								lugar.puts "            <navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/>"
+								lugar.puts "        </navPoint>"
+							# Si es el NAV
+							else
+								lugar.puts "                <li>"
+								lugar.puts "                    <a href=\"#{niveles + archivo}\">#{titulo}</a>"
+								lugar.puts "                </li>"
+							end
+						
+							return i += 1
+						# De lo contrario regresa el mismo número de índice
+						else
+							return i
+						end
+					end
+					
+					# Itinera todos los encabezados de cada archivo
+					$encabezados.each do |obj|
+					
+						# Obtiene el objeto que es el correspondiente al archivo en turno
+						if File.basename(obj.instance_variable_get("@path")) == File.basename(archivo)
+							conjunto = obj.instance_variable_get("@encabezados")
+							
+							# Llama a aplicar la profundidad con cada uno de los elementos del conjunto de encabezados de cada archivo
+							conjunto.each do |e|
+								i = aplicar_profundidad i, titulo, niveles, profundidad, archivo, lugar, e, ncx
+							end
+						end
+					end
 				end
 			end
 		end
@@ -304,6 +404,7 @@ end
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd + "/#{$l_cr_epub_nombre}" end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_g_meta_data end
 zip = if argumento "-z", zip != nil then argumento "-z", zip else nil end
+depth = if argumento "--depth", depth != nil then argumento "--depth", depth else nil end
 win32 = argumento "-32", win32, 1
 argumento "-v", $l_re_v
 argumento "-h", $l_re_h
@@ -320,6 +421,7 @@ else
 end
 
 # Variables que se usarán
+$encabezados = extraerEncabezado
 carpetasPrincipales = Array.new
 archivoOtros = Array.new
 carpetaContenido = ""
@@ -516,7 +618,7 @@ end
 opf.puts "    </manifest>"
 opf.puts "    <spine toc=\"#{id archivoNcx}\">"
 
-incluir? archivoOtros, yaml, "no-spine", opf
+incluir? archivoOtros, yaml, depth, "no-spine", opf
 
 # Agrega los archivos externos de manera oculta, si los hay
 if externos.length > 0
@@ -572,7 +674,7 @@ if yaml["custom"].kind_of?(Hash)
 	end
 # Si es estándar
 else
-	incluir? archivoOtros, yaml, "no-toc", ncx, true, archivoNcx, 1
+	incluir? archivoOtros, yaml, depth, "no-toc", ncx, true, archivoNcx, 1
 end
 
 ncx.puts "    </navMap>"
@@ -605,7 +707,7 @@ if yaml["custom"].kind_of?(Hash)
 	nav.puts lista
 # Si es estándar
 else
-	incluir? archivoOtros, yaml, "no-toc", nav, false, archivoNav, 1
+	incluir? archivoOtros, yaml, depth, "no-toc", nav, false, archivoNav, 1
 end
 
 nav.puts "            </ol>"
@@ -727,7 +829,7 @@ Dir.chdir(carpeta)
 
 # Crea el EPUB
 puts "#{$l_re_creando_epub[0] + espacio + $l_re_creando_epub[1] + carpeta + $l_re_creando_epub[2] + File.basename(rutaEpub) + $l_re_creando_epub[3]}".green
-
+exit
 system ("#{zip} \"#{rutaEpub}\" -X mimetype")
 system ("#{zip} \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .*")
 
