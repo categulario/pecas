@@ -14,6 +14,7 @@ Recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.
 
 * `-d` = [directory] Directorio del proyecto EPUB.
 * `-y` = [yaml] Archivo de los metadatos para el EPUB.
+* `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
 
 ### Parámetros únicos:
 
@@ -46,6 +47,14 @@ Crea un archivo EPUB de `directorio/para/epub` buscando dentro del directorio ac
 ```
 
 Crea un archivo EPUB de `directorio/para/epub` usando el fichero `archivo/meta-datos.yaml`.
+
+### Ejemplo con un proyecto EPUB, metadatos específicos y profundidad:
+
+```
+  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml --depth 4
+```
+
+Crea un archivo EPUB de `directorio/para/epub` usando el fichero `archivo/meta-datos.yaml` y con una tabla de contenidos con hasta encabezados `h4`.
 
 ------
 

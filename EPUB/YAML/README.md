@@ -152,9 +152,9 @@ Esto generaría esté índice:
     3. `06-archivo-hijo-3`
 3. `013-archivo-padre3`
 
-También es posible incluir un identificador en lugar de un archivo,
-solo es necesario indicarlo como `--id(identificador)--` y ser
-padre de un archivo, por ejemplo:
+También es posible incluir encabezados h2…h6 escribiendo 
+`--id(identificador)--`, a la vez que es hijo de un archivo, 
+por ejemplo:
 
 ```
 custom:
@@ -170,6 +170,10 @@ custom:
     006-archivo-hijo-3:
   013-archivo-padre3:
 ```
+
+Con esto automáticamente tomará el texto contenido en los encabezados
+h2…h6, siempre y cuando el identificador exista; de lo contrario, el
+identificador será ignorado.
 
 > Para crear una nueva jerarquía se agregan dos espacios adicionales al
 inicio.
