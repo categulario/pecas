@@ -221,6 +221,7 @@ blockquote + blockquote {
 }
 
 .frances + .frances {
+    margin-top: 0;
     text-indent: -1.5em;
 }
 
