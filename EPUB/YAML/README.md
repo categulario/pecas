@@ -109,7 +109,7 @@ no-spine: [archivo03,archivo04]
 ```
 
 > Es posible usar expresiones regulares en lugar de nombres específicos,
-solo es necesario poner la expresión entre barras, p. ej. `/regex/`.
+solo es necesario poner la expresión entre diagonales, p. ej. `/regex/`.
 
 > Si no se crea un conjunto, `pc-creator` ignorará estas especificaciones.
 

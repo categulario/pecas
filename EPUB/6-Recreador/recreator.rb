@@ -290,7 +290,7 @@ end
 def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espacio
 	
 	# Examina si los archivos existen
-	def aplicar? archivoOtros, archivo
+	def aplicar? archivoOtros, archivo, yaml
 		
 		# Si se trata de un identificador
 		if archivo.strip =~ /--id\(/
@@ -321,8 +321,16 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 		# Si se trata de un archivo
 		else
 			archivoOtros.each do |a|
-				# Si el archivo se encuentra, recresa su ruta
+				# Primera comprobación: si el archivo existe
 				if File.basename(a.split(".")[0]) == archivo
+				
+					# Segunda comprobación: si el archivo no se quiere en la tabla de contenidos
+					yaml["no-toc"].each do |no_toc|
+						if archivo =~ /#{File.basename(no_toc, ".*")}/
+							return false
+						end
+					end
+					
 					return [a, nil]
 				end
 			end
@@ -337,9 +345,9 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 		nombre = key.split(".")[0].to_s
 		
 		# Solo si el archivo existe
-		if aplicar? archivoOtros, nombre
+		if aplicar? archivoOtros, nombre, yaml
 		
-			resultado = aplicar? archivoOtros, nombre
+			resultado = aplicar? archivoOtros, nombre, yaml
 			ruta = resultado[0]
 			titulo = resultado[1] == nil ? extraerTitulo(ruta) : resultado[1]
 			niveles = niveles? archivoBase, ruta
