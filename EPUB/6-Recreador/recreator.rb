@@ -13,13 +13,6 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
-# Objeto para los encabezados que contiene la ruta del archivo y su estructura
-class Encabezados
-	def initialize(a, e)
-		@path, @encabezados = a, e
-	end
-end
-
 # Determina si en la carpeta hay un EPUB
 def carpetaBusqueda carpeta, carpetasPrincipales
     # Se parte del supuesto de que la carpeta no es para un EPUB
@@ -136,7 +129,7 @@ def extraerTitulo archivo
 end
 
 # Obtiene los encabezados
-def extraerEncabezado
+def extraerEncabezado depth, yaml
 
 	# Primero obtiene y ordena alfabéticamente todos los documentos XHTML
 	archivos = []
@@ -145,14 +138,11 @@ def extraerEncabezado
 	end
 	archivos = archivos.sort
 	
-	# El contenido que se regresará
-	encabezados_todos = []
+	# Proporcionará contenido adicional para el área de custom
+	yaml_adicional = []
 	
 	# Itinera cada uno de los archivos
 	archivos.each do |archivo|
-	
-		# Da el número de encabezado, su id y su contenido
-		elementos = []
 	
 		# Analiza el archivo
 		archivo_abierto = File.open(archivo, 'r:UTF-8')
@@ -162,25 +152,60 @@ def extraerEncabezado
 			if linea =~ /^\s+<\s*?h\d.*?>/
 				h_num = linea.gsub(/^\s+/,"")[2..-1].to_i
 				h_id = linea =~ /id="/ ? linea.gsub(/^\s+<\s*?h\d.*?id="/,"").gsub(/".*$/,"").strip : ""
-				h_texto = linea.gsub(/<.*?>/,"").strip
-
-				# Crea el hash con los elementos de cada encabezado
-				elemento = {"num" => h_num, "id" => h_id, "texto" => h_texto}
 				
+				# Se empieza a crear el YAML solo si la profundidad es menor o igual a la buscada
+				if h_num <= depth
+					# Para encabezados principales
+					if h_num == 1
+						elemento = ("  " * h_num) + File.basename(archivo) + ":"
+					# Para encabezados secundarios
+					elsif h_id != ""
+						elemento = ("  " * h_num) + "--id(" + h_id + ")--:"
+					end
+				end
+					
 				# Se agrega al conjunto de encabezados
-				elementos.push(elemento)
+				if elemento != nil
+					yaml_adicional.push(elemento)
+				end
 			end
 		end
 		archivo_abierto.close
-
-		# Se crea un nuevo objeto de encabezados con su ruta y el hash de los encabezados
-		encabezados = Encabezados.new(archivo, elementos)
-		
-		# Se coloca en un conjunto para todos los archivos
-		encabezados_todos.push(encabezados)
 	end
 	
-	return encabezados_todos
+	# Servirá para controlar los contenidos que tendrá el YAML modificado
+	ignorar = false
+	yaml_nuevo = []
+
+	# Se empieza a analizar el YAML
+	archivo_abierto = File.open(yaml, 'r:UTF-8')
+	archivo_abierto.each do |linea|
+		# Si no se ignora se imprime la línea tal cual
+		if !ignorar
+			yaml_nuevo.push(linea)
+			
+			# Cuando se llega a custom se añade el contenido adicional y se ignora lo que estaba en custom
+			if linea =~ /^custom/
+				yaml_adicional.each do |l|
+					yaml_nuevo.push(l)
+				end
+				
+				ignorar = true
+			end
+		# Si se está ignorando se revierte hasta que termina todo el área de custom
+		else
+			if linea.strip == "" || linea =~ /^#/ || linea =~ /^\w/
+				yaml_nuevo.push(linea)
+				ignorar = false
+			end
+		end
+	end
+	archivo_abierto.close
+	
+	# Abre el archivo para meter los cambios
+	archivo_abierto = File.open(yaml, 'w:UTF-8')
+	archivo_abierto.puts yaml_nuevo
+	archivo_abierto.close
 end
 
 # Busca los niveles de diferencia entre los archivos del toc y los XHTML
@@ -246,60 +271,16 @@ def incluir? conjunto, yaml, depth, nombre, lugar, ncx = nil, archivoBase = nil,
 			elsif nombre == "no-toc" && mostrar
 				titulo = extraerTitulo archivo
 				niveles = niveles? archivoBase, archivo
-				profundidad = depth.to_i && depth.to_i > 1 ? depth.to_i : nil
 			
-				# Si no se quiere mayor profundidad al h1
-				if profundidad == nil
-					# Si es el NCX
-					if ncx
-						lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/></navPoint>"
-					# Si es el NAV
-					else
-						lugar.puts "                <li><a href=\"#{niveles + archivo}\">#{titulo}</a></li>"
-					end
-					
-					i += 1
-				# Si se requiere profundidad
+				# Si es el NCX
+				if ncx
+					lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\"><navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/></navPoint>"
+				# Si es el NAV
 				else
-					# Aplica la profundidad
-					def aplicar_profundidad i, titulo, niveles, profundidad, archivo, lugar, e, ncx
-					
-						# Si el encabezado es menor o igual a la profunidad buscada y tiene identificador
-						if e["num"] <= profundidad && e["id"] != ""
-						
-							# Si es el NCX
-							if ncx
-								lugar.puts "        <navPoint id=\"navPoint-#{i}\" playOrder=\"#{i}\">"
-								lugar.puts "            <navLabel><text>#{titulo}</text></navLabel><content src=\"#{niveles + archivo}\"/>"
-								lugar.puts "        </navPoint>"
-							# Si es el NAV
-							else
-								lugar.puts "                <li>"
-								lugar.puts "                    <a href=\"#{niveles + archivo}\">#{titulo}</a>"
-								lugar.puts "                </li>"
-							end
-						
-							return i += 1
-						# De lo contrario regresa el mismo número de índice
-						else
-							return i
-						end
-					end
-					
-					# Itinera todos los encabezados de cada archivo
-					$encabezados.each do |obj|
-					
-						# Obtiene el objeto que es el correspondiente al archivo en turno
-						if File.basename(obj.instance_variable_get("@path")) == File.basename(archivo)
-							conjunto = obj.instance_variable_get("@encabezados")
-							
-							# Llama a aplicar la profundidad con cada uno de los elementos del conjunto de encabezados de cada archivo
-							conjunto.each do |e|
-								i = aplicar_profundidad i, titulo, niveles, profundidad, archivo, lugar, e, ncx
-							end
-						end
-					end
+					lugar.puts "                <li><a href=\"#{niveles + archivo}\">#{titulo}</a></li>"
 				end
+					
+				i += 1
 			end
 		end
 	end
@@ -420,8 +401,14 @@ else
 	zip = "zip"
 end
 
+# Indaga si creará un menú personalizado a partir de la búsqueda de profundidad
+if depth.to_i > 0
+	extraerEncabezado depth.to_i, yaml
+else
+	puts $l_re_advertencia_depth
+end
+
 # Variables que se usarán
-$encabezados = extraerEncabezado
 carpetasPrincipales = Array.new
 archivoOtros = Array.new
 carpetaContenido = ""
