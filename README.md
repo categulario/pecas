@@ -53,7 +53,7 @@ de un formato de salida a otro.
 
 ## Todos
 
-* [Ruby](https://www.ruby-lang.org/es/) >= 1.9.3
+* [Ruby](https://www.ruby-lang.org/es/) >= 2.4
   
 ## Digitalización
 
@@ -63,7 +63,7 @@ de un formato de salida a otro.
 
 ## Archivo Madre
 
-* [Pandoc](http://pandoc.org/) >= 1.19
+* [Pandoc](http://pandoc.org/) >= 2
 
 # Instalación
 
