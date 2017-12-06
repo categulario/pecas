@@ -185,6 +185,7 @@ $l_re_recreando_legal = langObj["recreator"]["recreando_legal"]
 $l_re_eliminando_viewports = langObj["recreator"]["eliminando_viewports"].green
 $l_re_eliminando_epub = langObj["recreator"]["eliminando_epub"].green
 $l_re_creando_epub = langObj["recreator"]["creando_epub"]
+$l_re_advertencia_depth = langObj["recreator"]["advertencia_depth"].yellow.bold
 $l_re_advertencia_fijo = langObj["recreator"]["advertencia_fijo"]
 $l_re_error_y = langObj["recreator"]["error_y"]
 $l_re_error_e = langObj["recreator"]["error_e"]
