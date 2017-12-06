@@ -444,7 +444,7 @@ end
 # Indaga si creará un menú personalizado a partir de la búsqueda de profundidad
 if depth.to_i > 0
 	extraerEncabezado depth.to_i, yaml
-else
+elsif depth != nil
 	puts $l_re_advertencia_depth
 end
 
