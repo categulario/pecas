@@ -205,9 +205,9 @@ archivos.each do |archivo|
 							nota = "\\footnote{#{txtNotas[notaReal]}}"
 						end
 					else					
-						nota = "<sup class=\"#{$l_no_nota_sup}\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">[#{notaNum}]</a></sup>"
+						nota = "<sup class=\"#{$l_no_nota_sup}\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">#{notaNum}</a></sup>"
 						nota_contenido = txtNotas[notaReal].gsub("<p>","")
-						archivo_tmp_footer.push("<p class=\"#{$l_no_nota_p}\" id=\"#{id_pre}n-#{notaReal + 1}\"><a class=\"#{$l_no_nota_a}\" href=\"#{if !inner then File.basename(archivo) end}#n-#{notaReal + 1}\">[#{notaNum}]</a> #{nota_contenido}")
+						archivo_tmp_footer.push("<p class=\"#{$l_no_nota_p}\" id=\"#{id_pre}n-#{notaReal + 1}\"><a class=\"#{$l_no_nota_a}\" href=\"#{if !inner then File.basename(archivo) end}#n-#{notaReal + 1}\">#{notaNum}</a> #{nota_contenido}")
 					end
 					
 					# Hace los cambios a la palabra

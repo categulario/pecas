@@ -460,6 +460,17 @@ body > .epigrafe:first-child {
     margin-bottom: -1.25em;
 }
 
+.#{$l_no_nota_sup}:before, .#{$l_no_nota_a}:before {
+	content: \"[\";
+	color: gray;
+}
+
+.#{$l_no_nota_sup}:after, .#{$l_no_nota_a}:after {
+	content: \"]\";
+	color: gray;
+}
+
+
 .#{$l_no_nota_p}, .#{$l_no_nota_p2} {
     margin-left: 3em;
     font-size: .9em;
