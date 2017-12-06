@@ -144,6 +144,11 @@ def extraerEncabezado depth, yaml
 	# Itinera cada uno de los archivos
 	archivos.each do |archivo|
 	
+		# Para elementos primarios
+		if File.basename(YAML.load_file(yaml)["navigation"]) != File.basename(archivo)
+			yaml_adicional.push("  " + File.basename(archivo) + ":")
+		end
+		
 		# Analiza el archivo
 		archivo_abierto = File.open(archivo, 'r:UTF-8')
 		archivo_abierto.each do |linea|
@@ -155,11 +160,8 @@ def extraerEncabezado depth, yaml
 				
 				# Se empieza a crear el YAML solo si la profundidad es menor o igual a la buscada
 				if h_num <= depth
-					# Para encabezados principales
-					if h_num == 1
-						elemento = ("  " * h_num) + File.basename(archivo) + ":"
-					# Para encabezados secundarios
-					elsif h_id != ""
+					# Para elementos secundarios
+					if h_num > 1 && h_id != ""
 						elemento = ("  " * h_num) + "--id(" + h_id + ")--:"
 					end
 				end
