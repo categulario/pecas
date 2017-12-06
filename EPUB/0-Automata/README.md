@@ -44,7 +44,8 @@ EPUB con una sola línea de comandos.
 * `--index` = Índice con el que ha de comenzar la numeración de los archivos divididos.
 * `--inner` = SOLO HTML, incluye las notas al pie al final del archivo.
 * `--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
-* `--section` = Divide el archivo madre cada <section>.
+* `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
+* `--section` = Divide el archivo madre cada `<section>`.
 
 ### Parámetros únicos:
 
