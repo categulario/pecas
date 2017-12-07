@@ -344,7 +344,7 @@ figure {
 }
 
 figcaption {
-	font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
 	margin-top: .5em;
 	font-size: .9em;
 }
