@@ -339,7 +339,22 @@ img {    /* Ayuda a detectarlos si no existe el recurso */
     width: 100%;
 }
 
-p + img {
+figure {
+	margin: 2em auto;
+}
+
+figcaption {
+	font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	margin-top: .5em;
+	font-size: .9em;
+}
+
+figure + figure {
+	margin-top: 0;
+}
+
+p + img, p > img {
+	margin-left: -1.5em;
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
