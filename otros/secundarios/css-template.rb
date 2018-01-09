@@ -400,7 +400,7 @@ code {
 }
 
 pre {
-	font-family: monospace;;
+	font-family: monospace;
 	background-color: #fff;
 	margin: 2em auto;
 	padding: .5em;
