@@ -135,16 +135,15 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     margin-top: 3em;
-    font-size: 2em;
+    font-size: 1.75em;
 }
 
 h2 {
-    margin-top: 2em;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 h3 {
-    font-size: 1.25em;
+    font-size: 1.125em;
 }
 
 h4 {
@@ -450,11 +449,11 @@ pre a:before {
 .titulo {
     margin-top: 3em;
     margin-left: 0;
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .subtitulo {
-    margin-top: -1.5em;
+    margin-top: -1.25em;
     margin-bottom: 3em;
     margin-left: 0;
 }
