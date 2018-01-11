@@ -388,7 +388,7 @@ sub {
     vertical-align: sub;
 }
 
-/* Código (inspirados por https://codepen.io/elomatreb/pen/hbgxp)*/
+/* Código (inspirados en https://codepen.io/elomatreb/pen/hbgxp)*/
 
 code {
 	font-family: monospace;
@@ -396,7 +396,6 @@ code {
 	padding: .125em .5em;
 	border: 1px solid #ddd;
 	border-radius: .25em;
-	line-height: 0;
 }
 
 pre {
@@ -404,9 +403,9 @@ pre {
 	background-color: #fff;
 	margin: 2em auto;
 	padding: .5em;
+	line-height: 1.25;
 	border-radius: .25em;
 	box-shadow: .1em .1em .5em rgba(0,0,0,.45);
-	line-height: 0;
 	counter-reset: line;
 	overflow-y: scroll;
 }
@@ -425,16 +424,24 @@ pre code {
 
 pre a {
 	display: block;
-	line-height: 1.5rem;
+	margin: -1em auto;
+}
+
+pre a:first-child {
+	margin-top: 0;
+}
+
+pre a:last-child {
+	margin-bottom: 0;
 }
 
 pre a:before {
+	width: 1.5em;
 	counter-increment: line;
 	content: counter(line);
 	display: inline-block;
-	border-right: 1px solid #ddd;
 	padding: 0 .5em;
-	margin-right: .75em;
+	margin-right: .5em;
 	color: #888;
 }
 
