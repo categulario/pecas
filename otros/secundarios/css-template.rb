@@ -166,7 +166,7 @@ h1 + p {
     margin-top: 4em;
 }
 
-p, blockquote, li {
+p, blockquote, li, details {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-size: 1em;
     text-align: justify;
