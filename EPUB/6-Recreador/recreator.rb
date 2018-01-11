@@ -325,11 +325,13 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 			archivoOtros.each do |a|
 				# Primera comprobación: si el archivo existe
 				if File.basename(a.split(".")[0]) == archivo
-				
+			
 					# Segunda comprobación: si el archivo no se quiere en la tabla de contenidos
-					yaml["no-toc"].each do |no_toc|
-						if archivo =~ /#{File.basename(no_toc, ".*")}/
-							return false
+					if yaml["no-toc"] != nil
+						yaml["no-toc"].each do |no_toc|
+							if archivo =~ /#{File.basename(no_toc, ".*")}/
+								return false
+							end
 						end
 					end
 					
