@@ -21,8 +21,8 @@ def beautifier archivo
 		# <head>, <body>, </head> y </body> son nivel 1
 		elsif elemento =~ /<(\s+)?head/ || elemento =~ /<(\s+)?body/ || elemento =~ /<\/(\s+)?head/ || elemento =~ /<\/(\s+)?body/
 			$beautifier_nivel = 1
-		# </section>, </div>, </blockquote>, </ol>, </ul>, </figure>, </table>, </tr>, </thead>, </tbody>, </tfoot> y </colgroup> restan un nivel
-		elsif elemento =~ /<\/(\s+)?section/ || elemento =~ /<\/(\s+)?div/ || elemento =~ /<\/(\s+)?blockquote/ || elemento =~ /<\/(\s+)?ol/ || elemento =~ /<\/(\s+)?ul/ || elemento =~ /<\/(\s+)?figure/ || elemento =~ /<\/(\s+)?table/ || elemento =~ /<\/(\s+)?tr/ || elemento =~ /<\/(\s+)?thead/ || elemento =~ /<\/(\s+)?tbody/ || elemento =~ /<\/(\s+)?tfoot/ || elemento =~ /<\/(\s+)?colgroup/
+		# </section>, </div>, </blockquote>, </ol>, </ul>, </figure>, </table>, </tr>, </thead>, </tbody>, </tfoot>, </colgroup>, </detail> y </aside> restan un nivel
+		elsif elemento =~ /<\/(\s+)?section/ || elemento =~ /<\/(\s+)?div/ || elemento =~ /<\/(\s+)?blockquote/ || elemento =~ /<\/(\s+)?ol/ || elemento =~ /<\/(\s+)?ul/ || elemento =~ /<\/(\s+)?figure/ || elemento =~ /<\/(\s+)?table/ || elemento =~ /<\/(\s+)?tr/ || elemento =~ /<\/(\s+)?thead/ || elemento =~ /<\/(\s+)?tbody/ || elemento =~ /<\/(\s+)?tfoot/ || elemento =~ /<\/(\s+)?colgroup/ || elemento =~ /<\/(\s+)?detail/ || elemento =~ /<\/(\s+)?aside/
 			$beautifier_nivel = $beautifier_nivel - 1
 		end
 		
@@ -40,8 +40,8 @@ def beautifier archivo
 		# Lo que sigue a <head> y <body> empieza con nivel 2
 		if elemento =~ /<(\s+)?head/ || elemento =~ /<(\s+)?body/
 			$beautifier_nivel = 2
-		# Lo que sigue a <section>, <div>, <blockquote>, <ol>, <ul>, <figure>, <table>, <tr>, <thead>, <tbody>, <tfoot> y <colgroup> sube un nivel
-		elsif elemento =~ /<(\s+)?section/ || elemento =~ /<(\s+)?div/ || elemento =~ /<(\s+)?blockquote/ || elemento =~ /<(\s+)?ol/ || elemento =~ /<(\s+)?ul/ || elemento =~ /<(\s+)?figure/ || elemento =~ /<(\s+)?table/ || elemento =~ /<(\s+)?tr/ || elemento =~ /<(\s+)?thead/ || elemento =~ /<(\s+)?tbody/ || elemento =~ /<(\s+)?tfoot/ || elemento =~ /<(\s+)?colgroup/
+		# Lo que sigue a <section>, <div>, <blockquote>, <ol>, <ul>, <figure>, <table>, <tr>, <thead>, <tbody>, <tfoot>, <colgroup>, <detail> y <aside> sube un nivel
+		elsif elemento =~ /<(\s+)?section/ || elemento =~ /<(\s+)?div/ || elemento =~ /<(\s+)?blockquote/ || elemento =~ /<(\s+)?ol/ || elemento =~ /<(\s+)?ul/ || elemento =~ /<(\s+)?figure/ || elemento =~ /<(\s+)?table/ || elemento =~ /<(\s+)?tr/ || elemento =~ /<(\s+)?thead/ || elemento =~ /<(\s+)?tbody/ || elemento =~ /<(\s+)?tfoot/ || elemento =~ /<(\s+)?colgroup/ || elemento =~ /<(\s+)?detail/ || elemento =~ /<(\s+)?aside/
 			$beautifier_nivel = $beautifier_nivel + 1
 		end
 	end
