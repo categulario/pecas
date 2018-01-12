@@ -36,6 +36,33 @@ class String
     def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
+# Para obtener la versión de las herramientas
+def obtener_version
+	# Arregla los dígitos del mes y día para que siempre sean dos
+	def arreglo_digitos i
+		if i < 10
+			return "0" + i.to_s
+		else
+			return i.to_s
+		end
+	end
+
+	linea = ""
+
+	# Obtiene la información del último commit
+	File.readlines(File.dirname(__FILE__) + "/../../.git/logs/HEAD").reverse_each do |l|
+		linea = l
+		break
+	end
+
+	commit = "-" + linea.split(/\s+/)[1][0..6]	# Abrevia el commit a 7 dígitos
+	fecha = Time.at(linea.split(/\s+/)[4].to_i)	# Convierte el UNIX time
+	fecha_formato = fecha.year.to_s + "." + arreglo_digitos(fecha.month) + "." + arreglo_digitos(fecha.day)
+
+	# Regresa este formato: año.mes.día-commit => 2018.01.11-f610862
+	return fecha_formato + commit
+end
+
 # Obtiene el YAML
 langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
 
@@ -72,7 +99,7 @@ $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
 
 # Pandog
-$l_pg_v = langObj["pandog"]["v"]
+$l_pg_v = obtener_version
 $l_pg_h = langObj["pandog"]["h"]
 $l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
 $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
@@ -80,7 +107,7 @@ $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
 
 # Sandbox
-$l_sb_v = langObj["sandbox"]["v"]
+$l_sb_v = obtener_version
 $l_sb_h = langObj["sandbox"]["h"]
 $l_sb_txt_marcado = langObj["sandbox"]["txt_marcado"]
 $l_sb_txt_cifras = langObj["sandbox"]["txt_cifras"]
@@ -103,7 +130,7 @@ $l_sb_error_archivo = langObj["sandbox"]["error_archivo"]
 $l_sb_error_archivo2 = langObj["sandbox"]["error_archivo2"].red.bold
 
 # Tegs
-$l_tg_v = langObj["tegs"]["v"]
+$l_tg_v = obtener_version
 $l_tg_h = langObj["tegs"]["h"]
 $l_tg_comprimido = langObj["tegs"]["comprimido"]
 $l_tg_procesando = langObj["tegs"]["procesando"]
@@ -117,7 +144,7 @@ $l_tg_error_te = langObj["tegs"]["error"]["te"].red.bold
 $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
 
 # Automata
-$l_au_v = langObj["automata"]["v"]
+$l_au_v = obtener_version
 $l_au_h = langObj["automata"]["h"]
 $l_au_nombre = langObj["automata"]["nombre"]
 $l_au_prefijo = langObj["automata"]["prefijo"]
@@ -136,7 +163,7 @@ $l_au_error_e = langObj["automata"]["error_e"]
 $l_au_error_r = langObj["automata"]["error_r"]
 
 # Creator
-$l_cr_v = langObj["creator"]["v"]
+$l_cr_v = obtener_version
 $l_cr_h = langObj["creator"]["h"]
 $l_cr_epub_nombre = langObj["creator"]["epub_nombre"]
 $l_cr_aviso = langObj["creator"]["aviso"]
@@ -148,7 +175,7 @@ $l_cr_creando = langObj["creator"]["creando"]
 $l_cr_error_meta = langObj["creator"]["error_meta"].red.bold
 
 # Divider
-$l_di_v = langObj["divider"]["v"]
+$l_di_v = obtener_version
 $l_di_h = langObj["divider"]["h"]
 $l_di_dividiendo = langObj["divider"]["dividiendo"].green
 $l_di_creando = langObj["divider"]["creando"]
@@ -156,7 +183,7 @@ $l_di_error_f = langObj["divider"]["error_f"].red.bold
 $l_di_error_i = langObj["divider"]["error_i"].red.bold
 
 # Notes
-$l_no_v = langObj["notes"]["v"]
+$l_no_v = obtener_version
 $l_no_h = langObj["notes"]["h"]
 $l_no_comparando = langObj["notes"]["comparando"].green
 $l_no_anadiendo = langObj["notes"]["anadiendo"].green
@@ -172,7 +199,7 @@ $l_no_error_f = langObj["notes"]["error_f"].red.bold
 $l_no_error_c = langObj["notes"]["error_c"]
 
 # Recreator
-$l_re_v = langObj["recreator"]["v"]
+$l_re_v = obtener_version
 $l_re_h = langObj["recreator"]["h"]
 $l_re_nuevo = langObj["recreator"]["nuevo"]
 $l_re_recreando_opf = langObj["recreator"]["recreando_opf"].green
@@ -194,6 +221,6 @@ $l_re_error_m = langObj["recreator"]["error_m"].red.bold
 $l_re_error_t = langObj["recreator"]["error_t"].red.bold
 
 # Cambiador
-$l_ch_v = langObj["changer"]["v"]
+$l_ch_v = obtener_version
 $l_ch_h = langObj["changer"]["h"]
 $l_ch_sufijo = langObj["changer"]["sufijo"]
