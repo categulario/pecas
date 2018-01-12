@@ -398,6 +398,7 @@ code {
 }
 
 pre {
+	width: 90%;
 	font-family: monospace;
 	background-color: #fff;
 	margin: 2em auto;
