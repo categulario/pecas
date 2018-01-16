@@ -266,3 +266,21 @@ def transliterar texto
 	# Todo lo que son etiquetas viejas o nuevas de Pecas o caracteres no alfanuméricos se eliminan
 	return texto.gsub(/ºº\w+?ºº/,"").gsub(/--\w+?--/,"").gsub(/\W/,"")
 end
+
+# Agrega archivos a una carpeta determinada
+def adicion_archivos ruta, ubicacion, carpeta, extensiones
+	# Va a la carpeta que contiene las imágenes
+	Dir.chdir(ruta)
+	
+	# Se itera para obtener cada imagen y copiarla
+	Dir.glob("*") do |archivo|
+		extensiones.each do |ext|
+			if File.extname(archivo) == "." + ext
+				FileUtils.cp(archivo, ubicacion + "/" + carpeta)
+			end
+		end
+	end 
+	
+	# Regresa a la ubicación del proyecto
+	Dir.chdir(ubicacion)
+end

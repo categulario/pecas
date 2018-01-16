@@ -13,11 +13,13 @@ require File.dirname(__FILE__) + "/../../otros/secundarios/css-template.rb"
 require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
 
 # Argumentos
-epubUbicacion = if argumento "-d", epubUbicacion != nil then argumento "-d", epubUbicacion else Dir.pwd end
+epub_ubicacion = if argumento "-d", epub_ubicacion != nil then argumento "-d", epub_ubicacion else Dir.pwd end
 epubNombre = if argumento "-o", epubNombre != nil then argumento "-o", epubNombre else $l_cr_epub_nombre end
 epubCSS = if argumento "-s", epubCSS != nil then argumento "-s", epubCSS end
 epubPortada = if argumento "-c", epubPortada != nil then argumento "-c", epubPortada end
 epubImagenes = if argumento "-i", epubImagenes != nil then argumento "-i", epubImagenes end
+epub_xhtml = if argumento "-x", epub_xhtml != nil then argumento "-x", epub_xhtml end
+epub_no_preliminares = argumento "--no-pre", epub_no_preliminares, 1
 argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
 
@@ -31,8 +33,8 @@ epubPortada = comprobacionArchivo epubPortada, [".jpg", ".jpeg", ".gif", ".png",
 epubImagenes = comprobacionDirectorio epubImagenes
 
 # Se va a la carpeta para crear los archivos
-epubUbicacion = comprobacionDirectorio epubUbicacion
-Dir.chdir(epubUbicacion)
+epub_ubicacion = comprobacionDirectorio epub_ubicacion
+Dir.chdir(epub_ubicacion)
 
 # Verifica que no existan conflictos con el nombre de los archivos a crear
 Dir.glob("*") do |archivo|
@@ -61,8 +63,8 @@ if epubPortada != nil
 end
 
 # Se mete a la carpeta padre
-epubUbicacion = epubUbicacion + "/" + epubNombre
-Dir.chdir(epubUbicacion)
+epub_ubicacion = epub_ubicacion + "/" + epubNombre
+Dir.chdir(epub_ubicacion)
 
 # Crea el mimetype sin dejar líneas vacías
 File.open("mimetype", "w") do |mimetype|
@@ -71,7 +73,7 @@ end
 
 # Crea la carpeta META-INF y el archivo container.xml
 Dir.mkdir "META-INF"
-Dir.chdir(epubUbicacion + "/META-INF")
+Dir.chdir(epub_ubicacion + "/META-INF")
 container = File.new("container.xml", "w:UTF-8")
 container.puts "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 container.puts ""
@@ -81,12 +83,12 @@ container.puts "		<rootfile full-path=\"OPS/content.opf\" media-type=\"applicati
 container.puts "	</rootfiles>"
 container.puts "</container>"
 container.close
-Dir.chdir(epubUbicacion)
+Dir.chdir(epub_ubicacion)
 
 # Crea la carpeta OPS
 Dir.mkdir "OPS"
-epubUbicacion = epubUbicacion + "/OPS"
-Dir.chdir(epubUbicacion)
+epub_ubicacion = epub_ubicacion + "/OPS"
+Dir.chdir(epub_ubicacion)
 
 # Crea el archivo content.opf
 opf = File.new("content.opf", "w:UTF-8")
@@ -109,24 +111,13 @@ if epubPortada != nil || epubImagenes != nil
 	
 	# Copia las imágenes
 	if epubImagenes != nil
-		# Va a la carpeta que contiene las imágenes
-		Dir.chdir(epubImagenes)
-		
-		# Se itera para obtener cada imagen y copiarla
-		Dir.glob("*") do |archivo|
-			if File.extname(archivo) == ".jpg" || File.extname(archivo) == ".jpeg" || File.extname(archivo) == ".gif" || File.extname(archivo) == ".png" || File.extname(archivo) == ".svg"
-				FileUtils.cp(archivo, epubUbicacion + "/img")
-			end
-		end
-		
-		# Regresa a la ubicación del proyecto
-		Dir.chdir(epubUbicacion)
+		adicion_archivos(epubImagenes, epub_ubicacion, "img", ["jpg","jpeg","gif","png","svg"])
 	end
 end
 
 # Crea la carpeta para el CSS
 Dir.mkdir "css"
-Dir.chdir(epubUbicacion + "/css")
+Dir.chdir(epub_ubicacion + "/css")
 
 # Crea el archivo CSS
 styles = File.new("styles.css", "w:UTF-8")
@@ -144,46 +135,53 @@ end
 styles.close
 
 # Regresa a la raíz
-Dir.chdir(epubUbicacion)
+Dir.chdir(epub_ubicacion)
 
 # Crea la carpeta para los xhtml
 Dir.mkdir "xhtml"
-Dir.chdir(epubUbicacion + "/xhtml")
+Dir.chdir(epub_ubicacion + "/xhtml")
 
-# Crea la portada
-if epubPortada
-	FileUtils.cp(epubPortada, epubUbicacion + "/img/" + File.basename(epubPortada))
-	portada = $l_cr_xhtml_portada
-	$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
-	$l_cr_xhtml_portada.puts xhtmlTemplateHeadCover portada
-	$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\">"
-	$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
-	$l_cr_xhtml_portada.puts "	    </section>"
-	$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
-	$l_cr_xhtml_portada.close
+# Crea las preliminares si no se excluyeron
+if !epub_no_preliminares
+	# Crea la portada
+	if epubPortada
+		FileUtils.cp(epubPortada, epub_ubicacion + "/img/" + File.basename(epubPortada))
+		portada = $l_cr_xhtml_portada
+		$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
+		$l_cr_xhtml_portada.puts xhtmlTemplateHeadCover portada
+		$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\">"
+		$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
+		$l_cr_xhtml_portada.puts "	    </section>"
+		$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
+		$l_cr_xhtml_portada.close
+	end
+
+	# Crea la portadilla
+	portadilla = $l_cr_xhtml_portadilla
+	$l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
+	$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
+	$l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
+	$l_cr_xhtml_portadilla.puts "            <h1 id=\"#{$l_g_id_title}\" class=\"centrado titulo\"></h1>"
+	$l_cr_xhtml_portadilla.puts "            <p id=\"#{$l_g_id_author}\" class=\"centrado\"></p>"
+	$l_cr_xhtml_portadilla.puts "	    </section>"
+	$l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
+	$l_cr_xhtml_portadilla.close
+
+	# Crea la legal
+	legal = $l_cr_xhtml_legal
+	$l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
+	$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css"
+	$l_cr_xhtml_legal.puts "	    <section epub:type=\"copyright-page\" class=\"legal\">"
+	$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_title}\"></p>"
+	$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_publisher}\"></p>"
+	$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_author}\" class=\"espacio-arriba2\"></p>"
+	$l_cr_xhtml_legal.puts "	    </section>"
+	$l_cr_xhtml_legal.puts $xhtmlTemplateFoot
+	$l_cr_xhtml_legal.close
 end
 
-# Crea la portadilla
-portadilla = $l_cr_xhtml_portadilla
-$l_cr_xhtml_portadilla = File.new("001-#{$l_cr_xhtml_portadilla.downcase}.xhtml", "w:UTF-8")
-$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
-$l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
-$l_cr_xhtml_portadilla.puts "            <h1 id=\"#{$l_g_id_title}\" class=\"centrado titulo\"></h1>"
-$l_cr_xhtml_portadilla.puts "            <p id=\"#{$l_g_id_author}\" class=\"centrado\"></p>"
-$l_cr_xhtml_portadilla.puts "	    </section>"
-$l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot
-$l_cr_xhtml_portadilla.close
-
-# Crea la legal
-legal = $l_cr_xhtml_legal
-$l_cr_xhtml_legal = File.new("002-#{$l_cr_xhtml_legal.downcase}.xhtml", "w:UTF-8")
-$l_cr_xhtml_legal.puts xhtmlTemplateHead legal, "../css/styles.css"
-$l_cr_xhtml_legal.puts "	    <section epub:type=\"copyright-page\" class=\"legal\">"
-$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_title}\"></p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_publisher}\"></p>"
-$l_cr_xhtml_legal.puts "	        <p id=\"#{$l_g_id_author}\" class=\"espacio-arriba2\"></p>"
-$l_cr_xhtml_legal.puts "	    </section>"
-$l_cr_xhtml_legal.puts $xhtmlTemplateFoot
-$l_cr_xhtml_legal.close
+if epub_xhtml
+	adicion_archivos(epub_xhtml, epub_ubicacion, "xhtml", ["xhtml"])
+end
 
 puts $l_g_fin

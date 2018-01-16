@@ -17,11 +17,13 @@ Creator crea un proyecto para EPUB con distintas opciones.
 * `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
 * `-c` = [cover] Ruta a la imagen de portada que se desea incluir.
 * `-i` = [images] Ruta a la carpeta con las imágenes que se desean incluir.
+* `-x` = [xhtml] Ruta a la carpeta con los archivos XHTML que se desean incluir.
 
 ### Parámetros únicos:
 
 * `-v` = [version] Muestra la versión.
 * `-h` = [help] Muestra la ayuda, la cual es este contenido.
+* `--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
 
 ## Ejemplos
 
