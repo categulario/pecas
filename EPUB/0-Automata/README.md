@@ -37,10 +37,12 @@ EPUB con una sola línea de comandos.
 * `-c` = [cover] Ruta a la imagen de portada que se desea incluir.
 * `-d` = [directory] Ruta al proyecto.
 * `-i` = [images] Ruta a la carpeta con las imágenes que se desean incluir.
+* `-x` = [xhtml] Ruta a la carpeta con los archivos XHTML que se desean incluir.
 * `-n` = [notes] Archivo con las notas en formato MD.
 * `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
 * `-y` = [yaml] Ruta al archivo con los metadatos para el EPUB.
 * `-32` = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits.
+* `--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
 * `--index` = Índice con el que ha de comenzar la numeración de los archivos divididos.
 * `--inner` = SOLO HTML, incluye las notas al pie al final del archivo.
 * `--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.

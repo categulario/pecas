@@ -20,9 +20,11 @@ archivo_madre = if argumento "-f", archivo_madre != nil then argumento "-f", arc
 portada = if argumento "-c", portada != nil then argumento "-c", portada end
 proyecto = if argumento "-d", proyecto != nil then argumento "-d", proyecto else Dir.pwd end
 imagenes = if argumento "-i", imagenes != nil then argumento "-i", imagenes end
+archivos_xhtml = if argumento "-x", archivos_xhtml != nil then argumento "-x", archivos_xhtml end
 notas = if argumento "-n", notas != nil then argumento "-n", notas end
 css = if argumento "-s", css != nil then argumento "-s", css end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_au_prefijo + $l_g_meta_data end
+no_preliminares = argumento "--no-pre", no_preliminares, 1
 depth = if argumento "--depth", depth != nil then argumento "--depth", depth else nil end
 win32 = argumento "-32", win32, 1
 indice = if argumento "--index", indice != nil then argumento "--index", indice else "3" end
@@ -189,6 +191,7 @@ else
 	# Comprueba carpetas
 	proyecto = comprobacionDirectorio proyecto
 	imagenes = comprobacionDirectorio imagenes
+	archivos_xhtml = comprobacionDirectorio archivos_xhtml
 	
 	# Va al directorio
 	Dir.chdir(proyecto)
@@ -226,7 +229,7 @@ else
 	end
 	
 	# Creación del proyecto EPUB
-	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../1-Creador/creator.rb"} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro css, "-s"}"
+	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../1-Creador/creator.rb"} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
 
 	# Elimina el YAML creado por pc-creator, ya que ya existe uno
 	FileUtils.rm_rf($l_g_meta_data)
