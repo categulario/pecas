@@ -88,7 +88,7 @@ def creacion objeto, rutaCSS, indice
 	end
 	
 	# Añade un índice y la extensión
-	nombreArchivo = conteoString(indice) + "-" + nombreArchivo + ".xhtml"
+	nombreArchivo = conteoString(indice) + "-" + nombreArchivo.gsub(/_+/,"_") + ".xhtml"
 
 	# Inicia la creación
 	puts "#{$l_di_creando[0] + nombreArchivo + $l_di_creando[1]}".green
@@ -149,7 +149,7 @@ archivoTodo.each do |linea|
 
 			# Elimina etiquetas HTML y marcas PT del encabezado
 			lineaLimpia = linea.strip
-							.gsub(/<(?!\S|\s+)*?br.*?>/, " ")
+							.gsub(/\s*<(?!\S|\s+)*?br.*?>/, ". ")
 							.gsub(/<.*?>/, "")
 							.gsub(/--.*?--/, "")
 
