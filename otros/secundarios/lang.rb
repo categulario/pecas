@@ -60,7 +60,7 @@ def obtener_version
 	fecha_formato = fecha.year.to_s + "." + arreglo_digitos(fecha.month) + "." + arreglo_digitos(fecha.day)
 
 	# Regresa este formato: año.mes.día-commit => 2018.01.11-f610862
-	return fecha_formato + commit
+	return "Pecas: #{fecha_formato + commit}" + "\n Ruby: #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}" + "\n Host: #{RbConfig::CONFIG['host']}" + "\n\nSoftware bajo licencia GPLv3+ <https://gnu.org/licenses/gpl.html>."
 end
 
 # Obtiene el YAML
