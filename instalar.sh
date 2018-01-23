@@ -27,6 +27,9 @@ elif [[ -f ~/.bash_login ]]; then
 elif [[ -f ~/.profile ]]; then
   profile_script_short="~/.profile"
   profile_script_full=~/.profile
+elif [[ -f ~/.bashrc ]]; then
+  profile_script_short="~/.bashrc"
+  profile_script_full=~/.bashrc
 else
   echo "No se encontró archivo de configuración, creando archivo .bash_profile en la carpeta raíz del usuario."
   echo ""
