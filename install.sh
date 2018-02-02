@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Menciona dónde fue descargado Pecas
+echo "----------------------------------"
+echo "=> Pecas se ha descargado en $PWD."
+
 # Para obtener la ruta absoluta del repositorio; viene de http://stackoverflow.com/questions/59895/can-a-bash-script-tell-which-directory-it-is-stored-in
 SCRIPT_PATH="${BASH_SOURCE[0]}";
 if ([ -h "${SCRIPT_PATH}" ]) then
@@ -48,7 +52,6 @@ if ! grep PECAS_ROOT "$profile_script_full" &> /dev/null; then
 
     source $profile_script_full
 
-    echo "=> Pecas se ha descargado en $PWD."
     echo "=> Se han agregado las herramientas de Pecas a $profile_script_short."
 else
     echo "=> Al parecer ya se han agregado las herramientas de Pecas a $profile_script_short."
