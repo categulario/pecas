@@ -46,8 +46,9 @@ end
 
 # Crea el log
 def reporte
-	# Crea el archivo de inicialización
-	$l_au_log = File.new($l_au_log, "w:UTF-8")
+    nombre = $l_au_log.to_s
+	$l_au_log = File.new($l_au_logs + '/' + nombre, "w:UTF-8")
+    $l_au_log.puts $l_au_v + "\n\n------------------------------------------------------------------\n\n"
 	$l_au_log.puts $log
 	$l_au_log.close
 end
@@ -56,6 +57,7 @@ end
 def reversion
 	puts $l_au_error_r[0].red.bold
 	remover
+    Dir.mkdir($l_au_logs)
 	puts $l_au_error_r[1].red.bold
 	reporte
 end
@@ -63,56 +65,70 @@ end
 # Obtiene el error para el log
 def error texto
 	$log.push(texto)
-	$log.push($!.message)
-	$!.backtrace.each do |e|
-		$log.push(e)
-	end
+    if $! != nil
+	    $log.push($!.message)
+	    $!.backtrace.each do |e|
+		    $log.push(e)
+	    end
+    end
 end
 
 def ejecutar texto, comando
 	begin
-		$log.push(texto + "\n" + comando)
+		$log.push(texto + "\n$ " + comando)
 
 		# Para KindleGen y EpubCheck se guarda la salida
-		if comando !~ /kindlegen/ && comando !~ /epubcheck/
+		if comando !~ /kindlegen/ && comando !~ /epubcheck/ && comando !~ /ace\s/
 			system comando
 		else
-			m = `#{comando}`
-			puts m
-			$log.push(m.gsub(/\n/,"\n  ").gsub("  Info(prcgen):I1037","=>Info(prcgen):I1037").gsub("  Info(prcgen):I1038","=>Info(prcgen):I1038"))
+            begin
+			    m = `#{comando}`
+			    puts m
+			    $log.push(m.gsub(/\n/,"\n  ").gsub("  Info(prcgen):I1037","=>Info(prcgen):I1037").gsub("  Info(prcgen):I1038","=>Info(prcgen):I1038").gsub("[32m","  ").gsub("[39m","").gsub(/^  info:/,"\n  info:"))
+            rescue
+                # Cuando ace no se encuentra, marca un error aquí…
+                siFallo $l_au_ace
+            end
 		end
 	rescue
-		error texto
+		error texto, true
 		reversion
 	end
+end
+
+# Si hay un error al ejecutar un comando
+def siFallo texto, rescate = false
+    if $?.exitstatus == 127 || rescate
+        $log.push("=> " + texto)
+        puts texto.yellow
+    end
 end
 
 # Verifica los EPUB con EpubCheck
 def verificacion epub, version, log
 	epubcheck = File.dirname(__FILE__) + "/../../otros/ajenos/epubcheck/"
 
-	puts "#{$l_au_verificando[0] + epub + $l_au_verificando[1]}".green
-	ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub} -out log.xml -q"
-	
-	# Guarda el log de EpubCheck
-	log_abierto = File.open("log.xml", "r:UTF-8")
-	log_abierto.each do |linea|
-		if linea =~ /FATAL/ || linea =~ /ERROR/ || linea =~ /WARNING/
-			$log.push("=>" + linea)
-		else
-			$log.push("  " + linea)
-		end
-	end
-	log_abierto.close
-	
-	# Si mo se encontró EpubCheck 4.0.2
-	if $?.exitstatus == 127
-		$log.push("\nADVERTENCIA: " + log + "\n" + $l_au_epubcheck)
-		puts $l_au_epubcheck.yellow
-	end
+    begin
+        puts "\nEpubcheck #{version}: #{$l_au_verificando[0] + epub + $l_au_verificando[1]}".green
+	    ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub} -out log.xml -q"
 
-	# Elimina el log de EpubCheck
-	File.delete("log.xml")
+	    # Guarda el log de EpubCheck
+	    log_abierto = File.open("log.xml", "r:UTF-8")
+	    log_abierto.each do |linea|
+		    if linea =~ /FATAL/ || linea =~ /ERROR/ || linea =~ /WARNING/
+			    $log.push("=>" + linea)
+		    else
+			    $log.push("  " + linea)
+		    end
+	    end
+	    log_abierto.close
+
+	    # Renombra el log de EpubCheck
+	    File.rename("log.xml", "epubcheck-#{version}.xml")
+        FileUtils.mv("epubcheck-#{version}.xml", $l_au_logs + '/epubcheck')
+    rescue
+	    siFallo $l_au_epubcheck.join(" #{version} "), true
+    end
 end
 
 # Sirve para detectar si existe un parámetro o no
@@ -128,7 +144,7 @@ end
 
 # Pregunta para eliminar o abortar el proceso
 def pregunta
-	print $l_au_pregunta
+	print $l_au_pregunta.blue.bold
 	respuesta = STDIN.gets.chomp.downcase
 	if respuesta == "y" || respuesta == ""
 		puts $l_au_eliminando
@@ -253,21 +269,25 @@ else
 	# Cambio de versión
 	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} 3.0.0"
 	
+    # Carpeta donde se guardarán los logs
+    Dir.mkdir($l_au_logs)
+    Dir.mkdir($l_au_logs + '/epubcheck')
+    Dir.mkdir($l_au_logs + '/ace')
+
 	# Verificación con EpubCheck del EPUB más reciente
 	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"
 	
 	# Verificación con EpubCheck del EPUB 3.0.0
 	verificacion epub_final + $l_ch_sufijo + ".epub", 3, "# epubcheck 3.0.1"
 	
+    # Ace
+	puts "\nAce: #{$l_au_verificando[0] + epub_final + ".epub" + $l_au_verificando[1]}".green
+    ejecutar "\n# ace", "ace -o #{$l_au_logs + '/ace'} #{epub_final + '.epub'}"
+
 	# KindleGen
-	puts "#{$l_au_convirtiendo[0] + epub_final + ".epub" + $l_au_convirtiendo[1]}".green
+	puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green
 	ejecutar "\n# kindlegen", "kindlegen #{epub_final + ".epub"}"
-	
-	# Si no se encontró KindleGen
-	if $?.exitstatus == 127
-		$log.push("\nADVERTENCIA: # kindlegen\n" + $l_au_kindlegen)
-		puts $l_au_kindlegen.yellow
-	end
+    siFallo $l_au_kindlegen
 	
 	# Elimina el archivo XHTML porque ya no es necesario
 	FileUtils.rm_rf(xhtml)
