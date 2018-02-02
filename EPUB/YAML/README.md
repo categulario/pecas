@@ -60,7 +60,7 @@ hazard:
 | Generales | | | |
 | `title` | `String` | `Sin título` | Título de la obra. |
 | `subtitle` | `String` | `nil` | Subtítulo de la obra. |
-| `author` | `Array` | `["Apellido, Nombre"]` | Personas o colectivos que escribieron la obra. |
+| `author` | `Array` | `"Apellido, Nombre"` | Personas o colectivos que escribieron la obra. |
 | `publisher` | `Array` | `nil` | Institución u organización que editó la obra. |
 | `synopsis` | `String` | `nil` | Reseña de la obra. |
 | `category` | `Array` | `nil` | Categoría de la obra; p. ej., `Ficción` y `Novela` |
@@ -78,9 +78,9 @@ hazard:
 | `fallback` | `Object` | `nil` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. |
 | WCAG | | | |
 | `summary` | `String` | `Este EPUB`… | Breve texto donde se indican las características de accesibilidad de la publicación. |
-| `mode` | `Array` | `["textual","visual"]` | Modo en como ha de usarse la obra. |
-| `mode-sufficient` | `Array` | `["textual","visual","textual"]` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. |
-| `feature` | `Array` | `["structuralNavigation","alternativeText","resizeText"]` | Las características de la publicación. |
+| `mode` | `Array` | `"textual"`<br/>`"visual"` | Modo en como ha de usarse la obra. |
+| `mode-sufficient` | `Array` | `"textual, visual"`<br/>`"textual"` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. |
+| `feature` | `Array` | `"structuralNavigation"`<br/>`"alternativeText"`<br/>`"resizeText"` | Las características de la publicación. |
 | `hazard` | `Array` | `["none"]` | Características que pueden ser perjudiciales para algunos usuarios. |
 | `control` | `Array` | `nil` | Los métodos como se puede controlar la publicación. |
 | `api` | `String` | `ARIA` | El tipo de API que se utiliza para la accesibilidad. |
