@@ -1,16 +1,12 @@
 # Pecas: herramientas editoriales
 
-Pecas es un conjunto de *scripts* pensados para agilizar
-o automatizar varios de los procesos del quehacer editorial.
-
-Las herramientas están en [desarrollo continuo](https://es.wikipedia.org/wiki/Liberaci%C3%B3n_continua)
+Pecas es un conjunto de *scripts* que agilizan varios de los procesos 
+del quehacer editorial. Las herramientas están en [desarrollo continuo](https://es.wikipedia.org/wiki/Liberaci%C3%B3n_continua)
 y siguen el modelo del [*single source and online publishing*](#single-source-and-online-publishing-ssop).
 
 ---
 
 # Instalación
-
-**Solo para sistemas UNIX (Linux y Mac OS X).**
 
 ```bash
 (cd ~ && mkdir .pecas && cd .pecas && git clone --depth 1 https://github.com/NikaZhenya/pecas.git . && bash install.sh) && source ~/.bash_profile
@@ -68,7 +64,7 @@ cantidad de formatos deseados».
 * *Edición digital como metodología para una edición global*, en formato [EPUB 3.0.1](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.epub), [EPUB 3.0.0](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global_3-0-0.epub) y [MOBI](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.mobi)
     * Libro donde se explica la edición ramificada y otros temas. Esta publicación fue hecha con Pecas.
 * [Taller de Edición Digital](http://ted.cliteratu.re/)
-    * Sitio donde se explican varios procesos de la edición ramificada.
+    * Sitio donde se documentan aspectos relacionados a esta metodología de trabajo.
 
 # Pendientes
 
