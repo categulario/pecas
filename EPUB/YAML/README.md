@@ -55,9 +55,10 @@ hazard:
 
 ## Descripción de los campos
 
+### Generales
+
 | Llave | Tipo | Valor | Descripción |
 |-------|------|-------|-------------|
-| Generales | | | |
 | `title` | `String` | `Sin título` | Título de la obra. |
 | `subtitle` | `String` | `nil` | Subtítulo de la obra. |
 | `author` | `Array` | `Apellido, Nombre` | Personas o colectivos que escribieron la obra. |
@@ -67,16 +68,30 @@ hazard:
 | `version` | `String` | `1.0.0` | Versión de la obra. Este dato no es visible para el usuario. |
 | `cover` | `String` | `nil` | Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. |
 | `navigation` | `String` | `nav.xhtml` | Archivo XHTML para la tabla de contenidos. |
-| Tabla de contenidos | | | |
+
+### Tabla de contenidos
+
+| Llave | Tipo | Valor | Descripción |
+|-------|------|-------|-------------|
 | `no-toc` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. |
 | `no-spine` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. |
 | `custom` | `Object` | `nil` | Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. |
-| EPUB fijo | | | |
+
+### EPUB fijo
+
+| Llave | Tipo | Valor | Descripción |
+|-------|------|-------|-------------|
 | `px-width` | `Array` | `nil` | Anchura en pixeles para el EPUB. |
 | `px-height` | `Array` | `nil` | Altura en pixeles para el EPUB. |
 | Fallbacks | | | |
+| Llave | Tipo | Valor | Descripción |
+|-------|------|-------|-------------|
 | `fallback` | `Object` | `nil` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. |
-| WCAG | | | |
+
+### WCAG
+
+| Llave | Tipo | Valor | Descripción |
+|-------|------|-------|-------------|
 | `summary` | `String` | `Este EPUB…` | Breve texto donde se indican las características de accesibilidad de la publicación. |
 | `mode` | `Array` | `textual`<br/>`visual` | Modo en como ha de usarse la obra. |
 | `mode-sufficient` | `Array` | `textual, visual`<br/>`textual` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. |
