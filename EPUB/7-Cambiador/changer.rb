@@ -140,7 +140,7 @@ $opfContenido.each do |linea|
 
         # Cambios según la versión actual
         if $versionActual == '3.0.1'
-            prefijo = 'rendition: http://www.idpf.org/vocab/rendition/# ' + prefijo
+            prefijo = 'rendition: http://www.idpf.org/vocab/rendition/# schema: http://schema.org/ ' + prefijo
         else
             prefijo = prefijo.gsub(/rendition:(.*?)#/, '').strip
         end

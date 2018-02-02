@@ -149,8 +149,8 @@ if !epub_no_preliminares
 		portada = $l_cr_xhtml_portada
 		$l_cr_xhtml_portada = File.new("000-#{$l_cr_xhtml_portada.downcase}.xhtml", "w:UTF-8")
 		$l_cr_xhtml_portada.puts xhtmlTemplateHeadCover portada
-		$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\">"
-		$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" src=\"../img/#{File.basename(epubPortada)}\" />"
+		$l_cr_xhtml_portada.puts "	    <section epub:type=\"cover\" role=\"doc-cover\">"
+		$l_cr_xhtml_portada.puts "            <img id=\"cover-image\" class=\"forro\" alt=\"#{$l_cr_alt_portada}\" src=\"../img/#{File.basename(epubPortada)}\" />"
 		$l_cr_xhtml_portada.puts "	    </section>"
 		$l_cr_xhtml_portada.puts $xhtmlTemplateFoot
 		$l_cr_xhtml_portada.close
@@ -162,6 +162,7 @@ if !epub_no_preliminares
 	$l_cr_xhtml_portadilla.puts xhtmlTemplateHead portadilla, "../css/styles.css"
 	$l_cr_xhtml_portadilla.puts "	    <section epub:type=\"titlepage\">"
 	$l_cr_xhtml_portadilla.puts "            <h1 id=\"#{$l_g_id_title}\" class=\"centrado titulo\"></h1>"
+	$l_cr_xhtml_portadilla.puts "            <h2 id=\"#{$l_g_id_subtitle}\" class=\"centrado subtitulo\"></h2>"
 	$l_cr_xhtml_portadilla.puts "            <p id=\"#{$l_g_id_author}\" class=\"centrado\"></p>"
 	$l_cr_xhtml_portadilla.puts "	    </section>"
 	$l_cr_xhtml_portadilla.puts $xhtmlTemplateFoot

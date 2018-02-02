@@ -161,7 +161,7 @@ h6 {
 
 /* Párrafos */
 
-h1 + p {
+h1:not(.titulo) + p {
     margin-top: 4em;
 }
 
@@ -303,7 +303,6 @@ b, strong {
 
 a, a:link, a:visited {
     text-decoration: none;
-    color: gray;
 }
 
 /* Listas */

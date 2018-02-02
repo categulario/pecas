@@ -4,18 +4,20 @@ Al usar `pc-creator` se genera el archivo `meta-data.yaml` que sirve para
 los metadatos del libro. Si no se usará `pc-recreator` para generar el EPUB, 
 este archivo **es innecesario y puede eliminarse**.
 
+> Al usar `pc-automata` el archivo se llama `automata_meta-data.yaml`.
+
 ## Estructura
 
-Sea que se quiera trabajar con el archivo `meta-data.yaml` o crear
-uno desde cero, la estructura básica es la siguiente:
+La estructura básica del archivo creado es la siguiente:
 
 ```
 ---
 # Generales
 title: Sin título
+subtitle: 
 author:
   - Apellido, Nombre
-publisher: 
+publisher:
 synopsis: 
 category: 
 version: 1.0.0
@@ -27,59 +29,134 @@ no-toc:
 no-spine: 
 custom: 
 
-# Fallbacks
-fallback: 
-
 # Si se quiere EPUB fijo
 px-width: 
 px-height: 
+
+# Fallbacks
+fallback: 
+
+# WCAG:
+summary: Este EPUB está optimizado para personas con deficiencias visuales; cualquier observación por favor póngase en contacto.
+mode:
+  - textual
+  - visual
+mode-sufficient:
+  - textual, visual
+  - textual
+feature:
+  - structuralNavigation
+  - alternativeText
+  - resizeText
+api: ARIA
+control:
+hazard:
 ```
 
 ## Descripción de los campos
 
 * Generales:
-	* `title`. Título de la obra. Por defecto `Sin título`.
-	* `author`. Personas o colectivos que escribieron la obra. Por defecto `Apellido, Nombre`.
-	* `publisher`. Institución u organización que editó la obra. Por defecto no tiene valor.
-	* `synopsis`. Reseña de la obra. Por defecto no tiene valor.
-	* `category`. Categoría de la obra; p. ej., `Ficción, Novela`. Por defecto no tiene valor.
-	* `version`. Versión de la obra. Este dato no es visible para el usuario. Por defecto es `1.0.0`.
-	* `cover`. Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. Por defecto no tiene valor.
-	* `navigation`. Archivo XHTML para la tabla de contenidos. Por defecto es `nav.xhtml`.
+	* `title`. Título de la obra.
+		* Tipo: `String`.
+		* Por defecto `Sin título`.
+    * `subtitle`. Subtítulo de la obra.
+		* Tipo: `String`.
+		* Por defecto no tiene valor.
+	* `author`. Personas o colectivos que escribieron la obra.
+		* Tipo: `Array`.
+		* Por defecto `Apellido, Nombre`.
+	* `publisher`. Institución u organización que editó la obra.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `synopsis`. Reseña de la obra.
+		* Tipo: `String`.
+		* Por defecto no tiene valor.
+	* `category`. Categoría de la obra; p. ej., `Ficción` y `Novela`.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `version`. Versión de la obra. Este dato no es visible para el usuario.
+		* Tipo: `String`.
+		* Por defecto es `1.0.0`.
+	* `cover`. Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB.
+		* Tipo: `String`.
+		* Por defecto no tiene valor.
+	* `navigation`. Archivo XHTML para la tabla de contenidos.
+		* Tipo: `String`.
+		* Por defecto es `nav.xhtml`.
 * Tabla de contenidos:
-	* `no-toc`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. Por defecto no tiene valor.
-	* `no-spine`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. Por defecto no tiene valor.
-	* `custom`. Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. Por defecto no tiene valor.
-* Fallbacks:
-    * `fallback`. Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. Por defecto no tiene valor.
+	* `no-toc`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `no-spine`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `custom`. Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada.
+		* Tipo: `Object`.
+		* Por defecto no tiene valor.
 * Si se quiere EPUB fijo:
-	* `px-width`. Anchura en pixeles para el EPUB. Por defecto no tiene valor.
-	* `px-height`. Altura en pixeles para el EPUB. Por defecto no tiene valor.
+	* `px-width`. Anchura en pixeles para el EPUB.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `px-height`. Altura en pixeles para el EPUB.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+* Fallbacks:
+    * `fallback`. Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB.
+		* Tipo: `Object`.
+		* Por defecto no tiene valor.
+* WCAG:
+	* `summary`. Breve texto donde se indican las características de accesibilidad de la publicación.
+		* Tipo: `String`.
+		* Por defecto es una línea de texto que puede cambiarse al gusto.
+	* `mode`. Modo
+		* Tipo: `Array`.
+		* por defecto encomo ha de usarse la obra.
+		* Tipo: `Array`.
+		* Por defecto `textual` y `visual`.
+	* `mode-sufficient`. Los diferentes sentidos que pueden combinarse para el uso de la publicación.
+		* Tipo: `Array`.
+		* Por defecto `textual, visual` y `textual`.
+	* `feature`. Las características de la publicación.
+		* Tipo: `Array`.
+		* Por defecto `structuralNavigation`, `alternativeText` y `resizeText`.
+	* `hazard`. Características que pueden ser perjudiciales para algunos usuarios.
+		* Tipo: `Array`.
+		* Por defecto `none`.
+	* `control`. Los métodos como se puede controlar la publicación.
+		* Tipo: `Array`.
+		* Por defecto no tiene valor.
+	* `api`. El tipo de API que se utiliza para la accesibilidad.
+		* Tipo: `String`.
+		* Por defecto `ARIA`.
 	
 ## Consideraciones particulares
 
-### Nombre de los autores
+### Nombre de los autores y editores
 
-Es posible indicar cero o más autores. Si no se desea autores, solo
-déjese en blanco:
+Es posible indicar cero o más autores/editores. Si no se desean autores/editores, 
+solo déjese en blanco:
 
 ```
 author:
 publisher: 
 ```
 
-Para uno o más autores se requiere de un conjunto con la forma:
+Para uno o más autores/editores se requiere de un conjunto con la forma:
 
 ```
 author:
   - Apellido1, Nombre1
   - Apellido2, Nombre2
+publisher:
+  - Editorial 1
+  - Editorial 2
 ```
 
 O con la forma:
 
 ```
 author: ["Apellido1, Nombre1", "Apellido2, Nombre2"]
+publisher: ["Editorial 1", "Editorial 2"]
 ```
 
 > La separación `Apellido, Nombre` no es obligatoria; si no se desea,
@@ -220,6 +297,23 @@ ignorará estas especificaciones.
 
 > Puede indicarse la extensión del archivo externo o del XHTML, aunque 
 no es necesario.
+
+### WCAG
+
+Las *Web Content Accessibility Guidelines* son para «facilitar el 
+acceso de las personas con discapacidad, desarrollando pautas de 
+accesibilidad, mejorando las herramientas para la evaluación y 
+reparación de accesibilidad Web, llevando a cabo una labor educativa 
+y de concienciación en relación a la importancia del diseño accesible 
+de páginas Web y abriendo nuevos campos de accesibilidad a través de 
+la investigación en esta área».
+
+Véase el [artículo](https://es.wikipedia.org/wiki/WCAG_1.0) de la 
+Wikipedia para más información.
+
+Para conocer los tipos de valores que pueden introducirse en el YAML,
+consúltese esta [sección](http://kb.daisy.org/publishing/docs/metadata/schema-org.html)
+del sitio del [DAISY Consortium](http://www.daisy.org/).
 
 ## Validadores
 

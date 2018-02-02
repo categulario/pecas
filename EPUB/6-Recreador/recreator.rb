@@ -406,7 +406,9 @@ def insertar buscado, texto, archivo
 					mi_match = /(.*?)>.*?(.*?>$)/.match(linea)	
 	
 					# Agrega la línea con el nuevo texto
-					lineas.push("#{mi_match.captures[0]}>#{texto}</#{tag.captures[0]}>")
+                    if texto != nil
+    					lineas.push("#{mi_match.captures[0]}>#{texto}</#{tag.captures[0]}>")
+                    end
 				
 				# Si no se encuentra el id buscado, simplemente copia la línea
 				else
@@ -421,6 +423,52 @@ def insertar buscado, texto, archivo
 			archivo_abierto.close
 		end
 	end
+end
+
+# Agrega los metadatos de los contenidos del YAML
+def agregarMeta archivo, elemento, tag, meta = false
+    # Comprobación de que no es nulo
+    if elemento != nil
+        elemento.class == String ? conjunto = [elemento] : conjunto = elemento
+        metas = []
+
+        # Iteración para agregar la sintaxis correcta
+        conjunto.each do |e|
+            meta == true ? metas.push("        <meta property=\"#{tag}\">#{e}</meta>") : metas.push("        <#{tag}>#{e}</#{tag}>")
+        end
+
+        archivo.puts metas.join("\n")
+    end
+end
+
+# Modifica el orden del nombre
+def nombre_apellido author
+	if author != nil
+		autores = []
+		
+		# Itera cada autor para invertir el orden
+		author.each do |autor|
+			autor = autor.split(",")
+			if autor.length > 1
+				autores.push(autor[1].strip + " " + autor[0].strip)
+			else
+				autores.push(autor[0].strip)
+			end
+		end
+		
+		# Regresa como una línea de texto donde cada autor los separa un salto de línea
+		return autores.join("<br />")
+	else
+		return ""
+	end
+end
+
+def editores ed
+    if ed != nil
+        return ed.join(" / ")
+    else
+        return ""
+    end
 end
 
 # Argumentos
@@ -553,25 +601,19 @@ opf.puts "    <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\">"
 opf.puts "        <dc:language>#{$lang}</dc:language>"
 
 # Se agrega solo si se establecieron	
-if yaml["title"] != nil
-	opf.puts "        <dc:title>#{yaml["title"]}</dc:title>"
-end
-if yaml["author"] != nil
-	yaml["author"].each do |a|
-		opf.puts "        <dc:creator>#{a}</dc:creator>"
-	end
-end
-if yaml["publisher"] != nil
-	opf.puts "        <dc:publisher>#{yaml["publisher"]}</dc:publisher>"
-end
-if yaml["synopsis"] != nil
-	opf.puts "        <dc:description>#{yaml["synopsis"]}</dc:description>"
-end
-if yaml["category"] != nil
-	opf.puts "        <dc:subject>#{yaml["category"]}</dc:subject>"
-end
-
+agregarMeta opf, yaml["title"], "dc:title"
+agregarMeta opf, yaml["author"], "dc:creator"
+agregarMeta opf, yaml["publisher"], "dc:publisher"
+agregarMeta opf, yaml["synopsis"], "dc:description"
+agregarMeta opf, yaml["category"], "dc:subject"
 opf.puts "        <dc:identifier id=\"uid\">#{uid}</dc:identifier>"
+agregarMeta opf, yaml["summary"], "schema:accessibilitySummary", true
+agregarMeta opf, yaml["mode"], "schema:accessMode", true
+agregarMeta opf, yaml["mode-sufficient"], "schema:accessModeSufficient", true
+agregarMeta opf, yaml["feature"], "schema:accessibilityFeature", true
+agregarMeta opf, yaml["api"], "schema:accessibilityAPI", true
+agregarMeta opf, yaml["control"], "schema:accessibilityControl", true
+agregarMeta opf, yaml["hazard"], "schema:accessibilityHazard", true
 opf.puts "        <meta property=\"dcterms:modified\">#{fechaModificacion}</meta>"
 
 # Según si es un EPUB fijo o no
@@ -809,36 +851,15 @@ else
 	end
 end
 
-# Modifica el orden del nombre
-def nombre_apellido author
-	if author != nil
-		autores = []
-		
-		# Itera cada autor para invertir el orden
-		author.each do |autor|
-			autor = autor.split(",")
-			if autor.length > 1
-				autores.push(autor[1].strip + " " + autor[0].strip)
-			else
-				autores.push(autor[0].strip)
-			end
-		end
-		
-		# Regresa como una línea de texto donde cada autor los separa un salto de línea
-		return autores.join("<br />")
-	else
-		return ""
-	end
-end
-
 # Inserta título y autor en la portadilla si se encuentran los id
 insertar $l_g_id_title, yaml["title"], $l_re_recreando_portadilla
+insertar $l_g_id_subtitle, yaml["subtitle"], $l_re_recreando_portadilla
 insertar $l_g_id_author, nombre_apellido(yaml["author"]), $l_re_recreando_portadilla
 
 # Inserta título, autor y editor en la legal si se encuentran los id
 insertar $l_g_id_title, yaml["title"] != nil ? "<i>" + yaml["title"] + "</i>" : nil, $l_re_recreando_legal
 insertar $l_g_id_author, yaml["author"] != nil ? $l_re_recreando_autoria + "<br/>" + nombre_apellido(yaml["author"]) : nil, $l_re_recreando_legal
-insertar $l_g_id_publisher, yaml["publisher"], $l_re_recreando_legal
+insertar $l_g_id_publisher, editores(yaml["publisher"]), $l_re_recreando_legal
 
 # Para la creación del EPUB
 rutaEpub = "#{carpeta + "-" + uid_corto}.epub"
