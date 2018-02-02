@@ -39,18 +39,19 @@ else
 fi
 
 # La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
-if ! grep PC_HERRAMIENTAS_ROOT "$profile_script_full" &> /dev/null; then
+if ! grep PECAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
     echo "# Pecas" >> $profile_script_full
-    echo "export PC_HERRAMIENTAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
-    echo "export PATH=\$PC_HERRAMIENTAS_ROOT:\$PATH" >> $profile_script_full
+    echo "export PECAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
+    echo "export PATH=\$PECAS_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
 
     source $profile_script_full
 
-    echo "Se han agregado las herramientas de Pecas a $profile_script_short."
+    echo "=> Pecas se ha descargado en $PWD."
+    echo "=> Se han agregado las herramientas de Pecas a $profile_script_short."
 else
-    echo "Al parecer ya se han agregado las herramientas de Pecas a $profile_script_short."
+    echo "=> Al parecer ya se han agregado las herramientas de Pecas a $profile_script_short."
 fi
 
 # Para obtener la ruta absoluta del repositorio; viene de http://stackoverflow.com/questions/59895/can-a-bash-script-tell-which-directory-it-is-stored-in
@@ -79,11 +80,10 @@ if ! grep EPUBCHECK_ROOT "$profile_script_full" &> /dev/null; then
 
     source $profile_script_full
 
-    echo "Se ha agregado EpubCheck a $profile_script_short."
+    echo "=> Se ha agregado EpubCheck a $profile_script_short."
 else
-    echo "Al parecer ya se ha agregado EpubCheck a $profile_script_short."
+    echo "=> Al parecer ya se ha agregado EpubCheck a $profile_script_short."
 fi
 
 # Fin, lo ideal es que fuera automático
-echo ""
-echo "Usa «source $profile_script_short» si no tienes acceso a Pecas."
+echo "=> Usa «source $profile_script_short» si no tienes acceso a Pecas."
