@@ -333,7 +333,7 @@ ul {
 /* Imágenes */
 
 img {    /* Ayuda a detectarlos si no existe el recurso */
-    color: gray;
+    color: #0000EE;
     width: 100%;
 }
 
@@ -522,7 +522,7 @@ body > .epigrafe:first-child {
     margin-top: 2em;
     width: 25%;
     margin-left: 0;
-    border: 1px solid gray;
+    border: 1px solid #0000EE;
 }
 
 .#{$l_no_nota_a} {
@@ -533,12 +533,12 @@ body > .epigrafe:first-child {
 
 .#{$l_no_nota_sup}:before, .#{$l_no_nota_a}:before {
 	content: \"[\";
-	color: gray;
+	color: #0000EE;
 }
 
 .#{$l_no_nota_sup}:after, .#{$l_no_nota_a}:after {
 	content: \"]\";
-	color: gray;
+	color: #0000EE;
 }
 
 
