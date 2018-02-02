@@ -216,7 +216,7 @@ else
 	
 	# Conversión si es necesaria
 	if File.extname(archivo_madre) == ".md"
-		ejecutar "# pc-pandog", "ruby #{File.dirname(__FILE__)+ "/../../archivo-madre/1-pandog/pandog.rb"} -i #{arregloRutaTerminal archivo_madre} -o #{arregloRutaTerminal xhtml}"
+		ejecutar "# pc-pandog", "ruby #{File.dirname(__FILE__)+ "/../../archivo-madre/pandog/pandog.rb"} -i #{arregloRutaTerminal archivo_madre} -o #{arregloRutaTerminal xhtml}"
 	# De lo contrario copia el archivo y lo renombra
 	else
 		FileUtils.cp(archivo_madre, Dir.pwd)
@@ -229,21 +229,21 @@ else
 	end
 	
 	# Creación del proyecto EPUB
-	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../1-creator/creator.rb"} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
+	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
 
 	# Elimina el YAML creado por pc-creator, ya que ya existe uno
 	FileUtils.rm_rf($l_g_meta_data)
 	
 	# División del archivo XHTML
-	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../2-divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
+	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
 	
 	# Adición de notas
 	if notas
-		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../3-notes/notes.rb"} -f #{arregloRutaTerminal notas} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
+		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -f #{arregloRutaTerminal notas} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
 	end
 	
 	# Recreación del EPUB
-	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../6-recreator/recreator.rb"} #{parametro yaml, "-y"} #{parametro depth, "--depth"} #{if win32 then "-32" end}"
+	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} #{parametro yaml, "-y"} #{parametro depth, "--depth"} #{if win32 then "-32" end}"
 	
 	# Localiza el nombre del EPUB
 	Dir.glob("*.epub") do |e|
@@ -251,7 +251,7 @@ else
 	end
 
 	# Cambio de versión
-	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../7-changer/changer.rb"} #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} 3.0.0"
+	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} 3.0.0"
 	
 	# Verificación con EpubCheck del EPUB más reciente
 	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"

@@ -11,7 +11,7 @@ pathArray = pathArray[0..pathArray.length - 2]
 pathArray = pathArray.join("/")
 
 # Añade lo restante de la ruta al script
-script = pathArray + "/epub/6-recreator/recreator.rb"
+script = pathArray + "/epub/recreator/recreator.rb"
 
 # Llama al script
 require script

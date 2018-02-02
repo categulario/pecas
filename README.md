@@ -88,17 +88,17 @@ para más información.
 
 Solo es necesario escribir el nombre del binario para llamar al script:
 
-* `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`archivo-madre/1-pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/1-pandog).
-* `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`archivo-madre/2-sandbox`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/2-sandbox).
-* `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`digitalizacion/3-tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitalizacion/3-tegs).
-* `pc-automata` llama a `automata.rb`, cuya documentación se encuentra en [`epub/0-automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/0-automata).
-* `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`epub/1-creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/1-creator).
-* `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`epub/2-divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/2-divider).
-* `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`epub/3-notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/3-notes).
-* `pc-cites` llama a `cites.rb`, cuya documentación se encuentra en [`epub/4-cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/4-cites).
-* `pc-index` llama a `index.rb`, cuya documentación se encuentra en [`epub/5-index`](https://github.com/NikaZhenya/pecas/tree/master/epub/5-index).
-* `pc-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`epub/6-recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/6-recreator).
-* `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`epub/7-changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/7-changer).
+* `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`archivo-madre/pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/pandog).
+* `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`archivo-madre/sandbox`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/sandbox).
+* `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`digitalizacion/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitalizacion/tegs).
+* `pc-automata` llama a `automata.rb`, cuya documentación se encuentra en [`epub/automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/automata).
+* `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`epub/creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/creator).
+* `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider).
+* `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes).
+* `pc-cites` llama a `cites.rb`, cuya documentación se encuentra en [`epub/cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/cites).
+* `pc-index` llama a `index.rb`, cuya documentación se encuentra en [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index).
+* `pc-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator).
+* `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`epub/changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/changer).
 
     **Nota**: si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `instalar.sh` nos menciona. Para hacer esto
