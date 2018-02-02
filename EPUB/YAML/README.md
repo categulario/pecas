@@ -55,35 +55,35 @@ hazard:
 
 ## Descripción de los campos
 
-| Llave | Descripción | Tipo | Valor |
-|-------|-------------|------|-------|
+| Llave | Tipo | Valor | Descripción |
+|-------|------|-------|-------------|
 | Generales | | | |
-| `title` | Título de la obra. | `String` | `Sin título` |
-| `subtitle` | Subtítulo de la obra. | `String` | `nil` |
-| `author` | Personas o colectivos que escribieron la obra. | `Array` | `["Apellido, Nombre"]` |
-| `publisher` | Institución u organización que editó la obra. | `Array` | `nil` |
-| `synopsis` | Reseña de la obra. | `String` | `nil` |
-| `category` | Categoría de la obra; p. ej., `Ficción` y `Novela` | `Array` | `nil` |
-| `version` | Versión de la obra. Este dato no es visible para el usuario. | `String` | `1.0.0` |
-| `cover` | Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. | `String` | `nil` |
-| `navigation` | Archivo XHTML para la tabla de contenidos. | `String` | `nav.xhtml` |
+| `title` | `String` | `Sin título` | Título de la obra. |
+| `subtitle` | `String` | `nil` | Subtítulo de la obra. |
+| `author` | `Array` | `["Apellido, Nombre"]` | Personas o colectivos que escribieron la obra. |
+| `publisher` | `Array` | `nil` | Institución u organización que editó la obra. |
+| `synopsis` | `String` | `nil` | Reseña de la obra. |
+| `category` | `Array` | `nil` | Categoría de la obra; p. ej., `Ficción` y `Novela` |
+| `version` | `String` | `1.0.0` | Versión de la obra. Este dato no es visible para el usuario. |
+| `cover` | `String` | `nil` | Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. |
+| `navigation` | `String` | `nav.xhtml` | Archivo XHTML para la tabla de contenidos. |
 | Tabla de contenidos | | | |
-| `no-toc` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. | `Array` | `nil` |
-| `no-spine` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. | `Array` | `nil` |
-| `custom` | Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. | `Object` | `nil` |
-| Si se quiere EPUB fijo | | | |
-| `px-width` | Anchura en pixeles para el EPUB. | `Array` | `nil` |
-| `px-height` | Altura en pixeles para el EPUB. | `Array` | `nil` |
+| `no-toc` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. |
+| `no-spine` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. |
+| `custom` | `Object` | `nil` | Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. |
+| EPUB fijo | | | |
+| `px-width` | `Array` | `nil` | Anchura en pixeles para el EPUB. |
+| `px-height` | `Array` | `nil` | Altura en pixeles para el EPUB. |
 | Fallbacks | | | |
-| `fallback` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. | `Object` | `nil` |
+| `fallback` | `Object` | `nil` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. |
 | WCAG | | | |
-| `summary` | Breve texto donde se indican las características de accesibilidad de la publicación. | `String` | `Este EPUB`… |
-| `mode` | Modo en como ha de usarse la obra. | `Array` | `["textual","visual"]` |
-| `mode-sufficient` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. | `Array` | `["textual","visual","textual"]` |
-| `feature` | Las características de la publicación. | `Array` | `["structuralNavigation","alternativeText","resizeText"]` |
-| `hazard` | Características que pueden ser perjudiciales para algunos usuarios. | `Array` | `["none"]` |
-| `control` | Los métodos como se puede controlar la publicación. | `Array` | `nil` |
-| `api` | El tipo de API que se utiliza para la accesibilidad. | `String` | `ARIA` |
+| `summary` | `String` | `Este EPUB`… | Breve texto donde se indican las características de accesibilidad de la publicación. |
+| `mode` | `Array` | `["textual","visual"]` | Modo en como ha de usarse la obra. |
+| `mode-sufficient` | `Array` | `["textual","visual","textual"]` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. |
+| `feature` | `Array` | `["structuralNavigation","alternativeText","resizeText"]` | Las características de la publicación. |
+| `hazard` | `Array` | `["none"]` | Características que pueden ser perjudiciales para algunos usuarios. |
+| `control` | `Array` | `nil` | Los métodos como se puede controlar la publicación. |
+| `api` | `String` | `ARIA` | El tipo de API que se utiliza para la accesibilidad. |
 
 > Todos los campos vacíos son ignorados ya que son `nil`.
 	
