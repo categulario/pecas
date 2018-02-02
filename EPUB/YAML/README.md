@@ -64,7 +64,7 @@ hazard:
 | `author` | `Array` | `Apellido, Nombre` | Personas o colectivos que escribieron la obra. |
 | `publisher` | `Array` | `nil` | Institución u organización que editó la obra. |
 | `synopsis` | `String` | `nil` | Reseña de la obra. |
-| `category` | `Array` | `nil` | Categoría de la obra; p. ej., `Ficción` y `Novela` |
+| `category` | `Array` | `nil` | Categoría de la obra; p. ej., `Ficción` y `Novela`. |
 | `version` | `String` | `1.0.0` | Versión de la obra. Este dato no es visible para el usuario. |
 | `cover` | `String` | `nil` | Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. |
 | `navigation` | `String` | `nav.xhtml` | Archivo XHTML para la tabla de contenidos. |
@@ -83,7 +83,9 @@ hazard:
 |-------|------|-------|-------------|
 | `px-width` | `Array` | `nil` | Anchura en pixeles para el EPUB. |
 | `px-height` | `Array` | `nil` | Altura en pixeles para el EPUB. |
-| Fallbacks | | | |
+
+### Fallbacks
+
 | Llave | Tipo | Valor | Descripción |
 |-------|------|-------|-------------|
 | `fallback` | `Object` | `nil` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. |
