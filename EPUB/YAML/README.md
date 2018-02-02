@@ -55,114 +55,62 @@ hazard:
 
 ## Descripción de los campos
 
-* Generales:
-	* `title`. Título de la obra.
-		* Tipo: `String`.
-		* Por defecto `Sin título`.
-    * `subtitle`. Subtítulo de la obra.
-		* Tipo: `String`.
-		* Por defecto no tiene valor.
-	* `author`. Personas o colectivos que escribieron la obra.
-		* Tipo: `Array`.
-		* Por defecto `Apellido, Nombre`.
-	* `publisher`. Institución u organización que editó la obra.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `synopsis`. Reseña de la obra.
-		* Tipo: `String`.
-		* Por defecto no tiene valor.
-	* `category`. Categoría de la obra; p. ej., `Ficción` y `Novela`.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `version`. Versión de la obra. Este dato no es visible para el usuario.
-		* Tipo: `String`.
-		* Por defecto es `1.0.0`.
-	* `cover`. Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB.
-		* Tipo: `String`.
-		* Por defecto no tiene valor.
-	* `navigation`. Archivo XHTML para la tabla de contenidos.
-		* Tipo: `String`.
-		* Por defecto es `nav.xhtml`.
-* Tabla de contenidos:
-	* `no-toc`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `no-spine`. Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `custom`. Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada.
-		* Tipo: `Object`.
-		* Por defecto no tiene valor.
-* Si se quiere EPUB fijo:
-	* `px-width`. Anchura en pixeles para el EPUB.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `px-height`. Altura en pixeles para el EPUB.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-* Fallbacks:
-    * `fallback`. Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB.
-		* Tipo: `Object`.
-		* Por defecto no tiene valor.
-* WCAG:
-	* `summary`. Breve texto donde se indican las características de accesibilidad de la publicación.
-		* Tipo: `String`.
-		* Por defecto es una línea de texto que puede cambiarse al gusto.
-	* `mode`. Modo
-		* Tipo: `Array`.
-		* por defecto encomo ha de usarse la obra.
-		* Tipo: `Array`.
-		* Por defecto `textual` y `visual`.
-	* `mode-sufficient`. Los diferentes sentidos que pueden combinarse para el uso de la publicación.
-		* Tipo: `Array`.
-		* Por defecto `textual, visual` y `textual`.
-	* `feature`. Las características de la publicación.
-		* Tipo: `Array`.
-		* Por defecto `structuralNavigation`, `alternativeText` y `resizeText`.
-	* `hazard`. Características que pueden ser perjudiciales para algunos usuarios.
-		* Tipo: `Array`.
-		* Por defecto `none`.
-	* `control`. Los métodos como se puede controlar la publicación.
-		* Tipo: `Array`.
-		* Por defecto no tiene valor.
-	* `api`. El tipo de API que se utiliza para la accesibilidad.
-		* Tipo: `String`.
-		* Por defecto `ARIA`.
+| Llave | Descripción | Tipo | Valor |
+|-------|-------------|------|-------|
+| Generales | | | |
+| `title` | Título de la obra. | `String` | `Sin título` |
+| `subtitle` | Subtítulo de la obra. | `String` | `nil` |
+| `author` | Personas o colectivos que escribieron la obra. | `Array` | `["Apellido, Nombre"]` |
+| `publisher` | Institución u organización que editó la obra. | `Array` | `nil` |
+| `synopsis` | Reseña de la obra. | `String` | `nil` |
+| `category` | Categoría de la obra; p. ej., `Ficción` y `Novela` | `Array` | `nil` |
+| `version` | Versión de la obra. Este dato no es visible para el usuario. | `String` | `1.0.0` |
+| `cover` | Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. | `String` | `nil` |
+| `navigation` | Archivo XHTML para la tabla de contenidos. | `String` | `nav.xhtml` |
+| Tabla de contenidos | | | |
+| `no-toc` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. | `Array` | `nil` |
+| `no-spine` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. | `Array` | `nil` |
+| `custom` | Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada. | `Object` | `nil` |
+| Si se quiere EPUB fijo | | | |
+| `px-width` | Anchura en pixeles para el EPUB. | `Array` | `nil` |
+| `px-height` | Altura en pixeles para el EPUB. | `Array` | `nil` |
+| Fallbacks | | | |
+| `fallback` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. | `Object` | `nil` |
+| WCAG | | | |
+| `summary` | Breve texto donde se indican las características de accesibilidad de la publicación. | `String` | `Este EPUB`… |
+| `mode` | Modo en como ha de usarse la obra. | `Array` | `["textual","visual"]` |
+| `mode-sufficient` | Los diferentes sentidos que pueden combinarse para el uso de la publicación. | `Array` | `["textual","visual","textual"]` |
+| `feature` | Las características de la publicación. | `Array` | `["structuralNavigation","alternativeText","resizeText"]` |
+| `hazard` | Características que pueden ser perjudiciales para algunos usuarios. | `Array` | `["none"]` |
+| `control` | Los métodos como se puede controlar la publicación. | `Array` | `nil` |
+| `api` | El tipo de API que se utiliza para la accesibilidad. | `String` | `ARIA` |
+
+> Todos los campos vacíos son ignorados ya que son `nil`.
 	
 ## Consideraciones particulares
 
-### Nombre de los autores y editores
+### Conjuntos
 
-Es posible indicar cero o más autores/editores. Si no se desean autores/editores, 
-solo déjese en blanco:
-
-```
-author:
-publisher: 
-```
-
-Para uno o más autores/editores se requiere de un conjunto con la forma:
+Los `Array` pueden escribirse de dos formas. La más clara y sencilla:
 
 ```
-author:
-  - Apellido1, Nombre1
-  - Apellido2, Nombre2
-publisher:
-  - Editorial 1
-  - Editorial 2
-```
+category:
+  - Categoría 1
+  - Categoría 2
+``` 
 
-O con la forma:
+La más compacta:
 
 ```
-author: ["Apellido1, Nombre1", "Apellido2, Nombre2"]
-publisher: ["Editorial 1", "Editorial 2"]
+category: ["Categoría 1","Categoría 2"]
 ```
 
-> La separación `Apellido, Nombre` no es obligatoria; si no se desea,
-> porque el autor no tiene alguno de los elementos, o no se quiere, 
-> porque se trata de un colectivo, solo evítese el uso de comas; por 
-> ejemplo: `Anónimo` o `Algún colectivo`.
+### Nombre de los autores
+
+La separación `Apellido, Nombre` no es obligatoria; si no se desea,
+porque el autor no tiene alguno de los elementos, o no se quiere, 
+porque se trata de un colectivo, solo evítese el uso de comas; por 
+ejemplo: `Anónimo` o `Algún colectivo`.
 
 ### EPUB fijo
 
@@ -175,20 +123,8 @@ de la anchura y la altura con `px-width` y `px-height` respectivamente.
 
 ### `no-toc` y `no-spine`
 
-Para especificar el conjuto de archivos a ignorar, pueden usarse dos tipos
-de sintaxis:
-
-```
-no-toc: 
-  - archivo01.xhtml
-  - archivo02
-no-spine: [archivo03,archivo04]
-```
-
-> Es posible usar expresiones regulares en lugar de nombres específicos,
+Es posible usar expresiones regulares en lugar de nombres específicos,
 solo es necesario poner la expresión entre diagonales, p. ej. `/regex/`.
-
-> Si no se crea un conjunto, `pc-creator` ignorará estas especificaciones.
 
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
@@ -229,7 +165,7 @@ Esto generaría esté índice:
     3. `06-archivo-hijo-3`
 3. `013-archivo-padre3`
 
-También es posible incluir encabezados h2…h6 escribiendo 
+También es posible incluir encabezados `h2`-`h6` escribiendo 
 `--id(identificador)--`, a la vez que es hijo de un archivo, 
 por ejemplo:
 
@@ -249,7 +185,7 @@ custom:
 ```
 
 Con esto automáticamente tomará el texto contenido en los encabezados
-h2…h6, siempre y cuando el identificador exista; de lo contrario, el
+`h2`-`h6`, siempre y cuando el identificador exista; de lo contrario, el
 identificador será ignorado.
 
 > Para crear una nueva jerarquía se agregan dos espacios adicionales al
