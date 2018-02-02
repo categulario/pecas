@@ -1,6 +1,6 @@
 # CSS
 
-Al usar [`pc-creator`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
+Al usar [`pc-creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/1-creator)
 se genera una hoja de estilos CSS por defecto si no se
 usa la opción `-s`. Esta plantilla incluye varios elementos que mejoran el 
 diseño y estructura del EPUB.
@@ -48,7 +48,7 @@ Para el resto de las clases, consúltese el archivo CSS.
 
 ## Uso previo en Markdown
 
-Con [`pc-pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog)
+Con [`pc-pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/1-pandog)
 es posible agregar estilos de párrafo al colocar al final de cada párrafo unas
 llaves con los estilos o identificadores deseados. Por ejemplo, este Markdown:
 

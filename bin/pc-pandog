@@ -11,7 +11,7 @@ pathArray = pathArray[0..pathArray.length - 2]
 pathArray = pathArray.join("/")
 
 # Añade lo restante de la ruta al script
-script = pathArray + "/Archivo-madre/1-Pandog/pandog.rb"
+script = pathArray + "/archivo-madre/1-pandog/pandog.rb"
 
 # Llama al script
 require script

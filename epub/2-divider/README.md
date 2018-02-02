@@ -103,5 +103,5 @@ ubicación, habrán de arreglarse las rutas de manera manual.
 
 ### Índice por defecto
 
-El índice por defecto es 3 ya que [pc-creator](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador)
+El índice por defecto es 3 ya que [pc-creator](https://github.com/NikaZhenya/pecas/tree/master/epub/1-creator)
 por defecto crea archivos hasta el índice 2.

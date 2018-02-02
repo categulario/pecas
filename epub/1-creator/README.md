@@ -82,11 +82,11 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imá
 ## YAML
 
 Este *script* genera un archivo con extensión `.yaml` para los metadatos
-del libro. [Consúltese aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/YAML)
+del libro. [Consúltese aquí](https://github.com/NikaZhenya/pecas/tree/master/epub/yaml)
 para mayor información.
 
 ## CSS
 
 Al usar `pc-creator` se genera una hoja de estilos CSS por defecto si no se
 usa la opción `-s`. Esta plantilla incluye varios elementos que mejoran 
-el diseño y estructura del EPUB que pueden [consultarse aquí](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/CSS).
+el diseño y estructura del EPUB que pueden [consultarse aquí](https://github.com/NikaZhenya/pecas/tree/master/epub/css).

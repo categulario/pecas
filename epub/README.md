@@ -38,13 +38,13 @@ usar todos los *scripts* para EPUB con una sola línea de comandos.
 ## YAML
 
 Para la creación de metadatos, se utiliza un archivo con extensión `.yaml`.
-Si se desconoce cómo usar el archivo, [consúltese el apartado de YAML](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/YAML).
+Si se desconoce cómo usar el archivo, [consúltese el apartado de YAML](https://github.com/NikaZhenya/pecas/tree/master/epub/yaml).
 
 ## *Scripts* de JavaScript para EPUB
 
 Estos *scripts* implementan algunas funcionalidades
 adicionales a los EPUB, se encuentran en la carpeta
-[`JavaScript`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/JavaScript).
+[`JavaScript`](https://github.com/NikaZhenya/pecas/tree/master/epub/javascript).
 
 ## EpubCheck
 

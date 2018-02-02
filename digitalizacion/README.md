@@ -10,5 +10,5 @@ hasta un EPUB. Estos son:
 archivos PDF con OCR o TXT a partir de imágenes TIFF, PNG o BMP.
 
 **Nota**: para la creación de EPUB, se utilizan las herramientas
-presentes en la carpeta [`EPUB`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB) 
+presentes en la carpeta [`EPUB`](https://github.com/NikaZhenya/pecas/tree/master/epub) 
 de este repositorio.

@@ -64,7 +64,7 @@ SCRIPT_PATH=`pwd`;
 popd  > /dev/null
 
 # Para generar la ruta a la carpeta bin
-SCRIPT_PATH="${SCRIPT_PATH}/EPUB/EpubCheck/bin"
+SCRIPT_PATH="${SCRIPT_PATH}/epub/epubcheck/bin"
 
 # Sustituye los espacios en la ruta
 space="\\ "

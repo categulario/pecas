@@ -88,17 +88,17 @@ para más información.
 
 Solo es necesario escribir el nombre del binario para llamar al script:
 
-* `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`Archivo-madre/1-Pandog`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/1-Pandog).
-* `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`Archivo-madre/2-Sandbox`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Archivo-madre/2-Sandbox).
-* `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`Digitalizacion/3-Tegs`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/Digitalizacion/3-Tegs).
-* `pc-automata` llama a `automata.rb`, cuya documentación se encuentra en [`EPUB/0-Automata`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/0-Automata).
-* `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`EPUB/1-Creador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/1-Creador).
-* `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`EPUB/2-Divisor`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/2-Divisor).
-* `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`EPUB/3-Notas`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/3-Notas).
-* `pc-cites` llama a `cites.rb`, cuya documentación se encuentra en [`EPUB/4-Bibliografia`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/4-Bibliografia).
-* `pc-index` llama a `index.rb`, cuya documentación se encuentra en [`EPUB/5-Indice`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/5-Indice).
-* `pc-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`EPUB/6-Recreador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/6-Recreador).
-* `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`EPUB/7-Cambiador`](https://github.com/ColectivoPerroTriste/Herramientas/tree/master/EPUB/7-Cambiador).
+* `pc-pandog` llama a `pandog.rb`, cuya documentación se encuentra en [`archivo-madre/1-pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/1-pandog).
+* `pc-sandbox` llama a `sandbox.rb`, cuya documentación se encuentra en [`archivo-madre/2-sandbox`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/2-sandbox).
+* `pc-tegs` llama a `tegs.rb`, cuya documentación se encuentra en [`digitalizacion/3-tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitalizacion/3-tegs).
+* `pc-automata` llama a `automata.rb`, cuya documentación se encuentra en [`epub/0-automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/0-automata).
+* `pc-creator` llama a `creator.rb`, cuya documentación se encuentra en [`epub/1-creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/1-creator).
+* `pc-divider` llama a `divider.rb`, cuya documentación se encuentra en [`epub/2-divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/2-divider).
+* `pc-notes` llama a `notes.rb`, cuya documentación se encuentra en [`epub/3-notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/3-notes).
+* `pc-cites` llama a `cites.rb`, cuya documentación se encuentra en [`epub/4-cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/4-cites).
+* `pc-index` llama a `index.rb`, cuya documentación se encuentra en [`epub/5-index`](https://github.com/NikaZhenya/pecas/tree/master/epub/5-index).
+* `pc-recreator` llama a `recreator.rb`, cuya documentación se encuentra en [`epub/6-recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/6-recreator).
+* `pc-changer` llama a `changer.rb`, cuya documentación se encuentra en [`epub/7-changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/7-changer).
 
     **Nota**: si ningún binario se encuentra, es necesario refrescar el archivo de
     inicialización de usuario que `instalar.sh` nos menciona. Para hacer esto
