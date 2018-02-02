@@ -89,7 +89,7 @@ end
 
 # Verifica los EPUB con EpubCheck
 def verificacion epub, version, log
-	epubcheck = File.dirname(__FILE__) + "/../epubcheck/"
+	epubcheck = File.dirname(__FILE__) + "/../../otros/ajenos/epubcheck/"
 
 	puts "#{$l_au_verificando[0] + epub + $l_au_verificando[1]}".green
 	ejecutar "\n" + log, "java -jar #{epubcheck + if version == 4 then "4-0-2/epubcheck.jar" else "3-0-1/epubcheck.jar" end} #{epub} -out log.xml -q"
