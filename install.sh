@@ -41,7 +41,7 @@ fi
 # La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if ! grep PC_HERRAMIENTAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
-    echo "# Herramientas de Pecas" >> $profile_script_full
+    echo "# Pecas" >> $profile_script_full
     echo "export PC_HERRAMIENTAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
     echo "export PATH=\$PC_HERRAMIENTAS_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
@@ -86,4 +86,4 @@ fi
 
 # Fin, lo ideal es que fuera automático
 echo ""
-echo "Cierra y abre la terminal, o ingresa «source $profile_script_short» para que los cambios tomen efecto."
+echo "Usa «source $profile_script_short» si no tienes acceso a Pecas."
