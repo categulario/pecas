@@ -124,9 +124,9 @@ category: ["Categoría 1","Categoría 2"]
 
 ### Nombre de los autores
 
-La separación `Apellido, Nombre` no es obligatoria; si no se desea,
-porque el autor no tiene alguno de los elementos, o no se quiere, 
-porque se trata de un colectivo, solo evítese el uso de comas; por 
+La separación `Apellido, Nombre` no es obligatoria; si no se desea
+—porque el autor no tiene alguno de los elementos— o no se quiere 
+—porque se trata de un colectivo— solo evítese el uso de comas; por 
 ejemplo: `Anónimo` o `Algún colectivo`.
 
 ### EPUB fijo
