@@ -5,10 +5,10 @@
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-beautifier.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-beautifier.rb"
 
 # Argumentos
 archivo = argumento "-f", archivo

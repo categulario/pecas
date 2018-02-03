@@ -48,7 +48,7 @@ Para el resto de las clases, consúltese el archivo CSS.
 
 ## Uso previo en Markdown
 
-Con [`pc-pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/pandog)
+Con [`pc-pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)
 es posible agregar estilos de párrafo al colocar al final de cada párrafo unas
 llaves con los estilos o identificadores deseados. Por ejemplo, este Markdown:
 

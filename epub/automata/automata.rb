@@ -7,8 +7,8 @@ require 'fileutils'
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
 
 # Argumentos
 argumento "-v", $l_au_v
@@ -106,7 +106,7 @@ end
 
 # Verifica los EPUB con EpubCheck
 def verificacion epub, version, log
-	epubcheck = File.dirname(__FILE__) + "/../../otros/ajenos/epubcheck/"
+	epubcheck = File.dirname(__FILE__) + "/../../src/alien/epubcheck/"
 
     begin
         puts "\nEpubcheck #{version}: #{$l_au_verificando[0] + epub + $l_au_verificando[1]}".green
@@ -232,7 +232,7 @@ else
 	
 	# Conversión si es necesaria
 	if File.extname(archivo_madre) == ".md"
-		ejecutar "# pc-pandog", "ruby #{File.dirname(__FILE__)+ "/../../archivo-madre/pandog/pandog.rb"} -i #{arregloRutaTerminal archivo_madre} -o #{arregloRutaTerminal xhtml}"
+		ejecutar "# pc-pandog", "ruby #{File.dirname(__FILE__)+ "/../../base-files/pandog/pandog.rb"} -i #{arregloRutaTerminal archivo_madre} -o #{arregloRutaTerminal xhtml}"
 	# De lo contrario copia el archivo y lo renombra
 	else
 		FileUtils.cp(archivo_madre, Dir.pwd)

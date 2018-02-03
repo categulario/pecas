@@ -14,12 +14,12 @@ y siguen el modelo del [*single source and online publishing*](#single-source-an
 
 # Requisitos
 
-| Dependencia                                             | Utilización            |
-|---------------------------------------------------------|------------------------|
-| [Ruby](https://www.ruby-lang.org/es/)                   | Todas las herramientas |
-| [Pandoc](http://pandoc.org/)                            | `pc-pandog`            |
-| [Tesseract](https://github.com/tesseract-ocr/tesseract) | `pc-tegs`              |
-| [Ghostscript](https://www.ghostscript.com/)             | `pc-tegs`              |
+| Dependencia                                             | Utilización             |
+|---------------------------------------------------------|-------------------------|
+| [Ruby](https://www.ruby-lang.org/es/)                   | Todas las herramientas  |
+| [Pandoc](http://pandoc.org/)                            | `pc-pandog`, `pc-notes` |
+| [Tesseract](https://github.com/tesseract-ocr/tesseract) | `pc-tegs`               |
+| [Ghostscript](https://www.ghostscript.com/)             | `pc-tegs`               |
 
 # Utilización
 
@@ -34,9 +34,9 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | `pc-divider`   | [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider)                 |
 | `pc-index`     | [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index)                     |
 | `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                     |
-| `pc-pandog`    | [`archivo-madre/pandog`](https://github.com/NikaZhenya/pecas/tree/master/archivo-madre/pandog) |
+| `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog) |
 | `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
-| `pc-tegs`      | [`digitalizacion/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitalizacion/tegs)   |
+| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)   |
 
 # *Single source and online publishing* (SSOP)
 

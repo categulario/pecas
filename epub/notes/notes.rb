@@ -5,10 +5,10 @@
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-beautifier.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-beautifier.rb"
 
 # Argumentos
 txt = if argumento "-f", txt != nil then argumento "-f", txt end
@@ -71,7 +71,7 @@ if txtEsMD
 	txt_oculto = directorioPadre(txt) + "/" + txt_oculto
 
 	# Se usa Pandog, que a su vez usa Pandoc
-	system "ruby #{File.dirname(__FILE__)+ "/../../archivo-madre/pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}"
+	system "ruby #{File.dirname(__FILE__)+ "/../../base-files/pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}"
 		
 	# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
 	archivo = File.open(txt_oculto, 'r:UTF-8')

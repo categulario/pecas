@@ -9,9 +9,9 @@ require 'yaml'
 require 'securerandom'
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
 
 # Determina si en la carpeta hay un EPUB
 def carpetaBusqueda carpeta, carpetasPrincipales
@@ -483,9 +483,9 @@ argumento "-h", $l_re_h
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
 	if win32
-		zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x32.exe"}"
+		zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x32.exe"}"
 	else
-		zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x64.exe"}"
+		zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x64.exe"}"
 	end
 else
 	zip = "zip"

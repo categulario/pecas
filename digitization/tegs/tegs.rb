@@ -5,8 +5,8 @@
 Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
 
 ## REQUIERE TESSERACT y GHOSTSCRIPT
 

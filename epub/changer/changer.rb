@@ -7,9 +7,9 @@ Encoding.default_internal = Encoding::UTF_8
 require 'fileutils'
 
 # Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../../otros/secundarios/general.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/lang.rb"
-require File.dirname(__FILE__) + "/../../otros/secundarios/xhtml-template.rb"
+require File.dirname(__FILE__) + "/../../src/common/general.rb"
+require File.dirname(__FILE__) + "/../../src/common/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
 
 # OJO: FileUtils.rm_rf no elimina la carpeta oculta del EPUB viejo descomprimido
 
@@ -71,7 +71,7 @@ Dir.chdir($carpeta)
 
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
-	unzip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/unzip.exe"}"
+	unzip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/unzip.exe"}"
 else
 	unzip = "unzip"
 end
@@ -182,7 +182,7 @@ $rutaEPUB = "../#{$epub}_#{$version.gsub(".","-")}.epub"
 
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
-	zip = "#{File.dirname(__FILE__)+ "/../../otros/ajenos/info-zip/zip-x64.exe"}"
+	zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x64.exe"}"
 else
 	zip = "zip"
 end

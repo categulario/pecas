@@ -11,7 +11,7 @@ pathArray = pathArray[0..pathArray.length - 2]
 pathArray = pathArray.join("/")
 
 # Añade lo restante de la ruta al script
-script = pathArray + "/digitalizacion/tegs/tegs.rb"
+script = pathArray + "/digitization/tegs/tegs.rb"
 
 # Llama al script
 require script
