@@ -76,7 +76,7 @@ if !update && !install && !restore
 else
     if restore
         puts $l_dr_restaurando, $l_dr_linea
-        system("git reset --hard")
+        system("cd ~/.pecas && rm -rf * && git clone --depth 1 https://github.com/NikaZhenya/pecas.git .")
     end
 
     if update
