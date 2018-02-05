@@ -163,3 +163,14 @@ recreator:
 changer:
   h: "\nAYUDA"
   sufijo: "_3-0-0"
+
+# pc-doctor
+doctor:
+  h: "\nAYUDA"
+  generales: "Generales:"
+  dependencias: "Dependencias:"
+  linea: "-------------------------------------"
+  actualizando: "=> Actualizando Pecas con: git push origin master"
+  restaurando: "=> Restaurando Pecas con: git reset --hard"
+  no-instalado: "no instalado"
+  falta: "=> Faltan algunas dependencias.\n   Para instalarlas usa:\n   pc-doctor --install-dependencies"

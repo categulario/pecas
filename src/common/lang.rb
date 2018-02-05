@@ -37,7 +37,7 @@ class String
 end
 
 # Para obtener la versión de las herramientas
-def obtener_version
+def obtener_version doctor = false
 	# Arregla los dígitos del mes y día para que siempre sean dos
 	def arreglo_digitos i
 		if i < 10
@@ -59,8 +59,10 @@ def obtener_version
 	fecha = Time.at(linea.split(/\s+/)[4].to_i)	# Convierte el UNIX time
 	fecha_formato = fecha.year.to_s + "." + arreglo_digitos(fecha.month) + "." + arreglo_digitos(fecha.day)
 
+    espacio = doctor ? " " : ""
+
 	# Regresa este formato: año.mes.día-commit => 2018.01.11-f610862
-	return "Pecas: #{fecha_formato + commit}" + "\n Ruby: #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}" + "\n Host: #{RbConfig::CONFIG['host']}" + "\n\nSoftware bajo licencia GPLv3+ <https://gnu.org/licenses/gpl.html>."
+	return espacio + espacio + "Pecas: #{fecha_formato + commit}" + "\n#{espacio} Ruby: #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}" + "\n#{espacio} Host: #{RbConfig::CONFIG['host']}" + ( doctor ? "" : "\n\nSoftware bajo licencia GPLv3+ <https://gnu.org/licenses/gpl.html>.")
 end
 
 # Obtiene el YAML
@@ -224,7 +226,18 @@ $l_re_error_a = langObj["recreator"]["error_a"]
 $l_re_error_m = langObj["recreator"]["error_m"].red.bold
 $l_re_error_t = langObj["recreator"]["error_t"].red.bold
 
-# Cambiador
+# Changer
 $l_ch_v = obtener_version
 $l_ch_h = langObj["changer"]["h"]
 $l_ch_sufijo = langObj["changer"]["sufijo"]
+
+# Doctor
+$l_dr_v = obtener_version true
+$l_dr_h = langObj["doctor"]["h"]
+$l_dr_generales = langObj["doctor"]["generales"]
+$l_dr_dependencias = langObj["doctor"]["dependencias"]
+$l_dr_linea = langObj["doctor"]["linea"]
+$l_dr_actualizando = langObj["doctor"]["actualizando"]
+$l_dr_restaurando = langObj["doctor"]["restaurando"]
+$l_dr_no_instalado = langObj["doctor"]["no-instalado"]
+$l_dr_falta = langObj["doctor"]["falta"]
