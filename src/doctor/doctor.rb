@@ -18,8 +18,9 @@ install = argumento "--install-dependencies", install, 1
 restore = argumento "--restore", restore, 1
 
 # Obtiene las versiones de cada dependecia
-def revisionDependencias d
+def revisionDependencias install, d
     salida = []
+    no_instalados = true
 
     # Itera el hash
     d.select do |k, v|
@@ -29,31 +30,81 @@ def revisionDependencias d
             version = output.split("\n")[0].gsub(/^.*?\s+/,'')
         # Si no existe, determina que falta una dependencia
         rescue
-            version = $l_dr_no_instalado
-            $no_instalado = true
+            # Cuando es «pc-doctor»
+            if !install
+                version = $l_dr_no_instalado
+                $no_instalado = true
+            # Cuando es «pc-doctor --install-dependencies»
+            else
+                # Elige la sintaxis según el gestor; para el caso de tesseract, se eligen los paquetes correctos
+                if $gestor == 1 || $gestor == 3
+                    g = $gestor == 1 ? 'sudo apt-get install' : 'sudo apt install'
+                    paquete = k == 'tesseract' ? v['paquete'][0..1].join(' ') : v['paquete'].join(' ')
+                elsif $gestor == 2
+                    g = 'sudo pacman -S'
+                    paquete = k == 'tesseract' ? v['paquete'][2..3].join(' ') : v['paquete'].join(' ')
+                elsif $gestor == 4
+                    g = 'brew install'
+                    paquete = k == 'tesseract' ? v['paquete'][4] : v['paquete'].join(' ')
+                end
+
+                # Comando que se utilizará
+                comando = "#{g} #{paquete}"
+                puts "#{$l_dr_instalando[0]} #{v['nombre']} #{$l_dr_instalando[1]}\n   #{comando}"
+
+                # Inicia la ejecución del comando
+                begin
+                    system(comando)
+                    no_instalados = false
+                rescue
+                    puts $l_dr_error.red.bold
+                end
+            end
         end
 
         # Da el nombre, la versión y las herramientas que lo necesita
-        salida.push('  ' + v["nombre"] + ': ' + version + " [#{v["pecas"].join(', ')}]")
+        if !install then salida.push('  ' + v["nombre"] + ': ' + version + " [#{v["pecas"].join(', ')}]") end
     end
 
-    return salida.join("\n")
+    if !install
+        return salida.join("\n")
+    else
+        return no_instalados ? "\n" + $l_dr_linea + "\n" + $l_dr_instalando_nan : "\n" + $l_dr_linea + "\n" + $l_dr_instalando_fin
+    end
+end
+
+# Pregunta por el tipo de gestor de paquetes
+def pregunta
+	print $l_dr_pregunta.blue.bold
+	respuesta = STDIN.gets.chomp.downcase.to_i
+    if respuesta == 0
+        puts $l_dr_ninguno.red.bold
+        abort
+    elsif respuesta > 4
+        puts $l_dr_mayor.red.bold
+        abort
+    else
+        return respuesta
+    end
 end
 
 # Variables
 $no_instalado = false
 dependencias = {
-    "pandoc" => {
-        "nombre" => "Pandoc", 
-        "pecas" => ["pc-pandog","pc-notes"]
+    'pandoc' => {
+        'nombre' => 'Pandoc', 
+        'paquete' => ['pandoc'],
+        'pecas' => ['pc-pandog','pc-notes']
     }, 
-    "tesseract" => {
-        "nombre" => "Tesseract",
-        "pecas" => ["pc-tegs"]
+    'tesseract' => {
+        'nombre' => 'Tesseract',
+        'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
+        'pecas' => ['pc-tegs']
     },
-    "gs" => {
-        "nombre" => "Ghostscript",
-        "pecas" => ["pc-tegs"]
+    'gs' => {
+        'nombre' => 'Ghostscript',
+        'paquete' => ['ghostscript'],
+        'pecas' => ['pc-tegs']
     }
 }
 
@@ -66,7 +117,7 @@ if !update && !install && !restore
     system ("bash #{File.dirname(__FILE__) + '/check-update.sh'}")
 
     # Da los datos generales y las dependencias
-    puts $l_dr_generales, obtener_version(true), $l_dr_dependencias, revisionDependencias(dependencias)
+    puts $l_dr_generales, obtener_version(true), $l_dr_dependencias, revisionDependencias(install, dependencias)
 
     # Si no hay alguna dependencia instalada
     if $no_instalado
@@ -85,6 +136,9 @@ else
     end
 
     if install
-       puts "install"
+        $gestor = pregunta
+        puts $l_dr_advertencia.yellow.bold
+
+        puts revisionDependencias(install, dependencias)
     end
 end

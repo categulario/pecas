@@ -172,5 +172,13 @@ doctor:
   linea: "-------------------------------------"
   actualizando: "=> Actualizando Pecas…"
   restaurando: "=> Restaurando Pecas…"
+  instalando: ["\n=> Instalando","con:"]
+  instalando-fin: "=> Todos los comandos han sido ejecutados, para ver el estado usa:\n   pc-doctor"
+  instalando-nan: "=> No hay dependencias por instalar."
   no-instalado: "no instalado"
   falta: "=> Faltan algunas dependencias.\n   Para instalarlas usa:\n   pc-doctor --install-dependencies"
+  pregunta: "Elige alguno de los siguientes gestores de paquetes:\n  0) Ninguno.\n  1) apt-get [Debian, Ubuntu, Linux Mint]\n  2) pacman [Arch Linux, Parabola]\n  3) apt [WSL Ubuntu]\n  4) brew [macOS]\n: "
+  ninguno: "\nERROR: ningún gestor elegido."
+  mayor: "\nERROR: número inválido."
+  advertencia: "\nADVERTENCIA: si alguna dependencia no puede ser instalada, usa directamente tu gestor de paquetes."
+  error: "\nERROR: algo salió mal, usa directamente tu gestor de paquetes."
