@@ -14,7 +14,7 @@ y siguen el modelo del [*single source and online publishing*](#single-source-an
 
 # Requisitos
 
-Todas las herramientas de Pecas requieren Ruby.
+Todas las herramientas de Pecas requieren [Ruby](https://www.ruby-lang.org/).
 
 Algunas herramientas requieren otras dependencias, para más información usa:
 
