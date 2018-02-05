@@ -166,7 +166,7 @@ changer:
 
 # pc-doctor
 doctor:
-  h: "\nAYUDA"
+  h: "\nDoctor analiza el estado de Pecas y sus dependencias.\n\nUso:\n  pc-doctor\n  \nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n  --update = Actualiza Pecas.\n  --restore = Restaura Pecas.\n  --install-dependencies = Instala dependencias de Pecas.\n\nEjemplo sencillo:\n  pc-doctor\n  Da un análisis del estado de Pecas y sus dependencias.\n \nEjemplo para actualizar:\n  pc-doctor --update\n  Actualiza Pecas.\n\nEjemplo para restaurar, actualizar e instalar dependencias:\n  pc-doctor --restore --update --install-dependencies\n  Restaura y actualiza Pecas, para después instalar sus dependencias."
   generales: "Generales:"
   dependencias: "Dependencias:"
   linea: "-------------------------------------"

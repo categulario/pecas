@@ -232,7 +232,7 @@ $l_ch_h = langObj["changer"]["h"]
 $l_ch_sufijo = langObj["changer"]["sufijo"]
 
 # Doctor
-$l_dr_v = obtener_version true
+$l_dr_v = obtener_version
 $l_dr_h = langObj["doctor"]["h"]
 $l_dr_generales = langObj["doctor"]["generales"]
 $l_dr_dependencias = langObj["doctor"]["dependencias"]

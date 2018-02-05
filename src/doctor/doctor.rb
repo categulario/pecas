@@ -66,7 +66,7 @@ if !update && !install && !restore
     system ("bash #{File.dirname(__FILE__) + '/check-update.sh'}")
 
     # Da los datos generales y las dependencias
-    puts $l_dr_generales, $l_dr_v, $l_dr_dependencias, revisionDependencias(dependencias)
+    puts $l_dr_generales, obtener_version(true), $l_dr_dependencias, revisionDependencias(dependencias)
 
     # Si no hay alguna dependencia instalada
     if $no_instalado

@@ -14,12 +14,13 @@ y siguen el modelo del [*single source and online publishing*](#single-source-an
 
 # Requisitos
 
-| Dependencia                                             | Utilización             |
-|---------------------------------------------------------|-------------------------|
-| [Ruby](https://www.ruby-lang.org/es/)                   | Todas las herramientas  |
-| [Pandoc](http://pandoc.org/)                            | `pc-pandog`, `pc-notes` |
-| [Tesseract](https://github.com/tesseract-ocr/tesseract) | `pc-tegs`               |
-| [Ghostscript](https://www.ghostscript.com/)             | `pc-tegs`               |
+Todas las herramientas de Pecas requieren Ruby.
+
+Algunas herramientas requieren otras dependencias, para más información usa:
+
+```
+pc-doctor
+```
 
 # Utilización
 
