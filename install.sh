@@ -89,4 +89,5 @@ else
 fi
 
 # Fin, lo ideal es que fuera automático
-echo "=> Usa «source $profile_script_short» si no tienes acceso a Pecas."
+echo "   => Usa «pc-doctor» para ver el estado de Pecas y sus dependencias."
+echo "   => Si no tienes acceso a Pecas, usa «source $profile_script_short»."
