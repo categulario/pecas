@@ -8,6 +8,8 @@ y siguen el modelo del [*single source and online publishing*](#single-source-an
 
 # Instalación
 
+Copia y pega en la terminal:
+
 ```bash
 (cd ~ && mkdir .pecas && cd .pecas && git clone --depth 1 https://github.com/NikaZhenya/pecas.git . && bash install.sh) && source ~/.bash_profile
 ```
@@ -35,9 +37,10 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | `pc-divider`   | [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider)                 |
 | `pc-index`     | [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index)                     |
 | `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                     |
-| `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog) |
+| `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)       |
 | `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
-| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)   |
+| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       |
+| `pc-doctor`    | [`src/doctor`](https://github.com/NikaZhenya/pecas/tree/master/src/doctor)                     |
 
 # *Single source and online publishing* (SSOP)
 
