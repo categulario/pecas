@@ -37,14 +37,12 @@ epub_ubicacion = comprobacionDirectorio epub_ubicacion
 Dir.chdir(epub_ubicacion)
 
 # Verifica que no existan conflictos con el nombre de los archivos a crear
-Dir.glob("*") do |archivo|
-	if File.exists?(epubNombre) == true
-		puts $l_g_error_nombre
-		abort
-	elsif File.exists?($l_g_meta_data) == true
-		puts $l_cr_error_meta
-		abort
-	end
+if File.exists?(epubNombre) == true
+	puts $l_g_error_nombre
+	abort
+elsif File.exists?($l_g_meta_data) == true && !File.exists?($l_au_init_archivo)
+	puts $l_cr_error_meta
+	abort
 end
 
 # Crea la carpeta del EPUB 
@@ -52,10 +50,12 @@ puts "#{$l_cr_creando[0] + epubNombre + $l_cr_creando[1]}".green
 Dir.mkdir epubNombre
 
 # Crea el archivo de metadatos
-metadata = $l_g_meta_data
-$l_g_meta_data = File.new($l_g_meta_data, "w:UTF-8")
-$l_g_meta_data.puts $l_cr_yaml
-$l_g_meta_data.close
+if !File.exists?($l_au_prefijo + $l_g_meta_data)
+    metadata = $l_g_meta_data
+    $l_g_meta_data = File.new($l_g_meta_data, "w:UTF-8")
+    $l_g_meta_data.puts $l_cr_yaml
+    $l_g_meta_data.close
+end
 
 # Se añade el nombre de la portada a los metadatos si se especificó uno
 if epubPortada != nil

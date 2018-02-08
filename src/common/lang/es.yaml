@@ -85,7 +85,7 @@ automata:
   nombre: "epub-automata"
   epub_nombre: "epub"
   logs: "logs"
-  prefijo: "automata_"
+  prefijo: ""
   init_archivo: ".automata_init"
   init_contenido: "Archivo para detectar que se trata de un proyecto de Automata, no borrar."
   log: "log-all.txt"

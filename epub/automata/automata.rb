@@ -248,7 +248,7 @@ else
 	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{$l_au_epub_nombre} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
 
 	# Elimina el YAML creado por pc-creator, ya que ya existe uno
-	FileUtils.rm_rf($l_g_meta_data)
+#	FileUtils.rm_rf($l_g_meta_data)
 	
 	# División del archivo XHTML
 	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
