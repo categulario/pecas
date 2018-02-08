@@ -30,7 +30,7 @@ def revisionDependencias install, d
             version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1].gsub(/^.*?Zip\s+/,'').gsub(/\s+.*$/,'').strip
 
             # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
-            if version.gsub(/[\d|\.]/,'') != ''
+            if version.gsub(/[\d|\.|-|_]/,'') != ''
                 version = $l_dr_instalado
             end
         # Si no existe, determina que falta una dependencia
