@@ -27,7 +27,12 @@ def revisionDependencias install, d
         # Obtiene la versión, eliminando todo posible texto y dejando solo el número
         begin
             output = `#{k} --version`
-            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'') : output.split("\n")[1].gsub(/^.*?Zip\s+/,'').gsub(/\s+.*$/,'')
+            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1].gsub(/^.*?Zip\s+/,'').gsub(/\s+.*$/,'').strip
+
+            # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
+            if version.gsub(/[\d|\.]/,'') != ''
+                version = $l_dr_instalado
+            end
         # Si no existe, determina que falta una dependencia
         rescue
             # Cuando es «pc-doctor»
