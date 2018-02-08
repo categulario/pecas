@@ -27,7 +27,7 @@ def revisionDependencias install, d
         # Obtiene la versión, eliminando todo posible texto y dejando solo el número
         begin
             output = `#{k} --version`
-            version = output.split("\n")[0].gsub(/^.*?\s+/,'')
+            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'') : output.split("\n")[1].gsub(/^.*?Zip\s+/,'').gsub(/\s+.*$/,'')
         # Si no existe, determina que falta una dependencia
         rescue
             # Cuando es «pc-doctor»
@@ -94,7 +94,12 @@ dependencias = {
     'pandoc' => {
         'nombre' => 'Pandoc', 
         'paquete' => ['pandoc'],
-        'pecas' => ['pc-pandog','pc-notes']
+        'pecas' => ['pc-automata','pc-pandog','pc-notes']
+    },
+    'zip' => {
+        'nombre' => 'Zip',
+        'paquete' => ['zip'],
+        'pecas' => ['pc-automata','pc-recreator']
     }, 
     'tesseract' => {
         'nombre' => 'Tesseract',
