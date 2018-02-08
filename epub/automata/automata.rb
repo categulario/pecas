@@ -245,21 +245,21 @@ else
 	end
 	
 	# Creación del proyecto EPUB
-	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
+	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{$l_au_epub_nombre} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
 
 	# Elimina el YAML creado por pc-creator, ya que ya existe uno
 	FileUtils.rm_rf($l_g_meta_data)
 	
 	# División del archivo XHTML
-	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
+	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
 	
 	# Adición de notas
 	if notas
-		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -f #{arregloRutaTerminal notas} -d #{$l_cr_epub_nombre}/OPS/xhtml -s #{$l_cr_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
+		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -f #{arregloRutaTerminal notas} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
 	end
 	
 	# Recreación del EPUB
-	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} #{parametro yaml, "-y"} #{parametro depth, "--depth"} #{if win32 then "-32" end}"
+	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} -d #{$l_au_epub_nombre} #{parametro yaml, "-y"} #{parametro depth, "--depth"} #{if win32 then "-32" end}"
 	
 	# Localiza el nombre del EPUB
 	Dir.glob("*.epub") do |e|

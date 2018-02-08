@@ -150,6 +150,7 @@ $l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
 $l_au_v = obtener_version
 $l_au_h = langObj["automata"]["h"]
 $l_au_nombre = langObj["automata"]["nombre"]
+$l_au_epub_nombre = langObj["automata"]["epub_nombre"]
 $l_au_logs = langObj["automata"]["logs"]
 $l_au_prefijo = langObj["automata"]["prefijo"]
 $l_au_init_archivo = langObj["automata"]["init_archivo"]
