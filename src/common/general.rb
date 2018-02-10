@@ -37,6 +37,35 @@ class String
     end
 end
 
+# Obtiene el tamaño de un archivo; viene de: https://stackoverflow.com/questions/16026048/pretty-file-size-in-ruby
+class Integer
+    def to_filesize
+        {
+            'B'  => 1024,
+            'KB' => 1024 * 1024,
+            'MB' => 1024 * 1024 * 1024,
+            'GB' => 1024 * 1024 * 1024 * 1024,
+            'TB' => 1024 * 1024 * 1024 * 1024 * 1024
+        }.each_pair { |e, s| return "#{(self.to_f / (s / 1024)).round(2)}#{e}" if self < s }
+    end
+end
+
+# Obtiene el mimetype y la codificación de un archivo; inspirado en: https://stackoverflow.com/questions/24897465/determining-encoding-for-a-file-in-ruby
+class String
+    def detect_mimetype_charset
+        if OS.linux? || OS.mac?
+            if OS.linux?
+                output = `file -i #{self}`.strip.split(': ')[1].split('; ')
+            else
+                output = `file -I #{self}`.strip.split(': ')[1].split('; ')
+            end
+            return [output[0], output[1].split('=')[1]]
+        else
+            $l_g_error_no_identificado
+        end
+    end
+end
+
 ## FUNCIONES
 
 # Obtiene los argumentos
@@ -443,10 +472,6 @@ def file_to_hash ruta
             conjunto_final.push(l)
         end
 
-        # Elimina un espacio de más que tienen todas las etiquetas; por lo que se resta un nivel
-        conjunto_final = conjunto_final.map{|l| l.gsub(/^#{aumento}/,'')}
-        niveles = niveles - 1
-
         return array_to_yaml(conjunto_final, niveles)
     end
     
@@ -464,7 +489,10 @@ def file_to_hash ruta
     archivo_abierto.close
 
     # Une las líneas en una sola línea de texto para empezar su conversión a hash
-    yaml = text_to_array_to_yaml(codificacionValida? lineas.join(''))
+    yaml = text_to_array_to_yaml(codificacionValida? lineas.join('')).map{|l| l.gsub(/^  /,'')}
+
+    # Añade el nombre del archivo, su ruta, tamaño, mimetype, codificación y lo preliminar para identificar el contenido
+    yaml = yaml.unshift("file: \"#{File.basename(ruta)}\"\npath: \"#{ruta}\"\nsize: \"#{File.size(ruta).to_filesize}\"\nmimetype: \"#{ruta.detect_mimetype_charset[0]}\"\ncharset: \"#{ruta.detect_mimetype_charset[1]}\"\ncontent:")
 
     # El YAML pasa a ser un hash
     hash = YAML.load(yaml.join("\n"))

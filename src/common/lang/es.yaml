@@ -26,14 +26,15 @@ general:
   note_content: "--note-content--"
   change: ["--change", "--"]
   note: ["--note", "--"]
+  descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
+  epub_analisis: "epub_analisis"
+  error_no_identificado: "No identificado."
   error_arg: "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda."
   error_arg2: "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda."
   error_directorio: ["\nERROR: al parecer el directorio «", "» no existe."]
   error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
   error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
   error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
-  descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
-  epub_analisis: "epub_analisis"
   error_opf: "\nERROR: archivo OPF no encontrado"
 
 # pc-pandog

@@ -94,14 +94,15 @@ $l_g_ignore = langObj["general"]["ignore"]
 $l_g_delete = langObj["general"]["delete"]
 $l_g_change = langObj["general"]["change"]
 $l_g_note = langObj["general"]["note"]
+$l_g_descomprimiendo = langObj["general"]["descomprimiendo"].green
+$l_g_epub_analisis = langObj["general"]["epub_analisis"]
+$l_g_error_no_identificado = langObj["general"]["error_no_identificado"]
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
 $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
 $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
-$l_g_descomprimiendo = langObj["general"]["descomprimiendo"].green
-$l_g_epub_analisis = langObj["general"]["epub_analisis"]
 $l_g_error_opf = langObj["general"]["error_opf"].red.bold
 
 # Pandog
