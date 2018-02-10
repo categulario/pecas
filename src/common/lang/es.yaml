@@ -32,6 +32,9 @@ general:
   error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
   error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
   error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
+  descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
+  epub_analisis: "epub_analisis"
+  error_opf: "\nERROR: archivo OPF no encontrado"
 
 # pc-pandog
 pandog: 
@@ -163,7 +166,7 @@ recreator:
 # pc-changer
 changer:
   h: "\nAYUDA"
-  sufijo: "_3-0-0"
+  error_version: ["\nERROR: la versión «","» no está soportada."]
 
 # pc-doctor
 doctor:

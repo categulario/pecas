@@ -2,14 +2,47 @@
 # encoding: UTF-8
 # coding: UTF-8
 
-Encoding.default_internal = Encoding::UTF_8
-
 require 'fileutils'
+
+Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../src/common/general.rb"
 require File.dirname(__FILE__) + "/../../src/common/lang.rb"
+require File.dirname(__FILE__) + "/../../src/common/css-template.rb"
 require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
+
+# Argumentos
+epub_nombre = if argumento "-e", epub_nombre != nil then argumento "-e", epub_nombre else nil end
+epub_version = if argumento "--version", epub_version != nil then argumento "--version", epub_version else nil end
+argumento "-v", $l_ch_v
+argumento "-h", $l_ch_h
+version_disponible = ['2.0.0','2.0.1','3.0.0','3.0.1','3.1']
+
+# Ambos argumentos son necesarios
+if epub_nombre == nil || epub_version == nil
+    puts $l_g_error_arg
+    abort
+end
+
+# Comprueba si es un EPUB, obtiene su ruta y su directorio padre
+epub_nombre = comprobacionArchivo epub_nombre, [".epub"]
+
+# Compruebe que la versión sea una soportada
+version_existente = false
+version_disponible.each do |v|
+    if v == epub_version
+       version_existente = true
+        break
+    end
+end
+if !version_existente then puts "#{$l_ch_error_version[0] + epub_version + $l_ch_error_version[1]}".red.bold; abort end
+
+epub_objeto = epub_analisis(epub_nombre)
+
+puts epub_objeto.class
+
+abort
 
 # OJO: FileUtils.rm_rf no elimina la carpeta oculta del EPUB viejo descomprimido
 

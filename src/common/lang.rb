@@ -100,6 +100,9 @@ $l_g_error_directorio = langObj["general"]["error_directorio"]
 $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
+$l_g_descomprimiendo = langObj["general"]["descomprimiendo"].green
+$l_g_epub_analisis = langObj["general"]["epub_analisis"]
+$l_g_error_opf = langObj["general"]["error_opf"].red.bold
 
 # Pandog
 $l_pg_v = obtener_version
@@ -230,7 +233,7 @@ $l_re_error_t = langObj["recreator"]["error_t"].red.bold
 # Changer
 $l_ch_v = obtener_version
 $l_ch_h = langObj["changer"]["h"]
-$l_ch_sufijo = langObj["changer"]["sufijo"]
+$l_ch_error_version = langObj["changer"]["error_version"]
 
 # Doctor
 $l_dr_v = obtener_version
