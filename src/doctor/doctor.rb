@@ -26,8 +26,9 @@ def revisionDependencias install, d
     d.select do |k, v|
         # Obtiene la versión, eliminando todo posible texto y dejando solo el número
         begin
-            output = `#{k} --version`
-            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1].gsub(/^.*?Zip\s+/,'').gsub(/\s+.*$/,'').strip
+            output = `#{k} -v`
+            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1]
+            version = version.gsub(/^[A-Za-z\s,\.:;]*?(\d.*?)\s.*$/, '\1')
 
             # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
             if version.gsub(/[\d|\.|-|_]/,'') != ''
@@ -105,6 +106,11 @@ dependencias = {
         'nombre' => 'Zip',
         'paquete' => ['zip'],
         'pecas' => ['pc-automata','pc-recreator']
+    },
+    'unzip' => {
+        'nombre' => 'UnZip',
+        'paquete' => ['unzip'],
+        'pecas' => ['pc-automata','pc-changer']
     }, 
     'tesseract' => {
         'nombre' => 'Tesseract',

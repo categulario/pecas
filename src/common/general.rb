@@ -319,7 +319,7 @@ def adicion_archivos ruta, ubicacion, carpeta, extensiones
 end
 
 # Analiza el EPUB para obtener un hash convertible a JSON
-def epub_analisis epub
+def epub_analisis epub, borrar = true
 
     epub_directorio = directorioPadre epub
     unzip = if OS.windows? then unzip = "#{File.dirname(__FILE__)+ '/../../src/alien/info-zip/unzip.exe'}" else unzip = "unzip" end
@@ -393,8 +393,8 @@ def epub_analisis epub
         todo['htmls'].push(file_to_hash(h))
     end
 
-    # Elimina el EPUB descomprimido
-    FileUtils.rm_rf($l_g_epub_analisis)
+    # Elimina el EPUB descomprimido si así se indicó
+    if borrar then FileUtils.rm_rf($l_g_epub_analisis) end
 
     return todo
 end

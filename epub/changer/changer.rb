@@ -39,11 +39,13 @@ end
 if !version_existente then puts "#{$l_ch_error_version[0] + epub_version + $l_ch_error_version[1]}".red.bold; abort end
 
 # Analiza el EPUB para obtener un hash con el OPF y todos los HTML
-epub_objeto = epub_analisis(epub_nombre)
+epub_objeto = epub_analisis(epub_nombre, false)
 
+# Eliminar
 	archivo = File.new('borrar.json', 'w:UTF-8')
 	archivo.puts JSON.pretty_generate(epub_objeto)
 	archivo.close
+# Eliminar
 
 abort
 
