@@ -95,6 +95,7 @@ $l_g_delete = langObj["general"]["delete"]
 $l_g_change = langObj["general"]["change"]
 $l_g_note = langObj["general"]["note"]
 $l_g_descomprimiendo = langObj["general"]["descomprimiendo"].green
+$l_g_analizando = langObj["general"]["analizando"]
 $l_g_epub_analisis = langObj["general"]["epub_analisis"]
 $l_g_error_no_identificado = langObj["general"]["error_no_identificado"]
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold

@@ -320,10 +320,45 @@ end
 
 # Analiza el EPUB para obtener un hash convertible a JSON
 def epub_analisis epub
+
     epub_directorio = directorioPadre epub
     unzip = if OS.windows? then unzip = "#{File.dirname(__FILE__)+ '/../../src/alien/info-zip/unzip.exe'}" else unzip = "unzip" end
-    todo_obj = {}
+    todo = {}
     archivo_opf = nil
+
+    # Obtiene las rutas absolutas a cada archivo HTML dentro del EPUB
+    def html_urls urls, opf, path
+        opf.each do |k,v|
+            # Si ya se localizó el manifiesto
+            if k =~ /manifest/
+                # Iteración del contenido del manifiesto
+                v['content'].each do |i|
+                    # Obtiene la ruta relativa del archivo
+                    archivo = i['$item']['attributes']['_href']
+
+                    # Se añade la ruta absoluta si se trata de un documento tipo HTML
+                    if File.extname(archivo)[1..-1] == 'xhtml' || File.extname(archivo)[1..-1] == 'html' || File.extname(archivo)[1..-1] == 'htm'
+                        # Se excluye el HTMl de navegación
+                        if i['$item']['attributes']['_properties'] != 'nav'
+                            urls.push(path + '/' + archivo)
+                        end
+                    end
+                end
+            # Si el manifiesto aún no es localizado
+            else
+                # Busca un hash para poder localizar la llave `$manifiest`
+                if v.kind_of?(Array)
+                    v.each do |e|
+                        if e.kind_of?(Hash)
+                            html_urls(urls, e, path)
+                        end
+                    end
+                elsif v.kind_of?(Hash)
+                    html_urls(urls, v, path)
+                end
+            end
+        end
+    end
 
     # Se va adonde está el EPUB
     Dir.chdir(epub_directorio)
@@ -334,24 +369,39 @@ def epub_analisis epub
 
     # Busca el archivo OPF
     Dir.glob($l_g_epub_analisis + "/**/*") do |archivo|
-#        if File.extname(archivo) == ".opf"   # ------------------------> OJOJOJOJOJO: cambiar
-        if File.extname(archivo) == ".xhtml"
+        if File.extname(archivo) == ".opf"
             archivo_opf = archivo
             break
         end
     end
     if archivo_opf == nil then puts $l_g_error_opf; abort end
 
+    # Se extrae la infomación del OPF
     archivo_opf = file_to_hash(archivo_opf)
-aaa = hash_to_html(archivo_opf); # puts aaa
+
+    # Añade el OPF al objeto general
+    todo['opf'] = archivo_opf
+
+    # Se obtienen las rutas absolutas de los HTML adentro del EPUB
+    html = []; html_urls(html, archivo_opf, directorioPadre(archivo_opf['path']))
+
+    # Se crea el elemento para poner todos los HTML
+    todo['htmls'] = []
+
+    # Añade la infomación de cada HTML al todo
+    html.each_with_index do |h,i|
+        todo['htmls'].push(file_to_hash(h))
+    end
+
     # Elimina el EPUB descomprimido
     FileUtils.rm_rf($l_g_epub_analisis)
 
-    return todo_obj
+    return todo
 end
 
-# Convierte el archivo en un hash fácilmente convertible a JSON; va de un XML o HTML a JSON
+# Convierte el archivo en un hash
 def file_to_hash ruta
+    puts "#{$l_g_analizando[0] + File.basename(ruta) + $l_g_analizando[1]}".green
 
     # Va de un conjunto con espacios como jerarquías a un hash
     def array_to_yaml conjunto, nivel
@@ -468,7 +518,9 @@ def file_to_hash ruta
             # si es contenido
             else
                 # El espacio en general no es afectado
-                l = espacio + aumento + l
+                l = espacio + aumento + l.gsub("\\","&#92;")
+                # Ojo: el carácter `\` salió conflictivo, por lo que fue reemplazado por su entidad html
+                #   quizá más elementos necesiten esto; véase: https://www.freeformatter.com/html-entities.html
             end
             
             conjunto_final.push(l)
@@ -502,23 +554,13 @@ def file_to_hash ruta
     return hash
 end
 
-# Convierte el hash a un archivo HTML
+# Convierte el hash a un conjunto con sintaxis HTML
 def hash_to_html hash
     tipo = if File.extname(hash['file'])[1..-1] == 'opf' || File.extname(hash['file'])[1..-1] == 'xml' || File.extname(hash['file'])[1..-1] == 'xhtml' || File.extname(hash['file'])[1..-1] == 'html' || File.extname(hash['file'])[1..-1] == 'htm' then tipo = File.extname(hash['file'])[1..-1] else tipo = nil end
     html = []
 
     # Comprobación porque la extensión y el nivel son necesarios
     if tipo == nil then puts $l_g_error_hash; abort end
-
-    # Se añade la versión XML si es OPF, XML o XHTML
-    if tipo == 'opf' || tipo == 'xml' || tipo == 'xhtml'
-        html.push("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-    end
-
-    # Se añade el tipo de documento si es XHTML, HTML y HTM
-    if tipo == 'xhtml' || tipo == 'html' || tipo == 'htm'
-        html.push("<!DOCTYPE html>")
-    end
     
     # Pasa el contenido del hash a HTML
     def contenido_a_html a, html
@@ -579,14 +621,16 @@ def hash_to_html hash
 
     contenido_a_html(hash['content'], html)
 
-    # Une todo en una sola línea
-    html = html.join('')
+    # Jerarquiza
+    html = beautifier_html(html)
 
-# BORRAR
-	archivo = File.new('borrar.xhtml', 'w:UTF-8')
-	archivo.puts html
-	archivo.close
-    beautifier('borrar.xhtml')
-#BORRAR .kind_of?(Hash)
+    # Se añade el tipo de documento si es XHTML, HTML y HTM
+    if tipo == 'xhtml' || tipo == 'html' || tipo == 'htm'
+        html.unshift("<!DOCTYPE html>")
+    end
 
+    # Se añade la versión XML si es OPF, XML o XHTML
+    if tipo == 'opf' || tipo == 'xml' || tipo == 'xhtml'
+        html.unshift("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+    end
 end
