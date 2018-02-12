@@ -4,62 +4,96 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
-# OJO: depende de la estructura que crea Pandoc, úsese con precaución
+# Pone lindo un conjunto o línea de texto de HTML; OJO: estaría bien ya no depender de un conjutno dado de elementos HTML
+def beautifier_html elemento
+    $nivel_actual = 0
+    block_elements = [
+        'address', 'article', 'aside', 'blockquote', 'canvas', 'dd', 
+        'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 
+        'footer', 'form', 'header', 'hgroup', 'hr', 'li', 'main', 
+        'nav', 'noscript', 'ol', 'output', 'pre', 'section', 'table', 
+        'tfoot', 'ul', 'video', 'html', 'head', 'body', 'package', 
+        'metadata', 'manifest', 'spine'
+    ] # Estos elementos quedan:  \n<e>\n…\n</e>\n
+    other_elements = [
+        'meta', 'title', 'link', 'p', 'item', /dc:/, /h\d/
+    ] # Estos elementos quedan:  \n<e>…</e>\n
+
+    # Coloca los espacios correctos
+    def movimiento_espacio elemento, bloques, conjunto
+        espacio = '    '
+
+        # Define si es una línea de texto donde puede sumarse o restarse un nivel
+        def si_bloque elemento, bloques
+            bloques.each do |b|
+                if elemento =~ /^<[^>|^\w]*?#{b}[^\w]/ then return true end
+            end
+            return false
+        end
+
+        # Si es de cierre
+        if elemento =~ /^<\//
+            # Si sí aplica una reducción
+            if si_bloque(elemento, bloques) == true
+                $nivel_actual = $nivel_actual - 1
+                conjunto.push((espacio * $nivel_actual) + elemento)
+            else
+                conjunto.push((espacio * $nivel_actual) + elemento)
+            end
+        # Si es de apertura o puro texto
+        else
+            # Si sí aplica una adición
+            if si_bloque(elemento, bloques) == true
+                conjunto.push((espacio * $nivel_actual) + elemento)
+                $nivel_actual = $nivel_actual + 1
+            else
+                conjunto.push((espacio * $nivel_actual) + elemento)
+            end
+        end
+    end
+
+    # Para forzar iniciar con una sola línea de texto
+    if elemento.kind_of?(Array)
+        elemento = elemento.join('')
+    end
+
+    # Añade saltos de línea en los elementos que son bloques
+    block_elements.each do |e|
+        elemento = elemento.gsub(/<\s*?(#{e}.*?)>/,"\n<" + '\1' + ">\n").gsub(/<\s*?\/\s*?(#{e}.*?)>/,"\n</" + '\1' + ">\n")
+    end
+
+    # Añade saltos de línea a otros elementos
+    other_elements.each do |e|
+        elemento = elemento.gsub(/<\s*?(#{e}.*?)>/,"\n<" + '\1' + ">").gsub(/<\s*?\/\s*?(#{e}.*?)>/,"</" + '\1' + ">\n")
+    end
+
+    # Crea un conjunto sin elementos vacíos fruto de saltos excesivos
+    elemento = elemento.split("\n").reject{|l| l.empty?}
+
+    # Crea el nuevo elemento con los espacios correctos
+    elemento_final = []
+    elemento.each do |e|
+        movimiento_espacio(e, block_elements, elemento_final)
+    end
+
+    return elemento_final
+end
+
+# Pone lido un archivo tipo HTML
 def beautifier archivo
 	b = ".beautifier"
-	elementos = Array.new
-	$beautifier_nivel = 0
-	$beautifier_auto = false
-	$beautifier_espacio = "    "
-	$beautifier_e_final = Array.new
-	
-	# Añade los espacios necesarios
-	def espaciar elemento
-		# </html> es nivel 0
-		if elemento =~ /<\/(\s+)?html/
-			$beautifier_nivel = 0
-		# <head>, <body>, </head> y </body> son nivel 1
-		elsif elemento =~ /<(\s+)?head/ || elemento =~ /<(\s+)?body/ || elemento =~ /<\/(\s+)?head/ || elemento =~ /<\/(\s+)?body/
-			$beautifier_nivel = 1
-		# </section>, </div>, </blockquote>, </ol>, </ul>, </figure>, </table>, </tr>, </thead>, </tbody>, </tfoot>, </colgroup>, </detail> y </aside> restan un nivel
-		elsif elemento =~ /<\/(\s+)?section/ || elemento =~ /<\/(\s+)?div/ || elemento =~ /<\/(\s+)?blockquote/ || elemento =~ /<\/(\s+)?ol/ || elemento =~ /<\/(\s+)?ul/ || elemento =~ /<\/(\s+)?figure/ || elemento =~ /<\/(\s+)?table/ || elemento =~ /<\/(\s+)?tr/ || elemento =~ /<\/(\s+)?thead/ || elemento =~ /<\/(\s+)?tbody/ || elemento =~ /<\/(\s+)?tfoot/ || elemento =~ /<\/(\s+)?colgroup/ || elemento =~ /<\/(\s+)?detail/ || elemento =~ /<\/(\s+)?aside/
-			$beautifier_nivel = $beautifier_nivel - 1
-		end
-		
-		# Evita niveles negativos
-		if $beautifier_nivel < 0
-			$beautifier_nivel = 0
-		end
-		
-		# El espacio en este elemento es igual al espacio por defecto por el nivel
-		e = $beautifier_espacio * $beautifier_nivel
-		
-		# Agrega el elemento
-		$beautifier_e_final.push(e + elemento)
-		
-		# Lo que sigue a <head> y <body> empieza con nivel 2
-		if elemento =~ /<(\s+)?head/ || elemento =~ /<(\s+)?body/
-			$beautifier_nivel = 2
-		# Lo que sigue a <section>, <div>, <blockquote>, <ol>, <ul>, <figure>, <table>, <tr>, <thead>, <tbody>, <tfoot>, <colgroup>, <detail> y <aside> sube un nivel
-		elsif elemento =~ /<(\s+)?section/ || elemento =~ /<(\s+)?div/ || elemento =~ /<(\s+)?blockquote/ || elemento =~ /<(\s+)?ol/ || elemento =~ /<(\s+)?ul/ || elemento =~ /<(\s+)?figure/ || elemento =~ /<(\s+)?table/ || elemento =~ /<(\s+)?tr/ || elemento =~ /<(\s+)?thead/ || elemento =~ /<(\s+)?tbody/ || elemento =~ /<(\s+)?tfoot/ || elemento =~ /<(\s+)?colgroup/ || elemento =~ /<(\s+)?detail/ || elemento =~ /<(\s+)?aside/
-			$beautifier_nivel = $beautifier_nivel + 1
-		end
-	end
+	elementos = []
 	
 	# Extrae el texto del archivo original
 	archivo_abierto = File.open(archivo, "r")
 	archivo_abierto.each do |l|
-		# Se eliminan los espacios al inicio y los saltos de línea
-		elementos.push(l.strip.gsub(/\n/, ""))
+		elementos.push(l.strip.gsub("\n", ""))
 	end
 	archivo_abierto.close
 	
-	# Se espacia cada línea
-	elementos.each do |l|; espaciar l; end
-	
 	# Se añaden las líneas espaciadas al nuevo archivo
 	archivo_final = File.open(b, "w") 
-	archivo_final.puts $beautifier_e_final
+	archivo_final.puts beautifier_html(elementos)
 	archivo_final.close
 	
 	# Renombra el nuevo archivo para sustituir el original
