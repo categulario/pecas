@@ -9,6 +9,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../common/lang.rb"
+require File.dirname(__FILE__) + "/../common/xhtml-beautifier.rb"
 
 ## MÓDULOS
 
@@ -342,7 +343,7 @@ def epub_analisis epub
     if archivo_opf == nil then puts $l_g_error_opf; abort end
 
     archivo_opf = file_to_hash(archivo_opf)
-
+aaa = hash_to_html(archivo_opf); # puts aaa
     # Elimina el EPUB descomprimido
     FileUtils.rm_rf($l_g_epub_analisis)
 
@@ -426,7 +427,8 @@ def file_to_hash ruta
 
         por_nivel(conjunto, nivel)
 
-        return $conjunto_yaml.reject{|l| l.empty?}
+        # Se agregan el content para saber dónde empieza el contenido y la profundidad -1, porque se eliminará un nivel
+        return $conjunto_yaml.unshift("  deep: #{nivel - 1}\n  content:").reject{|l| l.empty?}
     end
 
     # Va de una línea de texto a un conjunto con espacios que jerarquizan el contenido
@@ -492,10 +494,99 @@ def file_to_hash ruta
     yaml = text_to_array_to_yaml(codificacionValida? lineas.join('')).map{|l| l.gsub(/^  /,'')}
 
     # Añade el nombre del archivo, su ruta, tamaño, mimetype, codificación y lo preliminar para identificar el contenido
-    yaml = yaml.unshift("file: \"#{File.basename(ruta)}\"\npath: \"#{ruta}\"\nsize: \"#{File.size(ruta).to_filesize}\"\nmimetype: \"#{ruta.detect_mimetype_charset[0]}\"\ncharset: \"#{ruta.detect_mimetype_charset[1]}\"\ncontent:")
+    yaml = yaml.unshift("file: \"#{File.basename(ruta)}\"\npath: \"#{ruta}\"\nsize: \"#{File.size(ruta).to_filesize}\"\nmimetype: \"#{ruta.detect_mimetype_charset[0]}\"\ncharset: \"#{ruta.detect_mimetype_charset[1]}\"")
 
     # El YAML pasa a ser un hash
     hash = YAML.load(yaml.join("\n"))
 
     return hash
+end
+
+# Convierte el hash a un archivo HTML
+def hash_to_html hash
+    tipo = if File.extname(hash['file'])[1..-1] == 'opf' || File.extname(hash['file'])[1..-1] == 'xml' || File.extname(hash['file'])[1..-1] == 'xhtml' || File.extname(hash['file'])[1..-1] == 'html' || File.extname(hash['file'])[1..-1] == 'htm' then tipo = File.extname(hash['file'])[1..-1] else tipo = nil end
+    html = []
+
+    # Comprobación porque la extensión y el nivel son necesarios
+    if tipo == nil then puts $l_g_error_hash; abort end
+
+    # Se añade la versión XML si es OPF, XML o XHTML
+    if tipo == 'opf' || tipo == 'xml' || tipo == 'xhtml'
+        html.push("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+    end
+
+    # Se añade el tipo de documento si es XHTML, HTML y HTM
+    if tipo == 'xhtml' || tipo == 'html' || tipo == 'htm'
+        html.push("<!DOCTYPE html>")
+    end
+    
+    # Pasa el contenido del hash a HTML
+    def contenido_a_html a, html
+
+        # Añade atributos si los hay
+        def atributos elemento
+            if elemento['attributes'] != nil
+                att = []
+                # Iteración de todos los atributos
+                elemento['attributes'].each do |k,v|
+                    att.push(' ' + k[1..-1] + '="' + v + '"')
+                end
+                # Regresa los atributos en una sola línea
+                return att.join('')
+            end
+            return ''
+        end
+
+        # Añade espacio al final de la etiqueta si lo hay
+        def espacio elemento, final = nil
+            if final != '>'
+                return elemento['end_space'] != nil ?  espacio = ' ' : espacio = ''
+            end
+            return ''
+        end
+
+        # Cierra el tag
+        def cierre elemento
+            final = elemento['content'] != nil ? final = '>' : final = '/>'
+            return atributos(elemento) + final + espacio(elemento, final)
+        end
+
+        # Iteración de cada contenido
+        a.each do |e|
+            # Si es tag
+            if e.kind_of?(Hash)
+                e.each do |k,v|
+
+                    # Inicio del tag, sea único o de apertura
+                    html.push("<#{k[1..-1]}" + cierre(v))
+
+                    # Si no es tag único
+                    if v['content'] != nil
+                        # Nueva iteración para seguir yendo al fondo
+                        contenido_a_html(v['content'], html)
+
+                        # Añade el tag de cierre
+                        html.push("</#{k[1..-1]}>" + espacio(v))
+                    end
+
+                end
+            # Si es texto
+            else
+                html.push(e)
+            end
+        end
+    end
+
+    contenido_a_html(hash['content'], html)
+
+    # Une todo en una sola línea
+    html = html.join('')
+
+# BORRAR
+	archivo = File.new('borrar.xhtml', 'w:UTF-8')
+	archivo.puts html
+	archivo.close
+    beautifier('borrar.xhtml')
+#BORRAR .kind_of?(Hash)
+
 end

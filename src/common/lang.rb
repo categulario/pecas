@@ -104,6 +104,7 @@ $l_g_error_archivo = langObj["general"]["error_archivo"]
 $l_g_error_archivo2 = langObj["general"]["error_archivo2"]
 $l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
 $l_g_error_opf = langObj["general"]["error_opf"].red.bold
+$l_g_error_hash = langObj["general"]["error_hash"].red.bold
 
 # Pandog
 $l_pg_v = obtener_version

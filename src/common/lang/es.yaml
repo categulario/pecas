@@ -35,7 +35,8 @@ general:
   error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
   error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
   error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
-  error_opf: "\nERROR: archivo OPF no encontrado"
+  error_opf: "\nERROR: archivo OPF no encontrado."
+  error_hash: "\nERROR: al parecer la notación de objetos no tiene la estructura necesaria para convertirlo a HTML."
 
 # pc-pandog
 pandog: 
