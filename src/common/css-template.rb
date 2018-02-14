@@ -444,6 +444,21 @@ pre a:before {
 	color: #888;
 }
 
+/* Comentarios o numeraciones */
+
+section.complemento, body.complemento {
+    margin-right: 7em;
+}
+
+span.complemento {
+    width: 6em;         /* No son 7 porque se resta uno del margen añadido a continuación */ 
+    margin-right: -8em; /* No son -7 porque se añade 1 de margen */
+    float: right;
+    text-indent: 0;
+    text-align: left;
+    font-size: .75em;
+}
+
 /* Contenidos especiales */
 
 .titulo {
