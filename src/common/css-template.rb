@@ -444,13 +444,13 @@ pre a:before {
 	color: #888;
 }
 
-/* Comentarios o numeraciones */
+/* Glosas */
 
-section.complemento, body.complemento {
+section.glosa, body.glosa {   /* El estilo ha de ponerse en el contenedor de los párrafos y en el span de la glosa */
     margin-right: 7em;
 }
 
-span.complemento {
+span.glosa {
     width: 6em;         /* No son 7 porque se resta uno del margen añadido a continuación */ 
     margin-right: -8em; /* No son -7 porque se añade 1 de margen */
     float: right;
