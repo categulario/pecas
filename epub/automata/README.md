@@ -48,6 +48,7 @@ EPUB con una sola línea de comandos.
 * `--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
 * `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
 * `--section` = Divide el archivo madre cada `<section>`.
+* `--overwrite` = Sobrescribe los archivos sin dar advertencia.
 
 ### Parámetros únicos:
 

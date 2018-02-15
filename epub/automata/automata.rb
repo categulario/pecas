@@ -31,6 +31,7 @@ indice = if argumento "--index", indice != nil then argumento "--index", indice 
 inner = argumento "--inner", inner, 1
 reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
+overwrite = argumento "--overwrite", overwrite, 1
 
 # Variables que se usarán
 $log = Array.new
@@ -143,18 +144,22 @@ def parametro variable, flag
 end
 
 # Pregunta para eliminar o abortar el proceso
-def pregunta
-	print $l_au_pregunta.blue.bold
-	respuesta = STDIN.gets.chomp.downcase
-	if respuesta == "y" || respuesta == ""
-		puts $l_au_eliminando
-		remover
-	elsif respuesta == "n"
-		puts $l_au_error_a
-		abort
-	else
-		pregunta
-	end
+def pregunta overwrite
+    if overwrite != true
+	    print $l_au_pregunta.blue.bold
+	    respuesta = STDIN.gets.chomp.downcase
+	    if respuesta == "y" || respuesta == ""
+		    puts $l_au_eliminando
+		    remover
+	    elsif respuesta == "n"
+		    puts $l_au_error_a
+		    abort
+	    else
+		    pregunta
+	    end
+    else
+        remover
+    end
 end
 
 # Si es inicialización
@@ -223,7 +228,7 @@ else
 	Dir.glob("*") do |archivo|
 		if File.extname(archivo) != ".yaml"
 			# Hace la pregunta
-			pregunta
+			pregunta(overwrite)
 			break
 		end
 	end
