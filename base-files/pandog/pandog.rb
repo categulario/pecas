@@ -300,7 +300,11 @@ elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xm
 		abort
 	end
 else
-	`pandoc #{entrada_sis} -o #{salida_sis}`
+    if ext_s == ".md"
+    	`pandoc #{entrada_sis} --atx-headers -o #{salida_sis}`
+    else
+    	`pandoc #{entrada_sis} -o #{salida_sis}`
+    end
 end
 
 puts $l_g_fin
