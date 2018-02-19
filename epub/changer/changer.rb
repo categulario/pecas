@@ -15,6 +15,7 @@ require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
 # Argumentos
 epub_nombre = if argumento "-e", epub_nombre != nil then argumento "-e", epub_nombre else nil end
 epub_version = if argumento "--version", epub_version != nil then argumento "--version", epub_version else nil end
+standalone = argumento "--standalone", standalone, 1
 argumento "-v", $l_ch_v
 argumento "-h", $l_ch_h
 version_disponible = ['2.0.0','2.0.1','3.0.0','3.0.1','3.1']
@@ -39,7 +40,7 @@ end
 if !version_existente then puts "#{$l_ch_error_version[0] + epub_version + $l_ch_error_version[1]}".red.bold; abort end
 
 # Analiza el EPUB para obtener un hash con el OPF y todos los HTML
-epub_objeto = epub_analisis(epub_nombre, false)
+epub_objeto = epub_analisis(epub_nombre, standalone)
 
 # Eliminar
 	archivo = File.new('borrar.json', 'w:UTF-8')
@@ -48,6 +49,23 @@ epub_objeto = epub_analisis(epub_nombre, false)
 # Eliminar
 
 abort
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # OJO: FileUtils.rm_rf no elimina la carpeta oculta del EPUB viejo descomprimido
 

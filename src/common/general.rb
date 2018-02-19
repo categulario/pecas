@@ -394,7 +394,7 @@ def epub_analisis epub, borrar = true
     end
 
     # Elimina el EPUB descomprimido si así se indicó
-    if borrar then FileUtils.rm_rf($l_g_epub_analisis) end
+    if borrar != true then FileUtils.rm_rf($l_g_epub_analisis) end
 
     return todo
 end

@@ -28,7 +28,7 @@ general:
   note: ["--note", "--"]
   descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
   analizando: ["Obteniendo información de ", "…"]
-  epub_analisis: "epub_analisis"
+  epub_analisis: "epub-output"
   error_no_identificado: "No identificado."
   error_arg: "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda."
   error_arg2: "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda."
