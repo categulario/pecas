@@ -459,6 +459,19 @@ span.glosa {
     font-size: .75em;
 }
 
+/* Poesía */
+
+.poema {
+    margin: 1em 1.5em;
+    text-indent: 0;
+    white-space: pre-wrap;
+	-moz-hyphens: none;
+    -webkit-hyphens: none;
+    -o-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
 /* Contenidos especiales */
 
 .titulo {
