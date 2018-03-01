@@ -495,7 +495,7 @@ span.glosa {
 }
 
 h1 + .contribuidor {
-	margin-top: 0em;
+	margin-top: 0em !important;
 	margin-bottom: 4em;
 }
 
