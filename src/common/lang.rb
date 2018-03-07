@@ -236,6 +236,10 @@ $l_re_error_t = langObj["recreator"]["error_t"].red.bold
 # Changer
 $l_ch_v = obtener_version
 $l_ch_h = langObj["changer"]["h"]
+$l_ch_iniciando_conversion = langObj["changer"]["iniciando_conversion"]
+$l_ch_iniciando = langObj["changer"]["iniciando"].green
+$l_ch_creando = langObj["changer"]["creando"]
+$l_ch_advertencia_standalone = langObj["changer"]["advertencia_standalone"].yellow.bold
 $l_ch_error_version = langObj["changer"]["error_version"]
 $l_ch_error_version2 = langObj["changer"]["error_version2"].red.bold
 $l_ch_error_version3 = langObj["changer"]["error_version3"]

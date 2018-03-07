@@ -879,7 +879,7 @@ Dir.chdir(carpeta)
 
 # Crea el EPUB
 puts "#{$l_re_creando_epub[0] + espacio + $l_re_creando_epub[1] + carpeta + $l_re_creando_epub[2] + File.basename(rutaEpub) + $l_re_creando_epub[3]}".green
-system ("#{zip} \"#{rutaEpub}\" -X mimetype")
-system ("#{zip} \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .*")
+system ("#{zip} \"#{rutaEpub}\" -X mimetype -q")
+system ("#{zip} \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .* -q")
 
 puts $l_g_fin

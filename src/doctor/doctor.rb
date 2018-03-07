@@ -105,7 +105,7 @@ dependencias = {
     'zip' => {
         'nombre' => 'Zip',
         'paquete' => ['zip'],
-        'pecas' => ['pc-automata','pc-recreator']
+        'pecas' => ['pc-automata','pc-recreator','pc-changer']
     },
     'unzip' => {
         'nombre' => 'UnZip',

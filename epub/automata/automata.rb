@@ -269,7 +269,7 @@ else
 	end
 
 	# Cambio de versión
-#	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} 3.0.0"
+	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} -e #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --version 3.0.0"
 	
     # Carpeta donde se guardarán los logs
     Dir.mkdir($l_au_logs)
@@ -280,7 +280,7 @@ else
 	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"
 	
 	# Verificación con EpubCheck del EPUB 3.0.0
-#	verificacion epub_final + $l_ch_sufijo + ".epub", 3, "# epubcheck 3.0.1"
+	verificacion epub_final + "_3-0-0.epub", 3, "# epubcheck 3.0.1"
 	
     # Ace
 	puts "\nAce: #{$l_au_verificando[0] + epub_final + ".epub" + $l_au_verificando[1]}".green

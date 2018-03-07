@@ -169,6 +169,10 @@ recreator:
 # pc-changer
 changer:
   h: "\nAYUDA"
+  iniciando_conversion: ["Iniciando cambio de versión de «","» a ","…"]
+  iniciando: "Iniciando cambios necesarios…"
+  creando: ["Creando EPUB versión "," con el nombre de «","» en ","…"]
+  advertencia_standalone: "ADEVERTENCIA: se recomienda la opción --standalone cuando se pasa de versiones 2 a 3."
   error_version: ["\nERROR: la versión «","» no está soportada."]
   error_version2: "\nERROR: solo es posible actualizar a versiones 3. Las versiones 2 se consideran obsoletas; véase <http://idpf.org/epub/201>."
   error_version3: ["\nERROR: el EPUB ya está en la versión ", ". No se ha realizado ningún cambio."]
