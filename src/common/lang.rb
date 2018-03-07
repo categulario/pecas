@@ -237,6 +237,9 @@ $l_re_error_t = langObj["recreator"]["error_t"].red.bold
 $l_ch_v = obtener_version
 $l_ch_h = langObj["changer"]["h"]
 $l_ch_error_version = langObj["changer"]["error_version"]
+$l_ch_error_version2 = langObj["changer"]["error_version2"].red.bold
+$l_ch_error_version3 = langObj["changer"]["error_version3"]
+$l_ch_error_archivo = langObj["changer"]["error_archivo"]
 
 # Doctor
 $l_dr_v = obtener_version

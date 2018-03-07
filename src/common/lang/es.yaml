@@ -170,6 +170,9 @@ recreator:
 changer:
   h: "\nAYUDA"
   error_version: ["\nERROR: la versión «","» no está soportada."]
+  error_version2: "\nERROR: solo es posible actualizar a versiones 3. Las versiones 2 se consideran obsoletas; véase <http://idpf.org/epub/201>."
+  error_version3: ["\nERROR: el EPUB ya está en la versión ", ". No se ha realizado ningún cambio."]
+  error_archivo: ["\nERROR: al parecer el archivo «", "» tiene un error de sintaxis. Borrando todos los cambios…"]
 
 # pc-doctor
 doctor:

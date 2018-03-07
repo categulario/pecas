@@ -319,7 +319,7 @@ def adicion_archivos ruta, ubicacion, carpeta, extensiones
 end
 
 # Analiza el EPUB para obtener un hash convertible a JSON
-def epub_analisis epub, borrar = true
+def epub_analisis epub
 
     epub_directorio = directorioPadre epub
     unzip = if OS.windows? then unzip = "#{File.dirname(__FILE__)+ '/../../src/alien/info-zip/unzip.exe'}" else unzip = "unzip" end
@@ -392,9 +392,6 @@ def epub_analisis epub, borrar = true
     html.each_with_index do |h,i|
         todo['htmls'].push(file_to_hash(h))
     end
-
-    # Elimina el EPUB descomprimido si así se indicó
-    if borrar != true then FileUtils.rm_rf($l_g_epub_analisis) end
 
     return todo
 end
@@ -531,11 +528,21 @@ def file_to_hash ruta
     
     # Iteración para obtener el contenido
     lineas = []
+    cierre_cabeza = false
     archivo_abierto = File.open(ruta, 'r:UTF-8')
     archivo_abierto.each_with_index do |linea, i|
         # Evasión de <?xml… o <!DOCTYPE…
         if i < 10
-            if linea !~ /(^\s*?<\s*?\?|^\s*?<\s*?\!DOCTYPE)/ then lineas.push(linea.strip) end
+            if linea !~ /(^\s*?<\s*?\?|^\s*?<\s*?\!DOCTYPE)/
+                if !cierre_cabeza
+                    lineas.push(linea.strip)
+                else
+                    cierre_cabeza = false
+                end
+            else
+                # Ignora la siguiente línea si el cierre de <?xml o <!DOCTYPE está en otra línea
+                if linea !~ />\s*$/ then cierre_cabeza = true end
+            end
         else 
             lineas.push(linea.strip)
         end
@@ -549,7 +556,13 @@ def file_to_hash ruta
     yaml = yaml.unshift("file: \"#{File.basename(ruta)}\"\npath: \"#{ruta}\"\nsize: \"#{File.size(ruta).to_filesize}\"\nmimetype: \"#{ruta.detect_mimetype_charset[0]}\"\ncharset: \"#{ruta.detect_mimetype_charset[1]}\"")
 
     # El YAML pasa a ser un hash
-    hash = YAML.load(yaml.join("\n"))
+    begin
+        hash = YAML.load(yaml.join("\n"))
+    rescue
+        puts "#{$l_ch_error_archivo[0] + File.basename(ruta) + $l_ch_error_archivo[1]}".red.bold
+        FileUtils.rm_rf($l_g_epub_analisis)
+        abort
+    end
 
     return hash
 end
