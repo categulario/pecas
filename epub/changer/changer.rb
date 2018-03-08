@@ -106,6 +106,82 @@ if version_actual.to_i == 3
 # Si la versión del EPUB es 2
 else
     if standalone != true then puts $l_ch_advertencia_standalone end
+
+    # Para localizar la imagen de portada
+    portada_archivo = nested_hash_value(epub_objeto["opf"], '_type', /cover/)
+    portada = nil
+
+    # Si hay un archivo considerado HTML como portada
+    if portada_archivo != nil
+        epub_objeto["htmls"].each do |h|
+            # Si el archivo HTML es asignado para la portada
+            if h["file"] == File.basename(portada_archivo["_href"])
+                # Extrae el nombre de la imagen de portada si lo hay
+                if nested_hash_value(h["content"][0], '_src', /^.*$/) != nil then portada = File.basename(nested_hash_value(h["content"][0], '_src', /^.*$/)["_src"]) end
+            end
+        end
+    end
+
+    # Para localizar los metadatos
+    $metadata_para_epub = {}
+
+    begin
+        # Incluye los metadatos al objeto
+        def incluir_metadata llave, valor
+            $metadata_para_epub["#{llave}"] = valor
+        end
+
+        # Iteración de los contenidos del paquete OPF
+        epub_objeto["opf"]["content"][0]["$package"]["content"].each do |e|
+            if e["$metadata"]
+                # Si hay metadatos, se iteran
+                e["$metadata"]["content"].each do |h|
+                    h.each do |k, v|
+                        if k =~ /\$dc:/
+                            # Si es el título
+                            if k =~ /title/
+                                incluir_metadata('title', v["content"])
+                            # Si es el autor
+                            elsif k =~ /creator/
+                                incluir_metadata('author', v["content"])
+                            # Si es el editor
+                            elsif k =~ /publisher/
+                                incluir_metadata('publisher', v["content"])
+                            # Si es la sinopsis
+                            elsif k =~ /description/
+                                incluir_metadata('synopsis', v["content"])
+                            # Si es la categoría
+                            elsif k =~ /subject/
+                                incluir_metadata('category', v["content"])
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    # Si existe algún error, se menciona que no fue posible obtener los metadatos
+    rescue
+        $metadata_para_epub = nil
+        puts $l_ch_advertencia_metadata
+    end
+
+# Eliminar
+	archivo = File.new('borrar.json', 'w:UTF-8')
+	archivo.puts JSON.pretty_generate(epub_objeto["opf"])
+	archivo.close
+
+    abort
+# Eliminar
+
+    # CON LOS METADATOS LISTOS HAY QUE CREAR UN PROYECTO EPUB, MODIFICAR EL YAML, ELIMINAR CARPETAS, INCLUIR LOS CONTENIDOS Y RECREAR
+
+    system("ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} --no-pre")
+
+    Dir.glob(directorioPadre(epub_objeto["opf"]["path"]) + '/*') do |fichero|
+        if File.directory?(fichero)
+            FileUtils.cp_r(fichero, '.')
+        end
+    end
 end
 
 # Empieza la compresión del EPUB
@@ -121,11 +197,5 @@ system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -r #{ops} META
 
 Dir.chdir('..')
 if standalone != true then FileUtils.rm_rf($l_g_epub_analisis) end
-
-# Eliminar
-	archivo = File.new('borrar.json', 'w:UTF-8')
-	archivo.puts JSON.pretty_generate(epub_objeto)
-	archivo.close
-# Eliminar
 
 puts $l_g_fin

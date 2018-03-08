@@ -69,6 +69,17 @@ end
 
 ## FUNCIONES
 
+# Obtiene el hash según un valor buscado como expresión regular; modificación de: https://stackoverflow.com/questions/8301566/find-key-value-pairs-deep-inside-a-hash-containing-an-arbitrary-number-of-nested
+def nested_hash_value(obj, key, value)
+    if obj.respond_to?(:key?) && obj.key?(key) && obj[key] =~ /#{value}/
+        obj
+    elsif obj.respond_to?(:each)
+        r = nil
+        obj.find{ |*a| r = nested_hash_value(a.last, key, value) }
+        r
+    end
+end
+
 # Obtiene los argumentos
 def argumento condicion, resultado, tipo = 0
 	# 0 ==> quiere texto
