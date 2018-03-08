@@ -35,12 +35,12 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | `pc-cites`     | [`epub/cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/cites)                     |
 | `pc-creator`   | [`epub/creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/creator)                 |
 | `pc-divider`   | [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider)                 |
+| `pc-doctor`    | [`src/doctor`](https://github.com/NikaZhenya/pecas/tree/master/src/doctor)                     |
 | `pc-index`     | [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index)                     |
 | `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                     |
 | `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)       |
 | `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
-| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       |
-| `pc-doctor`    | [`src/doctor`](https://github.com/NikaZhenya/pecas/tree/master/src/doctor)                     |
+| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       
 
 # *Single source and online publishing* (SSOP)
 
@@ -81,10 +81,6 @@ cantidad de formatos deseados».
     * Terminar el desarrollo.
   * `index.rb`.
     * Terminar el desarrollo.
-  * `changer.rb`.
-    * Falta reformar.
-    * En Windows `FileUtils.rm_rf` no elimina el EPUB previo, si lo hay, ni los archivos temporales; el uso de `FileUtils.remove_dir` genera errores de permisos; **se debe a que no se cierran los archivos**.
-    * ¿Compatibilidad para versión EPUB 2.0.1?
   * `joiner.rb`.
     * Desarrollar script periférico que una todos los XHTML en uno solo y con sus estilos dentro del documento (sin referencia externa).
     * Podría ser el mismo que se plantea como idea para *web*, con opción de adición del TOC.
