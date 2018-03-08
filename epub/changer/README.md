@@ -46,4 +46,4 @@ Convertirá como el ejemplo anterior, pero sin eliminar la carpeta de proyecto q
 
 # Nota
 
-Cuando se pasa de versiones 2 a 3 es muy recomendado utilizar la opción «--standalone» por si es necesario hacer cambios manuales para evitar errores en la verificación.
+Cuando se pasa de versiones 2 a 3 es muy recomendado utilizar la opción `--standalone` por si es necesario hacer cambios manuales para evitar errores en la verificación.
