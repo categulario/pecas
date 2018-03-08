@@ -168,7 +168,7 @@ recreator:
 
 # pc-changer
 changer:
-  h: "\nAYUDA"
+  h: "\nCambia versiones de EPUB entre 2.0.0, 2.0.1, 3.0.0 y 3.0.1.\n\nUso:\n  pc-changer\n\nParámetros necesarios:\n  -e = [epub] Archivo EPUB.\n  --version = Versión a convertir.\n\nParámetro opcional:\n  --standalone = No elimina el proyecto EPUB; ideal para hacer cambios manuales.\n  \nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-changer -e archivo.epub --version 3.0.0\n  Convierte el «archivo.epub» a versión 3.0.0.\n \nEjemplo sin eliminar el proyecto EPUB:\n  pc-changer -e archivo.epub --version 3.0.0 --standalone\n  Convertirá como el ejemplo anterior, pero sin eliminar la carpeta de proyecto que sirvió para la conversión.\n  \nNota: cuando se pasa de versiones 2 a 3 es muy recomendado utilizar la opción «--standalone» por si es necesario hacer cambios manuales para evitar errores en la verificación."
   iniciando_conversion: ["Iniciando cambio de versión de «","» a ","…"]
   iniciando: "Iniciando cambios necesarios…"
   extrayendo: "Extrayendo metadatos…"

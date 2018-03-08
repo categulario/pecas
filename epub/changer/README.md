@@ -1,58 +1,49 @@
 # Changer.rb
 
-## Índice
+Cambia versiones de EPUB entre 2.0.0, 2.0.1, 3.0.0 y 3.0.1.
 
-* [Descripción](#descripción)
-* [Dependencias](#dependencias)
-* [Uso](#uso)
-* [Explicación](#explicación)
+## Uso:
 
----
+  ```
+  pc-changer
+  ```
 
-## Descripción
+## Descripción de los parámetros
 
-Este *script* cambia versiones de EPUB entre `3.0.0` y `3.0.1`.
+### Parámetros necesarios:
 
-## Dependencias
+* `-e` = [epub] Archivo EPUB.
+* `--version` = Versión a convertir.
 
-Este *script* requiere, además de Ruby:
+### Parámetro opcional:
 
-* Zip 3.0. La mayoría de las distribuciones Linux y Mac OSX ya lo tienen
-preinstalado. Para Windows es necesario descargar el `zip.exe` en Info-ZIP
-desde ftp://ftp.info-zip.org/pub/infozip/win32/. Para Windows de 64 bits es el
-archivo `zip300xn-x64.zip` y para 32 bits, `zip300xn.zip`.
-Si existe alguna duda, mejor descárguese el ejecutable desde la carpeta
-[`info-zip`](https://github.com/NikaZhenya/pecas/tree/master/otros/info-zip)
-de este repositorio.
+* `--standalone` = No elimina el proyecto EPUB; ideal para hacer cambios manuales.
+  
+### Parámetros únicos:
 
-* UnZip 6.0. La mayoría de las distribuciones Linux y Mac OSX ya lo tienen
-preinstalado. Para Windows es necesario descargar el `unz600xn.exe` en Info-ZIP
-desde ftp://ftp.info-zip.org/pub/infozip/win32/. Una vez descargado hay que
-ejecutar el archivo para obtener el `unzip.exe`.
-Si existe alguna duda, mejor descárguese el ejecutable desde la carpeta
-[`info-zip`](https://github.com/NikaZhenya/pecas/tree/master/otros/info-zip)
-de este repositorio.
+* `-v` = [version] Muestra la versión.
+* `-h` = [help] Muestra la ayuda, la cual es este contenido.
 
-## Uso
+## Ejemplos
 
-###### 1. Desde el *shell* ejecutar el *script* cuyos parámetros sean la ruta al EPUB y la versión deseada.
+### Ejemplo sencillo:
 
-Para mayor comodidad en el *shell* arrastra el archivo `changer.rb` y después
-haz lo mismo con la carpeta del EPUB.
+```
+  pc-changer -e archivo.epub --version 3.0.0
+```
 
-    Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
-    «Start Command Prompt with Ruby» para poder ejecutar esta orden.
+Convierte el «archivo.epub» a versión 3.0.0.
+ 
+### Ejemplo sin eliminar el proyecto EPUB:
 
-###### 2. ¡Listo!
+```
+  pc-changer -e archivo.epub --version 3.0.0 --standalone
+```
 
-Se creará un nuevo EPUB con el mismo nombre y con la coletilla de la nueva
-versión en la misma carpeta del EPUB original.
+Convertirá como el ejemplo anterior, pero sin eliminar la carpeta de proyecto que sirvió para la conversión.
+  
+------
 
-    Para usuarios de Windows, el proceso también requiere contar con unzip.exe
-    y zip.exe que en su momento les pedirá arrastrar.
+# Nota
 
-## Explicación
-
-Los EPUB versión 3.0.0 contienen el atributo `rendition` que ya no es necesario
-para las versiones 3.0.1. Este *script* simplemente elimina o agrega este
-atributo según las necesidades.
+Cuando se pasa de versiones 2 a 3 es muy recomendado utilizar la opción «--standalone» por si es necesario hacer cambios manuales para evitar errores en la verificación.
