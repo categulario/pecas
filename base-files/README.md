@@ -9,6 +9,5 @@ automatizar la creación y mantenimiento del archivo madre. Estos son:
 elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o 
 visceversa.
 
-2. `sandbox.rb`. Analiza el documento HTML, XHTML, HTM o XML para 
-encontrar, analizar, modificar o eliminar diversos elementos estructurales
-o de cuidado editorial.
+2. `analytics.rb`. Analiza archivos EPUB, XML o HTML para un mayor
+cuidado editorial y técnico.

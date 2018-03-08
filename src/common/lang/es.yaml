@@ -2,7 +2,7 @@
 # Para todos los script
 general: 
   pc_pandog: "pc-pandog"
-  pc_sandbox: "pc-sandbox"
+  pc_analytics: "pc-analytics"
   pc_tegs: "pc-tegs"
   pc_creator: "pc-creator"
   pc_divider: "pc-divider"
@@ -47,15 +47,15 @@ pandog:
   iniciando: "Iniciando conversión con Pandoc…"
   modificando: "Modificando el archivo creado por Pandoc…"
 
-# pc-sandbox
-sandbox: 
+# pc-analytics
+analytics: 
   h: "\nAYUDA"
   txt_marcado: "marcado.txt"
   txt_cifras: "cifras.txt"
   txt_uniones: "uniones.txt"
   txt_versales: "versales.txt"
   txt_estadisticas: "estadisticas.txt"
-  fichero: "sandbox"
+  fichero: "analytics"
   fichero_interior: "analítica"
   divisor: "---------"
   e: ["Cantidad de palabras y cifras: ","Cantidad de palabras: ","Cantidad de palabras únicas: ","Índice de diversidad: ","Cantidad de cifras: ","Cantidad de cifras únicas: ","Cantidad de etiquetas: ","Cantidad de etiquetas únicas con atributos: ","Cantidad de etiquetas únicas sin atributos: ",". Etiqueta <",">:\n    Total: ","\n    Únicas: ","Tabla de palabras y frecuencia de uso",". Palabra «","»:\n    Frecuencia: ","\n    Porcentaje: "]

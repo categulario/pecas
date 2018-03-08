@@ -70,7 +70,7 @@ langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
 
 # Generales
 $l_g_pc_pandog = langObj["general"]["pc_pandog"]
-$l_g_pc_sandbox = langObj["general"]["pc_sandbox"]
+$l_g_pc_analytics = langObj["general"]["pc_analytics"]
 $l_g_pc_tegs = langObj["general"]["pc_tegs"]
 $l_g_pc_creator = langObj["general"]["pc_creator"]
 $l_g_pc_divider = langObj["general"]["pc_divider"]
@@ -115,28 +115,28 @@ $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
 
-# Sandbox
+# analytics
 $l_sb_v = obtener_version
-$l_sb_h = langObj["sandbox"]["h"]
-$l_sb_txt_marcado = langObj["sandbox"]["txt_marcado"]
-$l_sb_txt_cifras = langObj["sandbox"]["txt_cifras"]
-$l_sb_txt_uniones = langObj["sandbox"]["txt_uniones"]
-$l_sb_txt_versales = langObj["sandbox"]["txt_versales"]
-$l_sb_txt_estadisticas = langObj["sandbox"]["txt_estadisticas"]
-$l_sb_fichero = langObj["sandbox"]["fichero"]
-$l_sb_fichero_interior = langObj["sandbox"]["fichero_interior"]
-$l_sb_divisor = langObj["sandbox"]["divisor"]
-$l_sb_e = langObj["sandbox"]["e"]
-$l_sb_advertencia_archivo = langObj["sandbox"]["advertencia_archivo"]
-$l_sb_analizando = langObj["sandbox"]["analizando"].green
-$l_sb_realizando = langObj["sandbox"]["realizando"].green
-$l_sb_eliminando = langObj["sandbox"]["eliminando"]
-$l_sb_reemplazando = langObj["sandbox"]["reemplazando"]
-$l_sb_error_carpeta = langObj["sandbox"]["error_carpeta"]
-$l_sb_error_carpeta2 = langObj["sandbox"]["error_carpeta2"]
-$l_sb_error_carpeta3 = langObj["sandbox"]["error_carpeta3"]
-$l_sb_error_archivo = langObj["sandbox"]["error_archivo"]
-$l_sb_error_archivo2 = langObj["sandbox"]["error_archivo2"].red.bold
+$l_sb_h = langObj["analytics"]["h"]
+$l_sb_txt_marcado = langObj["analytics"]["txt_marcado"]
+$l_sb_txt_cifras = langObj["analytics"]["txt_cifras"]
+$l_sb_txt_uniones = langObj["analytics"]["txt_uniones"]
+$l_sb_txt_versales = langObj["analytics"]["txt_versales"]
+$l_sb_txt_estadisticas = langObj["analytics"]["txt_estadisticas"]
+$l_sb_fichero = langObj["analytics"]["fichero"]
+$l_sb_fichero_interior = langObj["analytics"]["fichero_interior"]
+$l_sb_divisor = langObj["analytics"]["divisor"]
+$l_sb_e = langObj["analytics"]["e"]
+$l_sb_advertencia_archivo = langObj["analytics"]["advertencia_archivo"]
+$l_sb_analizando = langObj["analytics"]["analizando"].green
+$l_sb_realizando = langObj["analytics"]["realizando"].green
+$l_sb_eliminando = langObj["analytics"]["eliminando"]
+$l_sb_reemplazando = langObj["analytics"]["reemplazando"]
+$l_sb_error_carpeta = langObj["analytics"]["error_carpeta"]
+$l_sb_error_carpeta2 = langObj["analytics"]["error_carpeta2"]
+$l_sb_error_carpeta3 = langObj["analytics"]["error_carpeta3"]
+$l_sb_error_archivo = langObj["analytics"]["error_archivo"]
+$l_sb_error_archivo2 = langObj["analytics"]["error_archivo2"].red.bold
 
 # Tegs
 $l_tg_v = obtener_version
