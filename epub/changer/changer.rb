@@ -108,6 +108,7 @@ else
     if standalone != true then puts $l_ch_advertencia_standalone end
 
     # Para localizar la imagen de portada
+    puts $l_ch_extrayendo
     portada_archivo = nested_hash_value(epub_objeto["opf"], '_type', /cover/)
     portada = nil
 
@@ -165,6 +166,50 @@ else
         puts $l_ch_advertencia_metadata
     end
 
+    # Crea el proyecto EPUB con el nombre del EPUB
+    system("ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{File.basename(epub_nombre, '.*')} --no-pre")
+
+    # Remueve todas las carpetas de contenido del proyecto
+    Dir.glob($l_cr_epub_nombre + '/OPS/*') do |fichero|
+        if File.directory?(fichero)
+            FileUtils.rm_rf(fichero)
+        end
+    end
+
+	# Se empieza a analizar el YAML
+    puts "#{$l_ch_incluyendo[0] + $l_g_meta_data + $l_ch_incluyendo[1]}".green
+    yaml_nuevo = []
+    no_push = false
+	archivo_abierto = File.open($l_g_meta_data, 'r:UTF-8')
+	archivo_abierto.each do |linea|
+        if no_push
+            yaml_nuevo.push('author: ' + $metadata_para_epub['author'].to_s)
+            no_push = false
+        else
+            if linea =~ /^title:/
+                yaml_nuevo.push('title: "' + $metadata_para_epub['title'][0].gsub('"', '\"') + '"')
+            elsif linea =~ /^author:/
+                no_push = true
+            elsif linea =~ /^publisher:/
+                yaml_nuevo.push('publisher: ' + $metadata_para_epub['publisher'].to_s)
+            elsif linea =~ /^synopsis:/
+                yaml_nuevo.push('synopsis: "' + $metadata_para_epub['synopsis'][0].gsub('"', '\"') + '"')
+            elsif linea =~ /^category:/
+                yaml_nuevo.push('category: ' + $metadata_para_epub['category'].to_s)
+            elsif linea =~ /^cover:/
+                yaml_nuevo.push('cover: ' + portada)
+            else
+                yaml_nuevo.push(linea)
+            end
+        end
+	end
+	archivo_abierto.close
+	
+	# Abre el archivo para meter los cambios
+	archivo_abierto = File.open($l_g_meta_data, 'w:UTF-8')
+	archivo_abierto.puts yaml_nuevo
+	archivo_abierto.close
+
 # Eliminar
 	archivo = File.new('borrar.json', 'w:UTF-8')
 	archivo.puts JSON.pretty_generate(epub_objeto["opf"])
@@ -173,9 +218,7 @@ else
     abort
 # Eliminar
 
-    # CON LOS METADATOS LISTOS HAY QUE CREAR UN PROYECTO EPUB, MODIFICAR EL YAML, ELIMINAR CARPETAS, INCLUIR LOS CONTENIDOS Y RECREAR
-
-    system("ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} --no-pre")
+    # INCLUIR LOS CONTENIDOS Y RECREAR
 
     Dir.glob(directorioPadre(epub_objeto["opf"]["path"]) + '/*') do |fichero|
         if File.directory?(fichero)
