@@ -117,7 +117,7 @@ creator:
   xhtml_portada: "Portada"
   xhtml_portadilla: "Portadilla"
   xhtml_legal: "Legal"
-  creando: ["Creando carpeta del EPUB con el nombre «","»…"]
+  creando: ["Creando proyecto EPUB con el nombre «","»…"]
   error_meta: "\nERROR: ya existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
 
 # pc-divider
@@ -173,6 +173,7 @@ changer:
   iniciando: "Iniciando cambios necesarios…"
   extrayendo: "Extrayendo metadatos…"
   incluyendo: ["Incluyendo metadatos en «","»…"]
+  anadiendo: ["Añadiendo archivos de «","»…"]
   creando: ["Creando EPUB versión "," con el nombre de «","» en ","…"]
   advertencia_standalone: "ADEVERTENCIA: se recomienda la opción --standalone cuando se pasa de versiones 2 a 3."
   advertencia_metadata: "ADEVERTENCIA: no fue posible recuperar todos los metadatos; para incluirlos se tendrá que modificar manualmente el archivo YAML y usar pc-recreator."

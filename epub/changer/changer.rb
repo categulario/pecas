@@ -103,6 +103,24 @@ if version_actual.to_i == 3
 	archivo = File.new(epub_objeto["opf"]["path"], 'w:UTF-8')
 	archivo.puts hash_to_html(epub_objeto["opf"])
 	archivo.close
+
+    # Empieza la compresión del EPUB
+    puts "#{$l_ch_creando[0] + epub_version + $l_ch_creando[1] + epub_nombre_final + $l_ch_creando[2] + directorioPadre(epub_nombre) + $l_ch_creando[3]}".green
+    Dir.chdir($l_g_epub_analisis)
+
+    # Obtiene el nombre de la carpeta donde están los contenidos del EPUB
+    ops = epub_objeto["opf"]["path"].gsub($l_g_epub_analisis, '').split('/')[1]
+
+    # Crea el EPUB
+    system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -X mimetype -q")
+    system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -r #{ops} META-INF -x \*.DS_Store \*._* -q")
+
+    # Elimina el proyecto EPUB si así se indicó
+    Dir.chdir('..')
+    if standalone != true then FileUtils.rm_rf($l_g_epub_analisis) end
+
+    # Fin
+    puts $l_g_fin
 # Si la versión del EPUB es 2
 else
     if standalone != true then puts $l_ch_advertencia_standalone end
@@ -170,7 +188,7 @@ else
     system("ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{File.basename(epub_nombre, '.*')} --no-pre")
 
     # Remueve todas las carpetas de contenido del proyecto
-    Dir.glob($l_cr_epub_nombre + '/OPS/*') do |fichero|
+    Dir.glob(File.basename(epub_nombre, '.*') + '/OPS/*') do |fichero|
         if File.directory?(fichero)
             FileUtils.rm_rf(fichero)
         end
@@ -210,35 +228,33 @@ else
 	archivo_abierto.puts yaml_nuevo
 	archivo_abierto.close
 
-# Eliminar
-	archivo = File.new('borrar.json', 'w:UTF-8')
-	archivo.puts JSON.pretty_generate(epub_objeto["opf"])
-	archivo.close
-
-    abort
-# Eliminar
-
-    # INCLUIR LOS CONTENIDOS Y RECREAR
-
+    # Añade los archivos
+    puts "#{$l_ch_anadiendo[0] + File.basename(epub_nombre) + $l_ch_anadiendo[1]}".green
     Dir.glob(directorioPadre(epub_objeto["opf"]["path"]) + '/*') do |fichero|
-        if File.directory?(fichero)
-            FileUtils.cp_r(fichero, '.')
+        if File.extname(fichero) != '.ncx' && File.extname(fichero) != '.opf'
+            FileUtils.cp_r(fichero, Dir.pwd + '/' + File.basename(epub_nombre, '.*') + '/OPS')
         end
     end
+
+    # Elimina el proyecto viejo porque ya no es necesario
+    FileUtils.rm_rf($l_g_epub_analisis)
+
+    # Crea el EPUB en su versión más reciente
+    system("ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} -d #{File.basename(epub_nombre, '.*')}")
+
+    # Si se pide una versión 3.0.0 en lugar de la más reciente
+    if epub_version == '3.0.0'
+        Dir.glob(Dir.pwd + '/*') do |archivo|
+            if File.basename(archivo) =~ /#{File.basename(epub_nombre, '.*')}-.*?\.epub/
+                system("ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} -e #{archivo} --version 3.0.0")
+                File.delete(archivo)
+            end
+        end
+    end
+
+    # Elimina el proyecto EPUB si así se indicó
+    if standalone != true
+        FileUtils.rm_rf(File.basename(epub_nombre, '.*'))
+        File.delete($l_g_meta_data)
+    end
 end
-
-# Empieza la compresión del EPUB
-puts "#{$l_ch_creando[0] + epub_version + $l_ch_creando[1] + epub_nombre_final + $l_ch_creando[2] + directorioPadre(epub_nombre) + $l_ch_creando[3]}".green
-Dir.chdir($l_g_epub_analisis)
-
-# Obtiene el nombre de la carpeta donde están los contenidos del EPUB
-ops = epub_objeto["opf"]["path"].gsub($l_g_epub_analisis, '').split('/')[1]
-
-# Crea el EPUB
-system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -X mimetype -q")
-system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -r #{ops} META-INF -x \*.DS_Store \*._* -q")
-
-Dir.chdir('..')
-if standalone != true then FileUtils.rm_rf($l_g_epub_analisis) end
-
-puts $l_g_fin

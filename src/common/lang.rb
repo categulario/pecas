@@ -240,6 +240,7 @@ $l_ch_iniciando_conversion = langObj["changer"]["iniciando_conversion"]
 $l_ch_iniciando = langObj["changer"]["iniciando"].green
 $l_ch_extrayendo = langObj["changer"]["extrayendo"].green
 $l_ch_incluyendo = langObj["changer"]["incluyendo"]
+$l_ch_anadiendo = langObj["changer"]["anadiendo"]
 $l_ch_creando = langObj["changer"]["creando"]
 $l_ch_advertencia_standalone = langObj["changer"]["advertencia_standalone"].yellow.bold
 $l_ch_advertencia_metadata = langObj["changer"]["advertencia_metadata"].yellow.bold
