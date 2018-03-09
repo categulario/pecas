@@ -20,6 +20,17 @@ argumento "-v", $l_ch_v
 argumento "-h", $l_ch_h
 version_disponible = ['2.0.0','2.0.1','3.0.0','3.0.1']
 version_actual = ''
+
+# Comprueba que existan los argumentos necesarios
+comprobacion [epub_nombre]
+
+# Comprueba que los argumentos necesarios existan
+if epub_nombre == nil || epub_version == nil
+    puts $l_g_error_arg
+    abort
+end
+
+# Nombre final que tendrá el EPUB
 epub_nombre_final = File.basename(epub_nombre, '.*') + '_' + epub_version.gsub('.','-') + '.epub'
 
 # Para Windows es necesaria la ruta a zip.exe
@@ -83,6 +94,9 @@ version_disponible.each do |v|
     end
 end
 if !version_existente then puts "#{$l_ch_error_version[0] + epub_version + $l_ch_error_version[1]}".red.bold; abort end
+
+# Va al directorio padre del EPUB
+Dir.chdir(directorioPadre epub_nombre)
 
 # Analiza el EPUB para obtener un hash con el OPF y todos los HTML
 puts "#{$l_ch_iniciando_conversion[0] + File.basename(epub_nombre) + $l_ch_iniciando_conversion[1] + epub_version + $l_ch_iniciando_conversion[2]}".green
