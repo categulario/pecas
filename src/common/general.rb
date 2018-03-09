@@ -465,7 +465,7 @@ def file_to_hash ruta
                     $conjunto_yaml = $conjunto_yaml.map.with_index { |e, j| i == j ? texto : e }
                 # Si no es tag
                 elsif l.strip !~ /^</ && l.gsub(/(\t*?)\S.*$/, '\1').length == nivel + 1
-                    contenido = $espacio_yaml + "      - \"" + l.gsub(/^\t*/,'') + "\""
+                    contenido = $espacio_yaml + "      - \"" + l.gsub(/^\t*/,'').gsub('"', '\"') + "\""
 
                     # Sustituye el contenido por el valor de «contenido»
                     $conjunto_yaml = $conjunto_yaml.map.with_index { |e, j| i == j ? contenido : e }
@@ -613,8 +613,12 @@ def hash_to_html hash
 
         # Cierra el tag
         def cierre elemento
-            final = elemento['content'] != nil ? final = '>' : final = '/>'
-            return atributos(elemento) + final + espacio(elemento, final)
+            if elemento != nil
+                final = elemento['content'] != nil ? final = '>' : final = '/>'
+                return atributos(elemento) + final + espacio(elemento, final)
+            else
+                return ''
+            end
         end
 
         # Iteración de cada contenido
@@ -627,7 +631,7 @@ def hash_to_html hash
                     html.push("<#{k[1..-1]}" + cierre(v))
 
                     # Si no es tag único
-                    if v['content'] != nil
+                    if v != nil && v['content'] != nil
                         # Nueva iteración para seguir yendo al fondo
                         contenido_a_html(v['content'], html)
 

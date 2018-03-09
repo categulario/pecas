@@ -73,7 +73,11 @@ def beautifier_html elemento
     # Crea el nuevo elemento con los espacios correctos
     elemento_final = []
     elemento.each do |e|
-        movimiento_espacio(e, block_elements, elemento_final)
+        if e =~ /<.*?\?xml.*?DOCTYPE/
+            elemento_final.push("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html>")
+        else
+            movimiento_espacio(e, block_elements, elemento_final)
+        end
     end
 
     return elemento_final
