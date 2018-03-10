@@ -29,6 +29,8 @@ general:
   descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
   analizando: ["Obteniendo información de ", "…"]
   epub_analisis: "epub-output"
+  xhtml_analisis: "xhtml-output.xhtml"
+  linea: "-------------------------------------"
   error_no_identificado: "No identificado."
   error_arg: "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda."
   error_arg2: "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda."
@@ -39,6 +41,19 @@ general:
   error_opf: "\nERROR: archivo OPF no encontrado."
   error_hash: "\nERROR: al parecer la notación de objetos no tiene la estructura necesaria para convertirlo a HTML."
 
+# pc-analytics
+analytics: 
+  h: "\nAYUDA"
+  extrayendo: ["Extrayendo todas las ", "palabras", "etiquetas", "…"]
+  separando: ["Separando las ", "palabras", "cifras", " de todas las palabras…"]
+  archivo_hunspell: "hunspell"
+  analizando_hunspell: "Analizando palabras con hunspell…"
+  analizando_linkchecker: "Analizando enlaces locales y remotos con linkchecker:"
+  advertencia_md: ["ADVERTENCIA: el archivo MD se convertirá a «", "» para poder ser analizado…"]
+  advertencia_hunspell: "ADVERTENCIA: hunspell no pudo ser localizado, no fue posible analizar las palabras…"
+  advertencia_linkchecker: "ADVERTENCIA: linkchecker no pudo ser localizado, no fue posible analizar las palabras…"
+  error_general: "\nERROR: no fue posible analizar el archivo, revisa si su estructura es válida."
+
 # pc-pandog
 pandog: 
   h: "\nPandog utiliza el poder de Pandoc para convertir archivos con elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o visceversa.\n\nUso:\n  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]\n\nParámetros necesarios:\n  -i = [input] Nombre del archivo a convertir.\n  -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo:\n  pc-tegs -i directorio/al/archivo.md -o archivo.xhtml\n  Crea un archivo XHTML a partir de «archivo.md» presente en «directorio/al»."
@@ -46,29 +61,6 @@ pandog:
   error_m: "\nERROR: no fue posible modificar el archivo."
   iniciando: "Iniciando conversión con Pandoc…"
   modificando: "Modificando el archivo creado por Pandoc…"
-
-# pc-analytics
-analytics: 
-  h: "\nAYUDA"
-  txt_marcado: "marcado.txt"
-  txt_cifras: "cifras.txt"
-  txt_uniones: "uniones.txt"
-  txt_versales: "versales.txt"
-  txt_estadisticas: "estadisticas.txt"
-  fichero: "analytics"
-  fichero_interior: "analítica"
-  divisor: "---------"
-  e: ["Cantidad de palabras y cifras: ","Cantidad de palabras: ","Cantidad de palabras únicas: ","Índice de diversidad: ","Cantidad de cifras: ","Cantidad de cifras únicas: ","Cantidad de etiquetas: ","Cantidad de etiquetas únicas con atributos: ","Cantidad de etiquetas únicas sin atributos: ",". Etiqueta <",">:\n    Total: ","\n    Únicas: ","Tabla de palabras y frecuencia de uso",". Palabra «","»:\n    Frecuencia: ","\n    Porcentaje: "]
-  advertencia_archivo: ["ADVERTENCIA: creando «","» en «","» para no comprometer el archivo original. Este archivo podrás convertirlo al formato deseado con Pandog…"]
-  analizando: "Analizando cambios a realizar…"
-  realizando: "Realizando cambios…"
-  eliminando: ["  Eliminando «","»…"]
-  reemplazando: ["  Reemplazando «","» con «", "»…"]
-  error_carpeta: ["\nERROR: al parecer ya existe un análisis; para ingresar modificaciones usa la opción -c; para un nuevo análisis, elimina la carpeta «","»."]
-  error_carpeta2: ["\nERROR: no se encontró ninguna carpeta «","» con los análisis."]
-  error_carpeta3: ["\nERROR: no se encontró ninguna carpeta «","» en «", "» con los análisis."]
-  error_archivo: ["\nERROR: al parecer el archivo «", "» en «", "» no existe."]
-  error_archivo2: "\nERROR: al parecer no hay archivos con análisis."
 
 # pc-tegs
 tegs: 
@@ -101,7 +93,7 @@ automata:
   convirtiendo: ["convirtiendo «","» a MOBI…"]
   epubcheck: ["Epubcheck","no pudo ser localizado, los EPUB no pueden ser verificados…"]
   ace: "Ace no pudo ser localizado, el EPUB no puede ser verificado…"
-  kindlegen: "Kindlegen no pudo ser localizado, no fue posible crear un archivo MOBI…"
+  kindlegen: "ADVERTENCIA: kindlegen no pudo ser localizado, no fue posible crear un archivo MOBI…"
   pregunta: "La automatización solo permite la existencia de archivos YAML, ¿eliminar el resto de los archivos? [Y/n] "
   error_a: "\nERROR: proceso abortado por el usuario."
   error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para Automata."]
@@ -187,7 +179,6 @@ doctor:
   h: "\nDoctor analiza el estado de Pecas y sus dependencias.\n\nUso:\n  pc-doctor\n  \nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n  --update = Actualiza Pecas.\n  --restore = Restaura Pecas.\n  --install-dependencies = Instala dependencias de Pecas.\n\nEjemplo sencillo:\n  pc-doctor\n  Da un análisis del estado de Pecas y sus dependencias.\n \nEjemplo para actualizar:\n  pc-doctor --update\n  Actualiza Pecas.\n\nEjemplo para restaurar, actualizar e instalar dependencias:\n  pc-doctor --restore --update --install-dependencies\n  Restaura y actualiza Pecas, para después instalar sus dependencias."
   generales: "Generales:"
   dependencias: "Dependencias:"
-  linea: "-------------------------------------"
   actualizando: "=> Actualizando Pecas…"
   restaurando: "=> Restaurando Pecas…"
   instalando: ["\n=> Instalando","con:"]

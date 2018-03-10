@@ -75,7 +75,7 @@ def revisionDependencias install, d
     if !install
         return salida.join("\n")
     else
-        return no_instalados ? "\n" + $l_dr_linea + "\n" + $l_dr_instalando_nan : "\n" + $l_dr_linea + "\n" + $l_dr_instalando_fin
+        return no_instalados ? "\n" + $l_g_linea + "\n" + $l_dr_instalando_nan : "\n" + $l_g_linea + "\n" + $l_dr_instalando_fin
     end
 end
 
@@ -100,7 +100,7 @@ dependencias = {
     'pandoc' => {
         'nombre' => 'Pandoc', 
         'paquete' => ['pandoc'],
-        'pecas' => ['pc-automata','pc-pandog','pc-notes']
+        'pecas' => ['pc-automata','pc-pandog','pc-notes', 'pc-analytics']
     },
     'zip' => {
         'nombre' => 'Zip',
@@ -137,17 +137,17 @@ if !update && !install && !restore
 
     # Si no hay alguna dependencia instalada
     if $no_instalado
-        puts $l_dr_linea, $l_dr_falta
+        puts $l_g_linea, $l_dr_falta
     end
 # Si es restauración, actualización o instalación de terceros
 else
     if restore
-        puts $l_dr_restaurando, $l_dr_linea
+        puts $l_dr_restaurando, $l_g_linea
         system("git reset --hard")
     end
 
     if update
-        puts $l_dr_actualizando, $l_dr_linea
+        puts $l_dr_actualizando, $l_g_linea
         system("git pull origin master")
     end
 

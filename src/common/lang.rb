@@ -97,6 +97,8 @@ $l_g_note = langObj["general"]["note"]
 $l_g_descomprimiendo = langObj["general"]["descomprimiendo"].green
 $l_g_analizando = langObj["general"]["analizando"]
 $l_g_epub_analisis = langObj["general"]["epub_analisis"]
+$l_g_xhtml_analisis = langObj["general"]["xhtml_analisis"]
+$l_g_linea = langObj["general"]["linea"]
 $l_g_error_no_identificado = langObj["general"]["error_no_identificado"]
 $l_g_error_arg = langObj["general"]["error_arg"].red.bold
 $l_g_error_arg2 = langObj["general"]["error_arg2"].red.bold
@@ -107,6 +109,19 @@ $l_g_error_nombre = langObj["general"]["error_nombre"].red.bold
 $l_g_error_opf = langObj["general"]["error_opf"].red.bold
 $l_g_error_hash = langObj["general"]["error_hash"].red.bold
 
+# Analytics
+$l_an_v = obtener_version
+$l_an_h = langObj["analytics"]["h"]
+$l_an_extrayendo = langObj["analytics"]["extrayendo"]
+$l_an_separando = langObj["analytics"]["separando"]
+$l_an_archivo_hunspell = langObj["analytics"]["archivo_hunspell"]
+$l_an_analizando_hunspell = langObj["analytics"]["analizando_hunspell"].green
+$l_an_analizando_linkchecker = langObj["analytics"]["analizando_linkchecker"].green
+$l_an_advertencia_md = langObj["analytics"]["advertencia_md"]
+$l_an_advertencia_hunspell = langObj["analytics"]["advertencia_hunspell"].yellow.bold
+$l_an_advertencia_linkchecker = langObj["analytics"]["advertencia_linkchecker"].yellow.bold
+$l_an_error_general = langObj["analytics"]["error_general"].red.bold
+
 # Pandog
 $l_pg_v = obtener_version
 $l_pg_h = langObj["pandog"]["h"]
@@ -114,29 +129,6 @@ $l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
 $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
-
-# analytics
-$l_sb_v = obtener_version
-$l_sb_h = langObj["analytics"]["h"]
-$l_sb_txt_marcado = langObj["analytics"]["txt_marcado"]
-$l_sb_txt_cifras = langObj["analytics"]["txt_cifras"]
-$l_sb_txt_uniones = langObj["analytics"]["txt_uniones"]
-$l_sb_txt_versales = langObj["analytics"]["txt_versales"]
-$l_sb_txt_estadisticas = langObj["analytics"]["txt_estadisticas"]
-$l_sb_fichero = langObj["analytics"]["fichero"]
-$l_sb_fichero_interior = langObj["analytics"]["fichero_interior"]
-$l_sb_divisor = langObj["analytics"]["divisor"]
-$l_sb_e = langObj["analytics"]["e"]
-$l_sb_advertencia_archivo = langObj["analytics"]["advertencia_archivo"]
-$l_sb_analizando = langObj["analytics"]["analizando"].green
-$l_sb_realizando = langObj["analytics"]["realizando"].green
-$l_sb_eliminando = langObj["analytics"]["eliminando"]
-$l_sb_reemplazando = langObj["analytics"]["reemplazando"]
-$l_sb_error_carpeta = langObj["analytics"]["error_carpeta"]
-$l_sb_error_carpeta2 = langObj["analytics"]["error_carpeta2"]
-$l_sb_error_carpeta3 = langObj["analytics"]["error_carpeta3"]
-$l_sb_error_archivo = langObj["analytics"]["error_archivo"]
-$l_sb_error_archivo2 = langObj["analytics"]["error_archivo2"].red.bold
 
 # Tegs
 $l_tg_v = obtener_version
@@ -254,7 +246,6 @@ $l_dr_v = obtener_version
 $l_dr_h = langObj["doctor"]["h"]
 $l_dr_generales = langObj["doctor"]["generales"]
 $l_dr_dependencias = langObj["doctor"]["dependencias"]
-$l_dr_linea = langObj["doctor"]["linea"]
 $l_dr_actualizando = langObj["doctor"]["actualizando"]
 $l_dr_restaurando = langObj["doctor"]["restaurando"]
 $l_dr_instalando = langObj["doctor"]["instalando"]
