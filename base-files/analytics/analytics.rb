@@ -34,7 +34,7 @@ def extraccion hash, marcado = false
 
         # Si se van a poner palabras en $resultado_extraccion
         def guardado_palabra elemento
-            elemento.split(/\s+/).each do |p|
+            elemento.split(/[\u00A0|\s]+/).each do |p|
                 # Si la palabra tiene entrecruzada entidades HTML, las separa para volver a ejecutar esta función
                 if p =~ /\&\w+;/ || p =~ /\&\#\d+;/
                     p = p.split(/\&.*?;/).join(' ')
@@ -123,7 +123,8 @@ def extraccion hash, marcado = false
         end
     end
 
-    $resultado_extraccion = $resultado_extraccion.sort
+    # Se ordenan alfabéticamente pero con el cuidado de respetar el orden de palabras acentuadas o en versales
+    $resultado_extraccion = $resultado_extraccion.sort_by{|s| transliterar(s)}
 end
 
 # Separa las palabras y las cifras
@@ -135,6 +136,7 @@ def separacion conjunto, cifras = false
     condicion = cifras ? /^\p{N}+$/ : /^[\p{L}|\p{M}]+$/
     conjunto_final = []
     $conjunto_no_identificados = []
+    $conjunto_versales = []
 
     conjunto.each do |e|
         if e =~ condicion
@@ -142,8 +144,13 @@ def separacion conjunto, cifras = false
         # Hay elementos que tienen mezcla de cifras y palabras, por lo que no pueden identificarse
         elsif e !~ /^\p{N}+$/ && e !~ /^[\p{L}|\p{M}]+$/
             $conjunto_no_identificados.push(e)
+        # Obtiene las palabras con versal inicial
+        elsif e[0].downcase != e[0]
+            $conjunto_versales.push(e)
         end
     end
+
+    $conjunto_versales = $conjunto_versales.uniq
 
     conjunto_final
 end
@@ -191,6 +198,7 @@ end
     # Separa las palabras y las cifras
     conjunto_palabras = separacion(conjunto_palabras_cifras)
     conjunto_cifras = separacion(conjunto_palabras_cifras, true)
+
     # Se usa hunspell para encontrar posibles erratas
 
     # Se crea el archivo para que hunspell lo analice
@@ -286,10 +294,13 @@ end
     #   * conjunto_palabras
     #   * conjunto_cifras
     #   * conjunto_etiquetas
+    #   * $conjunto_versales
     #   * $conjunto_no_identificados
     #   * hunspell
     #   * linkchecker
     #       * Cada uno de sus elementos es un hash, las llaves de interés son urlname, parentname, result y valid
+
+    # conjunto.map{|i| i.downcase}.uniq => Baja todas las palabras para evitar duplicados con uniq
 
     # Estadísticas
     #   * Cantidad de palabras y cifras
@@ -312,7 +323,7 @@ end
     # Cifras
     #   * Lista de cifras únicas
     # Versales
-    #   * Lista de versales únicas
+    #   * Lista de versales iniciales únicas
     # No identificadas
     #   * Lista de uniones únicas: OJO no son literales
 

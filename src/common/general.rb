@@ -292,8 +292,8 @@ end
 def transliterar texto
 	
 	# Elementos particulares a cambiar
-	elementos1 = ["ñ","á","é","í","ó","ú","ü"]
-	elementos2 = ["n","a","e","i","o","u","u"]
+	elementos1 = ["ñ","á","à","â","ä","é","è","ê","ë","í","ì","î","ï","ó","ò","ô","ö","ú","ù","û","ü"]
+	elementos2 = ["n","a","a","a","a","e","e","e","e","i","i","i","i","o","o","o","o","u","u","u","u"]
 	
 	# Pone el texto en bajas
 	texto = texto.downcase
@@ -660,5 +660,22 @@ def hash_to_html hash
     # Se añade la versión XML si es OPF, XML o XHTML
     if tipo == 'opf' || tipo == 'xml' || tipo == 'xhtml'
         html.unshift("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+    end
+end
+
+# Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583
+def obtener_caracter hexnum
+    char = ''
+    char << hexnum.to_i(16)
+end
+
+# Obtiene el unicode de un caracter; viene de: https://gist.github.com/O-I/6758583
+def obtener_unicode char
+    (0..55295).each do |pos|
+        chr = ""
+        chr << pos
+        if chr == char
+            puts "This is the unicode of #{char}: #{pos.to_s(16)}"
+        end
     end
 end
