@@ -32,14 +32,14 @@ general:
   xhtml_analisis: "xhtml-output.xhtml"
   linea: "-------------------------------------"
   error_no_identificado: "No identificado."
-  error_arg: "\nERROR: argumentos insuficientes. Utiliza -h para ver la ayuda."
-  error_arg2: "\nERROR: argumentos inconsistentes. Utiliza -h para ver la ayuda."
-  error_directorio: ["\nERROR: al parecer el directorio «", "» no existe."]
-  error_archivo: ["\nERROR: al parecer el archivo «", "» no existe."]
-  error_archivo2: ["\nERROR: el archivo «", "» no tiene una extensión válida."]
-  error_nombre: "\nERROR: ya existe una carpeta con el nombre indicado."
-  error_opf: "\nERROR: archivo OPF no encontrado."
-  error_hash: "\nERROR: al parecer la notación de objetos no tiene la estructura necesaria para convertirlo a HTML."
+  error_arg: "\nArgumentos insuficientes. Utiliza -h para ver la ayuda."
+  error_arg2: "\nArgumentos inconsistentes. Utiliza -h para ver la ayuda."
+  error_directorio: ["\nAl parecer el directorio «", "» no existe."]
+  error_archivo: ["\nAl parecer el archivo «", "» no existe."]
+  error_archivo2: ["\nEl archivo «", "» no tiene una extensión válida."]
+  error_nombre: "\nYa existe una carpeta con el nombre indicado."
+  error_opf: "\nArchivo OPF no encontrado."
+  error_hash: "\nAl parecer la notación de objetos no tiene la estructura necesaria para convertirlo a HTML."
 
 # pc-analytics
 analytics: 
@@ -49,16 +49,16 @@ analytics:
   archivo_hunspell: "hunspell"
   analizando_hunspell: "Analizando palabras con hunspell…"
   analizando_linkchecker: "Analizando enlaces locales y remotos con linkchecker:"
-  advertencia_md: ["ADVERTENCIA: el archivo MD se convertirá a «", "» para poder ser analizado…"]
-  advertencia_hunspell: "ADVERTENCIA: hunspell no pudo ser localizado, no fue posible analizar las palabras…"
-  advertencia_linkchecker: "ADVERTENCIA: linkchecker no pudo ser localizado, no fue posible analizar las palabras…"
-  error_general: "\nERROR: no fue posible analizar el archivo, revisa si su estructura es válida."
+  advertencia_md: ["El archivo MD se convertirá a «", "» para poder ser analizado…"]
+  advertencia_hunspell: "Hunspell no pudo ser localizado, no fue posible analizar las palabras…"
+  advertencia_linkchecker: "Linkchecker no pudo ser localizado, no fue posible analizar las palabras…"
+  error_general: "\nNo fue posible analizar el archivo, revisa si su estructura es válida."
 
 # pc-pandog
 pandog: 
   h: "\nPandog utiliza el poder de Pandoc para convertir archivos con elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o visceversa.\n\nUso:\n  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]\n\nParámetros necesarios:\n  -i = [input] Nombre del archivo a convertir.\n  -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo:\n  pc-tegs -i directorio/al/archivo.md -o archivo.xhtml\n  Crea un archivo XHTML a partir de «archivo.md» presente en «directorio/al»."
-  error_ext: "\nERROR: no se indicó el nombre de extensión para el archivo de salida."
-  error_m: "\nERROR: no fue posible modificar el archivo."
+  error_ext: "\nNo se indicó el nombre de extensión para el archivo de salida."
+  error_m: "\nNo fue posible modificar el archivo."
   iniciando: "Iniciando conversión con Pandoc…"
   modificando: "Modificando el archivo creado por Pandoc…"
 
@@ -74,8 +74,8 @@ tegs:
   uniendo_txt: "Uniendo archivos txt…"
   limpiando: "Limpiando directorio…"
   error: 
-    te: "\nERROR: no fue posible iniciar Tesseract."
-    gs: "\nERROR: no fue posible iniciar Ghostscript."
+    te: "\nNo fue posible iniciar Tesseract."
+    gs: "\nNo fue posible iniciar Ghostscript."
     
 # pc-automata
 automata:
@@ -93,11 +93,11 @@ automata:
   convirtiendo: ["convirtiendo «","» a MOBI…"]
   epubcheck: ["Epubcheck","no pudo ser localizado, los EPUB no pueden ser verificados…"]
   ace: "Ace no pudo ser localizado, el EPUB no puede ser verificado…"
-  kindlegen: "ADVERTENCIA: kindlegen no pudo ser localizado, no fue posible crear un archivo MOBI…"
+  kindlegen: "Kindlegen no pudo ser localizado, no fue posible crear un archivo MOBI…"
   pregunta: "La automatización solo permite la existencia de archivos YAML, ¿eliminar el resto de los archivos? [Y/n] "
-  error_a: "\nERROR: proceso abortado por el usuario."
-  error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para Automata."]
-  error_r: ["\nERROR: algo salió mal, eliminando archivos creados…","ERROR: proceso abortado satisfactoriamente, un log ha sido creado para su análisis."]
+  error_a: "\nProceso abortado por el usuario."
+  error_e: ["\nAl parecer la capeta «","» no es un proyecto para Automata."]
+  error_r: ["\nAlgo salió mal, eliminando archivos creados…","Proceso abortado satisfactoriamente, un log ha sido creado para su análisis."]
 
 # pc-creator
 creator: 
@@ -110,15 +110,15 @@ creator:
   xhtml_portadilla: "Portadilla"
   xhtml_legal: "Legal"
   creando: ["Creando proyecto EPUB con el nombre «","»…"]
-  error_meta: "\nERROR: ya existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
+  error_meta: "\nYa existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
 
 # pc-divider
 divider: 
   h: "\nDivider separa un documento HTML cada <h1> o <section>.\n\nUso:\n  pc-divider -f [archivo a dividir]\n\nParámetro necesario:\n  -f = [file] Archivo HTML, XHTML, XML o HTM a dividir.\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se pondrán los archivos creados.\n  -s = [style sheet] Ruta al archivo CSS que se desea vincular.\n  -i = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.\n  --section = Divide el documento cada <section>.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-divider -f archivo/a/dividir.xhtml\n  Dividirá el archivo «dividir.xhtml» cada <h1>, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.\n\nEjemplo en un directorio específico:\n  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado\n  Dividirá como el ejemplo anterior, poniendo los archivos creados en «directorio/deseado».\n\nEjemplo en un directorio e incluyendo una hoja de estilo:\n  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css\n  Dividirá como el ejemplo anterior, vinculando la hoja de estilo «archivo.css» en cada archivo creado.\n\nEjemplo en un directorio e incluyendo una hoja de estilo y con otro índice:\n  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1\n  Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.\n\nEjemplo en un directorio, dividido cada <section> e incluyendo una hoja de estilo y con otro índice:\n  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section\n  Semejante al ejemplo anterior, solo que la división es cada <section> en lugar de cada <h1>."
   dividiendo: "Dividiendo archivos…"
   creando: ["Creando ", "…"]
-  error_f: "\nERROR: el archivo no tiene una extensión válida (HTML, XHTML o HTM)."
-  error_i: "\nERROR: solo se permiten números enteros para la opción -i."
+  error_f: "\nEl archivo no tiene una extensión válida (HTML, XHTML o HTM)."
+  error_i: "\nSolo se permiten números enteros para la opción -i."
 
 # pc-notes
 notes:
@@ -133,8 +133,8 @@ notes:
   nota_a: "n-note-a"
   nota_p: "n-note-p"
   nota_p2: "n-note-p2"
-  error_f: "\nERROR: hay archivos con lenguajes de marcado no compatibles, verifique que solo sean archivos TeX o con sintaxis tipo HTML."
-  error_c: ["\nERROR: la cantidad de notas al pie no coinciden.", " notas en «", "».", " notas en los archivos."]
+  error_f: "\nHay archivos con lenguajes de marcado no compatibles, verifique que solo sean archivos TeX o con sintaxis tipo HTML."
+  error_c: ["\nLa cantidad de notas al pie no coinciden.", " notas en «", "».", " notas en los archivos."]
 
 # pc-recreator
 recreator: 
@@ -150,13 +150,13 @@ recreator:
   eliminando_viewports: "Eliminando viewports para evitar conflictos con el EPUB fluido…"
   eliminando_epub: "Eliminando EPUB previo…"
   creando_epub: ["Creando","EPUB en «","» con el nombre «","»…"]
-  advertencia_depth: "ADVERTENCIA: ignorando el parámetro «depth» porque no es un número entero mayor a cero…"
-  advertencia_fijo: ["ADVERTENCIA: «","» no tiene valor, ignorando medidas para el EPUB fijo…"]
-  error_y: ["\nERROR: al parecer el archivo «","» no tiene una sintaxis correcta."]
-  error_e: ["\nERROR: al parecer la capeta «","» no es un proyecto para EPUB."]
-  error_a: ["\nERROR: no se encontró un archivo ","."]
-  error_m: "\nERROR: problema con las medidas para el EPUB fijo."
-  error_t: "\nERROR: el metadato «title» en el archivo YAML es obligatorio."
+  advertencia_depth: "Ignorando el parámetro --depth porque no es un número entero mayor a cero…"
+  advertencia_fijo: ["Ignorando medidas para el EPUB fijo porque «","» no tiene valor…"]
+  error_y: ["\nAl parecer el archivo «","» no tiene una sintaxis correcta."]
+  error_e: ["\nAl parecer la capeta «","» no es un proyecto para EPUB."]
+  error_a: ["\nNo se encontró un archivo ","."]
+  error_m: "\nProblema con las medidas para el EPUB fijo."
+  error_t: "\nEl metadato «title» en el archivo YAML es obligatorio."
 
 # pc-changer
 changer:
@@ -167,12 +167,12 @@ changer:
   incluyendo: ["Incluyendo metadatos en «","»…"]
   anadiendo: ["Añadiendo archivos de «","»…"]
   creando: ["Creando EPUB versión "," con el nombre de «","» en ","…"]
-  advertencia_standalone: "ADEVERTENCIA: se recomienda la opción --standalone cuando se pasa de versiones 2 a 3."
-  advertencia_metadata: "ADEVERTENCIA: no fue posible recuperar todos los metadatos; para incluirlos se tendrá que modificar manualmente el archivo YAML y usar pc-recreator."
-  error_version: ["\nERROR: la versión «","» no está soportada."]
-  error_version2: "\nERROR: solo es posible actualizar a versiones 3. Las versiones 2 se consideran obsoletas; véase <http://idpf.org/epub/201>."
-  error_version3: ["\nERROR: el EPUB ya está en la versión ", ". No se ha realizado ningún cambio."]
-  error_archivo: ["\nERROR: al parecer el archivo «", "» tiene un error de sintaxis. Borrando todos los cambios…"]
+  advertencia_standalone: "Se recomienda la opción --standalone cuando se pasa de versiones 2 a 3."
+  advertencia_metadata: "No fue posible recuperar todos los metadatos; para incluirlos se tendrá que modificar manualmente el archivo YAML y usar pc-recreator."
+  error_version: ["\nLa versión «","» no está soportada."]
+  error_version2: "\nSolo es posible actualizar a versiones 3. Las versiones 2 se consideran obsoletas; véase <http://idpf.org/epub/201>."
+  error_version3: ["\nEl EPUB ya está en la versión ", ". No se ha realizado ningún cambio."]
+  error_archivo: ["\nAl parecer el archivo «", "» tiene un error de sintaxis. Borrando todos los cambios…"]
 
 # pc-doctor
 doctor:
@@ -188,7 +188,7 @@ doctor:
   no-instalado: "no instalado"
   falta: "=> Faltan algunas dependencias.\n   Para instalarlas usa:\n   pc-doctor --install-dependencies"
   pregunta: "Elige alguno de los siguientes gestores de paquetes:\n  0) Ninguno.\n  1) apt-get [Debian, Ubuntu, Linux Mint]\n  2) pacman [Arch Linux, Parabola]\n  3) apt [WSL Ubuntu]\n  4) brew [macOS]\n: "
-  ninguno: "\nERROR: ningún gestor elegido."
-  mayor: "\nERROR: número inválido."
-  advertencia: "\nADVERTENCIA: si alguna dependencia no puede ser instalada, usa directamente tu gestor de paquetes."
-  error: "\nERROR: algo salió mal, usa directamente tu gestor de paquetes."
+  ninguno: "\nNingún gestor elegido."
+  mayor: "\nNúmero inválido."
+  advertencia: "\nSi alguna dependencia no puede ser instalada, usa directamente tu gestor de paquetes."
+  error: "\nAlgo salió mal, usa directamente tu gestor de paquetes."
