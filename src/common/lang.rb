@@ -117,9 +117,14 @@ $l_an_separando = langObj["analytics"]["separando"]
 $l_an_archivo_hunspell = langObj["analytics"]["archivo_hunspell"]
 $l_an_analizando_hunspell = langObj["analytics"]["analizando_hunspell"].green
 $l_an_analizando_linkchecker = langObj["analytics"]["analizando_linkchecker"].green
+$l_an_creando_analitica = langObj["analytics"]["creando_analitica"]
+$l_an_creando_json = langObj["analytics"]["creando_json"]
+$l_an_creando_yaml = langObj["analytics"]["creando_yaml"]
+$l_an_archivo_nombre = langObj["analytics"]["archivo_nombre"]
 $l_an_advertencia_md = langObj["analytics"]["advertencia_md"]
 $l_an_advertencia_hunspell = langObj["analytics"]["advertencia_hunspell"].yellow.bold
 $l_an_advertencia_linkchecker = langObj["analytics"]["advertencia_linkchecker"].yellow.bold
+$l_an_advertencia_deep = langObj["analytics"]["advertencia_deep"].yellow.bold
 $l_an_error_general = langObj["analytics"]["error_general"].red.bold
 
 # Pandog

@@ -17,6 +17,7 @@ require File.dirname(__FILE__) + "/../../src/common/xhtml-beautifier.rb"
 
 # Argumentos
 archivo = if argumento "-f", archivo != nil then argumento "-f", archivo end
+$deep_analysis = argumento "--deep", $deep_analysis, 1
 json = argumento "--json", json, 1
 yaml = argumento "--yaml", yaml, 1
 argumento "-v", $l_an_v
@@ -63,6 +64,7 @@ def extraccion hash, marcado = false
 
             # Iteración de cada etiqueta
             elemento.each do |k, v|
+
                 # Se le añaden los elementos iniciales
                 etiqueta = '<' + k[1..-1]
 
@@ -78,6 +80,9 @@ def extraccion hash, marcado = false
                     else
                         etiqueta += ' />'
                     end
+                # Cuando no tiene ningún valor, se considera etiqueta única como el caso de <br />
+                else
+                    etiqueta += ' />'
                 end
 
                 # Se entrega el resultado
@@ -123,8 +128,9 @@ def extraccion hash, marcado = false
         end
     end
 
-    # Se ordenan alfabéticamente pero con el cuidado de respetar el orden de palabras acentuadas o en versales
-    $resultado_extraccion = $resultado_extraccion.sort_by{|s| transliterar(s)}
+    # El primer sort es para agrupar las palabras según si están en bajas o en altas, pero no acomoda correctamente las palabras con tilde
+    # El segundo sort acomoda de manera correcta las palabras con tildes
+    $resultado_extraccion = $resultado_extraccion.sort.sort_by{|s| transliterar(s, false)}
 end
 
 # Separa las palabras y las cifras
@@ -150,9 +156,169 @@ def separacion conjunto, cifras = false
         end
     end
 
-    $conjunto_versales = $conjunto_versales.uniq
-
     conjunto_final
+end
+
+# Genera un conjunto donde cada elemento = [palabra, núm. de apariciones]
+def contabilizar c
+    e_guardado = c[0]
+    c_final = []
+    cantidad = 0
+
+    # Iteración del conjunto dado
+    c.each_with_index do |e, i|
+        # Si el elemento guardado es igual al elemento actual, solo se suma uno
+        if e_guardado === e
+            cantidad += 1
+        # Si ya no son iguales, se guarda en el conjunto final y se reseta la cantidad y el elemento guardado
+        else
+            c_final.push([e_guardado, cantidad])
+            cantidad = 1
+            e_guardado = e
+        end
+
+        if i + 1 === c.length then c_final.push([e_guardado, cantidad]) end
+    end
+
+    return c_final
+end
+
+# Genera un conjunto donde cada elemento = {'tag' => etiqueta, 'length' => cantidad total, 'types' => [etiqueta, núm. de apariciones]}
+def contabilizar_etiquetas c
+
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[8] + $l_an_creando_analitica.last}".green
+
+    c = contabilizar(c)
+    e_guardado = c[0]
+    e_conjuntos = []
+    c_final = []
+    cantidad = 0
+
+    # Iteración del conjunto dado
+    c.each_with_index do |e, i|
+        # Si el elemento guardado es igual al elemento actual, solo se suma uno
+        if e_guardado[0].gsub('<', '').gsub(' />', '').gsub('>', '').gsub(/\s+?.*$/, '') == e[0].gsub('<', '').gsub(' />', '').gsub('>', '').gsub(/\s+?.*$/, '')
+            cantidad += e[1]
+        # Si ya no son iguales, se guarda en el conjunto final y se reseta la cantidad, el elemento guardado y los conjuntos
+        else
+            c_final.push({'tag' => e_guardado[0].gsub('<', '').gsub(' />', '').gsub('>', '').gsub(/\s+?.*$/, ''), 'length' => cantidad, 'types' => e_conjuntos})
+            cantidad = e[1]
+            e_guardado = e
+            e_conjuntos = []
+        end
+
+        # Guarda cada uno de los conjuntos
+        e_conjuntos.push(e)
+
+        if i + 1 === c.length then c_final.push({'tag' => e_guardado[0].gsub('<', '').gsub(' />', '').gsub('>', '').gsub(/\s+?.*$/, ''), 'length' => cantidad, 'types' => e_conjuntos}) end
+    end
+
+    return c_final
+end
+
+# Cada elemento de un conjunto pasa de ser texto a un conjunto donde está la palabra/cifra y su número de apariciones
+def incrustar_analitica hash, conjunto, texto, indice
+
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[indice] + $l_an_creando_analitica.last}".green
+
+    list_uniq_case_on = conjunto.uniq
+    if $deep_analysis then list_uniq_case_off = conjunto.map(&:downcase).uniq{|e| e.downcase} end
+
+    # Se le agrega la llave al hash que a su vez tiene las siguientes llaves
+    if $deep_analysis
+        hash[texto] = {
+            'all' => conjunto.length,                                       # Extensión de todo el conjunto
+            'uniq_case_on' => list_uniq_case_on.length,                     # Extensión de elementos únicos del conjunto sin ignorar las versales
+            'uniq_case_off' => list_uniq_case_off.length,                   # Extensión de elementos únicos del conjunto ingnorando las versales
+            'list_all_case_on' => contabilizar(conjunto),                   # Lista de todo el conjunto sin ignorar las versales donde cada elemento = [palabra, núm. de apariciones]
+            'list_all_case_off' => contabilizar(conjunto.map(&:downcase)),  # Lista de todo el conjunto ignorando las versales donde cada elemento = [palabra, núm. de apariciones]
+            'list_uniq_case_on' => list_uniq_case_on,                       # Lista de elementos únicos del conjunto sin ignorar las versales
+            'list_uniq_case_off' => list_uniq_case_off                      # Lista de elementos únicos del conjunto ignorando las versales
+        }
+    else
+        hash[texto] = {
+            'all' => conjunto.length,                                       # Extensión de todo el conjunto
+            'uniq_case_on' => list_uniq_case_on.length,                     # Extensión de elementos únicos del conjunto sin ignorar las versales
+            'list_all_case_on' => contabilizar(conjunto),                   # Lista de todo el conjunto sin ignorar las versales donde cada elemento = [palabra, núm. de apariciones]
+            'list_uniq_case_on' => list_uniq_case_on,                       # Lista de elementos únicos del conjunto sin ignorar las versales
+        }
+    end
+
+    return hash
+end
+
+# Semejante a la definición anterior pero acomodados según el núm. de aparición, así como saca porcentajes y depura
+def incrustar_analitica_top hash, c
+
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[6] + $l_an_creando_analitica.last}".green
+
+    # Ambos conjuntos se contabilizan, orden según el núm. de apariciones y se invierten (la palabra con mayor núm. de apariciones va primero)
+    # La diferencia es que el segundo primero se reordena para ser puras minúsculas
+    c_sucio = contabilizar(c).sort_by(&:last).reverse
+    c_cuasilimpio = contabilizar(c.map(&:downcase)).sort_by(&:last).reverse
+
+    # A partir del número de apariciones y el total de palabras se obtiene el porcentaje de aparición
+    def obtener_porcentaje c, total
+        c_final = []
+
+        c.each do |e|
+            c_final.push([e[0], e[1], ((e[1] * 100) / total.to_f)])
+        end
+
+        return c_final
+    end
+
+    # Saca las palabras vacías (stopwords)
+    def depurar c
+        ruta = File.dirname(__FILE__) + "/../../src/common/stopwords/stopwords-#{$lang}.txt"
+        contenido = []
+        c_final = []
+
+        # Extrae la lista de palabras vacías
+        archivo_abierto = File.open(ruta, 'r:UTF-8')
+        archivo_abierto.each do |linea|
+            contenido.push(linea.strip)
+        end
+        archivo_abierto.close
+
+        # Itera el conjunto para identificar palabras vacías
+        c.each do |e|
+            incorporar = true
+
+            # Si en la transliteración la palabra coincide con una palabra vacía, se omite del nuevo conjunto
+            contenido.each do |ee|
+                if transliterar(e[0], false) =~ /^#{ee}$/
+                    incorporar = false
+                    break
+                end
+            end
+
+            if incorporar == true then c_final.push(e) end
+        end
+
+        return c_final
+    end
+
+    # Obtiene las listas
+    list_all_clean = obtener_porcentaje(depurar(c_cuasilimpio), hash['words']['all'])
+    if $deep_analysis then list_all_dirty = obtener_porcentaje(c_sucio, hash['words']['all']) end
+
+    # Se le agrega la llave al hash que a su vez tiene las siguientes llaves
+    if $deep_analysis
+        hash['top'] = {
+            'all_clean' => list_all_clean.length,   # Top sin palabras vacías y en bajas
+            'all_dirty' => list_all_dirty.length,   # Top con palabras vacías e insensible a mayúsculas
+            'list_all_clean' => list_all_clean,     # Lista del top sin palabras vacías y en bajas
+            'list_all_dirty' => list_all_dirty      # Lista del top con palabras vacías e insensible a mayúsculas
+        }
+    else
+        hash['top'] = {
+            'all_clean' => list_all_clean.length,   # Top sin palabras vacías y en bajas
+            'list_all_clean' => list_all_clean      # Lista del top sin palabras vacías y en bajas
+        }
+    end
+
+    return hash
 end
 
 #begin
@@ -289,6 +455,61 @@ end
         end
     end
 
+    # Se empieza la creación del hash final
+    analitica = {}
+
+    # Incrusta todos los conjuntos de palabras
+    analitica = incrustar_analitica(analitica, conjunto_palabras_cifras, 'words_digits', 1)
+    analitica = incrustar_analitica(analitica, conjunto_palabras, 'words', 2)
+    analitica = incrustar_analitica(analitica, conjunto_cifras, 'digits', 3)
+    analitica = incrustar_analitica(analitica, $conjunto_no_identificados, 'unknown', 4)
+    analitica = incrustar_analitica(analitica, $conjunto_versales, 'uppercase', 5)
+
+    # Incrusta los elementos para poder obtener frecuencias de uso
+    analitica = incrustar_analitica_top(analitica, conjunto_palabras)
+
+    # Incrusta la diversidad
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[7] + $l_an_creando_analitica.last}".green
+    if $deep_analysis 
+        promedio = ((analitica['words']['uniq_case_on'] + analitica['words']['uniq_case_off']) / 2.0)
+    else
+        promedio = analitica['words']['uniq_case_on'].to_f
+    end
+    analitica['diversity'] = analitica['words']['all'] / promedio
+
+    # Incrusta las etiquetas
+    analitica['tags'] = contabilizar_etiquetas(conjunto_etiquetas)
+
+    # Incrusta los datos de hunspell
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[9] + $l_an_creando_analitica.last}".green
+    analitica['hunspell'] = {'all' => hunspell.length, 'list' => hunspell}
+
+    # Incrusta los datos de linkchecker
+    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[10] + $l_an_creando_analitica.last}".green
+    analitica['linkchecker'] = {'all' => linkchecker.length, 'list' => linkchecker}
+
+    # El análisis profundo requiere de un archivo
+    if $deep_analysis
+        puts $l_an_advertencia_deep
+        if (!json && !yaml) then json = true end
+    end
+
+    # Crea el archivo JSON si así se pidió
+    if json
+        puts "#{$l_an_creando_json[0] + $l_an_archivo_nombre + 'json' + $l_an_creando_json[1]}".green
+        archivo_json = File.new($l_an_archivo_nombre + 'json', 'w:UTF-8')
+        archivo_json.puts JSON.pretty_generate(analitica)
+        archivo_json.close
+    end
+
+    # Crea el archivo YAML si así se pidió
+    if yaml
+        puts "#{$l_an_creando_yaml[0] + $l_an_archivo_nombre + 'yaml' + $l_an_creando_yaml[1]}".green
+        archivo_json = File.new($l_an_archivo_nombre + 'yaml', 'w:UTF-8')
+        archivo_json.puts analitica.to_yaml
+        archivo_json.close
+    end
+
     # Todos son conjuntos:
     #   * conjunto_palabras_cifras
     #   * conjunto_palabras
@@ -300,7 +521,7 @@ end
     #   * linkchecker
     #       * Cada uno de sus elementos es un hash, las llaves de interés son urlname, parentname, result y valid
 
-    # conjunto.map{|i| i.downcase}.uniq => Baja todas las palabras para evitar duplicados con uniq
+    # conjunto.uniq{|e| e.downcase} => Baja todas las palabras para evitar duplicados con uniq
 
     # Estadísticas
     #   * Cantidad de palabras y cifras
@@ -325,7 +546,7 @@ end
     # Versales
     #   * Lista de versales iniciales únicas
     # No identificadas
-    #   * Lista de uniones únicas: OJO no son literales
+    #   * Lista de uniones únicas
 
     # Se borran los archivos que ya no son necesarios
     if borrar != nil
