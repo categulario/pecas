@@ -1,0 +1,65 @@
+/* Header */
+
+header h1 {
+    float: left;
+    margin-top: 0;
+}
+
+header h1:first-child {
+    width: calc(100% - 3em);
+}
+
+header h1:last-child {
+    width: 3em;
+    text-align: right;
+}
+
+header h1 > span {
+    width: 1em;
+    color: blue;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */    
+    margin-right: .5em;
+}
+
+header h1 > span:last-child {
+    margin-right: 0;
+    margin-left: .5em;
+}
+
+/* Sections */
+
+section + section {
+    margin-top: 0;
+}
+
+/* Content */
+
+section#content > div > div {
+    float: left;
+    position: relative;
+    width: calc(50% - 1em);
+    margin: 0 1em 0 0;
+}
+
+section#content > div > div:last-child {
+    margin: 0 0 0 1em;
+}
+
+section#content button {
+    position: absolute;
+    right: 0;
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 640px) {
+    section#content > div > div {
+        float: none;
+        width: 100%;
+        margin: 0 0 1em 0 !important;
+    }
+}
