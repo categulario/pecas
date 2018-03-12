@@ -375,7 +375,7 @@ end
     # Se inicia hunspell
     begin
         puts $l_an_analizando_hunspell
-        hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{$l_an_archivo_hunspell} | sort | uniq`
+        hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{$l_an_archivo_hunspell} | sort`
         hunspell = hunspell.split("\n")
     rescue
         puts $l_an_advertencia_hunspell
@@ -412,7 +412,7 @@ end
         puts $l_an_analizando_linkchecker, $l_g_linea
         linkchecker_crudo = `linkchecker #{archivo_linkchecker} --check-extern --verbose -o csv`
         linkchecker_crudo = linkchecker_crudo.split("\n")
-        puts $l_g_linea
+        puts $l_an_fin_linkchecker, $l_g_linea
     rescue
         puts $l_an_advertencia_linkchecker
         puts $l_g_linea
@@ -470,19 +470,15 @@ end
 
     # Incrusta la diversidad
     puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[7] + $l_an_creando_analitica.last}".green
-    if $deep_analysis 
-        promedio = ((analitica['words']['uniq_case_on'] + analitica['words']['uniq_case_off']) / 2.0)
-    else
-        promedio = analitica['words']['uniq_case_on'].to_f
-    end
-    analitica['diversity'] = analitica['words']['all'] / promedio
+    analitica['diversity'] = analitica['words']['all'] / analitica['words']['uniq_case_on'].to_f
 
     # Incrusta las etiquetas
-    analitica['tags'] = contabilizar_etiquetas(conjunto_etiquetas)
+    tags = contabilizar_etiquetas(conjunto_etiquetas)
+    analitica['tags'] = {'all' => conjunto_etiquetas.length, 'types' => tags.length, 'list' => tags}
 
     # Incrusta los datos de hunspell
     puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[9] + $l_an_creando_analitica.last}".green
-    analitica['hunspell'] = {'all' => hunspell.length, 'list' => hunspell}
+    analitica['hunspell'] = {'all' => hunspell.length, 'list' => contabilizar(hunspell)}
 
     # Incrusta los datos de linkchecker
     puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[10] + $l_an_creando_analitica.last}".green
@@ -490,8 +486,12 @@ end
 
     # El análisis profundo requiere de un archivo
     if $deep_analysis
-        puts $l_an_advertencia_deep
-        if (!json && !yaml) then json = true end
+        if (!json && !yaml)
+            puts $l_an_advertencia_deep.yellow.bold
+            json = true
+        else
+            puts $l_an_advertencia_deep.green
+        end
     end
 
     # Crea el archivo JSON si así se pidió

@@ -49,6 +49,7 @@ analytics:
   archivo_hunspell: "hunspell"
   analizando_hunspell: "Analizando palabras con hunspell…"
   analizando_linkchecker: "Analizando enlaces locales y remotos con linkchecker:"
+  fin_linkchecker: "Análisis de linkchecker ha terminado."
   creando_analitica: ["Creando analítica para ", "palabras y cifras", "palabras", "cifras", "palabras sin categorizar", "palabras con versal inicial", "índice de frecuencia de uso", "índice de diversidad", "etiquetas", "posibles erratas", "validación de enlaces", "…"]
   creando_json: ["Creando archivo JSON con el nombre «", "»…"]
   creando_yaml: ["Creando archivo YAML con el nombre «", "»…"]
@@ -56,7 +57,7 @@ analytics:
   advertencia_md: ["El archivo MD se convertirá a «", "» para poder ser analizado…"]
   advertencia_hunspell: "Hunspell no pudo ser localizado, no fue posible analizar las palabras…"
   advertencia_linkchecker: "Linkchecker no pudo ser localizado, no fue posible analizar las palabras…"
-  advertencia_deep: "Los resultados del análisis profundo solo son visibles desde un archivo JSON o YAML…"
+  advertencia_deep: "En el JSON o YAML estará el análisis profundo…"
   error_general: "\nNo fue posible analizar el archivo, revisa si su estructura es válida."
 
 # pc-pandog
