@@ -14,6 +14,7 @@ despues
 embargo
 general
 implica
+posible
 primera
 tambien
 tenemos
