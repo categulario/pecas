@@ -458,6 +458,17 @@ end
     # Se empieza la creación del hash final
     analitica = {}
 
+    # Agrega el nombre del archivo o del libro
+    if archivo_md != nil
+        analitica['title'] = archivo_md
+    else
+        if analisis_crudo['opf'] != nil
+            analitica['title'] =  analisis_crudo['opf']['content'][0]['$package']['content'][0]['$metadata']['content'][0]['$dc:title']['content'][0]
+        else
+            analitica['title'] = File.basename(archivo)
+        end
+    end
+
     # Incrusta todos los conjuntos de palabras
     analitica = incrustar_analitica(analitica, conjunto_palabras_cifras, 'words_digits', 1)
     analitica = incrustar_analitica(analitica, conjunto_palabras, 'words', 2)
@@ -477,12 +488,16 @@ end
     analitica['tags'] = {'all' => conjunto_etiquetas.length, 'types' => tags.length, 'list' => tags}
 
     # Incrusta los datos de hunspell
-    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[9] + $l_an_creando_analitica.last}".green
-    analitica['hunspell'] = {'all' => hunspell.length, 'list' => contabilizar(hunspell)}
+    if hunspell.length != 0
+        puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[9] + $l_an_creando_analitica.last}".green
+        analitica['hunspell'] = {'all' => hunspell.length, 'list' => contabilizar(hunspell)}
+    end
 
     # Incrusta los datos de linkchecker
-    puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[10] + $l_an_creando_analitica.last}".green
-    analitica['linkchecker'] = {'all' => linkchecker.length, 'list' => linkchecker}
+    if linkchecker.length != 0
+        puts "#{$l_an_creando_analitica[0] + $l_an_creando_analitica[10] + $l_an_creando_analitica.last}".green
+        analitica['linkchecker'] = {'all' => linkchecker.length, 'list' => linkchecker}
+    end
 
     # El análisis profundo requiere de un archivo
     if $deep_analysis
