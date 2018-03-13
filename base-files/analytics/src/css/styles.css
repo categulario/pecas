@@ -36,6 +36,37 @@ section + section {
     margin-top: 0;
 }
 
+hr {
+    clear: both;
+    width: 30%;
+    margin-left: 35%;
+    border: 1px dotted black;
+}
+
+table {
+    width: 100%;
+    margin: 1em 0;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: #ddd;
+}
+
+th p {
+    text-align: center;
+    font-style: italic;
+}
+
+td, th {
+    border: 1px solid gray;
+    padding: .25em;
+}
+
+.resaltado {
+    background-color: #ccc;
+}
+
 /* Content */
 
 section#content > div > div {
@@ -54,12 +85,66 @@ section#content button {
     right: 0;
 }
 
+section#content h3 {
+    text-align: center;
+}
+
+section#content > div + hr {
+    margin-top: 1em;
+}
+
+nav {
+    position: relative;
+    background-color: #ddd;
+    border-radius: 1em 1em 0 0;
+    border: 1px solid gray;
+    border-bottom: none;
+    margin: 1em 0 -1em 0;
+}
+
+nav li {
+    list-style-type: none;
+    padding: .5em;
+}
+
+nav ul {
+    margin: 0;
+}
+
+nav > ul > li.sub-nav {
+    position: absolute;
+    top: 0;
+    color: blue;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */    
+}
+
+nav > ul > li.sub-nav:first-child {
+    left: .5em;
+}
+
+nav > ul > li.sub-nav:last-child {
+    right: .5em;
+}
+
+nav p {
+    text-align: center;
+}
+
 /* Mobile */
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 1024px) {
     section#content > div > div {
         float: none;
         width: 100%;
-        margin: 0 0 1em 0 !important;
+        margin: 0 0 3em 0 !important;
+    }
+
+    .general-stats {
+        display: block;
+        margin-top: .5em;
     }
 }
