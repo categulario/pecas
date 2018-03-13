@@ -20,6 +20,7 @@ archivo = if argumento "-f", archivo != nil then argumento "-f", archivo end
 $deep_analysis = argumento "--deep", $deep_analysis, 1
 json = argumento "--json", json, 1
 yaml = argumento "--yaml", yaml, 1
+rotacion = argumento "--rotacion", yaml, 1
 argumento "-v", $l_an_v
 argumento "-h", $l_an_h
 

@@ -65,8 +65,8 @@ function wordcloud () {
     w = parseInt(wordcloud_div.offsetWidth)
     h = parseInt((wordcloud_div.offsetWidth / 4) * 3) // Ratio 4:3
     scale = parseInt(wordcloud_div.offsetWidth / 100) >= 8 ? 2 : 10 - (wordcloud_div.offsetWidth / 100)
-    min_rotate = -60
-    max_rotate = 60
+    min_rotate = rotation ? -60 : 0
+    max_rotate = rotation ? 60 : 0
 
     // Sets canvas size
     canvas.width = w
