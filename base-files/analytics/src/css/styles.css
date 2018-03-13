@@ -159,4 +159,8 @@ nav p {
         display: block;
         margin-top: .5em;
     }
+
+    .ocultable {
+        display: none;
+    }
 }
