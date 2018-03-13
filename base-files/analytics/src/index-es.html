@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-    <!-- DO NOT ALTER THE WORDS WITH THIS STRUCTURE --nan--; values are replaced by Pecas -->
+    <!-- DO NOT ALTER THE WORDS WITH THIS STRUCTURE --nan--; those values are replaced by Pecas -->
     <head>
         <title>--title--</title>
         <meta charset="utf-8">
@@ -10,7 +10,9 @@
         <script type="text/javascript" src="js/1-d3.v3.min.js"></script>
         <script type="text/javascript" src="js/2-d3.layout.cloud.min.js"></script>
         <script type="text/javascript" src="js/3-chart.bundle.min.js"></script>
-        <script type="text/javascript" src="js/4-common.js"></script>
+        <script type="text/javascript" src="js/4-sorttable.min.js"></script>
+        <script type="text/javascript" src="js/5-variables-es.js"></script>
+        <script type="text/javascript" src="js/6-common.js"></script>
     </head>
     <body>
         <header>
@@ -20,13 +22,13 @@
         <section id="content">
             <h2>Contenido</h2>
             <div>
-                <div id="piechart-div">
-                    <button id="piechart-btn">↓</button>
-                    <canvas id="piechart-canvas"></canvas>
-                </div>
                 <div id="wordcloud-div">
                     <button id="wordcloud-btn">↓</button>
                     <canvas id="wordcloud-canvas" class="oculto"></canvas>
+                </div>
+                <div id="piechart-div">
+                    <button id="piechart-btn">↓</button>
+                    <canvas id="piechart-canvas"></canvas>
                 </div>
             </div>
             <hr />
@@ -56,40 +58,25 @@
                             <li class="sub-nav"><span id="sub-right">&gt;</span></li>
                         </ul>
                     </nav>
-                    <table class="table-content">
+                    <table class="table-content sortable">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th><th><p>Porcentaje</p></th></tr>
                         <!-- <tr><td><p></p></td><td><p></p></td><td><p></p></td></tr> --top-- -->
-                        <tr><td><p>edición</p></td><td><p>240</p></td><td><p>0.6185407592587819</p></td></tr>
-                        <tr><td><p>epub</p></td><td><p>219</p></td><td><p>0.5644184428236385</p></td></tr>
-                        <tr><td><p>obra</p></td><td><p>122</p></td><td><p>0.3144248859565475</p></td></tr>
                     </table>
-                    <table class="table-content oculto">
+                    <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
                         <!-- <tr><td><p></p></td><td><p></p></td></tr> --words-- -->
-                        <tr><td><p>A</p></td><td><p>36</p></td></tr>
-                        <tr><td><p>a</p></td><td><p>641</p></td></tr>
-                        <tr><td><p>abandonamos</p></td><td><p>1</p></td></tr>
                     </table>
-                    <table class="table-content oculto">
+                    <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
                         <!-- <tr><td><p></p></td><td><p></p></td></tr> --digits-- -->
-                        <tr><td><p>0</p></td><td><p>2</p></td></tr>
-                        <tr><td><p>1</p></td><td><p>13</p></td></tr>
-                        <tr><td><p>10</p></td><td><p>2</p></td></tr>
                     </table>
-                    <table class="table-content oculto">
+                    <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
                         <!-- <tr><td><p></p></td><td><p></p></td></tr> --unknown-- -->
-                        <tr><td><p>000-portada.xhtml</p></td><td><p>2</p></td></tr>
-                        <tr><td><p>006-rey.xhtml</p></td><td><p>1</p></td></tr>
-                        <tr><td><p>1.0</p></td><td><p>1</p></td></tr>
                     </table>
-                    <table class="table-content oculto">
+                    <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
                         <!-- <tr><td><p></p></td><td><p></p></td></tr> --uppercase-- -->
-                        <tr><td><p>A</p></td><td><p>36</p></td></tr>
-                        <tr><td><p>Abierta</p></td><td><p>4</p></td></tr>
-                        <tr><td><p>Acaso</p></td><td><p>1</p></td></tr>
                     </table>
                 </div>
             </div>
@@ -104,24 +91,18 @@
             <h2>Posibles erratas</h2>
             <h3>Total de posibles erratas: <span class="general-stats" id="total_typos"></span></h3>
             <hr />
-            <table>
+            <table class="sortable">
                 <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
                 <!-- <tr><td><p></p></td><td><p></p></td></tr> --typos-- -->
-                <tr><td><p>access</p></td><td><p>1</p></td></tr>
-                <tr><td><p>Access</p></td><td><p>1</p></td></tr>
-                <tr><td><p>Add</p></td><td><p>1</p></td></tr>
             </table>
         </section>
         <section id="linkchecker" class="oculto">
             <h2>Enlaces</h2>
             <h3>Total de enlaces: <span class="general-stats" id="total_urls"></span></h3>
             <hr />
-            <table>
+            <table class="sortable">
                 <tr><th><p>Elemento</p></th><th><p>Ubicación</p></th><th><p>Validación</p></th><th><p>Resultado</p></th></tr>
                 <!-- <tr><td><p></p></td><td><p></p></td><td><p></p></td><td><p></p></td></tr> --urls-- -->
-                <tr><td><p>todo.md</p></td><td><p></p></td><td><p>True</p></td><td><p></p></td></tr>
-                <tr><td><p>https://es.wikipedia.org/wiki/HTML</p></td><td><p>todo.md</p></td><td><p>True</p></td><td><p>200 OK</p></td></tr>
-                <tr><td><p>https://es.wikipedia.org/wiki/Markdown</p></td><td><p>todo.md</p></td><td><p>True</p></td><td><p>200 OK</p></td></tr>
             </table>
         </section>
     </body>
