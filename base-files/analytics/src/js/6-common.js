@@ -1,6 +1,6 @@
 timer = null
 
-// Show or hide the elements
+// Shows or hides the elements
 function navigation () {
     elements = this.id[0] == 's' ? document.getElementsByClassName('sub-sec') : document.getElementsByTagName('section')
     nav_max = this.id[0] == 's' ? 4 : 3
@@ -32,13 +32,35 @@ function navigation () {
     }
 }
 
+// Shows or hides elements in the structure's section
+function accordion () {
+    accordion_headers = document.getElementsByClassName('accordion')
+
+    for (i = 0; i < accordion_headers.length; i++)
+        // Adds a listener on each header
+        accordion_headers[i].addEventListener('click', function () {
+            accordion_contents = document.getElementsByClassName('accordion-content')
+
+            // Shows or hides the content if both ids have the same integer
+            for (j = 0; j < accordion_contents.length; j++) {
+                if (this.id.replace('a','') == accordion_contents[j].id.replace('ac','')) {
+                    if (accordion_contents[j].classList.contains('oculto'))
+                        accordion_contents[j].classList.remove('oculto')
+                    else
+                        accordion_contents[j].classList.add('oculto')
+                    break
+                }
+            }
+        })
+}
+
 // Adds the general stats to the HTML
 function general_stats () {
     gs = document.getElementsByClassName('general-stats')
 
     // Puts commas if necessary
     function format (num) {
-        if (num >= 999)
+        if (!isNaN(num) && num >= 999)
             num = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
         return num
@@ -65,8 +87,8 @@ function wordcloud () {
     w = parseInt(wordcloud_div.offsetWidth)
     h = parseInt((wordcloud_div.offsetWidth / 4) * 3) // Ratio 4:3
     scale = parseInt(wordcloud_div.offsetWidth / 100) >= 8 ? 2 : 10 - (wordcloud_div.offsetWidth / 100)
-    min_rotate = rotation ? -60 : 0
-    max_rotate = rotation ? 60 : 0
+    min_rotate = rotation ? -60 : 0 // 90° to 150° (-60°)
+    max_rotate = rotation ? 30 : 0  // 30° to 90°
 
     // Sets canvas size
     canvas.width = w
@@ -151,7 +173,7 @@ function save_img (id_prefix) {
         })
 
         file_name = document.getElementsByTagName('title')[0].innerHTML
-        .replace(/\s+/, '_')
+        .replace(/\s+/g, '_')
         .replace('.', '-')
         .toLowerCase() + '_' + id_prefix + '_' + '.png'
 
@@ -227,6 +249,9 @@ window.onload = function () {
 
     // Adds the posibility to sort tables
     sortable_table()
+
+    // Enables the accordions
+    accordion()
 
     // Add the navigation
     document.getElementById('left').addEventListener('click', navigation)

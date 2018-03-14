@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-    <!-- DO NOT ALTER THE WORDS WITH THIS STRUCTURE --nan--; those values are replaced by Pecas -->
+<!--    DO NOT ALTER THE WORDS WITH THIS STRUCTURE --nan--; those values are replaced by Pecas -->
     <head>
-        <title>--title--</title>
+<!----> <title>--title--</title>
         <meta charset="utf-8">
-        <meta name="application-name" content="Estadísticas de «--title--»">
+<!----> <meta name="application-name" content="Estadísticas de «--title--»">
         <link type="text/css" rel="stylesheet" href="css/common.css">
         <link type="text/css" rel="stylesheet" href="css/styles.css">
         <script type="text/javascript" src="js/1-d3.v3.min.js"></script>
@@ -16,7 +16,7 @@
     </head>
     <body>
         <header>
-            <h1>--title--</h1>
+<!---->     <h1>--title--</h1>
             <h1><span id="left">&lt;</span><span id="right">&gt;</span></h1>
         </header>
         <section id="content">
@@ -60,23 +60,23 @@
                     </nav>
                     <table class="table-content sortable">
                         <tr><th><p>Elemento</p></th><th class="ocultable"><p>Ocurrencias</p></th><th><p>Porcentaje</p></th></tr>
-                        <!-- <tr><td><p></p></td><td class="ocultable"><p></p></td><td><p></p></td></tr> --top-- -->
+<!--                    <tr><td><p></p></td><td class="ocultable"><p></p></td><td><p></p></td></tr> --top-- -->
                     </table>
                     <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
-                        <!-- <tr><td><p></p></td><td><p></p></td></tr> --words-- -->
+<!--                    <tr><td><p></p></td><td><p></p></td></tr> --words-- -->
                     </table>
                     <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
-                        <!-- <tr><td><p></p></td><td><p></p></td></tr> --digits-- -->
+<!--                    <tr><td><p></p></td><td><p></p></td></tr> --digits-- -->
                     </table>
                     <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
-                        <!-- <tr><td><p></p></td><td><p></p></td></tr> --unknown-- -->
+<!--                    <tr><td><p></p></td><td><p></p></td></tr> --unknown-- -->
                     </table>
                     <table class="table-content sortable oculto">
                         <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
-                        <!-- <tr><td><p></p></td><td><p></p></td></tr> --uppercase-- -->
+<!--                    <tr><td><p></p></td><td><p></p></td></tr> --uppercase-- -->
                     </table>
                 </div>
             </div>
@@ -86,6 +86,11 @@
             <h3>Total de etiquetas: <span class="general-stats" id="total_tags"></span></h3>
             <h3>Total de tipos de etiquetas: <span class="general-stats" id="total_tags_types"></span></h3>
             <hr />
+<!--        <h3 class="accordion" id="a1">&lt;tag&gt;: cantidad</h2>  --tags--
+<!--        <table class="sortable accordion-content oculto" id="ac1">
+<!--            <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
+<!--            <tr><td><p></p></td><td><p></p></td></tr>
+<!--        </table> -->
         </section>
         <section id="hunspell" class="oculto">
             <h2>Posibles erratas</h2>
@@ -93,7 +98,7 @@
             <hr />
             <table class="sortable">
                 <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>
-                <!-- <tr><td><p></p></td><td><p></p></td></tr> --typos-- -->
+<!--            <tr><td><p></p></td><td><p></p></td></tr> --typos-- -->
             </table>
         </section>
         <section id="linkchecker" class="oculto">
@@ -102,8 +107,15 @@
             <hr />
             <table class="sortable">
                 <tr><th><p>Elemento</p></th><th class="ocultable"><p>Ubicación</p></th><th><p>Validación</p></th><th class="ocultable"><p>Resultado</p></th></tr>
-                <!--<tr><td><p></p></td><td class="ocultable"><p></p></td><td><p></p></td><td class="ocultable"><p></p></td></tr> --urls-- -->
+<!--            <tr><td><p></p></td><td class="ocultable"><p></p></td><td><p></p></td><td class="ocultable"><p></p></td></tr> --urls-- -->
             </table>
         </section>
+        <footer>
+            <hr />
+            <p class="centrado">Nube de palabras creada con <a href="https://github.com/jasondavies/d3-cloud" target="_blank">d3-cloud</a>.</p>
+            <p class="centrado">Gráfica de pastel creada con <a href="https://github.com/chartjs/Chart.js" target="_blank">Chart.js</a>.</p>
+            <p class="centrado">Estadísticas creadas con <a href="https://github.com/NikaZhenya/Pecas" target="_blank">Pecas</a>.</p>
+            <p class="centrado espacio-arriba1">Para estadísticas más completas, consúltense las opciones de <code>pc-analytics</code>.</p>
+        </footer>
     </body>
 </html>

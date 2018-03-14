@@ -20,7 +20,7 @@ archivo = if argumento "-f", archivo != nil then argumento "-f", archivo end
 $deep_analysis = argumento "--deep", $deep_analysis, 1
 json = argumento "--json", json, 1
 yaml = argumento "--yaml", yaml, 1
-rotacion = argumento "--rotacion", yaml, 1
+$rotacion_grafica = argumento "--rotate", yaml, 1
 argumento "-v", $l_an_v
 argumento "-h", $l_an_h
 
@@ -322,6 +322,185 @@ def incrustar_analitica_top hash, c
     return hash
 end
 
+# Añade el contenido de las estadísticas al contenido JavaScript
+def cambios_js a, conjunto
+    conjunto_final = []
+
+    # Formatea el objeto necesario para la nube de palabras
+    def formatear_top aa
+        top = []
+
+        if aa['top']['list_all_clean'].length < 50
+            top_crudo = aa['top']['list_all_clean']
+        else
+            top_crudo = aa['top']['list_all_clean'][0..49]
+        end
+
+        top_crudo.each do |e|
+            top.push("{\"text\": \"#{e[0]}\", \"size\": #{e[1]}},")
+        end
+
+        return '[' + top.join('')[0..-2] + ']'
+    end
+
+    localizado = false
+    resuelto = false
+    conjunto_final.push("            // Start of dependencies")
+    conjunto.each do |linea|
+        if linea =~ /Pecas -->/ then localizado = true end
+
+        # Si se encuentras las variables a modificar
+        if localizado
+            # Si aún no han sido modificadas
+            if !resuelto
+                contenido = []
+                espacio = '            '
+
+                # Creación y adición de las variables
+                contenido.push(espacio + "lang = \"#{$lang}\"")
+                contenido.push(espacio + "total_words = #{a['words_digits']['all']}")
+                contenido.push(espacio + "words_digits_unknown = [#{a['words']['all']},#{a['digits']['all']},#{a['unknown']['all']}]")
+                contenido.push(espacio + "uppercase_downcase = [#{a['uppercase']['all']},#{a['words_digits']['all'] - a['uppercase']['all']}]")
+                contenido.push(espacio + "diversity = #{a['diversity']}")
+                contenido.push(espacio + "total_tags = #{a['tags']['all']}")
+                contenido.push(espacio + "total_tags_types = #{a['tags']['types']}")
+
+                if a['hunspell'] != nil
+                    contenido.push(espacio + "total_typos = #{a['hunspell']['all']}")
+                else
+                    contenido.push(espacio + "total_typos = \"0. <mark>#{$l_an_advertencia_hunspell}</mark>\"")
+                end
+
+                if a['linkchecker'] != nil
+                    contenido.push(espacio + "total_urls = #{a['linkchecker']['all']}")
+                else
+                    contenido.push(espacio + "total_urls = \"0. <mark>#{$l_an_advertencia_linkchecker}</mark>\"")
+                end
+
+                contenido.push(espacio + "top50 = #{formatear_top(a)}")
+                contenido.push(espacio + "piechart_labels = #{$l_an_grafica.to_s}")
+                contenido.push(espacio + "rotation = #{$rotacion_grafica ? true : false}")
+                
+                conjunto_final.push(contenido)
+                resuelto = true
+            end
+        # De lo contrario se añaden sin contratiempos
+        elsif linea =~ /DO NOT ALTER THE ORDER/
+            conjunto_final.push("            // End of dependencies\n\n            // Variables")
+        else
+            conjunto_final.push(linea)
+        end
+
+        if linea =~ /<-- Pecas/ then localizado = false end
+    end
+
+    return conjunto_final
+end
+
+# Añade el contenido de las estadísticas al HTML
+def cambios_html html_crudo, a, js, css
+    html_final = []
+
+    # Llena las filas (<tr>) de cada tabla
+    def filas contenido, columnas, espacios, ocultable = false
+        filas_contenido = []
+
+        # Obtiene lo necesario para acceder a cada elemento de la columna
+        if columnas < 4
+            columna_e = *(0..(columnas - 1))
+        else 
+            columna_e = ['url', 'parentname', 'valid', 'result'] 
+        end
+
+        # Llena cada <td>
+        def fila c, o, e
+            fila_contenido = []
+
+            c.each_with_index do |j, i|
+                if o && i.odd?
+                    fila_contenido.push('<td class="ocultable"><p>' + e[j].to_s.gsub('<', '&lt;').gsub('>', '&gt;') + '</p></td>')
+                else
+                    fila_contenido.push('<td><p>' + e[j].to_s.gsub('<', '&lt;').gsub('>', '&gt;') + '</p></td>')
+                end
+            end
+
+            return fila_contenido.join('')
+        end
+
+        # Iteración de cada elemento del contenido
+        contenido.each do |e|
+            filas_contenido.push(espacios + '<tr>' + fila(columna_e, ocultable, e) + '</tr>')
+        end
+
+        return filas_contenido
+    end
+
+    # Crea el acordeón
+    def tablas conjunto
+        acordeon = []
+
+        conjunto.each_with_index do |e, i|
+            acordeon.push("            <h3 class=\"accordion\" id=\"a#{i}\">&lt;#{e['tag']}&gt; : #{e['length']}</h2>")
+            acordeon.push("            <table class=\"sortable accordion-content oculto\" id=\"ac#{i}\">")
+            acordeon.push("                <tr><th><p>Elemento</p></th><th><p>Ocurrencias</p></th></tr>")
+            acordeon.push(filas(e['types'], 2, '                '))
+            acordeon.push("            </table>")
+        end
+
+        return acordeon
+    end
+
+    html_crudo.each do |l|
+        # Se añade el contenido de las analíticas
+        if l =~ /^<!--/
+            if l =~ /--\w+--/ && l !~ /--nan--/
+                if l =~ /--title--/
+                    html_final.push(l.gsub('<!---->', '       ').gsub('--title--', a['title']))
+                elsif l =~ /--tags--/
+                    html_final.push(tablas(a['tags']['list']))
+                else
+                    if l =~ /--top--/
+                        html_final.push(filas(a['top']['list_all_clean'], 3, '                        ', true))
+                    elsif l =~ /--words--/
+                        html_final.push(filas(a['words']['list_all_case_on'], 2, '                        '))
+                    elsif l =~ /--digits--/
+                        html_final.push(filas(a['digits']['list_all_case_on'], 2, '                        '))
+                    elsif l =~ /--unknown--/
+                        html_final.push(filas(a['unknown']['list_all_case_on'], 2, '                        '))
+                    elsif l =~ /--uppercase--/
+                        html_final.push(filas(a['uppercase']['list_all_case_on'], 2, '                        '))
+                    elsif l =~ /--typos--/
+                        if a['hunspell'] != nil
+                            html_final.push(filas(a['hunspell']['list'], 2, '                '))
+                        end
+                    elsif l =~ /--urls--/
+                        if a['linkchecker'] != nil
+                            html_final.push(filas(a['linkchecker']['list'], 4, '                ', true))
+                        end
+                    end
+                end
+            end
+        # Añade el js y el css
+        elsif l =~ /^\s+<script/ || l =~ /^\s+<link/
+            # Buscando un archivo en específico se evita que añada varias veces
+            if l =~ /6-common.js/
+                html_final.push('        <script>')
+                html_final.push(js)
+                html_final.push('        </script>')
+            elsif l =~ /styles.css/
+                html_final.push('        <style>')
+                html_final.push(css)
+                html_final.push('        </style>')
+            end
+        # El resto de añade sin contratiempo
+        else
+            html_final.push(l)
+        end
+    end
+
+    return html_final
+end
+
 #begin
     # Comprueba que existan los argumentos necesarios
     comprobacion [archivo]
@@ -379,7 +558,7 @@ end
         hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{$l_an_archivo_hunspell} | sort`
         hunspell = hunspell.split("\n")
     rescue
-        puts $l_an_advertencia_hunspell
+        puts $l_an_advertencia_hunspell.yellow.bold
         hunspell = []
     end
 
@@ -415,7 +594,7 @@ end
         linkchecker_crudo = linkchecker_crudo.split("\n")
         puts $l_an_fin_linkchecker, $l_g_linea
     rescue
-        puts $l_an_advertencia_linkchecker
+        puts $l_an_advertencia_linkchecker.yellow.bold
         puts $l_g_linea
         linkchecker_crudo = []
     end
@@ -464,7 +643,15 @@ end
         analitica['title'] = archivo_md
     else
         if analisis_crudo['opf'] != nil
-            analitica['title'] =  analisis_crudo['opf']['content'][0]['$package']['content'][0]['$metadata']['content'][0]['$dc:title']['content'][0]
+            analisis_crudo['opf']['content'][0]['$package']['content'][0]['$metadata']['content'].each do |m|
+                if m['$dc:title']
+                    analitica['title'] = m['$dc:title']['content'][0]
+                end
+            end
+
+            if analitica['title'] == nil
+                analitica['title'] = File.basename(archivo)
+            end
         else
             analitica['title'] = File.basename(archivo)
         end
@@ -510,9 +697,39 @@ end
         end
     end
 
+    # Crea el archivo HTML con las analíticas sencillas
+    puts "#{$l_an_creando_archivo[0] + $l_an_creando_archivo[5] + $l_an_creando_archivo[1] + $l_an_archivo_nombre + 'html' + $l_an_creando_archivo[2]}".green
+
+    # Obtiene los archivos necesarios para crear el HTML
+    archivos_rutas_css = obtener_rutas_archivos(archivos_rutas_css, File.dirname(__FILE__) + '/src/css', '.css')
+    archivos_rutas_js = obtener_rutas_archivos(archivos_rutas_js, File.dirname(__FILE__) + '/src/js', '.js')
+    archivos_rutas_html = obtener_rutas_archivos(archivos_rutas_html, File.dirname(__FILE__) + '/src/', '.html')
+
+    # Primero se añade los estilos por defecto del CSS
+    css = []
+    css.push('            ' + $css_template_min)
+
+    # Obtiene el contenido de los archivos
+    css = obtener_contenido_archivo(archivos_rutas_css, css, '            ', 'styles.css')
+    archivos_contenido_js = obtener_contenido_archivo(archivos_rutas_js, archivos_contenido_js, '            ')
+    archivos_contenido_html = obtener_contenido_archivo(archivos_rutas_html, archivos_contenido_html, '', "index-#{$lang}.html")
+
+    # Se hacen las sustituciones necesarias para tener el JavaScript final
+    js = []
+    js = cambios_js(analitica, archivos_contenido_js)
+
+    # Se hacen las sustituciones necesarias para tener el HTML final
+    html = []
+    html = cambios_html(archivos_contenido_html, analitica, js, css)
+
+    # Por fin crea el HTML
+    archivo_html = File.new($l_an_archivo_nombre + 'html', 'w:UTF-8')
+    archivo_html.puts html
+    archivo_html.close
+
     # Crea el archivo JSON si así se pidió
     if json
-        puts "#{$l_an_creando_json[0] + $l_an_archivo_nombre + 'json' + $l_an_creando_json[1]}".green
+        puts "#{$l_an_creando_archivo[0] + $l_an_creando_archivo[3] + $l_an_creando_archivo[1] + $l_an_archivo_nombre + 'json' + $l_an_creando_archivo[2]}".green
         archivo_json = File.new($l_an_archivo_nombre + 'json', 'w:UTF-8')
         archivo_json.puts JSON.pretty_generate(analitica)
         archivo_json.close
@@ -520,49 +737,11 @@ end
 
     # Crea el archivo YAML si así se pidió
     if yaml
-        puts "#{$l_an_creando_yaml[0] + $l_an_archivo_nombre + 'yaml' + $l_an_creando_yaml[1]}".green
+        puts "#{$l_an_creando_archivo[0] + $l_an_creando_archivo[4] + $l_an_creando_archivo[1] + $l_an_archivo_nombre + 'yaml' + $l_an_creando_archivo[2]}".green
         archivo_json = File.new($l_an_archivo_nombre + 'yaml', 'w:UTF-8')
         archivo_json.puts analitica.to_yaml
         archivo_json.close
     end
-
-    # Todos son conjuntos:
-    #   * conjunto_palabras_cifras
-    #   * conjunto_palabras
-    #   * conjunto_cifras
-    #   * conjunto_etiquetas
-    #   * $conjunto_versales
-    #   * $conjunto_no_identificados
-    #   * hunspell
-    #   * linkchecker
-    #       * Cada uno de sus elementos es un hash, las llaves de interés son urlname, parentname, result y valid
-
-    # conjunto.uniq{|e| e.downcase} => Baja todas las palabras para evitar duplicados con uniq
-
-    # Estadísticas
-    #   * Cantidad de palabras y cifras
-    #   * Cantidad de palabras
-    #   * Cantidad de palabras únicas
-    #   * Índice de diversidad => CP / CPU
-    #   * Cantidad de cifras
-    #   * Cantidad de cifras únicas
-    #   * Cantidad de etiquetas
-    #   * Cantidad de etiquetas únicas
-    #   * NUBE de palabras: https://github.com/jasondavies/d3-cloud
-    #   * Lista de palabras, cada una indicando su frecuencia y porcentaje
-    # Marcado
-    #   * Lista de etiquetas, cada una indicando cantidades totales y únicas
-    #   * Lista por etiqueta y sus distintas aparaciones
-    # Comprobación de enlaces => linkchecker
-    #   * Lista de enlaces y su estatus
-    # Posibles erratas => hunspell
-    #   * Lista de palabras únicas por orden alfabético en ES, EN, FR, PT y IT, DE
-    # Cifras
-    #   * Lista de cifras únicas
-    # Versales
-    #   * Lista de versales iniciales únicas
-    # No identificadas
-    #   * Lista de uniones únicas
 
     # Se borran los archivos que ya no son necesarios
     if borrar != nil
@@ -570,7 +749,7 @@ end
     end
 
     puts $l_g_fin
-# DESCOMENTAR
+
 #rescue
 #    puts $l_an_error_general
 #end

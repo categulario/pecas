@@ -290,7 +290,6 @@ end
 
 # Translitera el nombre de los archivos para evitar errores
 def transliterar texto, oracion = true
-	
 	# Elementos particulares a cambiar
 	elementos1 = "ñáàâäéèêëíìîïóòôöúùûü"
 	elementos2 = "naaaaeeeeiiiioooouuuu"
@@ -327,6 +326,45 @@ def adicion_archivos ruta, ubicacion, carpeta, extensiones
 	
 	# Regresa a la ubicación del proyecto
 	Dir.chdir(ubicacion)
+end
+
+# Obtiene las rutas de archivos con una ubicación y extensión definida
+def obtener_rutas_archivos conjunto, ubicacion, extension
+    if conjunto == nil then conjunto = [] end
+
+    Dir.glob(ubicacion.gsub(/\/\s*?$/, '') + '/*.*') do |archivo|
+        if File.extname(archivo) == extension
+            conjunto.push(archivo)
+        end
+    end
+
+    return conjunto.sort
+end
+
+def obtener_contenido_archivo rutas, conjunto, espacio_inicial = nil, archivo_especifico = nil
+    if conjunto == nil then conjunto = [] end
+
+    def iteracion r, c, e
+        archivo_abierto = File.open(r, 'r:UTF-8')
+        archivo_abierto.each do |linea|
+            c.push(e + codificacionValida?(linea))
+        end
+        archivo_abierto.close
+
+        return c
+    end
+
+    rutas.each do |ruta|
+        if archivo_especifico != nil
+            if File.basename(ruta) == archivo_especifico
+                conjunto = iteracion(ruta, conjunto, espacio_inicial)
+            end
+        else
+            conjunto = iteracion(ruta, conjunto, espacio_inicial)
+        end
+    end
+
+    return conjunto
 end
 
 # Analiza el EPUB para obtener un hash convertible a JSON
