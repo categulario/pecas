@@ -31,6 +31,7 @@ indice = if argumento "--index", indice != nil then argumento "--index", indice 
 inner = argumento "--inner", inner, 1
 reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
+rotacion = argumento "--rotate", rotacion, 1
 overwrite = argumento "--overwrite", overwrite, 1
 
 # Variables que se usarán
@@ -275,6 +276,12 @@ else
     Dir.mkdir($l_au_logs)
     Dir.mkdir($l_au_logs + '/epubcheck')
     Dir.mkdir($l_au_logs + '/ace')
+    Dir.mkdir($l_au_logs + '/pc-analytics')
+
+	# Análisis del EPUB
+	ejecutar "\n# pc-analytics", "ruby #{File.dirname(__FILE__)+ "/../../base-files/analytics/analytics.rb"} -f #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --json #{rotacion ? '--rotate' : ''}"
+    FileUtils.mv("#{$l_an_archivo_nombre}html", $l_au_logs + '/pc-analytics')
+    FileUtils.mv("#{$l_an_archivo_nombre}json", $l_au_logs + '/pc-analytics')
 
 	# Verificación con EpubCheck del EPUB más reciente
 	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"

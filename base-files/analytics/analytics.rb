@@ -500,7 +500,7 @@ def cambios_html html_crudo, a, js, css
     return html_final
 end
 
-#begin
+begin
     # Comprueba que existan los argumentos necesarios
     comprobacion [archivo]
 
@@ -749,6 +749,6 @@ end
 
     puts $l_g_fin
 
-#rescue
-#    puts $l_an_error_general
-#end
+rescue
+    puts $l_an_error_general
+end

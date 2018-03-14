@@ -9,5 +9,5 @@ automatizar la creación y mantenimiento del archivo madre. Estos son:
 elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o 
 visceversa.
 
-2. `analytics.rb`. Analiza archivos EPUB, XML o HTML para un mayor
-cuidado editorial y técnico.
+2. `analytics.rb`. Analiza archivos EPUB, XML, XHTML o HTML para un 
+mayor cuidado editorial y técnico.

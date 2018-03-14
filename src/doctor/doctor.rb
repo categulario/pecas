@@ -26,7 +26,7 @@ def revisionDependencias install, d
     d.select do |k, v|
         # Obtiene la versión, eliminando todo posible texto y dejando solo el número
         begin
-            output = `#{k} -v`
+            output = v['version'] ? `#{k} --version` : `#{k} -v`
             version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1]
             version = version.gsub(/^[A-Za-z\s,\.:;]*?(\d.*?)\s.*$/, '\1')
 
@@ -100,27 +100,44 @@ dependencias = {
     'pandoc' => {
         'nombre' => 'Pandoc', 
         'paquete' => ['pandoc'],
-        'pecas' => ['pc-automata','pc-pandog','pc-notes', 'pc-analytics']
+        'pecas' => ['pc-automata','pc-pandog','pc-notes', 'pc-analytics'],
+        'version' => false
+    },
+    'hunspell' => {
+        'nombre' => 'Hunspell', 
+        'paquete' => ['hunspell'],
+        'pecas' => ['pc-analytics'],
+        'version' => false
+    },
+    'linkchecker' => {
+        'nombre' => 'Linkchecker', 
+        'paquete' => ['linkchecker'],
+        'pecas' => ['pc-analytics'],
+        'version' => true
     },
     'zip' => {
         'nombre' => 'Zip',
         'paquete' => ['zip'],
-        'pecas' => ['pc-automata','pc-recreator','pc-changer']
+        'pecas' => ['pc-automata','pc-recreator','pc-changer'],
+        'version' => false
     },
     'unzip' => {
         'nombre' => 'UnZip',
         'paquete' => ['unzip'],
-        'pecas' => ['pc-automata','pc-changer']
+        'pecas' => ['pc-automata','pc-changer'],
+        'version' => false
     }, 
     'tesseract' => {
         'nombre' => 'Tesseract',
         'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
-        'pecas' => ['pc-tegs']
+        'pecas' => ['pc-tegs'],
+        'version' => false
     },
     'gs' => {
         'nombre' => 'Ghostscript',
         'paquete' => ['ghostscript'],
-        'pecas' => ['pc-tegs']
+        'pecas' => ['pc-tegs'],
+        'version' => true
     }
 }
 

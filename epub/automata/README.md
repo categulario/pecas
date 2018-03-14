@@ -1,7 +1,7 @@
 # Automata
 
-Automata automatiza el flujo de trabajo al poder usar todos los *scripts* para
-EPUB con una sola línea de comandos.
+Automata automatiza el flujo de trabajo al poder usar todos los *scripts*
+con una sola línea de comandos.
 
 ## Uso
 
@@ -48,6 +48,7 @@ EPUB con una sola línea de comandos.
 * `--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
 * `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
 * `--section` = Divide el archivo madre cada `<section>`.
+* `--rotate` = Permite rotación aleatoria de las palabras en la nube de palabras de 30° a 150°.
 * `--overwrite` = Sobrescribe los archivos sin dar advertencia.
 
 ### Parámetros únicos:

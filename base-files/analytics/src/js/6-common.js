@@ -241,9 +241,6 @@ window.onload = function () {
     // Adds the general stats
     general_stats()
 
-    // Adds the posibility to sort tables
-    sortable_table()
-
     // Enables the accordions
     accordion()
 

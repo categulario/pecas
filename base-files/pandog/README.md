@@ -2,10 +2,6 @@
 
 Pandog utiliza el poder de Pandoc para convertir archivos con elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o visceversa.
 
-## Requerimientos
-
-* [Pandoc](http://pandoc.org/) > 1.19
-
 ## Uso:
 
   ```

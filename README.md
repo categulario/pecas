@@ -31,6 +31,7 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | Herramienta    | Ubicación                                                                                      |
 |----------------|------------------------------------------------------------------------------------------------|
 | `pc-automata`  | [`epub/automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/automata)               |
+| `pc-analytics` | [`base-files/analytics`](https://github.com/NikaZhenya/pecas/tree/master/base-files/analytics) |
 | `pc-changer`   | [`epub/changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/changer)                 |
 | `pc-cites`     | [`epub/cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/cites)                     |
 | `pc-creator`   | [`epub/creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/creator)                 |
@@ -40,7 +41,7 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                     |
 | `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)       |
 | `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
-| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       
+| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       |
 
 # *Single source and online publishing* (SSOP)
 

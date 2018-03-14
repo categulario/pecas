@@ -33,7 +33,7 @@ EPUB.
 ## Automatización
 
 * `automata.rb`. Automatiza el flujo de trabajo al poder
-usar todos los *scripts* para EPUB con una sola línea de comandos.
+usar todos los *scripts* con una sola línea de comandos.
 
 ## YAML
 
