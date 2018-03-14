@@ -1,6 +1,5 @@
 // DO NOT ALTER THE ORDER
 // Pecas -->
-lang = 'es'
 total_words = 9999
 words_digits_unknown = [8888,1000,111]
 uppercase_downcase = [4444,(total_words - 4444)]

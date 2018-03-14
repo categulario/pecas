@@ -357,7 +357,6 @@ def cambios_js a, conjunto
                 espacio = '            '
 
                 # Creación y adición de las variables
-                contenido.push(espacio + "lang = \"#{$lang}\"")
                 contenido.push(espacio + "total_words = #{a['words_digits']['all']}")
                 contenido.push(espacio + "words_digits_unknown = [#{a['words']['all']},#{a['digits']['all']},#{a['unknown']['all']}]")
                 contenido.push(espacio + "uppercase_downcase = [#{a['uppercase']['all']},#{a['words_digits']['all'] - a['uppercase']['all']}]")

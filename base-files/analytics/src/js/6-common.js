@@ -130,7 +130,7 @@ function wordcloud () {
         .start()
 }
 
-// Generate pie chart; from:
+// Generate the pie chart; from:
 //  http://www.chartjs.org/
 //  http://www.chartjs.org/docs/latest/charts/doughnut.html
 function piechart () {
@@ -216,12 +216,6 @@ function save_img (id_prefix) {
             triggerDownload(imgURI)
         }
     })
-}
-
-// Enables table sort; from:
-//  https://kryogenix.org/code/browser/sorttable/
-function sortable_table () {
-    sorttable.sort_alpha = function(a,b) { return a[0].localeCompare(b[0], lang); }
 }
 
 // When the window is resized, actually it reloads
