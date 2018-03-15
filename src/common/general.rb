@@ -56,9 +56,9 @@ class String
     def detect_mimetype_charset
         if OS.linux? || OS.mac?
             if OS.linux?
-                output = `file -i #{self}`.strip.split(': ')[1].split('; ')
+                output = `file -i #{arregloRutaTerminal self}`.strip.split(': ')[1].split('; ')
             else
-                output = `file -I #{self}`.strip.split(': ')[1].split('; ')
+                output = `file -I #{arregloRutaTerminal self}`.strip.split(': ')[1].split('; ')
             end
             return [output[0], output[1].split('=')[1]]
         else
@@ -414,7 +414,7 @@ def epub_analisis epub
 
     # Descomprime para iniciar el análisis
     puts $l_g_descomprimiendo
-    system ("#{unzip} -qq #{arregloRutaTerminal epub} -d #{epub_directorio}/#{$l_g_epub_analisis}")
+    system ("#{unzip} -qq #{arregloRutaTerminal epub} -d #{arregloRutaTerminal epub_directorio}/#{$l_g_epub_analisis}")
 
     # Busca el archivo OPF
     Dir.glob($l_g_epub_analisis + "/**/*") do |archivo|
