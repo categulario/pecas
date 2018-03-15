@@ -131,10 +131,12 @@ $l_an_error_general = langObj["analytics"]["error_general"].red.bold
 # Pandog
 $l_pg_v = obtener_version
 $l_pg_h = langObj["pandog"]["h"]
-$l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
-$l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_iniciando = langObj["pandog"]["iniciando"].green
 $l_pg_modificando = langObj["pandog"]["modificando"].green
+$l_pg_extrayendo = langObj["pandog"]["extrayendo"].green
+$l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
+$l_pg_error_m = langObj["pandog"]["error_m"].red.bold
+$l_pg_error_json = langObj["pandog"]["error_json"].red.bold
 
 # Tegs
 $l_tg_v = obtener_version

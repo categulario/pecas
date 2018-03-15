@@ -3,6 +3,7 @@
 # coding: UTF-8
 
 require 'fileutils'
+require 'json'
 
 Encoding.default_internal = Encoding::UTF_8
 
@@ -13,29 +14,311 @@ require File.dirname(__FILE__) + "/../../src/common/css-template.rb"
 require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
 require File.dirname(__FILE__) + "/../../src/common/xhtml-beautifier.rb"
 
-## REQUIERE PANDOC
-
 # Argumentos
-entrada = argumento "-i", entrada
-salida = argumento "-o", salida
+$pandog_entrada = argumento "-i", $pandog_entrada
+$pandog_salida = argumento "-o", $pandog_salida
 argumento "-v", $l_pg_v
 argumento "-h", $l_pg_h
 
+# Cambios MD > HTML
+def md_to_html
+    begin
+        puts $l_pg_iniciando
+        # Por defecto crea un HTML sin cabeza
+        `pandoc #{$pandog_entrada_sis} -o #{directorioPadreTerminal $pandog_salida_sis}/#{File.basename($pandog_salida_sis,'.*') + $pandog_coletilla + '.html'}`
+	    
+	    puts $l_pg_modificando
+	    
+	    s_nombre_final = File.basename($pandog_salida)
+	    s_nombre_actual = File.basename(File.basename($pandog_salida), ".*") + $pandog_coletilla + ".html"
+	    
+	    # Va al directorio donde está el archivo de salida
+	    Dir.chdir(directorioPadre($pandog_salida))
+	    
+	    # Crea el nuevo archivo oculto donde se pondrán las modificaciones
+	    html_nuevo = File.open(".#{s_nombre_actual}", "w:UTF-8")
+	    
+	    # Ayudará a forzar a poner todo el contenido de una etiqueta en una sola línea
+	    linea_pasada = ""
+	    
+	    # Para que se vea mejor
+	    espacio = ""
+	    
+	    # Agrega cabezas
+	    if File.extname(s_nombre_final) == ".xml"
+		    html_nuevo.puts $xmlTemplateHead
+		    espacio = "    "
+	    else
+		    if File.extname(s_nombre_final) == ".xhtml"
+			    html_nuevo.puts xhtmlTemplateHead
+		    else
+			    html_nuevo.puts htmlTemplateHead
+		    end
+		    espacio = "        "
+		    
+		    # Agrega la hoja de estilos minificada
+		    html_nuevo.puts espacio + "<style>" + $css_template_min + "</style>"
+	    end
+	    
+	    # Empiezaa leer línea por línea del archivo de salida
+	    archivo_abierto = File.open(s_nombre_actual, "r:UTF-8")
+	    archivo_abierto.each do |linea|
+		    # En XML se elimina el espacio de nombres
+		    if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
+			    linea = linea.split(/\s/)[0] + ">"
+		    end
+		    
+		    # Sustituye de nuevo los guiones de la sintaxis de Pecas
+		    pecas = [$l_g_note_content, $l_g_ignore, $l_g_delete, $l_g_change, $l_g_note]
+
+		    pecas.each do |s|
+			    if s.class == Array
+				    linea = linea.gsub(/–#{s[0].gsub("--","")}(.*?)–/, s[0] + '\1' + s[1])
+			    else
+				    linea = linea.gsub("–" + s.gsub("--","") + "–", s)
+			    end
+		    end
+		    
+		    # Evita que los identificadores de los encabezados hereden sintaxis de Pecas
+		    if linea =~ /(id=".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
+			    linea = linea.gsub(/(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/, /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/.match(linea).captures.join)
+		    end
+		    
+		    # Servirá para agregar atributos si los hay
+		    atributos_final = Array.new
+		    
+		    # Si la línea no quedo vacía se agrega
+		    if linea != ""
+			    
+			    # Si se localizan párrafos que se desean con identificadores o clases
+			    p = /\s?+{.*?}<\/p>$/
+			    if linea =~ p
+				    # Obtiene los atributos en un conjunto ordenado
+				    atributos = p.match(linea).to_s.gsub("{","").gsub("}","").gsub("</p>","").strip.split(" ").sort
+
+				    # Extrae los identificadores y las clases en distintos grupos
+				    atributos_id = Array.new
+				    atributos_clase = Array.new
+				    atributos.each do |a|
+					    if a[0] == "#"
+						    atributos_id.push(a[1..-1])
+					    elsif a[0] == "."
+						    atributos_clase.push(a[1..-1])
+					    end
+				    end
+				    
+				    # Crea la sintaxis correcta para los atributos
+				    def atributoConstruccion conjunto, atributo
+					    if conjunto.length > 0
+						    resultado = atributo + "=\"" + conjunto.join(" ") + "\""
+						    return resultado
+					    else
+						    return nil
+					    end
+				    end
+				    
+				    p_id = atributoConstruccion atributos_id, "id"
+				    p_clase = atributoConstruccion atributos_clase, "class"
+				    
+				    # Agrega los atributos para usarlos más abajo, por el conflicto que puede acarrear el <br />
+				    def adicionAtributoFinal conjunto, variable
+					    if variable != nil
+						    conjunto.push(variable)
+					    end
+				    end
+				    
+				    adicionAtributoFinal atributos_final, p_id
+				    adicionAtributoFinal atributos_final, p_clase
+				    
+				    # Elimina las llaves y su contenido
+				    linea = linea.gsub(p,"</p>")
+			    end
+			    
+			    # Agrega identificadores o clases al párrafo si los hay
+			    def atributosAdicion c, l, a, e
+				    # Si el conjunto tiene algún elemento, entonces hay atributos
+				    if c.length > 0
+					    # Sustituye la etiqueta de párrafo para incluir los atributos
+					    a.puts l.gsub(/^\s+<p>/, e + "<p " + c.join(" ") + ">")
+				    else
+					    a.puts l
+				    end
+			    end
+		    
+			    # Si se detecta un <br /> al final de la línea se guarda en lugar de agregarla
+			    if linea =~ /<\s*?br.*?\/.*?>$/
+				    linea_pasada += linea
+			    # Si no se detecta un <br />
+			    else
+				    # Si existen líneas guardadas, se agregan junto con la línea actual
+				    if linea_pasada != ""
+					    linea = espacio + linea_pasada + linea
+					    atributosAdicion atributos_final, linea, html_nuevo, espacio
+					    
+					    # Reseteo
+					    linea_pasada = ""
+				    # Si no existen líneas guardadas, únicamente se agrega la línea actual
+				    else
+					    linea = espacio + linea
+					    atributosAdicion atributos_final, linea, html_nuevo, espacio
+				    end
+			    end
+		    end
+	    end
+	    
+	    # Agrega pies
+	    if File.extname(s_nombre_final) == ".xml"
+		    html_nuevo.puts "</body>"
+	    else
+		    html_nuevo.puts $xhtmlTemplateFoot
+	    end
+	    
+	    # Cierra el archivo con las modificaciones
+	    archivo_abierto.close
+	    html_nuevo.close
+	    
+	    # Acomoda los elementos con los espacios correctos
+	    beautifier html_nuevo
+	    
+	    # Borra el archivo viejo y renombra al nuevo para sustituirlo
+	    File.delete(s_nombre_actual)
+	    File.rename(".#{s_nombre_actual}", s_nombre_final)
+	rescue
+		puts $l_pg_error_m
+		abort
+	end
+end
+
+# Cambios HTML > MD
+def html_to_md
+    begin
+        puts $l_pg_iniciando
+		entrada_html = nil
+		
+		# Si se trata de un XML, copia el archivo en un HTML que se usará para Pandoc
+		if File.extname($pandog_entrada) == ".xml"
+			entrada_html = File.basename($pandog_entrada, ".*") + ".html"
+			FileUtils.cp($pandog_entrada, entrada_html)
+			$pandog_entrada = directorioPadre($pandog_entrada) + "/" + entrada_html
+		end
+
+		# Hace que los encabezados estén con gatos
+		`pandoc #{$pandog_entrada_sis} --atx-headers -o #{$pandog_salida_sis}`
+		
+		# Se elimina el HTML oculto de existir
+		if entrada_html != nil
+			File.delete(entrada_html)
+		end
+
+	    puts $l_pg_modificando
+
+	    # Va al directorio donde está el archivo de salida
+	    Dir.chdir(directorioPadre($pandog_salida))
+	    
+	    # Crea el nuevo archivo donde se pondrán las modificaciones
+	    md_nuevo = File.open("#{File.basename(File.basename($pandog_salida), ".*") + $pandog_coletilla + ".md"}", "w")
+	    
+	    # Ayudará a detectar líneas vacías para evitar que haya de más
+	    linea_pasada = nil
+	    
+	    # Empiezaa leer línea por línea del archivo de salida
+	    archivo_abierto = File.open(File.basename($pandog_salida), "r")
+	    archivo_abierto.each do |linea|
+		    # Elimina todas las etiquetas HTML que quedaron y espacios de más
+		    linea = linea.gsub(/<[^>]*>/, "").gsub(/^\s+$/, "").strip
+		    
+		    # Si la línea no quedo vacía se agrega
+		    if linea != ""
+			    md_nuevo.puts linea
+		    # Si la línea quedó vacía, solo se coloca si la línea pasada no estaba vacía
+		    else
+			    if linea_pasada != ""
+				    md_nuevo.puts linea
+			    end
+		    end
+		    
+		    # La línea actual para a ser la pasada para la siguiente iteración
+		    linea_pasada = linea
+	    end
+	    
+	    # Cierra el archivo con las modificaciones
+	    archivo_abierto.close
+	    md_nuevo.close
+
+	    # Borra el archivo viejo y renombra al nuevo para sustituirlo
+	    File.delete(File.basename($pandog_salida))
+	    File.rename("#{File.basename(File.basename($pandog_salida), ".*") + $pandog_coletilla + ".md"}", File.basename($pandog_salida))
+	rescue
+		puts $l_pg_error_m
+		abort
+	end
+end
+
+# Cambios JSON > HTML || MD
+def json_to_html_md
+    begin
+        puts $l_pg_extrayendo
+
+	    # Obtiene los contenidos del JSON
+        json_crudo = []
+	    json_archivo = File.open($pandog_entrada, 'r:UTF-8')
+	    json_archivo.each do |linea|
+            json_crudo.push(linea)
+	    end
+	    json_archivo.close
+        hash = JSON.parse(json_crudo.join(''))
+        
+        # Se analiza si se cuenta con la estructura requerida
+        if hash['file'] != nil
+            # Recreación de la estructura, se cambia el nombre porque si es extensión .md o .json no sería válida
+            hash['file'] = $pandog_salida.gsub(/\..*$/, '.html')
+            html = hash_to_html(hash)
+
+            # Crea el archivo HTML
+        	archivo = File.new($pandog_salida.gsub(/\..*$/, '.html'), 'w:UTF-8')
+        	archivo.puts html
+        	archivo.close
+
+            if File.extname($pandog_salida) == '.md'
+                puts $l_pg_iniciando
+                `pandoc #{arregloRutaTerminal($pandog_salida.gsub(/\..*$/, '.html'))} --atx-headers -o #{$pandog_salida_sis}`
+                File.delete($pandog_salida.gsub(/\..*$/, '.html'))
+            end
+        else
+            puts $l_pg_error_json
+            abort
+        end
+    rescue
+		puts $l_pg_error_m
+		abort
+    end
+end
+
+def generacion_json hash
+	archivo = File.new($pandog_salida, 'w:UTF-8')
+	archivo.puts JSON.pretty_generate(hash)
+	archivo.close
+end
+
 # Comprueba que existan los argumentos necesarios
-comprobacion [entrada, salida]
+comprobacion [$pandog_entrada, $pandog_salida]
 
 # Arregla rutas
-entrada = comprobacionArchivo entrada, [".md", ".html", ".xhtml", ".htm", ".xml", ".odt", ".docx", ".tex"]
-salida = arregloRuta salida
-entrada_sis = arregloRutaTerminal entrada
-salida_sis = arregloRutaTerminal salida
+$pandog_entrada = comprobacionArchivo $pandog_entrada, [".md", ".html", ".xhtml", ".htm", ".xml", ".epub", ".json", ".tex", ".odt", ".docx"]
+$pandog_salida = arregloRuta $pandog_salida
 
 # Sirve para evitar borrara archivos incorrectos
 $pandog_coletilla = "-pandog"
 
 # Obtiene las extensiones de los archivos
-ext_e = File.extname(entrada)
-ext_s = File.extname(salida)
+ext_e = File.extname($pandog_entrada)
+ext_s = File.extname($pandog_salida)
+ext_html_e = (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xml")
+ext_html_s = (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
+
+# Arregla las rutas para la terminal
+$pandog_entrada_sis = arregloRutaTerminal $pandog_entrada
+$pandog_salida_sis = arregloRutaTerminal $pandog_salida
 
 # Obliga a poner un nombre de extensión al archivo de salida
 if ext_s == ""
@@ -44,266 +327,38 @@ if ext_s == ""
 end
 
 # Permitirá la creación en un path especificado
-if salida.split("/").length > 1
-	salida = arregloRuta File.absolute_path(salida)
+if $pandog_salida.split("/").length > 1
+	$pandog_salida = arregloRuta File.absolute_path($pandog_salida)
 end
 
 # Va al directorio donde se encuentra el documento a transformar
-directorio = directorioPadre entrada
-Dir.chdir(directorio)
+Dir.chdir(directorioPadre($pandog_entrada))
 
-# Inicia Pandoc
-puts $l_pg_iniciando
-
-# Cambios de MD a HTML
-def mdAhtml s_path, s_nombre
-	
-	puts $l_pg_modificando
-	
-	s_nombre_final = s_nombre
-	s_nombre_actual = File.basename(s_nombre, ".*") + $pandog_coletilla + ".html"
-	
-	# Va al directorio donde está el archivo de salida
-	Dir.chdir(s_path)
-	
-	# Crea el nuevo archivo oculto donde se pondrán las modificaciones
-	html_nuevo = File.open(".#{s_nombre_actual}", "w:UTF-8")
-	
-	# Ayudará a forzar a poner todo el contenido de una etiqueta en una sola línea
-	linea_pasada = ""
-	
-	# Para que se vea mejor
-	espacio = ""
-	
-	# Agrega cabezas
-	if File.extname(s_nombre_final) == ".xml"
-		html_nuevo.puts $xmlTemplateHead
-		espacio = "    "
-	else
-		if File.extname(s_nombre_final) == ".xhtml"
-			html_nuevo.puts xhtmlTemplateHead
-		else
-			html_nuevo.puts htmlTemplateHead
-		end
-		espacio = "        "
-		
-		# Agrega la hoja de estilos minificada
-		html_nuevo.puts espacio + "<style>" + $css_template_min + "</style>"
-	end
-	
-	# Empiezaa leer línea por línea del archivo de salida
-	archivo_abierto = File.open(s_nombre_actual, "r:UTF-8")
-	archivo_abierto.each do |linea|
-		# En XML se elimina el espacio de nombres
-		if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
-			linea = linea.split(/\s/)[0] + ">"
-		end
-		
-		# Elimina todas las etiquetas HTML que quedaron y espacios de más
-		linea = linea.gsub(/<[\s|\/]*?div.*?>/, "").gsub(/^\s+$/, "").strip
-		
-		# Sustituye de nuevo los guiones de la sintaxis de Pecas
-		pecas = [$l_g_note_content, $l_g_ignore, $l_g_delete, $l_g_change, $l_g_note]
-
-		pecas.each do |s|
-			if s.class == Array
-				linea = linea.gsub(/–#{s[0].gsub("--","")}(.*?)–/, s[0] + '\1' + s[1])
-			else
-				linea = linea.gsub("–" + s.gsub("--","") + "–", s)
-			end
-		end
-		
-		# Evita que los identificadores de los encabezados hereden sintaxis de Pecas
-		if linea =~ /(id=".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/
-			linea = linea.gsub(/(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/, /(".*?)#{$l_g_marca}.*?#{$l_g_marca}(.*?")/.match(linea).captures.join)
-		end
-		
-		# Servirá para agregar atributos si los hay
-		atributos_final = Array.new
-		
-		# Si la línea no quedo vacía se agrega
-		if linea != ""
-			
-			# Si se localizan párrafos que se desean con identificadores o clases
-			p = /\s?+{.*?}<\/p>$/
-			if linea =~ p
-				# Obtiene los atributos en un conjunto ordenado
-				atributos = p.match(linea).to_s.gsub("{","").gsub("}","").gsub("</p>","").strip.split(" ").sort
-
-				# Extrae los identificadores y las clases en distintos grupos
-				atributos_id = Array.new
-				atributos_clase = Array.new
-				atributos.each do |a|
-					if a[0] == "#"
-						atributos_id.push(a[1..-1])
-					elsif a[0] == "."
-						atributos_clase.push(a[1..-1])
-					end
-				end
-				
-				# Crea la sintaxis correcta para los atributos
-				def atributoConstruccion conjunto, atributo
-					if conjunto.length > 0
-						resultado = atributo + "=\"" + conjunto.join(" ") + "\""
-						return resultado
-					else
-						return nil
-					end
-				end
-				
-				p_id = atributoConstruccion atributos_id, "id"
-				p_clase = atributoConstruccion atributos_clase, "class"
-				
-				# Agrega los atributos para usarlos más abajo, por el conflicto que puede acarrear el <br />
-				def adicionAtributoFinal conjunto, variable
-					if variable != nil
-						conjunto.push(variable)
-					end
-				end
-				
-				adicionAtributoFinal atributos_final, p_id
-				adicionAtributoFinal atributos_final, p_clase
-				
-				# Elimina las llaves y su contenido
-				linea = linea.gsub(p,"</p>")
-			end
-			
-			# Agrega identificadores o clases al párrafo si los hay
-			def atributosAdicion c, l, a, e
-				# Si el conjunto tiene algún elemento, entonces hay atributos
-				if c.length > 0
-					# Sustituye la etiqueta de párrafo para incluir los atributos
-					a.puts l.gsub(/^\s+<p>/, e + "<p " + c.join(" ") + ">")
-				else
-					a.puts l
-				end
-			end
-		
-			# Si se detecta un <br /> al final de la línea se guarda en lugar de agregarla
-			if linea =~ /<\s*?br.*?\/.*?>$/
-				linea_pasada += linea
-			# Si no se detecta un <br />
-			else
-				# Si existen líneas guardadas, se agregan junto con la línea actual
-				if linea_pasada != ""
-					linea = espacio + linea_pasada + linea
-					atributosAdicion atributos_final, linea, html_nuevo, espacio
-					
-					# Reseteo
-					linea_pasada = ""
-				# Si no existen líneas guardadas, únicamente se agrega la línea actual
-				else
-					linea = espacio + linea
-					atributosAdicion atributos_final, linea, html_nuevo, espacio
-				end
-			end
-		end
-	end
-	
-	# Agrega pies
-	if File.extname(s_nombre_final) == ".xml"
-		html_nuevo.puts "</body>"
-	else
-		html_nuevo.puts $xhtmlTemplateFoot
-	end
-	
-	# Cierra el archivo con las modificaciones
-	archivo_abierto.close
-	html_nuevo.close
-	
-	# Acomoda los elementos con los espacios correctos
-	beautifier html_nuevo
-	
-	# Borra el archivo viejo y renombra al nuevo para sustituirlo
-	File.delete(s_nombre_actual)
-	File.rename(".#{s_nombre_actual}", s_nombre_final)
-end
-
-# Cambios de HTML a MD
-def htmlAmd s_path, s_nombre
-
-	puts $l_pg_modificando
-
-	# Va al directorio donde está el archivo de salida
-	Dir.chdir(s_path)
-	
-	# Crea el nuevo archivo oculto donde se pondrán las modificaciones
-	md_nuevo = File.open(".#{s_nombre}", "w")
-	
-	# Ayudará a detectar líneas vacías para evitar que haya de más
-	linea_pasada = nil
-	
-	# Empiezaa leer línea por línea del archivo de salida
-	archivo_abierto = File.open(s_nombre, "r")
-	archivo_abierto.each do |linea|
-		# Elimina todas las etiquetas HTML que quedaron y espacios de más
-		linea = linea.gsub(/<[^>]*>/, "").gsub(/^\s+$/, "").strip
-		
-		# Si la línea no quedo vacía se agrega
-		if linea != ""
-			md_nuevo.puts linea
-		# Si la línea quedó vacía, solo se coloca si la línea pasada no estaba vacía
-		else
-			if linea_pasada != ""
-				md_nuevo.puts linea
-			end
-		end
-		
-		# La línea actual para a ser la pasada para la siguiente iteración
-		linea_pasada = linea
-	end
-	
-	# Cierra el archivo con las modificaciones
-	archivo_abierto.close
-	md_nuevo.close
-
-	# Borra el archivo viejo y renombra al nuevo para sustituirlo
-	File.delete(s_nombre)
-	File.rename(".#{s_nombre}", s_nombre)
-end
-
-# El plus a pandoc es en el tratamiento entre el MD y el HTML
-if ext_e == ".md" && (ext_s == ".html" || ext_s == ".xhtml" || ext_s == ".htm" || ext_s == ".xml")
-	begin
-		# Por defecto crea un HTML sin cabeza
-		`pandoc #{entrada_sis} -o #{directorioPadreTerminal salida_sis}/#{File.basename(salida_sis,'.*') + $pandog_coletilla + '.html'}`
-		
-		# Llama a las modificaciones
-		mdAhtml directorioPadre(salida), File.basename(salida)
-	rescue
-		puts $l_pg_error_m
-		abort
-	end
-elsif (ext_e == ".html" || ext_e == ".xhtml" || ext_e == ".htm" || ext_e == ".xml") && ext_s == ".md"
-	begin
-		entrada_html = nil
-		
-		# Si se trata de un XML, copia el archivo en un HTML oculto que se usará para Pandoc
-		if ext_e == ".xml"
-			entrada_html = "." + File.basename(entrada, ".*") + ".html"
-			FileUtils.cp(entrada, entrada_html)
-			entrada = directorioPadre(entrada) + "/" + entrada_html
-		end
-
-		# Hace que los encabezados estén con gatos
-		`pandoc #{entrada_sis} --atx-headers -o #{salida_sis}`
-		
-		# Se elimina el HTML oculto de existir
-		if entrada_html != nil
-			File.delete(entrada_html)
-		end
-		
-		# Llama a las modificaciones
-		htmlAmd directorioPadre(salida), File.basename(salida)
-	rescue
-		puts $l_pg_error_m
-		abort
-	end
+# MD > HTML
+if ext_e == ".md" && ext_html_s
+    md_to_html
+# HTML > MD
+elsif ext_html_e && ext_s == ".md"
+    html_to_md
+# MD > JSON
+elsif ext_e == ".md" && ext_s == ".json"
+    md_to_html
+    hash = file_to_hash(arregloRuta(File.absolute_path($pandog_salida)))
+    generacion_json hash
+# EPUB > JSON
+elsif ext_e == ".epub" && ext_s == ".json"
+    hash = epub_analisis(arregloRuta(File.absolute_path($pandog_entrada)))
+    generacion_json hash
+    FileUtils.rm_rf($l_g_epub_analisis)
+# JSON > HTML || MD
+elsif ext_e == ".json" && (ext_s == ".md" || ext_html_s)
+    json_to_html_md
+# Lo demás
 else
     if ext_s == ".md"
-    	`pandoc #{entrada_sis} --atx-headers -o #{salida_sis}`
+    	`pandoc #{$pandog_entrada_sis} --atx-headers -o #{$pandog_salida_sis}`
     else
-    	`pandoc #{entrada_sis} -o #{salida_sis}`
+    	`pandoc #{$pandog_entrada_sis} -o #{$pandog_salida_sis}`
     end
 end
 

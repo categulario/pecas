@@ -341,7 +341,7 @@ def obtener_rutas_archivos conjunto, ubicacion, extension
     return conjunto.sort
 end
 
-def obtener_contenido_archivo rutas, conjunto, espacio_inicial = nil, archivo_especifico = nil
+def obtener_contenido_archivo rutas, conjunto, espacio_inicial = '', archivo_especifico = nil
     if conjunto == nil then conjunto = [] end
 
     def iteracion r, c, e
@@ -699,6 +699,8 @@ def hash_to_html hash
     if tipo == 'opf' || tipo == 'xml' || tipo == 'xhtml'
         html.unshift("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
     end
+
+    return html
 end
 
 # Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583
