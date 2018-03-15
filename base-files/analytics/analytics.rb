@@ -554,7 +554,7 @@ begin
     # Se inicia hunspell
     begin
         puts $l_an_analizando_hunspell
-        hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{$l_an_archivo_hunspell} | sort`
+        hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{arregloRutaTerminal($l_an_archivo_hunspell)} | sort`
         hunspell = hunspell.split("\n")
     rescue
         puts $l_an_advertencia_hunspell.yellow.bold
@@ -589,7 +589,7 @@ begin
     # Se inicia linkchecker
     begin
         puts $l_an_analizando_linkchecker, $l_g_linea
-        linkchecker_crudo = `linkchecker #{archivo_linkchecker} --check-extern --verbose -o csv`
+        linkchecker_crudo = `linkchecker #{arregloRutaTerminal(archivo_linkchecker)} --check-extern --verbose -o csv`
         linkchecker_crudo = linkchecker_crudo.split("\n")
         puts $l_an_fin_linkchecker, $l_g_linea
     rescue
