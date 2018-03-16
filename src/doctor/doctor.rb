@@ -161,7 +161,7 @@ else
     if restore
         puts $l_dr_restaurando, $l_g_linea
         commit = `git ls-remote -q --refs`
-        commit = output.split("\t")[0]
+        commit = commit.split("\t")[0]
         system("git reset --hard #{commit}")
     end
 
