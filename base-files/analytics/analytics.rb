@@ -572,7 +572,7 @@ begin
 
         # Se obtienen todos los archivos HTML
         analisis_crudo['htmls'].each do |html|
-            archivo_linkchecker.push(html['path'])
+            archivo_linkchecker.push(arregloRutaTerminal(html['path']))
         end
 
         # Se unen para formar una sola línea separados con un espacio
@@ -582,14 +582,14 @@ begin
         criterio_division = $l_g_epub_analisis
     # Si no es EPUB, el archivo a analizar es el mismo del input
     else
-        archivo_linkchecker = archivo
+        archivo_linkchecker = arregloRutaTerminal(archivo)
         criterio_division = File.basename(archivo)
     end
 
     # Se inicia linkchecker
     begin
         puts $l_an_analizando_linkchecker, $l_g_linea
-        linkchecker_crudo = `linkchecker #{arregloRutaTerminal(archivo_linkchecker)} --check-extern --verbose -o csv`
+        linkchecker_crudo = `linkchecker #{archivo_linkchecker} --check-extern --verbose -o csv`
         linkchecker_crudo = linkchecker_crudo.split("\n")
         puts $l_an_fin_linkchecker, $l_g_linea
     rescue
