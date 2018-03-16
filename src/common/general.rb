@@ -210,7 +210,7 @@ def arregloRutaTerminal elemento
 		ruta = ruta.gsub(/\s/, "\\ ")
 	end
 	
-	return ruta
+	return ruta.gsub(",", "\\,")
 end
 
 # Obtiene el directorio donde se encuentra el archivo
