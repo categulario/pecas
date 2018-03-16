@@ -63,6 +63,7 @@ mucho
 nueve
 quien
 podia
+parte
 puede
 punto
 segun
@@ -71,6 +72,7 @@ siete
 sobre
 tenga
 tiene
+todos
 trata
 vamos
 veces
@@ -109,6 +111,7 @@ sera
 sido
 sino
 solo
+todo
 unas
 unos
 tres
