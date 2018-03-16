@@ -34,7 +34,7 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
-/* Para viejos exploradores */
+/* Old browsers / Para viejos exploradores */
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -66,7 +66,7 @@ table {
 
 /**************************************************/
 
-/* Cuerpo */
+/* Body / Cuerpo */
 
 body {
     margin: 4em;
@@ -76,7 +76,7 @@ body {
 	margin: -4em;
 }
 
-@media amzn-mobi {    /* Para Mobi ya que Kindle Fire genera mucho margen */
+@media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
 	body {
 		margin: 0;
 	}
@@ -95,7 +95,7 @@ body {
 		margin: -5em;
 	}
 
-	@media amzn-mobi {    /* Para Mobi ya que Kindle Fire genera mucho margen */
+	@media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
 		body {
 			margin: 0;
 		}
@@ -106,13 +106,13 @@ body {
 	}
 }
 
-/* Secciones */
+/* Sections / Secciones */
 
 section + section {
 	margin-top: 10em;
 }
 
-/* Encabezados */
+/* Headers / Encabezados */
 
 h1, h2, h3, h4, h5, h6 {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
@@ -159,7 +159,7 @@ h6 {
     font-style: italic;
 }
 
-/* Párrafos */
+/* Paragraphs / Párrafos */
 
 h1:not(.title) + p, h1:not(.titulo) + p {
     margin-top: 4em;
@@ -252,7 +252,7 @@ blockquote + blockquote {
     display: block;
 }
 
-/* Efectos en las fuentes */
+/* Font effects / Efectos en las fuentes */
 
 i, em {
     font-style: italic;
@@ -275,7 +275,7 @@ b, strong {
 	 font-variant: none;
 }
 
-@media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi: <span class=\"versalita\">ACRÓNIMO</span> */
+@media not amzn-mobi {    /* For any device except Mobi / Para cualquier dispositivo excepto Mobi: <span class=\"versalita\">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: lowercase;
         font-variant: small-caps;
@@ -287,7 +287,7 @@ b, strong {
     }
 }
 
-@media amzn-mobi {    /* Para Mobi ya que no soporta el atributo «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
+@media amzn-mobi {    /* For any device except Mobi / Para Mobi ya que no soporta el atributo «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: uppercase;
         font-size: .8em;
@@ -299,13 +299,13 @@ b, strong {
     }
 }
 
-/* Enlaces */
+/* Links / Enlaces */
 
 a, a:link, a:visited {
     text-decoration: none;
 }
 
-/* Listas */
+/* Lists / Listas */
 
 ol, ul {
     margin: 1em 0 1em 1.5em;
@@ -320,19 +320,19 @@ ul {
     list-style-type:disc;
 }
 
-.li-manual {    /* Colocar en el ol o ul */
+.li-manual {    /* It goes in ol or ul / Colocar en el ol o ul */
     list-style-type: none;
 }
 
-.li-manual > li > p:first-child > span:first-of-type {    /* Colocar en el li: <li><p><span>[viñeta o numeración deseada]</span>... */
+.li-manual > li > p:first-child > span:first-of-type {    /* It goes in li / Colocar en el li: <li><p><span>[viñeta o numeración deseada]</span>... */
 	display: block;
 	margin-left: -1.5em;
 	margin-bottom: -1.25em;
 }
 
-/* Imágenes */
+/* Images / Imágenes */
 
-img {    /* Ayuda a detectarlos si no existe el recurso */
+img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no existe el recurso */
     color: #0000EE;
     width: 100%;
 }
@@ -375,7 +375,7 @@ img + .caption, img + .leyenda {
 	text-indent: 0;
 }
 
-/* Superíndices y subíndices */
+/* Superscript and subscripts / Superíndices y subíndices */
 
 sup, sub {
     font-size: .75em;
@@ -386,7 +386,7 @@ sub {
     vertical-align: sub;
 }
 
-/* Código (inspirados en https://codepen.io/elomatreb/pen/hbgxp)*/
+/* Code / Código (inspirados en https://codepen.io/elomatreb/pen/hbgxp)*/
 
 code {
 	font-family: monospace;
@@ -444,7 +444,7 @@ pre a:before {
 	color: #888;
 }
 
-/* Glosas */
+/* Glosses / Glosas */
 
 section.gloss, body.gloss, section.glosa, body.glosa {   /* El estilo ha de ponerse en el contenedor de los párrafos y en el span de la glosa */
     margin-right: 7em;
@@ -459,9 +459,7 @@ span.gloss, span.glosa {
     font-size: .75em;
 }
 
-/* Poesía */
-
-/* <p class=\"poem\">Verse 1<br />verse 2<br />verse 3.</p>*/
+/* Poetry / Poesía: <p class=\"poem\">Verse 1<br />verse 2<br />verse 3.</p>*/
 
 .poem, .poema {
     margin: 1em 1.5em;
@@ -474,7 +472,7 @@ span.gloss, span.glosa {
     hyphens: none;
 }
 
-/* Contenidos especiales */
+/* Special contents / Contenidos especiales */
 
 .title, .titulo {
     margin-top: 3em;
@@ -489,7 +487,7 @@ span.gloss, span.glosa {
 }
 
 .author, .autor {
-	width: 250px; /* Se añade a la imagen del autor para que no abarque el 100% */
+	width: 250px; /* Avoids 100% width in author image / Se añade a la imagen del autor para que no abarque el 100% */
 }
 
 .contributor + p, .contribuidor + p {
@@ -541,7 +539,7 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     white-space: pre-wrap;
 }
 
-/* Notas al pie */
+/* Footnotes / Notas al pie */
 
 .#{$l_no_nota_sup} {
     font-style: normal;
@@ -588,9 +586,9 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     text-indent: 1.5em;
 }
 
-/* Estilos de esta edición */
+/* Styles for this edition / Estilos de esta edición */
 
-/* AGREGAR ESTILOS PERSONALIZADOS */
+/* ADD HERE CUSTOM STYLES / AGREGAR ESTILOS PERSONALIZADOS */
 "
 
 # Plantilla minificada
