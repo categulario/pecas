@@ -72,7 +72,7 @@ body {
     margin: 4em;
 }
 
-.sin-margen {
+.no-margin, .sin-margen {
 	margin: -4em;
 }
 
@@ -81,7 +81,7 @@ body {
 		margin: 0;
 	}
 
-	.sin-margen {
+	.no-margin, .sin-margen {
 		margin: 0;
 	}
 }
@@ -91,7 +91,7 @@ body {
         margin: 5em;
     }
     
-    .sin-margen {
+    .no-margin, .sin-margen {
 		margin: -5em;
 	}
 
@@ -100,7 +100,7 @@ body {
 			margin: 0;
 		}
 
-		.sin-margen {
+		.no-margin, .sin-margen {
 			margin: 0;
 		}
 	}
@@ -161,7 +161,7 @@ h6 {
 
 /* Párrafos */
 
-h1:not(.titulo) + p {
+h1:not(.title) + p, h1:not(.titulo) + p {
     margin-top: 4em;
 }
 
@@ -191,48 +191,48 @@ blockquote + blockquote {
     margin-top: -1em;
 }
 
-.justificado {
+.justified, .justificado {
     text-align: justify !important;
 }
 
-.derecha {
+.right, .derecha {
     text-indent: 0;
     text-align: right !important;
 }
 
-.izquierda {
+.left, .izquierda {
     text-align: left !important;
 }
 
-.centrado {
+.centered, .centrado {
     text-indent: 0;
     text-align: center !important;
 }
 
-.frances {
+.hanging, .frances {
     margin-left: 1.5em;
     text-indent: -1.5em;
     text-align: left !important;
 }
 
-* + .frances {
+* + .hanging, * + .frances {
     margin-top: 1em;
 }
 
-.frances + .frances {
+.hanging + .hanging, .frances + .frances {
     margin-top: 0;
     text-indent: -1.5em;
 }
 
-.sangria {
+.indent, .sangria {
     text-indent: 1.5em;
 }
 
-.sin-sangria {
+.no-indent, .sin-sangria {
     text-indent: 0;
 }
 
-.sin-separacion {
+.no-hyphens, .sin-separacion {
     -moz-hyphens: none;
     -webkit-hyphens: none;
     -o-hyphens: none;
@@ -244,11 +244,11 @@ blockquote + blockquote {
     visibility: hidden;
 }
 
-.oculto {
+.hidden, .oculto {
     display: none;
 }
 
-.bloque {
+.block, .bloque {
     display: block;
 }
 
@@ -262,21 +262,21 @@ b, strong {
     font-weight: bold;
 }
 
-.capitular {
+.initial, .capitular {
     font-size: 2em;
     padding-right: 1px;
 }
 
-.versal {
+.uppercase, .versal {
     text-transform: uppercase;
 }
 
-.redonda {
+.normal, .redonda {
 	 font-variant: none;
 }
 
 @media not amzn-mobi {    /* Para cualquier dispositivo excepto Mobi: <span class=\"versalita\">ACRÓNIMO</span> */
-    .versalita {
+    .smallcap, .versalita {
         text-transform: lowercase;
         font-variant: small-caps;
         -moz-hyphens: auto;
@@ -288,7 +288,7 @@ b, strong {
 }
 
 @media amzn-mobi {    /* Para Mobi ya que no soporta el atributo «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
-    .versalita {
+    .smallcap, .versalita {
         text-transform: uppercase;
         font-size: .8em;
         -moz-hyphens: auto;
@@ -357,21 +357,21 @@ p + img, p > img {
 	margin-bottom: 2em;
 }
 
-.caption {
+.caption, .leyenda {
 	font-size: .9em;
 	margin-top: -1.5em;
 	margin-bottom: 2em;
 }
 
-.caption + img {
+.caption + img, .leyenda + img {
 	margin-top: 0;
 }
 
-img + .caption {
+img + .caption, img + .leyenda {
 	margin-top: .5em;
 }
 
-.caption + p {
+.caption + p, .leyenda + p {
 	text-indent: 0;
 }
 
@@ -446,11 +446,11 @@ pre a:before {
 
 /* Glosas */
 
-section.glosa, body.glosa {   /* El estilo ha de ponerse en el contenedor de los párrafos y en el span de la glosa */
+section.gloss, body.gloss, section.glosa, body.glosa {   /* El estilo ha de ponerse en el contenedor de los párrafos y en el span de la glosa */
     margin-right: 7em;
 }
 
-span.glosa {
+span.gloss, span.glosa {
     width: 6em;         /* No son 7 porque se resta uno del margen añadido a continuación */ 
     margin-right: -8em; /* No son -7 porque se añade 1 de margen */
     float: right;
@@ -461,7 +461,9 @@ span.glosa {
 
 /* Poesía */
 
-.poema {
+/* <p class=\"poem\">Verse 1<br />verse 2<br />verse 3.</p>*/
+
+.poem, .poema {
     margin: 1em 1.5em;
     text-indent: 0;
     white-space: pre-wrap;
@@ -474,68 +476,68 @@ span.glosa {
 
 /* Contenidos especiales */
 
-.titulo {
+.title, .titulo {
     margin-top: 3em;
     margin-left: 0;
     font-size: 2em;
 }
 
-.subtitulo {
+.subtitle, .subtitulo {
     margin-top: -1.25em;
     margin-bottom: 3em;
     margin-left: 0;
 }
 
-.autor {
+.author, .autor {
 	width: 250px; /* Se añade a la imagen del autor para que no abarque el 100% */
 }
 
-.contribuidor + p {
+.contributor + p, .contribuidor + p {
 	text-indent: 0;
 }
 
-h1 + .contribuidor {
+h1 + .contributor, h1 + .contribuidor {
 	margin-top: 0em !important;
 	margin-bottom: 4em;
 }
 
-.legal * {
+.copyright, .legal * {
     text-indent: 0;
 }
 
-.epigrafe {
+.epigraph, .epigrafe {
     font-size: .9em;
     text-align: right;
     line-height: 1.25em;
     margin-left: 40%;
 }
 
-body > .epigrafe:first-child {
+body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: 3em;
 }
 
-.epigrafe + p {
+.epigraph + p, .epigrafe + p {
     margin-top: 2em;
     text-indent: 0;
 }
 
-.epigrafe + .epigrafe {
+.epigraph + .epigraph, .epigrafe + .epigrafe {
     margin-top: .5em;
 }
 
-.espacio-arriba1 {
+.vertical-space1, .espacio-arriba1 {
     margin-top: 1em !important;
 }
 
-.espacio-arriba2 {
+.vertical-space2, .espacio-arriba2 {
     margin-top: 2em !important;
 }
 
-.espacio-arriba3 {
+.vertical-space3, .espacio-arriba3 {
     margin-top: 3em !important;
 }
 
-.espacio {
+.space, .espacio {
     white-space: pre-wrap;
 }
 

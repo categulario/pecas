@@ -23,26 +23,29 @@ En diseño, los cambios más relevantes en las etiquetas son:
 Lo más destacado de la hoja de estilos por defecto es la posibilidad de usar
 diversas clases comunes a un libro:
 
-* `justificado`. Justifica el texto; por defecto el texto es justificado, excepto en los encabezados.
-* `derecha`. Alinea el texto a la derecha.
-* `izquierda`. Alinea el texto a la izquierda.
-* `centrado`. Centra el texto.
-* `frances`. Genera un párrafo con sangría francesa.
-* `sangria`. Fuerza una sangría.
-* `sin-sangria`. Evita una sangría.
-* `sin-separacion`. Evita la separación silábica; por defecto el texto tiene separación silábica, excepto en los encabezados.
-* `invisible`. Invisibiliza un contenido, aunque respeta su espacio en el contenido.
-* `oculto`. Oculta un contenido, no abarca espacio en el contenido.
-* `bloque`. Despliega una etiqueta como bloque.
-* `capitular`. Añade una letra capitular.
-* `versal`. Muestra el texto en mayúsculas.
-* `redonda`. Fuerza texto en redondas.
-* `versalita`. Muestra el texto en versalitas.
-* `li-manual`. Permite un listado con elementos manuales.
-* `epigrafe`. Muestra un texto como epígrafe.
-* `espacio-arriba1`. Añade una línea de separación.
-* `espacio-arriba2`. Añade dos líneas de separación.
-* `espacio-arriba3`. Añade tres líneas de separación.
+* `justified` / `justificado`. Justifica el texto; por defecto el texto es justificado, excepto en los encabezados.
+* `right` / `derecha`. Alinea el texto a la derecha.
+* `left` / `izquierda`. Alinea el texto a la izquierda.
+* `centered` / `centrado`. Centra el texto.
+* `hanging` / `frances`. Genera un párrafo con sangría francesa.
+* `indent` / `sangria`. Fuerza una sangría.
+* `no-indent` / `sin-sangria`. Evita una sangría.
+* `no-hyphens` / `sin-separacion`. Evita la separación silábica; por defecto el texto tiene separación silábica, excepto en los encabezados.
+* `invisible` / `invisible`. Invisibiliza un contenido, aunque respeta su espacio en el contenido.
+* `hidden` / `oculto`. Oculta un contenido, no abarca espacio en el contenido.
+* `block` / `bloque`. Despliega una etiqueta como bloque.
+* `initial` / `capitular`. Añade una letra capitular.
+* `uppercase` / `versal`. Muestra el texto en mayúsculas.
+* `normal` / `redonda`. Fuerza texto en redondas.
+* `smallcap` / `versalita`. Muestra el texto en versalitas.
+* `li-manual` / `li-manual`. Permite un listado con elementos manuales.
+* `caption` / `leyenda`. Da estilo a los pie de imagen.
+* `gloss` / `glosa`. Da estilo a las notas que van en los márgenes.
+* `poem` / `poema`. Permite identificar los párrafos que funcionan como estrofas.
+* `epigraph` / `epigrafe`. Muestra un texto como epígrafe.
+* `vertical-space1` / `espacio-arriba1`. Añade una línea de separación.
+* `vertical-space2` / `espacio-arriba2`. Añade dos líneas de separación.
+* `vertical-space3` / `espacio-arriba3`. Añade tres líneas de separación.
 
 Para el resto de las clases, consúltese el archivo CSS.
 
