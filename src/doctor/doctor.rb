@@ -160,7 +160,9 @@ if !update && !install && !restore
 else
     if restore
         puts $l_dr_restaurando, $l_g_linea
-        system("git reset --hard")
+        commit = `git ls-remote -q --refs`
+        commit = output.split("\t")[0]
+        system("git reset --hard #{commit}")
     end
 
     if update
