@@ -533,7 +533,6 @@ def file_to_hash ruta
     # Va de una línea de texto a un conjunto con espacios que jerarquizan el contenido
     def text_to_array_to_yaml texto
         conjunto_inicial = texto.gsub(/(<.*?>)/, "\n" + '\1' + "\n").split("\n").compact.reject{|l| l.empty?} # Produce un conjunto sin jerarquías
-# Viejo conjunto_inicial = texto.gsub(/(<.*?>\s*)/, "\n" + '\1' + "\n").split("\n").compact.reject{|l| l.empty?}
         conjunto_final = []
         espacio = ''
         aumento = "\t"
