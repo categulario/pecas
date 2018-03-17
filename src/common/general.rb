@@ -487,7 +487,6 @@ def file_to_hash ruta
             conjunto.each_with_index do |l, i|
                 # Si es un tag único o inicial
                 if l =~ /<[^\s*\/]/ && l.gsub(/(\t*?)\S.*$/, '\1').length == nivel
-
                     tag = l.strip.gsub(/(<|>|\/\s*>)/,'').split(/\s+/)[0]
                     atributos = atributos(l, nivel)
 
@@ -499,10 +498,14 @@ def file_to_hash ruta
                         texto = $espacio_yaml + "- $" + tag + ':' + atributos + (l =~ /\/\s*>/ ? '' : contenido_inicio)
                     end
 
+                    # Si se da el caso de etiquetas únicas sin nada (como <br />) se le agrega un objeto vacío
+                    if texto.split("\n").length == 1
+                        texto = texto + ' {}'
+                    end
                     # Sustituye el contenido por el valor de «texto»
                     $conjunto_yaml = $conjunto_yaml.map.with_index { |e, j| i == j ? texto : e }
                 # Si no es tag
-                elsif l.strip !~ /^</ && l.gsub(/(\t*?)\S.*$/, '\1').length == nivel + 1
+                elsif l.strip !~ /^</ && l.gsub(' ', '').gsub(/(\t*?)\S.*$/, '\1').length == nivel + 1
                     contenido = $espacio_yaml + "      - \"" + l.gsub(/^\t*/,'').gsub('"', '\"') + "\""
 
                     # Sustituye el contenido por el valor de «contenido»
@@ -524,12 +527,13 @@ def file_to_hash ruta
         por_nivel(conjunto, nivel)
 
         # Se agregan el content para saber dónde empieza el contenido y la profundidad -1, porque se eliminará un nivel
-        return $conjunto_yaml.unshift("  deep: #{nivel - 1}\n  content:").reject{|l| l.empty?}
+        return $conjunto_yaml.unshift("  deep: #{nivel - 1}\n  content:").compact.reject{|l| l.empty?}
     end
 
     # Va de una línea de texto a un conjunto con espacios que jerarquizan el contenido
     def text_to_array_to_yaml texto
-        conjunto_inicial = texto.gsub(/(<.*?>\s*)/, '\n\1\n').split('\n').reject{|l| l.empty?} # Produce un conjunto sin jerarquías
+        conjunto_inicial = texto.gsub(/(<.*?>)/, "\n" + '\1' + "\n").split("\n").compact.reject{|l| l.empty?} # Produce un conjunto sin jerarquías
+# Viejo conjunto_inicial = texto.gsub(/(<.*?>\s*)/, "\n" + '\1' + "\n").split("\n").compact.reject{|l| l.empty?}
         conjunto_final = []
         espacio = ''
         aumento = "\t"
@@ -544,7 +548,6 @@ def file_to_hash ruta
                     if l =~ /\/\s*>/
                         # El espacio en general no es afectado
                         l = espacio + aumento + l
-
                         # Obtiene el mayor número de nivel
                         niveles = (espacio + aumento).length > niveles ? niveles = (espacio + aumento).length : niveles = niveles
                     # Si es un tag inicial (<…>)
