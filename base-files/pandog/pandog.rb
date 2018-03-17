@@ -271,18 +271,19 @@ def json_to_html_md
         # Se analiza si se cuenta con la estructura requerida
         if hash['file'] != nil
             # Recreación de la estructura, se cambia el nombre porque si es extensión .md o .json no sería válida
-            hash['file'] = $pandog_salida.gsub(/\..*$/, '.html')
+            nombre = File.extname($pandog_salida) == '.md' ? $pandog_salida.gsub(/\..*$/, '.html') : $pandog_salida
+            hash['file'] = nombre
             html = hash_to_html(hash)
 
             # Crea el archivo HTML
-        	archivo = File.new($pandog_salida.gsub(/\..*$/, '.html'), 'w:UTF-8')
+        	archivo = File.new(nombre, 'w:UTF-8')
         	archivo.puts html
         	archivo.close
 
             if File.extname($pandog_salida) == '.md'
                 puts $l_pg_iniciando
-                `pandoc #{arregloRutaTerminal($pandog_salida.gsub(/\..*$/, '.html'))} --atx-headers -o #{$pandog_salida_sis}`
-                File.delete($pandog_salida.gsub(/\..*$/, '.html'))
+                `pandoc #{arregloRutaTerminal(nombre)} --atx-headers -o #{$pandog_salida_sis}`
+                File.delete(nombre)
             end
         else
             puts $l_pg_error_json
@@ -340,16 +341,20 @@ if ext_e == ".md" && ext_html_s
 # HTML > MD
 elsif ext_html_e && ext_s == ".md"
     html_to_md
-# MD > JSON
-elsif ext_e == ".md" && ext_s == ".json"
-    md_to_html
-    hash = file_to_hash(arregloRuta(File.absolute_path($pandog_salida)))
-    generacion_json hash
 # EPUB > JSON
 elsif ext_e == ".epub" && ext_s == ".json"
     hash = epub_analisis(arregloRuta(File.absolute_path($pandog_entrada)))
     generacion_json hash
     FileUtils.rm_rf($l_g_epub_analisis)
+# MD > JSON
+elsif ext_e == ".md" && ext_s == ".json"
+    md_to_html
+    hash = file_to_hash(arregloRuta(File.absolute_path($pandog_salida)))
+    generacion_json hash
+# HTML > JSON
+elsif ext_html_e && ext_s == ".json"
+    hash = file_to_hash(arregloRuta(File.absolute_path($pandog_entrada)))
+    generacion_json hash
 # JSON > HTML || MD
 elsif ext_e == ".json" && (ext_s == ".md" || ext_html_s)
     json_to_html_md
