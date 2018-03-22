@@ -4,8 +4,6 @@ Al usar `pc-creator` se genera el archivo `meta-data.yaml` que sirve para
 los metadatos del libro. Si no se usará `pc-recreator` para generar el EPUB, 
 este archivo **es innecesario y puede eliminarse**.
 
-> Al usar `pc-automata` el archivo se llama `automata_meta-data.yaml`.
-
 ## Estructura
 
 La estructura básica del archivo creado es la siguiente:
@@ -57,7 +55,7 @@ hazard:
 
 ### Generales
 
-| Llave | Tipo | Valor | Descripción |
+| Llave | Tipo | Valor por defecto | Descripción |
 |-------|------|-------|-------------|
 | `title` | `String` | `Sin título` | Título de la obra. |
 | `subtitle` | `String` | `nil` | Subtítulo de la obra. |
@@ -71,7 +69,7 @@ hazard:
 
 ### Tabla de contenidos
 
-| Llave | Tipo | Valor | Descripción |
+| Llave | Tipo | Valor por defecto | Descripción |
 |-------|------|-------|-------------|
 | `no-toc` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. |
 | `no-spine` | `Array` | `nil` | Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. |
@@ -79,20 +77,20 @@ hazard:
 
 ### EPUB fijo
 
-| Llave | Tipo | Valor | Descripción |
+| Llave | Tipo | Valor por defecto | Descripción |
 |-------|------|-------|-------------|
 | `px-width` | `Array` | `nil` | Anchura en pixeles para el EPUB. |
 | `px-height` | `Array` | `nil` | Altura en pixeles para el EPUB. |
 
 ### Fallbacks
 
-| Llave | Tipo | Valor | Descripción |
+| Llave | Tipo | Valor por defecto | Descripción |
 |-------|------|-------|-------------|
 | `fallback` | `Object` | `nil` | Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB. |
 
 ### WCAG
 
-| Llave | Tipo | Valor | Descripción |
+| Llave | Tipo | Valor por defecto | Descripción |
 |-------|------|-------|-------------|
 | `summary` | `String` | `Este EPUB…` | Breve texto donde se indican las características de accesibilidad de la publicación. |
 | `mode` | `Array` | `textual`<br/>`visual` | Modo en como ha de usarse la obra. |
@@ -105,6 +103,24 @@ hazard:
 > Todos los campos vacíos son ignorados ya que son `nil`.
 	
 ## Consideraciones particulares
+
+### Líneas de texto
+
+Los `String` pueden escribirse sin estar rodeados de comillas simples 
+(`'`) o dobles (`"`). Por ejemplo:
+
+```
+title: Sin título
+```
+
+Sin embargo, si en el texto existe algún caracter especial (`:`, `{`, 
+`}`, `[`, `]`, `,`, `&`, `*`, `#`, `¿`, `?`, `|`, `-`, `<`, `>`, `=`, 
+`¡`, `!`, `%`, `@`, `\`) las comillas ayudan a evitar errores.
+Por ejemplo:
+
+```
+title: "Título: ¿va sin comillas? ¡No!"
+```
 
 ### Conjuntos
 

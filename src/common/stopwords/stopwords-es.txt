@@ -11,6 +11,7 @@ algunos
 aquella
 aquella
 despues
+dijeron
 embargo
 general
 implica
@@ -88,6 +89,7 @@ cuya
 debe
 dice
 diez
+dijo
 ello
 esas
 esas

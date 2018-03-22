@@ -192,6 +192,7 @@ doctor:
   instalando: ["\n=> Instalando","con:"]
   instalando-fin: "=> Todos los comandos han sido ejecutados, para ver el estado usa:\n   pc-doctor"
   instalando-nan: "=> No hay dependencias por instalar."
+  instalando-brew: "=> Instalando gestor de paquetes brew…"
   instalado: "instalado (versión desconocida)"
   no-instalado: "no instalado"
   falta: "=> Faltan algunas dependencias.\n   Para instalarlas usa:\n   pc-doctor --install-dependencies"

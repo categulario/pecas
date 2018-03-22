@@ -173,7 +173,10 @@ else
     if install
         $gestor = pregunta
         puts $l_dr_advertencia.yellow.bold
-
+        if OS.mac?
+            puts "", $l_g_linea, $l_dr_instalando_brew
+            system("/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"")
+        end
         puts revisionDependencias(install, dependencias)
     end
 end

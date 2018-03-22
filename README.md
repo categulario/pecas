@@ -43,6 +43,14 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 | `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
 | `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       |
 
+Existen además temas auxiliares:
+
+| Tema                                                                                 | Descripción|
+|--------------------------------------------------------------------------------------|------------|
+| [CSS](https://github.com/NikaZhenya/pecas/tree/master/epub/others/css)               | Lista y explicación de los estilos más comunes de la plantilla por defecto.         |
+| [JavaScript](https://github.com/NikaZhenya/pecas/tree/master/epub/others/javascript) | Lista y explicación de *scripts* que dan algunas funcionalidades extras a los EPUB. |
+| [YAML](https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml)             | Explicación de la estructura del archivo para los metadatos de los libros.          |
+
 # *Single source and online publishing* (SSOP)
 
 Esta metodología parte de un archivo madre en marcado ligero para crear
