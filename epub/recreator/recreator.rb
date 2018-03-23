@@ -406,7 +406,7 @@ def insertar buscado, texto, archivo
 					mi_match = /(.*?)>.*?(.*?>$)/.match(linea)	
 	
 					# Agrega la línea con el nuevo texto
-                    if texto != nil
+                    if texto != nil && mi_match != nil
     					lineas.push("#{mi_match.captures[0]}>#{texto}</#{tag.captures[0]}>")
                     end
 				
