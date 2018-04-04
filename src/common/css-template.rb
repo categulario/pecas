@@ -308,7 +308,7 @@ a, a:link, a:visited {
 /* Lists / Listas */
 
 ol, ul {
-    margin: 1em 0 1em 1.5em;
+    margin: 1em 1.5em;
     padding: 0;
 }
 
