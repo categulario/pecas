@@ -464,7 +464,7 @@ def nombre_apellido author
 end
 
 def editores ed
-    if ed != nil
+    if ed != nil && ed.class != String
         return ed.join(" / ")
     else
         return ""
