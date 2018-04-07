@@ -33,6 +33,8 @@ reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
 rotacion = argumento "--rotate", rotacion, 1
 overwrite = argumento "--overwrite", overwrite, 1
+no_analytics = argumento "--no-analytics", no_analytics, 1
+no_legacy = argumento "--no-legacy", no_legacy, 1
 
 # Variables que se usarán
 $log = Array.new
@@ -270,24 +272,32 @@ else
 	end
 
 	# Cambio de versión
-	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} -e #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --version 3.0.0"
+    if no_legacy != true
+    	ejecutar "\n# pc-changer", "ruby #{File.dirname(__FILE__)+ "/../changer/changer.rb"} -e #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --version 3.0.0"
+    end
 	
     # Carpeta donde se guardarán los logs
     Dir.mkdir($l_au_logs)
     Dir.mkdir($l_au_logs + '/epubcheck')
     Dir.mkdir($l_au_logs + '/ace')
-    Dir.mkdir($l_au_logs + '/pc-analytics')
+    if no_analytics != true
+        Dir.mkdir($l_au_logs + '/pc-analytics')
+    end
 
 	# Análisis del EPUB
-	ejecutar "\n# pc-analytics", "ruby #{File.dirname(__FILE__)+ "/../../base-files/analytics/analytics.rb"} -f #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --json #{rotacion ? '--rotate' : ''}"
-    FileUtils.mv("#{$l_an_archivo_nombre}html", $l_au_logs + '/pc-analytics')
-    FileUtils.mv("#{$l_an_archivo_nombre}json", $l_au_logs + '/pc-analytics')
+    if no_analytics != true
+    	ejecutar "\n# pc-analytics", "ruby #{File.dirname(__FILE__)+ "/../../base-files/analytics/analytics.rb"} -f #{arregloRutaTerminal(Dir.pwd + "/" + epub_final + ".epub")} --json #{rotacion ? '--rotate' : ''}"
+        FileUtils.mv("#{$l_an_archivo_nombre}html", $l_au_logs + '/pc-analytics')
+        FileUtils.mv("#{$l_an_archivo_nombre}json", $l_au_logs + '/pc-analytics')
+    end
 
 	# Verificación con EpubCheck del EPUB más reciente
 	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"
 	
 	# Verificación con EpubCheck del EPUB 3.0.0
-	verificacion epub_final + "_3-0-0.epub", 3, "# epubcheck 3.0.1"
+    if no_legacy != true
+    	verificacion epub_final + "_3-0-0.epub", 3, "# epubcheck 3.0.1"
+    end
 	
     # Ace
 	puts "\nAce: #{$l_au_verificando[0] + epub_final + ".epub" + $l_au_verificando[1]}".green

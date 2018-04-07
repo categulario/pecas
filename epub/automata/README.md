@@ -50,6 +50,8 @@ con una sola línea de comandos.
 * `--section` = Divide el archivo madre cada `<section>`.
 * `--rotate` = Permite rotación aleatoria de las palabras en la nube de palabras de 30° a 150°.
 * `--overwrite` = Sobrescribe los archivos sin dar advertencia.
+* `--no-analytics` = Evita la creación de analítica.
+* `--no-legacy` = Evita la conversión de EPUB a una versión anterior.
 
 ### Parámetros únicos:
 
