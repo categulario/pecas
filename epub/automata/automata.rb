@@ -35,6 +35,7 @@ rotacion = argumento "--rotate", rotacion, 1
 overwrite = argumento "--overwrite", overwrite, 1
 no_analytics = argumento "--no-analytics", no_analytics, 1
 no_legacy = argumento "--no-legacy", no_legacy, 1
+no_ace = argumento "--no-ace", no_ace, 1
 
 # Variables que se usarán
 $log = Array.new
@@ -300,8 +301,10 @@ else
     end
 	
     # Ace
-	puts "\nAce: #{$l_au_verificando[0] + epub_final + ".epub" + $l_au_verificando[1]}".green
-    ejecutar "\n# ace", "ace -o #{$l_au_logs + '/ace'} #{epub_final + '.epub'}"
+    if no_ace != true
+    	puts "\nAce: #{$l_au_verificando[0] + epub_final + ".epub" + $l_au_verificando[1]}".green
+        ejecutar "\n# ace", "ace -o #{$l_au_logs + '/ace'} #{epub_final + '.epub'}"
+    end
 
 	# KindleGen
 	puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green

@@ -52,6 +52,7 @@ con una sola línea de comandos.
 * `--overwrite` = Sobrescribe los archivos sin dar advertencia.
 * `--no-analytics` = Evita la creación de analítica.
 * `--no-legacy` = Evita la conversión de EPUB a una versión anterior.
+* `--no-ace` = Evita la verificación de ACE.
 
 ### Parámetros únicos:
 
