@@ -586,6 +586,22 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     text-indent: 1.5em;
 }
 
+/* For print / Para impresión */
+
+@media print {
+    section {
+        page-break-before: always;
+    }
+
+    section:first-of-type {
+        page-break-before: avoid;
+    }
+
+    section > h1:first-child {
+        padding-top: 5em !important;
+    }
+}
+
 /* Styles for this edition / Estilos de esta edición */
 
 /* ADD HERE CUSTOM STYLES / AGREGAR ESTILOS PERSONALIZADOS */
