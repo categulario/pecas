@@ -330,6 +330,10 @@ ul {
 	margin-bottom: -1.25em;
 }
 
+li > .li-manual {
+    margin: 0 0 0 1.5em;
+}
+
 /* Images / Imágenes */
 
 img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no existe el recurso */
