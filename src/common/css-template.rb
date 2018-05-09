@@ -317,7 +317,7 @@ ol {
 }
 
 ul {
-    list-style-type:disc;
+    list-style-type: disc;
 }
 
 .li-manual {    /* It goes in ol or ul / Colocar en el ol o ul */
