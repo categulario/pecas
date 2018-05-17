@@ -22,9 +22,7 @@ general:
   marca_in_1: "("
   marca_in_2: ")"
   ignore: "--ignore--"
-  delete: "--delete--"
   note_content: "--note-content--"
-  change: ["--change", "--"]
   note: ["--note", "--"]
   descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
   analizando: ["Obteniendo información de ", "…"]
