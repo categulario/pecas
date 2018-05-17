@@ -445,7 +445,7 @@ def epub_analisis epub
     return todo
 end
 
-# Convierte el archivo en un hash
+# Convierte el archivo tipo HTML en un hash
 def file_to_hash ruta
     puts "#{$l_g_analizando[0] + File.basename(ruta) + $l_g_analizando[1]}".green
 
@@ -705,61 +705,169 @@ def hash_to_html hash
     return html
 end
 
+# Obtiene un hash a partir de un Markdown, semejante a file_to_hash
 def md_to_hash ruta
+    html = File.extname(ruta) == '.tex' ? false : true
     md = []
 
+    # Obtiene los bloques de texto
     def get_blocks ruta, md
+        raw = []
         md_tmp = []
+        list = false
 
-        # Esta primera iteración obtiene cada bloque de texto
-        tmp = []
+        # Obtiene la información cruda
 	    archivo = File.open(ruta, 'r:UTF-8')
 	    archivo.each do |linea|
+            raw.push(linea.gsub(/\s+$/, ''))
+	    end
+	    archivo.close
+
+        # Obtiene los bloques, pero aún sin analizar las listas
+        tmp = []
+        raw.each_with_index do |linea, i|
             if linea.strip == '' && tmp.length > 0
                 md_tmp.push(tmp)
                 tmp = []
             else
-                tmp.push(linea.gsub(/\s+$/, ''))
+                tmp.push(linea)
             end
-	    end
-	    archivo.close
 
+            if i == raw.length - 1 && linea.strip != ''
+                md_tmp.push(tmp)
+            end
+        end
+
+        # Anida los bloques que en realidad son elementos de una misma lista
         tmp = []
-        ol = false
-        ul = false
-	    md_tmp.each_with_index do |linea, i|
-            def ol_or_ul e
-                initial = e.split(/\s+/).first
+        md_tmp.each_with_index do |block, i|
 
-                if initial[0] =~ /\d/
-                    return 'ol'
-                elsif initial[0] == '*' || initial[0] == '+' || initial[0] == '-'
-                    return 'ul'
-                else
+            # Indica si una línea es parte de una lista (numerada o no)
+            def ol_or_ul e
+                begin
+                    if e =~ /^\d+\.\s+/
+                        return 'ol'
+                    elsif e =~ /^\*\s+/ || e =~ /^\+\s+/ || e =~ /^-\s+/
+                        return 'ul'
+                    end
+
+                    return nil
+                rescue
                     return nil
                 end
             end
 
-            if tmp.length > 0 && ol == false && ul == false
-                md.push(tmp)
-                tmp = []
-            else
-                if linea.strip != ''
-                    tmp.push(linea.gsub(/\s+$/, ''))
+            # Identifica si los elementos de la lista pertenecen al mismo bloque
+            def same_block m, j, foward
+                if foward == true
+                    ev = m[j + 1]
+                else
+                    ev = m[j - 1]
                 end
 
-                if ol_or_ul(linea) != nil && 
+                if j != m.length - 1 && j != 0 && ol_or_ul(m[j].first) != nil && ol_or_ul(ev.first) != nil
+                    if ol_or_ul(m[j].first) == ol_or_ul(ev.first)
+                        return true
+                    else
+                        return false
+                    end
+                end
+
+                return false
             end
-	    end
+
+            # Si el bloque es una lista y tiene un mismo tipo de lista en el bloque siguiente o en el anterior, se va guardando
+            if ol_or_ul(block.first) != nil && (same_block(md_tmp, i, true) == true || same_block(md_tmp, i, false) == true)
+                block.each do |e|
+                    tmp.push(e)
+                end
+            else
+                # Se añaden los elementos de la lista en un solo bloque
+                if tmp.length > 0
+                    md.push(tmp)
+                    tmp = []
+                end                
+
+                # Se añade el bloque
+                md.push(block)
+            end
+        end
 
         return md
     end
 
+    def translate_blocks md, html
+        md_new = []
+        blocks = [
+            ['h1', /^#[^#]/],
+            ['h2', /^##[^#]/],
+            ['h3', /^###[^#]/],
+            ['h4', /^####[^#]/],
+            ['h5', /^#####[^#]/],
+            ['h6', /^######[^#]/],
+            ['blockquote', /^\s*>\s*/],
+        ]
+
+        md.each do |block|
+            blocks.each do |e|
+                if block.first =~ e[1]
+                    tmp = []
+
+                    block.each do |l|
+                        tmp.push(l.gsub(e[1],''))
+                    end
+
+                    # Obtiene clases o identificadores de bloques
+                    if block.last =~ /^.*?{(.+?)}\s*$/
+                        classes_or_ids = block.last.gsub(/^.*?{(.+?)}\s*$/, '\1').split(/\s+/)
+                        classes = []
+                        ids = []
+
+                        # Pasa del conjunto de elementos de un tipo al literal para el HTML
+                        def add type, array
+                            if array.length > 0
+                                return type + '="' + array.join(' ') + '"'
+                            end
+                            return ''
+                        end
+
+                        # Indaga si es clase o identificador
+                        classes_or_ids.each do |coi|
+                            if coi[0] == '.'
+                                classes.push(coi[1..-1])
+                            elsif coi[0] == '#'
+                                ids.push(coi[1..-1])
+                            end
+                        end
+
+                        class_style = add('class', classes)
+                        id_style = add('id', ids)
+                    end
+
+                    if e[0] =~ /^h/
+
+                        if id_style != ''
+                            id = transliterar(tmp.join(' ')).gsub('_', '-')
+                        else
+                            id = id_style
+                        end
+puts id
+
+                        md_new.push('<' + e[0] + '>' + tmp.join(' ') + '</' + e[0] + '>')
+                    elsif e[0] == 'blockquote'
+                        md_new.push('<' + e[0] + '><p>' + tmp.join(' ') + '</p></' + e[0] + '>')
+                    end
+                end
+            end
+        end
+
+#        puts md_new
+    end
+
     md = get_blocks(ruta, md)
+    md = translate_blocks(md, html)
 
-    puts md[13], md[13].class, md.length
-
-    return 'Hola'
+    return md
 end
 
 # Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583

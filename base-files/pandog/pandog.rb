@@ -91,10 +91,15 @@ end
 valid_ext_o
 
 # Indaga si se hará conversión nativa o a través de Pandoc
+# MD => HTML / HTM / XHTML / XML
 if $ext_i == '.md' && ($ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
-    md_to_hash($pandog_i)
+    puts $l_pg_iniciando
+    hash = md_to_hash($pandog_i)
+# JSON => MD / HTML / HTM / XHTML / XML
 elsif $ext_i == ".json" && ($ext_o == ".md" || $ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
+    puts $l_pg_iniciando
     json_to_html_md
+# Resto
 else
     puts $l_pg_iniciando_pandoc
 
