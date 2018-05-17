@@ -705,6 +705,63 @@ def hash_to_html hash
     return html
 end
 
+def md_to_hash ruta
+    md = []
+
+    def get_blocks ruta, md
+        md_tmp = []
+
+        # Esta primera iteración obtiene cada bloque de texto
+        tmp = []
+	    archivo = File.open(ruta, 'r:UTF-8')
+	    archivo.each do |linea|
+            if linea.strip == '' && tmp.length > 0
+                md_tmp.push(tmp)
+                tmp = []
+            else
+                tmp.push(linea.gsub(/\s+$/, ''))
+            end
+	    end
+	    archivo.close
+
+        tmp = []
+        ol = false
+        ul = false
+	    md_tmp.each_with_index do |linea, i|
+            def ol_or_ul e
+                initial = e.split(/\s+/).first
+
+                if initial[0] =~ /\d/
+                    return 'ol'
+                elsif initial[0] == '*' || initial[0] == '+' || initial[0] == '-'
+                    return 'ul'
+                else
+                    return nil
+                end
+            end
+
+            if tmp.length > 0 && ol == false && ul == false
+                md.push(tmp)
+                tmp = []
+            else
+                if linea.strip != ''
+                    tmp.push(linea.gsub(/\s+$/, ''))
+                end
+
+                if ol_or_ul(linea) != nil && 
+            end
+	    end
+
+        return md
+    end
+
+    md = get_blocks(ruta, md)
+
+    puts md[13], md[13].class, md.length
+
+    return 'Hola'
+end
+
 # Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583
 def obtener_caracter hexnum
     char = ''
