@@ -785,52 +785,41 @@ def md_to_html ruta
         # Traduce las listas
         def translate_li array
             attribute = attributes(get_classes_ids(array))
-            type = array.first =~ /^\d+/ ? /(\d+\.\s+)/ : /(\*\s+|\+\s+|-\s+)/
             style = array.last =~ /@type/ ? array.last.gsub(/.*@type\[(.*?)\].*/, '\1') : nil
             new_array = array.map{ |e| e.gsub(/^(@type|{.*?}).*$/,'') } # Elimina la última línea si se trata de type o estilos
 
             # Crea un hash donde se indica el nivel de jerarquía de cada ítem
-            def hierarchy array
-                tmp_array = []
-                final_array = []
+            def hierarchy control_level, array
+                new_array = []
+                hash_s = ''
                 level = 0
 
-                # Va anidando el nivel, creando un hash
-                def get_level level, string
-                    space = /^\s{2}/
+                def create_obj e, level
+                    attribute = attributes(get_classes_ids([e.strip]))
+                    type = e.strip.split(/\s+/)[0][0] =~ /\d/ ? 'ol' : 'ul'
+                    text = e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,'')
+                    obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
 
-                    if string !~ space
-                        return {'level' => level, 'item' => string.gsub(/^\S*\s*/, '').strip}
-                    else
-                        get_level(level + 1, string.gsub(space, '').gsub(/^\s(\S)/, '\1'))
-                    end
+                    return obj
                 end
 
-                # Itera para obtener los niveles
+                def obtain_level e, level
+                    spaces = e.gsub(/^(\s*)?[^\s].*$/, '\1').length
+
+                    if spaces / 2 > level
+                        level = level + 1
+                    elsif spaces / 2 < level
+                        level = level - 1
+                    end
+
+                    return level
+                end
+
                 array.each do |e|
-                    tmp_array.push(get_level(level, e))
-                end
+                    level = obtain_level(e, level)
+                    obj = create_obj(e, level)
 
-                # El conjunto final anidará los ítem del mismo nivel sin romper su orden de aparición
-                final_array.push({'level' => level, 'items' => []})
-
-                # Itera para proseguir con el anidamiento final
-                tmp_array.each do |e|
-                    if level != e['level']
-                        level = e['level']
-                        final_array.push({'level' => level, 'items' => []})
-                    end
-
-                    final_array.last['items'].push(e['item'])
-                end
-
-                return final_array
-            end
-
-            def nested array
-                new_array = []
-
-                array.each do |hash|
+                    puts obj
                 end
 
                 return new_array
@@ -840,10 +829,9 @@ def md_to_html ruta
             new_array = new_array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*)).*)/, ' \1').split("\n")
 
             # Obtiene la jerarquía
-            new_array = hierarchy(new_array)
-
-            new_array = nested(new_array)
-
+            new_array = hierarchy(0, new_array)
+puts ''
+#puts '', JSON.pretty_generate(new_array)
 #puts '', new_array
         end
 
