@@ -94,7 +94,7 @@ valid_ext_o
 # MD => HTML / HTM / XHTML / XML
 if $ext_i == '.md' && ($ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
     puts $l_pg_iniciando
-    hash = md_to_hash($pandog_i)
+    html = md_to_html($pandog_i)
 # JSON => MD / HTML / HTM / XHTML / XML
 elsif $ext_i == ".json" && ($ext_o == ".md" || $ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
     puts $l_pg_iniciando

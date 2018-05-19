@@ -705,169 +705,318 @@ def hash_to_html hash
     return html
 end
 
-# Obtiene un hash a partir de un Markdown, semejante a file_to_hash
-def md_to_hash ruta
-    html = File.extname(ruta) == '.tex' ? false : true
+# Traduce de un MD al contenido del body de un html
+def md_to_html ruta
     md = []
 
-    # Obtiene los bloques de texto
-    def get_blocks ruta, md
-        raw = []
-        md_tmp = []
-        list = false
+    def translate_blocks md
+        translated_md = []
 
-        # Obtiene la información cruda
-	    archivo = File.open(ruta, 'r:UTF-8')
-	    archivo.each do |linea|
-            raw.push(linea.gsub(/\s+$/, ''))
-	    end
-	    archivo.close
+        # Traduce los saltos de línea forzados
+        def line_break array
+            new_array = []
 
-        # Obtiene los bloques, pero aún sin analizar las listas
-        tmp = []
-        raw.each_with_index do |linea, i|
-            if linea.strip == '' && tmp.length > 0
-                md_tmp.push(tmp)
-                tmp = []
-            else
-                tmp.push(linea)
+            array.each do |e|
+                new_array.push(e.gsub(/\\$/, '<br/>'))
             end
 
-            if i == raw.length - 1 && linea.strip != ''
-                md_tmp.push(tmp)
+            return new_array
+        end
+
+        # Traduce atributos HTML para clases y encabezados
+        def attributes class_id, header = false
+            attributes = ''
+            classes = ''
+            id = ''
+
+            # Obtiene el id como texto
+            if class_id != nil && class_id['id'] != nil
+                id = class_id['id']
+            else
+                if header != false
+                    id = transliterar(header.gsub(/<.*?>/,'')).gsub('_', '-').gsub('--', '-')
+                end
+            end
+
+            # Obtiene las clases como texto
+            if class_id != nil && class_id['class'] != nil
+                classes = class_id['class'].join(' ')
+            end
+
+            # Añade id y clases como texto
+            attributes = (id.length > 0 ? ' id="' + id + '"' : '') + (classes.length > 0 ? ' class="' + classes + '"' : '')
+        end
+
+        # Traduce los encabezados
+        def translate_h array
+            text = line_break(array)
+            text = text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,'')
+            header = array.first.gsub(/^(#*).*$/, '\1').length.to_s
+            attribute = attributes(get_classes_ids(array), text)
+
+            # Regresa la traducción, es necesario que existe algo de texto
+            if text.length > 0
+                return '<h' + header + attribute + '>' + text + '</h' + header + '>'
+            else
+                return ''
             end
         end
 
-        # Anida los bloques que en realidad son elementos de una misma lista
-        tmp = []
-        md_tmp.each_with_index do |block, i|
+        # Traduce los bloques de cita
+        def translate_blockquote array
+            attribute = attributes(get_classes_ids(array))
 
-            # Indica si una línea es parte de una lista (numerada o no)
-            def ol_or_ul e
-                begin
-                    if e =~ /^\d+\.\s+/
-                        return 'ol'
-                    elsif e =~ /^\*\s+/ || e =~ /^\+\s+/ || e =~ /^-\s+/
-                        return 'ul'
-                    end
-
-                    return nil
-                rescue
-                    return nil
-                end
+            # Un nuevo conjunto que elimina sintaxis de Markdown para los bloques de cita
+            new_array = []
+            array.each do |l|
+                new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{.*?}\s*$/,''))
             end
 
-            # Identifica si los elementos de la lista pertenecen al mismo bloque
-            def same_block m, j, foward
-                if foward == true
-                    ev = m[j + 1]
-                else
-                    ev = m[j - 1]
-                end
+            text = line_break(new_array).join(' ')
 
-                if j != m.length - 1 && j != 0 && ol_or_ul(m[j].first) != nil && ol_or_ul(ev.first) != nil
-                    if ol_or_ul(m[j].first) == ol_or_ul(ev.first)
-                        return true
+            # Regresa la traducción, es necesario que existe algo de texto
+            if text.length > 0
+                return '<blockquote' + attribute + '><p>' + text + '</p></blockquote>'
+            else
+                return ''
+            end
+        end
+
+        # Traduce las listas
+        def translate_li array
+            attribute = attributes(get_classes_ids(array))
+            type = array.first =~ /^\d+/ ? /(\d+\.\s+)/ : /(\*\s+|\+\s+|-\s+)/
+            style = array.last =~ /@type/ ? array.last.gsub(/.*@type\[(.*?)\].*/, '\1') : nil
+            new_array = array.map{ |e| e.gsub(/^(@type|{.*?}).*$/,'') } # Elimina la última línea si se trata de type o estilos
+
+            # Crea un hash donde se indica el nivel de jerarquía de cada ítem
+            def hierarchy array
+                tmp_array = []
+                final_array = []
+                level = 0
+
+                # Va anidando el nivel, creando un hash
+                def get_level level, string
+                    space = /^\s{2}/
+
+                    if string !~ space
+                        return {'level' => level, 'item' => string.gsub(/^\S*\s*/, '').strip}
                     else
-                        return false
+                        get_level(level + 1, string.gsub(space, '').gsub(/^\s(\S)/, '\1'))
                     end
                 end
 
-                return false
+                # Itera para obtener los niveles
+                array.each do |e|
+                    tmp_array.push(get_level(level, e))
+                end
+
+                # El conjunto final anidará los ítem del mismo nivel sin romper su orden de aparición
+                final_array.push({'level' => level, 'items' => []})
+
+                # Itera para proseguir con el anidamiento final
+                tmp_array.each do |e|
+                    if level != e['level']
+                        level = e['level']
+                        final_array.push({'level' => level, 'items' => []})
+                    end
+
+                    final_array.last['items'].push(e['item'])
+                end
+
+                return final_array
             end
 
-            # Si el bloque es una lista y tiene un mismo tipo de lista en el bloque siguiente o en el anterior, se va guardando
-            if ol_or_ul(block.first) != nil && (same_block(md_tmp, i, true) == true || same_block(md_tmp, i, false) == true)
-                block.each do |e|
-                    tmp.push(e)
-                end
-            else
-                # Se añaden los elementos de la lista en un solo bloque
-                if tmp.length > 0
-                    md.push(tmp)
-                    tmp = []
-                end                
+            def nested array
+                new_array = []
 
-                # Se añade el bloque
-                md.push(block)
+                array.each do |hash|
+                end
+
+                return new_array
+            end
+
+            # Mete las líneas de texto que forman parte de un ítem
+            new_array = new_array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*)).*)/, ' \1').split("\n")
+
+            # Obtiene la jerarquía
+            new_array = hierarchy(new_array)
+
+            new_array = nested(new_array)
+
+#puts '', new_array
+        end
+
+        # Traduce las imágenes
+        def translate_img array
+            attribute = attributes(get_classes_ids(array))
+            url = array.join('').gsub(/.*\((.*?)\).*$/,'\1')
+            text = array.join('').gsub(/.*\[(.*?)\].*$/,'\1')
+            src = url.length > 0 ? ' src="' + url + '"' : ''
+            alt = text.length > 0 ? ' alt="' + text + '"' : ''
+
+            # Según si hay pie de foto o no, es la estructura de la imagen
+            if text.length > 0
+                return '<figure><img' + attribute + src + alt + '/><figcaption>' + text + '</figcaption></figure>'
+            else
+                return '<img' + attribute + src + alt + '/>'
             end
         end
 
-        return md
-    end
+        # Traduce los bloques de código
+        def translate_pre array
+            attribute = attributes(get_classes_ids(array))
+            new_class = array.first.gsub(/```/, '').strip
+            text = ''
 
-    def translate_blocks md, html
-        md_new = []
-        blocks = [
-            ['h1', /^#[^#]/],
-            ['h2', /^##[^#]/],
-            ['h3', /^###[^#]/],
-            ['h4', /^####[^#]/],
-            ['h5', /^#####[^#]/],
-            ['h6', /^######[^#]/],
-            ['blockquote', /^\s*>\s*/],
-        ]
+            # Acomoda el atributo para añadir una nueva clase si es que se especificó el tipo de bloque de código
+            if attribute.length > 0
+                attribute = attribute.split('class="')[0] + 'class="' + new_class + ' ' + attribute.split('class="')[1]
+            else
+                attribute = ' class="' + new_class + '"'
+            end
+
+            # Todo se anida en un <pre> y sus hijos empiezan con <code> donde cada uno tiene la clase «code-line-x», siendo x el número de línea
+            array.each_with_index do |e, i|
+                if i == 0
+                    text = '<pre' + attribute + '>'
+                elsif i == array.length - 1
+                    text += '</pre>'
+                else
+                    text += '<code class="code-line-' + i.to_s + '">' + e.gsub('<', '&lt;').gsub('>', '&gt;') + '</code>'
+                end
+            end
+
+            return text
+        end
+
+        # Traduce las barras horizontales
+        def translate_hr array
+            attribute = attributes(get_classes_ids(array))
+
+            return '<hr' + attribute + '/>'
+        end
+
+        # Traduce los párrafos
+        def translate_p array
+            attribute = attributes(get_classes_ids(array, true))
+            new_array = []
+
+            # Elimina todo espacio al inicio y al final
+            array.each do |e|
+                new_array.push(e.strip)
+            end
+
+#===>       # OJO: el translate_inline se tendrá que pasar antes del gsub, para evitar perder atributos para enlaces o <span>
+            text = line_break(new_array).join(' ').gsub(/\s*{.*?}\s*$/,'')
+
+            # Según si hay pie de foto o no, es la estructura de la imagen
+            if text.length > 0
+                return '', '<p' + attribute + '>' + text + '</p>'
+            else
+                return ''
+            end
+        end
 
         md.each do |block|
-            blocks.each do |e|
-                if block.first =~ e[1]
-                    tmp = []
+            # Si es encabezado
+            if block.first =~ /^#/
+                text = translate_h(block)
+            # Si es bloque de cita
+            elsif block.first =~  /^>/
+                text = translate_blockquote(block)
+            # Si es lista
+            elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+)/
+                text = translate_li(block)
+            # Si es imagen
+            elsif block.first =~ /^\!\[.*?\]\(.*?\)/
+                text = translate_img(block)
+            # Si es bloque de código
+            elsif block.first =~ /^```/
+                text = translate_pre(block)
+            # Si es barra horizontal
+            elsif block.first =~ /^---(\s*{.*?}\s*|\s*)$/
+                text = translate_hr(block)
+            # Si es HTML
+            elsif block.first =~ /^\s*<.*?>\s*$/
+                text = block.join('')
+            # Si es párrafo
+            else
+                text = translate_p(block)
+            end
 
-                    block.each do |l|
-                        tmp.push(l.gsub(e[1],''))
-                    end
-
-                    # Obtiene clases o identificadores de bloques
-                    if block.last =~ /^.*?{(.+?)}\s*$/
-                        classes_or_ids = block.last.gsub(/^.*?{(.+?)}\s*$/, '\1').split(/\s+/)
-                        classes = []
-                        ids = []
-
-                        # Pasa del conjunto de elementos de un tipo al literal para el HTML
-                        def add type, array
-                            if array.length > 0
-                                return type + '="' + array.join(' ') + '"'
-                            end
-                            return ''
-                        end
-
-                        # Indaga si es clase o identificador
-                        classes_or_ids.each do |coi|
-                            if coi[0] == '.'
-                                classes.push(coi[1..-1])
-                            elsif coi[0] == '#'
-                                ids.push(coi[1..-1])
-                            end
-                        end
-
-                        class_style = add('class', classes)
-                        id_style = add('id', ids)
-                    end
-
-                    if e[0] =~ /^h/
-
-                        if id_style != ''
-                            id = transliterar(tmp.join(' ')).gsub('_', '-')
-                        else
-                            id = id_style
-                        end
-puts id
-
-                        md_new.push('<' + e[0] + '>' + tmp.join(' ') + '</' + e[0] + '>')
-                    elsif e[0] == 'blockquote'
-                        md_new.push('<' + e[0] + '><p>' + tmp.join(' ') + '</p></' + e[0] + '>')
-                    end
-                end
+            # Solo se añade si hay texto
+            if text != nil && text.length > 0
+                translated_md.push(text)
             end
         end
 
-#        puts md_new
+        return translated_md
     end
 
     md = get_blocks(ruta, md)
-    md = translate_blocks(md, html)
+    md = translate_blocks(md)
 
     return md
+end
+
+# Obtiene los bloques de un Markdown
+def get_blocks ruta, md
+    raw = []
+    list = false
+
+    # Obtiene la información cruda
+	    archivo = File.open(ruta, 'r:UTF-8')
+	    archivo.each do |linea|
+        raw.push(linea.gsub(/\s+$/, ''))
+	    end
+	    archivo.close
+
+    # Obtiene los bloques, pero aún sin analizar las listas
+    tmp = []
+    raw.each_with_index do |linea, i|
+        if linea.strip == '' && tmp.length > 0
+            md.push(tmp)
+            tmp = []
+        else
+            tmp.push(linea)
+        end
+
+        if i == raw.length - 1 && linea.strip != ''
+            md.push(tmp)
+        end
+    end
+
+    return md
+end
+
+# Obtiene las clases o identificadores de un bloque de Markdown
+def get_classes_ids array, space = false
+    # Solo si encuentra las llaves al final del bloque
+    if array.last =~ /\s*{.*?}\s*$/
+        elements = array.last.gsub(/.*{(.*?)}\s*/, '\1').split(/\s+/)
+        classes = []
+        ids = []
+
+        # Separa entre classes e identificadores y les quita el punto o el gato
+        elements.each do |e|
+            if e[0] == '.'
+                classes.push(e[1..-1])
+            elsif e[0] == '#'
+                ids.push(e[1..-1])
+            end
+        end
+
+        # Regresa nulo si no se encontraron classes o ids
+        if classes.length == 0 && ids.length == 0
+            return nil
+        end
+
+        # Si todo salió bien, regresa un objeto con las llaves «class» e «id».
+        return {'class' => classes, 'id' => ids[0]}
+    end
+
+    return nil
 end
 
 # Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583
