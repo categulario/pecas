@@ -789,11 +789,15 @@ def md_to_html ruta
             new_array = array.map{ |e| e.gsub(/^(@type|{.*?}).*$/,'') } # Elimina la última línea si se trata de type o estilos
 
             # Crea un hash donde se indica el nivel de jerarquía de cada ítem
-            def hierarchy control_level, array
+            def hierarchy control_level, array, style, attribute
+                tmp_array = []
                 new_array = []
+                opens = []
                 hash_s = ''
                 level = 0
+                control_level = 0
 
+                # De cada elemento crea un objeto que indica el nivel, tipo y contenido (incluyendo atributos) del ítem
                 def create_obj e, level
                     attribute = attributes(get_classes_ids([e.strip]))
                     type = e.strip.split(/\s+/)[0][0] =~ /\d/ ? 'ol' : 'ul'
@@ -803,9 +807,11 @@ def md_to_html ruta
                     return obj
                 end
 
+                # Obtiene el nivel actual del ítem
                 def obtain_level e, level
                     spaces = e.gsub(/^(\s*)?[^\s].*$/, '\1').length
 
+                    # Evita aumentar niveles más allá de la diferencia de uno por aquello de una mala redacción de la sintaxis
                     if spaces / 2 > level
                         level = level + 1
                     elsif spaces / 2 < level
@@ -815,12 +821,51 @@ def md_to_html ruta
                     return level
                 end
 
+                # Guarda temporalmente un conjunto con cada uno de los ítems como objetos
                 array.each do |e|
                     level = obtain_level(e, level)
                     obj = create_obj(e, level)
 
-                    puts obj
+                    tmp_array.push(obj)
                 end
+
+                # Inicia la creación de la lista
+                new_array.push('<' + tmp_array.first['type'] + attribute + (style != nil ? ' style="list-style-type:' + style+ ' !important"' : '') + '>')
+
+                # Añade los contenidos de la lista
+                tmp_array.each do |e|
+
+                    # Si se trata de un nivel distinto
+                    if control_level != e['level']
+
+                        # Siel nuevo nivel es mayor
+                        if control_level < e['level']
+                            new_array.push('<' + e['type'] + '>')
+
+                            # Añade el tipo de lista a un conjunto para tener control en su cierre
+                            opens.push(e['type'])
+                        # Si el nuevo nivel es menor
+                        else
+                            new_array.push('</' + opens.last + '>')
+
+                            # Elimina el último tipo, porque ya fue utilizado
+                            opens = opens[0..-2]
+                        end
+
+                        # Añade el contenido del ítem
+                        new_array.push(e['item'])
+
+                        # Actualiza el controlador de nivel
+                        control_level = e['level']
+                    # Si es el mismo nivel
+                    else
+                        # Añade el contenido del ítem
+                        new_array.push(e['item'])
+                    end
+                end
+
+                # Finaliza la creación de lista
+                new_array.push('</' + tmp_array.first['type'] + '>')
 
                 return new_array
             end
@@ -829,10 +874,7 @@ def md_to_html ruta
             new_array = new_array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*)).*)/, ' \1').split("\n")
 
             # Obtiene la jerarquía
-            new_array = hierarchy(0, new_array)
-puts ''
-#puts '', JSON.pretty_generate(new_array)
-#puts '', new_array
+            new_array = hierarchy(0, new_array, style, attribute)
         end
 
         # Traduce las imágenes
