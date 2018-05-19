@@ -67,9 +67,9 @@ def md_to_html
 		    if linea =~ /epub:type/ && File.extname(s_nombre_final) == ".xml"
 			    linea = linea.split(/\s/)[0] + ">"
 		    end
-		    
+
 		    # Sustituye de nuevo los guiones de la sintaxis de Pecas
-		    pecas = [$l_g_note_content, $l_g_ignore, $l_g_delete, $l_g_change, $l_g_note]
+		    pecas = [$l_g_note_content, $l_g_ignore, $l_g_note]
 
 		    pecas.each do |s|
 			    if s.class == Array

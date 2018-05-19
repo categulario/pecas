@@ -221,11 +221,11 @@ end
 # Obtiene el directorio donde se encuentra el archivo para uso directo en el sistema
 def directorioPadreTerminal archivo
 
+    directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
+
 	if OS.windows?
-		directorio = (arregloRuta(archivo).split("/"))[0..-2].join("/")
 		directorio = '"' + directorio + '"'
 	else
-		directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 		directorio = directorio.gsub(/\s/, "\\ ")
 	end
 	
