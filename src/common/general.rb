@@ -790,8 +790,6 @@ def md_to_html ruta
             def hierarchy control_level, array
                 tmp_array = []
                 new_array = []
-                opens = []
-                hash_s = ''
                 level = 0
                 control_level = 0
 
@@ -802,7 +800,26 @@ def md_to_html ruta
 
                     # Si el objeto es un tipo de lista
                     if e =~ /^\s*(@type|{.*?})/
-                        style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'') != '' ? ' style="list-style-type: ' + e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'') + ' !important"' : ''
+                        raw_style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'')
+                        style = raw_style != '' ? ' style="list-style-type: ' + raw_style + ' !important"' : ''
+
+                        # Si se trata de un estilo dash, en-dash o em-dash, desplaza el estilo a los atributos
+                        if style =~ /dash/
+                            style = ''
+                            attr_split = attribute.split(' class="')
+
+                            # Cuando en el atributo contiene clases
+                            if attr_split.length == 2
+                                attribute = attr_split[0] + ' class="' + raw_style + ' ' + attr_split[1]
+                            # Cuando en el atributo solo hay id
+                            elsif attr_split.length == 1
+                                attribute = attr_split[0] + ' class="' + raw_style + '"'
+                            # Cuando no hay ningún atributo
+                            elsif attr_split.length == 0
+                                attribute = ' class="' + raw_style + '"'
+                            end
+                        end
+
                         obj = {'style' => style, 'attribute' => attribute}
                     # Si el objeto es un ítem de lista
                     else
@@ -822,7 +839,7 @@ def md_to_html ruta
                         if spaces / 2 > level
                             level = level + 1
                         elsif spaces / 2 < level
-                            level = level - 1
+                            level = (spaces / 2).to_i
                         end
 
                         return level
@@ -847,6 +864,7 @@ def md_to_html ruta
                 end
 
                 # Añade los contenidos de la lista
+                opens = []
                 counter = false
                 tmp_array.each_with_index do |e, i|
 
@@ -868,10 +886,19 @@ def md_to_html ruta
 
                             # Si el nuevo nivel es menor
                             else
-                                new_array.push('</' + opens.last + '>')
 
-                                # Elimina el último tipo, porque ya fue utilizado
-                                opens = opens[0..-2]
+                                # Añade la etiqueta final
+                                def add_end a, o
+                                    a.push('</' + o.last + '>')
+
+                                    # Elimina el último tipo, porque ya fue utilizado
+                                    return o[0..-2]
+                                end
+
+                                ends = (control_level - e['level']).abs
+                                for j in 1..ends
+                                    opens = add_end(new_array, opens)
+                                end
                             end
 
                             # Añade el contenido del ítem
@@ -891,6 +918,12 @@ def md_to_html ruta
                             opens.push(tmp_array[i + 1]['type'])
                             counter = true
                         end
+                    end
+                end
+
+                if opens.length > 0
+                    opens.each do |o|
+                        new_array.push('</' + o+ '>')
                     end
                 end
 
