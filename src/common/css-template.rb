@@ -351,7 +351,7 @@ li.no-count {
 }
 
 li.no-count:before {
-    content: none;
+    content: none !important;
 }
 
 /* Images / Imágenes */
