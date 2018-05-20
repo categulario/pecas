@@ -750,6 +750,7 @@ def md_to_html ruta
         # Traduce los encabezados
         def translate_h array
             text = line_break(array)
+#===v
             text = text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,'')
             header = array.first.gsub(/^(#*).*$/, '\1').length.to_s
             attribute = attributes(get_classes_ids(array), text)
@@ -772,6 +773,7 @@ def md_to_html ruta
                 new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{.*?}\s*$/,''))
             end
 
+#===v
             text = line_break(new_array).join(' ')
 
             # Regresa la traducción, es necesario que existe algo de texto
@@ -823,6 +825,7 @@ def md_to_html ruta
                         obj = {'style' => style, 'attribute' => attribute}
                     # Si el objeto es un ítem de lista
                     else
+#===v
                         text = e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,'')
                         obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
                     end
@@ -942,13 +945,13 @@ def md_to_html ruta
 
             # Obtiene la jerarquía
             new_array = hierarchy(0, array)
-puts '', new_array
         end
 
         # Traduce las imágenes
         def translate_img array
             attribute = attributes(get_classes_ids(array))
             url = array.join('').gsub(/.*\((.*?)\).*$/,'\1')
+#===v
             text = array.join('').gsub(/.*\[(.*?)\].*$/,'\1')
             src = url.length > 0 ? ' src="' + url + '"' : ''
             alt = text.length > 0 ? ' alt="' + text + '"' : ''

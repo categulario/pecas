@@ -346,8 +346,6 @@ ul.em-dash > li:before {
 
 li.no-count {
     list-style-type: none;
-    margin: -1em auto;
-    counter-reset: none;
 }
 
 li.no-count:before {
