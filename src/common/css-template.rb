@@ -350,6 +350,10 @@ li.no-count {
     counter-reset: none;
 }
 
+li.no-count:before {
+    content: none;
+}
+
 /* Images / Imágenes */
 
 img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no existe el recurso */
