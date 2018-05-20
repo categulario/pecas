@@ -320,18 +320,28 @@ ul {
     list-style-type: disc;
 }
 
-.li-manual {    /* It goes in ol or ul / Colocar en el ol o ul */
+ul.dash, ul.en-dash, ul.em-dash {
     list-style-type: none;
 }
 
-.li-manual > li > p:first-child > span:first-of-type {    /* It goes in li / Colocar en el li: <li><p><span>[viñeta o numeración deseada]</span>... */
-	display: block;
-	margin-left: -1.5em;
-	margin-bottom: -1.25em;
+ul.dash > li:before, ul.en-dash > li:before, ul.em-dash > li:before {
+    display: block;
+    width: 1.5em;
+    text-align: right;
+    padding: 0 .5em 0 0;
+    margin: 0 0 -1.25em -2em;
 }
 
-li > .li-manual {
-    margin: 0 0 0 1.5em;
+ul.dash > li:before {
+    content: \"-\";
+}
+
+ul.en-dash > li:before {
+    content: \"–\";
+}
+
+ul.em-dash > li:before {
+    content: \"—\";
 }
 
 /* Images / Imágenes */

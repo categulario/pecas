@@ -31,14 +31,16 @@ diversas clases comunes a un libro:
 * `indent` / `sangria`. Fuerza una sangría.
 * `no-indent` / `sin-sangria`. Evita una sangría.
 * `no-hyphens` / `sin-separacion`. Evita la separación silábica; por defecto el texto tiene separación silábica, excepto en los encabezados.
-* `invisible` / `invisible`. Invisibiliza un contenido, aunque respeta su espacio en el contenido.
+* `invisible`. Invisibiliza un contenido, aunque respeta su espacio en el contenido.
 * `hidden` / `oculto`. Oculta un contenido, no abarca espacio en el contenido.
 * `block` / `bloque`. Despliega una etiqueta como bloque.
 * `initial` / `capitular`. Añade una letra capitular.
 * `uppercase` / `versal`. Muestra el texto en mayúsculas.
 * `normal` / `redonda`. Fuerza texto en redondas.
 * `smallcap` / `versalita`. Muestra el texto en versalitas.
-* `li-manual` / `li-manual`. Permite un listado con elementos manuales.
+* `dash`. Permite un listado no ordenado con guiones como demarcadores.
+* `en-dash`. Permite un listado no ordenado con signos de menos como demarcadores.
+* `em-dash`. Permite un listado no ordenado con rayas como demarcadores.
 * `caption` / `leyenda`. Da estilo a los pie de imagen.
 * `gloss` / `glosa`. Da estilo a las notas que van en los márgenes.
 * `poem` / `poema`. Permite identificar los párrafos que funcionan como estrofas.
