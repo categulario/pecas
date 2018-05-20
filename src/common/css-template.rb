@@ -344,6 +344,12 @@ ul.em-dash > li:before {
     content: \"—\";
 }
 
+li.no-count {
+    list-style-type: none;
+    margin: -1em auto;
+    counter-reset: none;
+}
+
 /* Images / Imágenes */
 
 img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no existe el recurso */
