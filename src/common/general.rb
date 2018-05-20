@@ -878,7 +878,7 @@ def md_to_html ruta
 
                                 # Añade el tipo de lista a un conjunto para tener control en su cierre
                                 if counter == false
-                                    new_array.push('<' + e['type'] + '>')
+                                    new_array.push('<li><' + e['type'] + '>')
                                     opens.push(e['type'])
                                 else
                                     counter = false
@@ -889,7 +889,7 @@ def md_to_html ruta
 
                                 # Añade la etiqueta final
                                 def add_end a, o
-                                    a.push('</' + o.last + '>')
+                                    a.push('</' + o.last + '></li>')
 
                                     # Elimina el último tipo, porque ya fue utilizado
                                     return o[0..-2]
@@ -914,7 +914,7 @@ def md_to_html ruta
                     # Si es un tipo de lista que no es para la primera jerarquía
                     else
                         if i > 0
-                            new_array.push('<' + tmp_array[i + 1]['type'] + e['attribute'] + e['style'] + '>')
+                            new_array.push('<li><' + tmp_array[i + 1]['type'] + e['attribute'] + e['style'] + '>')
                             opens.push(tmp_array[i + 1]['type'])
                             counter = true
                         end
@@ -923,7 +923,7 @@ def md_to_html ruta
 
                 if opens.length > 0
                     opens.each do |o|
-                        new_array.push('</' + o+ '>')
+                        new_array.push('</' + o+ '></li>')
                     end
                 end
 
