@@ -221,11 +221,11 @@ end
 # Obtiene el directorio donde se encuentra el archivo para uso directo en el sistema
 def directorioPadreTerminal archivo
 
+    directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
+
 	if OS.windows?
-		directorio = (arregloRuta(archivo).split("/"))[0..-2].join("/")
 		directorio = '"' + directorio + '"'
 	else
-		directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
 		directorio = directorio.gsub(/\s/, "\\ ")
 	end
 	
@@ -784,12 +784,10 @@ def md_to_html ruta
 
         # Traduce las listas
         def translate_li array
-            attribute = attributes(get_classes_ids(array))
-            style = array.last =~ /@type/ ? array.last.gsub(/.*@type\[(.*?)\].*/, '\1') : nil
-            new_array = array.map{ |e| e.gsub(/^(@type|{.*?}).*$/,'') } # Elimina la última línea si se trata de type o estilos
+            new_array = []
 
             # Crea un hash donde se indica el nivel de jerarquía de cada ítem
-            def hierarchy control_level, array, style, attribute
+            def hierarchy control_level, array
                 tmp_array = []
                 new_array = []
                 opens = []
@@ -801,21 +799,33 @@ def md_to_html ruta
                 def create_obj e, level
                     attribute = attributes(get_classes_ids([e.strip]))
                     type = e.strip.split(/\s+/)[0][0] =~ /\d/ ? 'ol' : 'ul'
-                    text = e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,'')
-                    obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
+
+                    # Si el objeto es un tipo de lista
+                    if e =~ /^\s*(@type|{.*?})/
+                        style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'') != '' ? ' style="list-style-type: ' + e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'') + ' !important"' : ''
+                        obj = {'style' => style, 'attribute' => attribute}
+                    # Si el objeto es un ítem de lista
+                    else
+                        text = e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,'')
+                        obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
+                    end
 
                     return obj
                 end
 
                 # Obtiene el nivel actual del ítem
                 def obtain_level e, level
-                    spaces = e.gsub(/^(\s*)?[^\s].*$/, '\1').length
+                    if e !~ /^\s*(@type|{.*?})/
+                        spaces = e.gsub(/^(\s*)?[^\s].*$/, '\1').length
 
-                    # Evita aumentar niveles más allá de la diferencia de uno por aquello de una mala redacción de la sintaxis
-                    if spaces / 2 > level
-                        level = level + 1
-                    elsif spaces / 2 < level
-                        level = level - 1
+                        # Evita aumentar niveles más allá de la diferencia de uno por aquello de una mala redacción de la sintaxis
+                        if spaces / 2 > level
+                            level = level + 1
+                        elsif spaces / 2 < level
+                            level = level - 1
+                        end
+
+                        return level
                     end
 
                     return level
@@ -830,51 +840,76 @@ def md_to_html ruta
                 end
 
                 # Inicia la creación de la lista
-                new_array.push('<' + tmp_array.first['type'] + attribute + (style != nil ? ' style="list-style-type:' + style+ ' !important"' : '') + '>')
+                if tmp_array.first['type'] != nil
+                    new_array.push('<' + tmp_array.first['type'] + '>')
+                else
+                    new_array.push('<' + tmp_array[1]['type'] + tmp_array.first['attribute'] + tmp_array.first['style'] + '>')
+                end
 
                 # Añade los contenidos de la lista
-                tmp_array.each do |e|
+                counter = false
+                tmp_array.each_with_index do |e, i|
 
-                    # Si se trata de un nivel distinto
-                    if control_level != e['level']
+                    # Esto implica que es un ítem, no un tipo de lista
+                    if e['level'] != nil
+                        # Si se trata de un nivel distinto
+                        if control_level != e['level']
 
-                        # Siel nuevo nivel es mayor
-                        if control_level < e['level']
-                            new_array.push('<' + e['type'] + '>')
+                            # Siel nuevo nivel es mayor
+                            if control_level < e['level']
 
-                            # Añade el tipo de lista a un conjunto para tener control en su cierre
-                            opens.push(e['type'])
-                        # Si el nuevo nivel es menor
+                                # Añade el tipo de lista a un conjunto para tener control en su cierre
+                                if counter == false
+                                    new_array.push('<' + e['type'] + '>')
+                                    opens.push(e['type'])
+                                else
+                                    counter = false
+                                end
+
+                            # Si el nuevo nivel es menor
+                            else
+                                new_array.push('</' + opens.last + '>')
+
+                                # Elimina el último tipo, porque ya fue utilizado
+                                opens = opens[0..-2]
+                            end
+
+                            # Añade el contenido del ítem
+                            new_array.push(e['item'])
+
+                            # Actualiza el controlador de nivel
+                            control_level = e['level']
+                        # Si es el mismo nivel
                         else
-                            new_array.push('</' + opens.last + '>')
-
-                            # Elimina el último tipo, porque ya fue utilizado
-                            opens = opens[0..-2]
+                            # Añade el contenido del ítem
+                            new_array.push(e['item'])
                         end
-
-                        # Añade el contenido del ítem
-                        new_array.push(e['item'])
-
-                        # Actualiza el controlador de nivel
-                        control_level = e['level']
-                    # Si es el mismo nivel
+                    # Si es un tipo de lista que no es para la primera jerarquía
                     else
-                        # Añade el contenido del ítem
-                        new_array.push(e['item'])
+                        if i > 0
+                            new_array.push('<' + tmp_array[i + 1]['type'] + e['attribute'] + e['style'] + '>')
+                            opens.push(tmp_array[i + 1]['type'])
+                            counter = true
+                        end
                     end
                 end
 
                 # Finaliza la creación de lista
-                new_array.push('</' + tmp_array.first['type'] + '>')
+                if tmp_array.first['type'] != nil
+                    new_array.push('</' + tmp_array.first['type'] + '>')
+                else
+                    new_array.push('</' + tmp_array[1]['type'] + '>')
+                end
 
                 return new_array
             end
 
             # Mete las líneas de texto que forman parte de un ítem
-            new_array = new_array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*)).*)/, ' \1').split("\n")
+            array = array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*|\s*@type\s*|\s*{.*?}\s*)).*)/, ' \1').split("\n")
 
             # Obtiene la jerarquía
-            new_array = hierarchy(0, new_array, style, attribute)
+            new_array = hierarchy(0, array)
+puts '', new_array
         end
 
         # Traduce las imágenes
@@ -956,7 +991,7 @@ def md_to_html ruta
             elsif block.first =~  /^>/
                 text = translate_blockquote(block)
             # Si es lista
-            elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+)/
+            elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+|@type|{.*?}\s*)/
                 text = translate_li(block)
             # Si es imagen
             elsif block.first =~ /^\!\[.*?\]\(.*?\)/
