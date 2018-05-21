@@ -46,6 +46,41 @@ def valid_ext_o
     end
 end
 
+def standalone_html html
+    # Crea el nuevo archivo oculto donde se pondrán las modificaciones
+    html_nuevo = File.open("#{$pandog_o}", "w:UTF-8")
+
+    # Agrega cabezas
+    if File.extname($ext_o) == ".xml"
+        html_nuevo.puts $xmlTemplateHead
+    else
+        if File.extname($ext_o) == ".xhtml"
+            html_nuevo.puts xhtmlTemplateHead
+        else
+            html_nuevo.puts htmlTemplateHead
+        end
+
+        # Agrega la hoja de estilos minificada
+        html_nuevo.puts "<style>" + $css_template_min + "</style>"
+    end
+
+    # Agrega contenido
+    html_nuevo.puts html
+
+    # Agrega pies
+    if File.extname($ext_o) == ".xml"
+        html_nuevo.puts "</body>"
+    else
+        html_nuevo.puts $xhtmlTemplateFoot
+    end
+	    
+    # Cierra el archivo con las modificaciones
+    html_nuevo.close
+	    
+    # Acomoda los elementos con los espacios correctos
+    beautifier html_nuevo
+end
+
 # Cambios JSON > HTML || MD
 def json_to_html_md
     begin
@@ -95,6 +130,7 @@ valid_ext_o
 if $ext_i == '.md' && ($ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
     puts $l_pg_iniciando
     html = md_to_html($pandog_i)
+    standalone_html(html)
 # JSON => MD / HTML / HTM / XHTML / XML
 elsif $ext_i == ".json" && ($ext_o == ".md" || $ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
     puts $l_pg_iniciando

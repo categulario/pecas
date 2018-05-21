@@ -709,6 +709,93 @@ end
 def md_to_html ruta
     md = []
 
+    def translate_inline text
+
+        regex = [
+            [/(.{0,1})(\*\*\*)(.*?)(\*\*\*)/, 'strong_em'],                 # Negritas e itálicas semánticas
+            [/(.{0,1})(___)(.*?)(___)/, 'b_i'],                             # Negritas e itálicas
+            [/(.{0,1})(\*\*)(.*?)(\*\*)/, 'strong'],                        # Negritas semántica
+            [/(.{0,1})(__)(.*?)(__)/, 'b'],                                 # Negritas
+            [/(.{0,1})(\*)(.*?)(\*)/, 'em'],                                # Itálicas semántica
+            [/(.{0,1})(_)(.*?)(_)/, 'i'],                                   # Itálicas
+            [/(.{0,1})(~~)(.*?)(~~)/, 's'],                                 # Tachado
+            [/(.{0,1})(~)(.*?)(~)/, 'sub'],                                 # Subíndice
+            [/(.{0,1})(\^)(.*?)(\^)/, 'sup'],                               # Superíndice
+            [/(.{0,1})(`)(.*?)(`)/, 'code'],                                # Código
+            [/(.{0,1})(\+\+\+)(.*?)(\+\+\+)/, 'force_sc'],                  # Versalitas
+            [/(.{0,1})(\+\+)(.*?)(\+\+)/, 'sc'],                            # Versalitas ligera
+#==v Presumiblemente conflictivos (¿por guiones bajos?)
+            [/(.{0,1})(\[)([^\[]+?)(\])({.*?})/, 'span'],                   # Span personalizado
+            [/(.{0,1})(\!\[)(([^({.*?})]|.{0})+?)(\]\()(.*?)(\))/, 'img'],  # Imagen
+            [/(.{0,1})(\[)([^({.*?})]+?)(\]\()(.*?)(\))/, 'a'],             # Enlace
+#==^ Presumiblemente conflictivos
+            [/(.{0,1})(----)/, '―'],                                        # Barra
+            [/(.{0,1})(---)/, '—'],                                         # Raya
+            [/(.{0,1})(--)/, '–'],                                          # Signo de menos
+            [/(.{0,1})(\/,)/, '&#8201;'],                                   # Espacio fino
+            [/(.{0,1})(\/\+)/, '&#160;']                                    # Espacio de no separación
+        ]
+
+        regex.each do |rx|
+            if text.scan(rx[0]).length > 0
+                # Si no se está escapando la sintaxis
+                if text.scan(rx[0])[0][0] != '\\'
+
+                    # Añade un atributo a <img>, <a> o <span> si así fue especificado
+                    def add_attr text, min_rx, rx
+
+                        if text =~ rx
+                            text.scan(rx).each do |scan|
+
+                                # Si no es <img> o <a>
+                                if min_rx != 'span'
+                                    attributes = attributes(get_classes_ids([scan[1]]))
+                                    tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
+                                else
+                                    attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
+                                    tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
+                                end
+
+                                text = text.gsub(scan.join(''), tag)
+                            end
+                        end
+
+                        return text
+                    end
+
+                    # Empiezan las sustituciones según el tipo de sintaxis
+                    if rx[1] == 'strong_em'
+                        text = text.gsub(rx[0], '\1' + '<strong><em>' + '\3' + '</em></strong>')
+                    elsif rx[1] == 'b_i'
+                        text = text.gsub(rx[0], '\1' + '<b><i>' + '\3' + '</i></b>')
+                    elsif rx[1] == 'force_sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="versalita">' + '\3' + '</span>')
+                    elsif rx[1] == 'sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="versalita-light">' + '\3' + '</span>')
+                    elsif rx[1] == 'span'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
+                    elsif rx[1] == 'img'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>'), rx[1], /(<img[^<]+?\/>)({.*?})/)
+                    elsif rx[1] == 'a'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\5' + '" target="_blank">' + '\3' + '</a>'), rx[1], /(<a[^<]+?>.*?<\/a>)({.*?})/)
+                    # Sustituciones directas
+                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;'
+                        text = text.gsub(rx[0], '\1' + rx[1])
+                    # Todo lo demás es sustitución «plana» a los tags HTML
+                    else
+                        text = text.gsub(rx[0], '\1' + '<' + rx[1] + '>' + '\3' + '</' + rx[1] + '>')
+                    end
+                # Quita la diagonal inversa del escape
+                else
+                    new_rx = rx[0].to_s.gsub('(?-mix:(.{0,1})', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
+                    text = text.gsub(/\\(#{new_rx})/, '\1')
+                end
+            end
+        end
+
+        return text
+    end
+
     def translate_blocks md
         translated_md = []
 
@@ -750,8 +837,7 @@ def md_to_html ruta
         # Traduce los encabezados
         def translate_h array
             text = line_break(array)
-#===v
-            text = text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,'')
+            text = translate_inline(text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,''))
             header = array.first.gsub(/^(#*).*$/, '\1').length.to_s
             attribute = attributes(get_classes_ids(array), text)
 
@@ -773,8 +859,7 @@ def md_to_html ruta
                 new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{.*?}\s*$/,''))
             end
 
-#===v
-            text = line_break(new_array).join(' ')
+            text = translate_inline(line_break(new_array).join(' '))
 
             # Regresa la traducción, es necesario que existe algo de texto
             if text.length > 0
@@ -825,8 +910,7 @@ def md_to_html ruta
                         obj = {'style' => style, 'attribute' => attribute}
                     # Si el objeto es un ítem de lista
                     else
-#===v
-                        text = e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,'')
+                        text = translate_inline(e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,''))
                         obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
                     end
 
@@ -951,8 +1035,7 @@ def md_to_html ruta
         def translate_img array
             attribute = attributes(get_classes_ids(array))
             url = array.join('').gsub(/.*\((.*?)\).*$/,'\1')
-#===v
-            text = array.join('').gsub(/.*\[(.*?)\].*$/,'\1')
+            text = translate_inline(array.join('').gsub(/.*\[(.*?)\].*$/,'\1'))
             src = url.length > 0 ? ' src="' + url + '"' : ''
             alt = text.length > 0 ? ' alt="' + text + '"' : ''
 
@@ -1008,8 +1091,7 @@ def md_to_html ruta
                 new_array.push(e.strip)
             end
 
-#===>       # OJO: el translate_inline se tendrá que pasar antes del gsub, para evitar perder atributos para enlaces o <span>
-            text = line_break(new_array).join(' ').gsub(/\s*{.*?}\s*$/,'')
+            text = translate_inline(line_break(new_array).join(' ')).gsub(/\s*{.*?}\s*$/,'')
 
             # Según si hay pie de foto o no, es la estructura de la imagen
             if text.length > 0
