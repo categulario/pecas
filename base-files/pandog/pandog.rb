@@ -48,28 +48,28 @@ end
 
 def standalone_html html
     # Crea el nuevo archivo oculto donde se pondrán las modificaciones
-    html_nuevo = File.open("#{$pandog_o}", "w:UTF-8")
+    html_nuevo = File.open($pandog_o, 'w:UTF-8')
 
     # Agrega cabezas
-    if File.extname($ext_o) == ".xml"
+    if $ext_o == '.xml'
         html_nuevo.puts $xmlTemplateHead
     else
-        if File.extname($ext_o) == ".xhtml"
+        if $ext_o == '.xhtml'
             html_nuevo.puts xhtmlTemplateHead
         else
             html_nuevo.puts htmlTemplateHead
         end
 
         # Agrega la hoja de estilos minificada
-        html_nuevo.puts "<style>" + $css_template_min + "</style>"
+        html_nuevo.puts '<style>' + $css_template_min + '</style>'
     end
 
     # Agrega contenido
     html_nuevo.puts html
 
     # Agrega pies
-    if File.extname($ext_o) == ".xml"
-        html_nuevo.puts "</body>"
+    if $ext_o == '.xml'
+        html_nuevo.puts '</body>'
     else
         html_nuevo.puts $xhtmlTemplateFoot
     end

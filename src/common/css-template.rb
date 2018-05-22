@@ -275,7 +275,16 @@ b, strong {
 	 font-variant: none;
 }
 
-@media not amzn-mobi {    /* For any device except Mobi / Para cualquier dispositivo excepto Mobi: <span class=\"versalita\">ACRÓNIMO</span> */
+.smallcap-light, .versalita-ligera { /* In Kindle the small-caps won't work because it doesn't support “font-variant” property / En Kindle no funcionarán las versalitas porque no soporta la propiedad «font-variant» */
+    font-variant: small-caps;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -o-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle: <span class=\"versalita\">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: lowercase;
         font-variant: small-caps;
@@ -287,7 +296,7 @@ b, strong {
     }
 }
 
-@media amzn-mobi {    /* For any device except Mobi / Para Mobi ya que no soporta el atributo «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
+@media amzn-mobi {    /* For Kindle because the “font-variant” property isn't supported / Para Kindle ya que no soporta la propiedad «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: uppercase;
         font-size: .8em;
@@ -429,6 +438,7 @@ pre {
 	box-shadow: .1em .1em .5em rgba(0,0,0,.45);
 	counter-reset: line;
 	overflow-y: scroll;
+    white-space: nowrap;
 }
 
 pre * {
@@ -436,6 +446,7 @@ pre * {
 }
 
 pre code {
+    display: block;
 	margin: 0;
 	padding: 0;
 	background-color: inherit;
@@ -443,20 +454,7 @@ pre code {
 	border-radius: 0;
 }
 
-pre a {
-	display: block;
-	margin: -1em auto;
-}
-
-pre a:first-child {
-	margin-top: 0;
-}
-
-pre a:last-child {
-	margin-bottom: 0;
-}
-
-pre a:before {
+pre code:before {
 	width: 1.5em;
 	counter-increment: line;
 	content: counter(line);
@@ -464,6 +462,10 @@ pre a:before {
 	padding: 0 .5em;
 	margin-right: .5em;
 	color: #888;
+}
+
+pre code:only-child {
+    margin-top: .75em;
 }
 
 /* Glosses / Glosas */

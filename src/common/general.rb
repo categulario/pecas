@@ -289,7 +289,7 @@ def codificacionValida? elemento
 end
 
 # Translitera el nombre de los archivos para evitar errores
-def transliterar texto, oracion = true
+def transliterar texto, oracion = true, cortar = false
 	# Elementos particulares a cambiar
 	elementos1 = "ñáàâäéèêëíìîïóòôöúùûü"
 	elementos2 = "naaaaeeeeiiiioooouuuu"
@@ -300,7 +300,11 @@ def transliterar texto, oracion = true
 	# Limita el nombre a cinco palabras
     if oracion
 	    texto = texto.split(/\s+/)
-	    texto = texto[0..4].join("_")
+        if cortar == false
+    	    texto = texto[0..4].join("_")
+        else
+    	    texto = texto.join("_")
+        end
     end
 	
 	# Cambia los elementos particulares
@@ -708,32 +712,55 @@ end
 # Traduce de un MD al contenido del body de un html
 def md_to_html ruta
     md = []
+    $headers_ids = []
 
+    # Traduce todos los estilos en línea
     def translate_inline text
 
+        # Añade un atributo a <img>, <a> o <span> si así fue especificado
+        def add_attr text, min_rx, rx
+
+            if text =~ rx
+                text.scan(rx).each do |scan|
+
+                    # Si no es <img> o <a>
+                    if min_rx != 'span'
+                        attributes = attributes(get_classes_ids([scan[1]]))
+                        tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
+                    else
+                        attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
+                        tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
+                    end
+
+                    text = text.gsub(scan.join(''), tag)
+                end
+            end
+
+            return text
+        end
+
         regex = [
-            [/(.{0,1})(\*\*\*)(.*?)(\*\*\*)/, 'strong_em'],                 # Negritas e itálicas semánticas
-            [/(.{0,1})(___)(.*?)(___)/, 'b_i'],                             # Negritas e itálicas
-            [/(.{0,1})(\*\*)(.*?)(\*\*)/, 'strong'],                        # Negritas semántica
-            [/(.{0,1})(__)(.*?)(__)/, 'b'],                                 # Negritas
-            [/(.{0,1})(\*)(.*?)(\*)/, 'em'],                                # Itálicas semántica
-            [/(.{0,1})(_)(.*?)(_)/, 'i'],                                   # Itálicas
-            [/(.{0,1})(~~)(.*?)(~~)/, 's'],                                 # Tachado
-            [/(.{0,1})(~)(.*?)(~)/, 'sub'],                                 # Subíndice
-            [/(.{0,1})(\^)(.*?)(\^)/, 'sup'],                               # Superíndice
-            [/(.{0,1})(`)(.*?)(`)/, 'code'],                                # Código
-            [/(.{0,1})(\+\+\+)(.*?)(\+\+\+)/, 'force_sc'],                  # Versalitas
-            [/(.{0,1})(\+\+)(.*?)(\+\+)/, 'sc'],                            # Versalitas ligera
+            [/&/, '&#38;'],                                              # Símbolo de &#38;
+            [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],                        # Negritas semántica
+            [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                                 # Negritas
+            [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                # Itálicas semántica
+            [/(.?)(_)(([^_])+?)(_)/, 'i'],                                   # Itálicas
+            [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                                 # Tachado
+            [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                 # Subíndice
+            [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                               # Superíndice
+            [/(.?)(`)(([^`])+?)(`)/, 'code'],                                # Código `
+            [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],                  # Versalitas
+            [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],                            # Versalitas ligera
 #==v Presumiblemente conflictivos (¿por guiones bajos?)
-            [/(.{0,1})(\[)([^\[]+?)(\])({.*?})/, 'span'],                   # Span personalizado
-            [/(.{0,1})(\!\[)(([^({.*?})]|.{0})+?)(\]\()(.*?)(\))/, 'img'],  # Imagen
-            [/(.{0,1})(\[)([^({.*?})]+?)(\]\()(.*?)(\))/, 'a'],             # Enlace
+#            [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                   # Span personalizado
+#            [/(.?)(\!\[)(([^({.*?})]|.{0})+?)(\]\()(.*?)(\))/, 'img'],  # Imagen
+#            [/(.?)(\[)([^({.*?})]+?)(\]\()(.*?)(\))/, 'a'],             # Enlace
 #==^ Presumiblemente conflictivos
-            [/(.{0,1})(----)/, '―'],                                        # Barra
-            [/(.{0,1})(---)/, '—'],                                         # Raya
-            [/(.{0,1})(--)/, '–'],                                          # Signo de menos
-            [/(.{0,1})(\/,)/, '&#8201;'],                                   # Espacio fino
-            [/(.{0,1})(\/\+)/, '&#160;']                                    # Espacio de no separación
+            [/(.?)(----)/, '―'],                                        # Barra
+            [/(.?)(---)/, '—'],                                         # Raya
+            [/(.?)(--)/, '–'],                                          # Signo de menos
+            [/(.?)(\/,)/, '&#8201;'],                                   # Espacio fino
+            [/(.?)(\/\+)/, '&#160;']                                    # Espacio de no separación
         ]
 
         regex.each do |rx|
@@ -741,37 +768,18 @@ def md_to_html ruta
                 # Si no se está escapando la sintaxis
                 if text.scan(rx[0])[0][0] != '\\'
 
-                    # Añade un atributo a <img>, <a> o <span> si así fue especificado
-                    def add_attr text, min_rx, rx
-
-                        if text =~ rx
-                            text.scan(rx).each do |scan|
-
-                                # Si no es <img> o <a>
-                                if min_rx != 'span'
-                                    attributes = attributes(get_classes_ids([scan[1]]))
-                                    tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
-                                else
-                                    attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
-                                    tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
-                                end
-
-                                text = text.gsub(scan.join(''), tag)
-                            end
-                        end
-
-                        return text
-                    end
-
                     # Empiezan las sustituciones según el tipo de sintaxis
-                    if rx[1] == 'strong_em'
-                        text = text.gsub(rx[0], '\1' + '<strong><em>' + '\3' + '</em></strong>')
-                    elsif rx[1] == 'b_i'
-                        text = text.gsub(rx[0], '\1' + '<b><i>' + '\3' + '</i></b>')
+                    if rx[1] == 'code'
+                        text = text.gsub(rx[0], '\1' + '<code>' + '\3' + '</code>')
+
+                        # El contenido del código requiere muchas modificaciones para evitar conflicto con otros estilos en línea e incluso con la misma estructura HTML
+                        text.scan(/<code>(.+?)<\/code>/).each do |scan|
+                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub('<', '&lt;').gsub('>', '&gt;') }.join('') + '</code>')
+                        end
                     elsif rx[1] == 'force_sc'
-                        text = text.gsub(rx[0], '\1' + '<span class="versalita">' + '\3' + '</span>')
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap">' + '\3' + '</span>')
                     elsif rx[1] == 'sc'
-                        text = text.gsub(rx[0], '\1' + '<span class="versalita-light">' + '\3' + '</span>')
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap-light">' + '\3' + '</span>')
                     elsif rx[1] == 'span'
                         text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
                     elsif rx[1] == 'img'
@@ -779,7 +787,7 @@ def md_to_html ruta
                     elsif rx[1] == 'a'
                         text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\5' + '" target="_blank">' + '\3' + '</a>'), rx[1], /(<a[^<]+?>.*?<\/a>)({.*?})/)
                     # Sustituciones directas
-                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;'
+                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
                         text = text.gsub(rx[0], '\1' + rx[1])
                     # Todo lo demás es sustitución «plana» a los tags HTML
                     else
@@ -816,14 +824,33 @@ def md_to_html ruta
             classes = ''
             id = ''
 
+            # Evita ids repetidos
+            $i = 2
+            def verification_id id
+                $headers_ids.each do |h|
+                    # Si se encuentra un id repetido, se agrega una coletilla con «_» más el número correspondiente según su orden de aparición
+                    if h == id && id.length > 0
+                        id = id.gsub(/_\d+/, '') + '_' + $i.to_s
+                        $i += 1
+                    end
+                end
+
+                # Colecciona para comparar
+                $headers_ids.push(id)
+
+                return id
+            end
+
             # Obtiene el id como texto
             if class_id != nil && class_id['id'] != nil
                 id = class_id['id']
             else
                 if header != false
-                    id = transliterar(header.gsub(/<.*?>/,'')).gsub('_', '-').gsub('--', '-')
+                    id = transliterar(header.gsub(/<.*?>/,''), true, true).gsub('_', '-').gsub('--', '-')
                 end
             end
+
+            id = verification_id(id)
 
             # Obtiene las clases como texto
             if class_id != nil && class_id['class'] != nil
@@ -1025,7 +1052,7 @@ def md_to_html ruta
             end
 
             # Mete las líneas de texto que forman parte de un ítem
-            array = array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s*|\s*\+\s*|\s*-\s*|\s*@type\s*|\s*{.*?}\s*)).*)/, ' \1').split("\n")
+            array = array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s+|\s*\+\s+|\s*-\s+|\s*@type|\s*{.*?})).*)/, ' \1').split("\n")
 
             # Obtiene la jerarquía
             new_array = hierarchy(0, array)
@@ -1037,7 +1064,7 @@ def md_to_html ruta
             url = array.join('').gsub(/.*\((.*?)\).*$/,'\1')
             text = translate_inline(array.join('').gsub(/.*\[(.*?)\].*$/,'\1'))
             src = url.length > 0 ? ' src="' + url + '"' : ''
-            alt = text.length > 0 ? ' alt="' + text + '"' : ''
+            alt = text.length > 0 ? ' alt="' + text.gsub(/<[^<]+?>/, '') + '"' : ''
 
             # Según si hay pie de foto o no, es la estructura de la imagen
             if text.length > 0
@@ -1155,20 +1182,35 @@ def get_blocks ruta, md
 	    end
 	    archivo.close
 
-    # Obtiene los bloques, pero aún sin analizar las listas
+    # Obtiene los bloques
     tmp = []
+    pre = false
     raw.each_with_index do |linea, i|
-        if linea.strip == '' && tmp.length > 0
+        if linea.strip == '' && tmp.length > 0 && pre == false
             md.push(tmp)
             tmp = []
         else
-            tmp.push(linea)
+            if linea.strip.length > 0
+                if linea =~ /```/
+                    pre = !pre
+                end
+
+                tmp.push(linea)
+            else
+                if pre == true
+                    tmp.push(linea)
+                end
+            end
         end
 
         if i == raw.length - 1 && linea.strip != ''
             md.push(tmp)
         end
     end
+
+	archivo = File.new('borrar.md', 'w:UTF-8')
+	archivo.puts md
+	archivo.close
 
     return md
 end
