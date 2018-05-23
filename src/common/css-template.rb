@@ -382,7 +382,7 @@ figure + figure {
 	margin-top: 0;
 }
 
-p + img, p > img {
+p + img {
 	margin-left: -1.5em;
 	margin-top: 2em;
 	margin-bottom: 2em;
@@ -404,6 +404,12 @@ img + .caption, img + .leyenda {
 
 .caption + p, .leyenda + p {
 	text-indent: 0;
+}
+
+p > img {
+    display: inline;
+    height: 1.5em;
+    width: auto;
 }
 
 /* Superscript and subscripts / Superíndices y subíndices */
