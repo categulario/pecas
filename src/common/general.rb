@@ -747,7 +747,7 @@ def md_to_html ruta
             [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],            # Negritas semántica
             [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                      # Negritas
             [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                          # Itálicas semántica
-            [/([^(http:\S)]|\W)(.?)(_)(([^_])+?)(_)/, 'i'],                             # Itálicas
+            [/([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/, 'i'],                           # Itálicas
             [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                      # Tachado
             [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                            # Subíndice
             [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                         # Superíndice
@@ -794,7 +794,15 @@ def md_to_html ruta
                         text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
                     # Sustituciones directas
                     elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
-                        text = text.gsub(rx[0], '\1' + rx[1])
+                        if rx[1] != '–'
+                            text = text.gsub(rx[0], '\1' + rx[1])
+                        else
+                            text.scan(/(--)(\w+)/).each do |s|
+                                if s[1] != 'note' && s[1] != 'ignore'
+                                    text = text.gsub(s.join(''), '–' + s[1])
+                                end
+                            end
+                        end
                     # Todo lo demás es sustitución «plana» a los tags HTML
                     else
                         text = text.gsub(rx[0], '\1' + '<' + rx[1] + '>' + '\3' + '</' + rx[1] + '>')

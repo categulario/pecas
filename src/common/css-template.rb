@@ -471,7 +471,7 @@ pre code:before {
 }
 
 pre code:only-child {
-    margin-top: .75em;
+    margin-top: .5em;
 }
 
 /* Glosses / Glosas */
@@ -580,7 +580,8 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: 2em;
     width: 25%;
     margin-left: 0;
-    border: 1px solid #0000EE;
+    border: 1px solid blue;
+    background-color: blue;
 }
 
 .#{$l_no_nota_a} {
