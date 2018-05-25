@@ -849,6 +849,9 @@ def md_to_html ruta
                     end
                 end
 
+                # Elimina dígitos al inicio del id para evitar que sea inválido
+                id = id.gsub(/^\d+-/, '')
+
                 # Colecciona para comparar
                 $headers_ids.push(id)
 
