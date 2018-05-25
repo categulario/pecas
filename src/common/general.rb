@@ -720,6 +720,15 @@ def md_to_html ruta
         # Añade un atributo a <img>, <a> o <span> si así fue especificado
         def add_attr text, min_rx, rx
 
+            # Arregla el problema de los paréntesis dentro de URL que en unos casos van ahí y en otros afuera.
+            text.scan(/(<.*?href="|<.*?src=")(.*?)(".*?>)(.*?)(<\/.*?>)/).each do |scan|
+                if scan[1] =~ /^[^\(]+?\)/
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub(/\).*/, '').gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4] + scan[1].gsub(/^.*?(\).*)/, '\1'))
+                else
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4])
+                end
+            end
+
             if text =~ rx
                 text.scan(rx).each do |scan|
 
@@ -740,26 +749,25 @@ def md_to_html ruta
         end
 
         regex = [
-            [/\((http\S+)\)/, 'url'],                                                   # Formateo de URL
-            [/&/, '&#38;'],                                                             # Símbolo «&»
-            [/(.?)(\!\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*?)(\))(.*?\s|$|\W)/, 'img'],    # Imagen
-            [/(.?)(\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*?)(\))(.*?\s|$|\W)/, 'a'],        # Enlace
-            [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],            # Negritas semántica
-            [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                      # Negritas
-            [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                          # Itálicas semántica
-            [/([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/, 'i'],                           # Itálicas
-            [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                      # Tachado
-            [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                            # Subíndice
-            [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                         # Superíndice
-            [/(.?)(`)(([^`])+?)(`)/, 'code'],                                           # Código `
-            [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],           # Versalitas
-            [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],                 # Versalitas ligera
-            [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                                   # Span personalizado
-            [/(.?)(----)/, '―'],                                                        # Barra
-            [/(.?)(---)/, '—'],                                                         # Raya
-            [/(.?)(--)/, '–'],                                                          # Signo de menos
-            [/(.?)(\/,)/, '&#8201;'],                                                   # Espacio fino
-            [/(.?)(\/\+)/, '&#160;']                                                    # Espacio de no separación
+            [/&/, '&#38;'],                                                         # Símbolo «&»
+            [/(.?)(\!\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],    # Imagen
+            [/(.?)(\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],        # Enlace
+            [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],        # Negritas semántica
+            [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                  # Negritas
+            [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                      # Itálicas semántica
+            [/([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/, 'i'],                       # Itálicas
+            [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                  # Tachado
+            [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                        # Subíndice
+            [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                     # Superíndice
+            [/(.?)(`)(([^`])+?)(`)/, 'code'],                                       # Código `
+            [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],       # Versalitas
+              [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],           # Versalitas ligera
+            [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                               # Span personalizado
+            [/(.?)(----)/, '―'],                                                    # Barra
+            [/(.?)(---)/, '—'],                                                     # Raya
+            [/(.?)(--)/, '–'],                                                      # Signo de menos
+            [/(.?)(\/,)/, '&#8201;'],                                               # Espacio fino
+            [/(.?)(\/\+)/, '&#160;']                                                # Espacio de no separación
         ]
 
         regex.each do |rx|
@@ -768,12 +776,7 @@ def md_to_html ruta
                 if text.scan(rx[0])[0][0] != '\\'
 
                     # Empiezan las sustituciones según el tipo de sintaxis
-                    if rx[1] == 'url'
-                        # Sustituye caracteres para evitar conflictos
-                        text.scan(/\((http\S+)\)/).each do |scan|
-                            text = text.gsub(scan[0], scan[0].gsub('`','%60').gsub('~','%7E').gsub('!','%21').gsub('@','%40').gsub('#','%23').gsub('$','%24').gsub('%','%25').gsub('^','%5E').gsub('&','%26').gsub('*','%2A').gsub('(','%28').gsub(')','%29').gsub('_','%5f').gsub('=','%3D').gsub('+','%2B').gsub('\\','%5C').gsub('|','%7C').gsub('[','%5B').gsub(']','%5D').gsub('{','%7B').gsub('}','%7D').gsub('<','%3C').gsub('>','%3E').gsub('&#38;','%26'))
-                        end
-                    elsif rx[1] == 'img'
+                    if rx[1] == 'img'
                         text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
                     elsif rx[1] == 'a'
                         text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>.*?<\/a>)({.*?})/)
@@ -815,7 +818,10 @@ def md_to_html ruta
             end
         end
 
-        return text
+        text = text.gsub('%60','`').gsub('%7E','~').gsub('%5E','^').gsub('%2A','*').gsub('%28','(').gsub('%29',')').gsub('%5f','_').gsub('%2B','+').gsub('%5C','\\').gsub('%7C','|').gsub('%5B','[').gsub('%5D',']').gsub('%7B','{').gsub('%7D','}')
+
+        # Regresa con la simplificación de \\ por \
+        return text.gsub('\\\\', '\\')
     end
 
     def translate_blocks md
