@@ -1,6 +1,6 @@
 # Pandog
 
-Pandog utiliza el poder de Pandoc para convertir archivos con elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o visceversa.
+Pandog convierte entre archivos MD, HTML, HTM, XHTML, XML, JSON, TeX, EPUB, ODT o DOCX, estos tres últimos tipos a través de Pandoc.
 
 ## Uso:
 

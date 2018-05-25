@@ -66,9 +66,9 @@ end
 if txtEsMD
 	# Se determina la ruta y nombre del archivo convertido
 	txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
-	
+
 	# Crea la ruta absoluta
-	txt_oculto = directorioPadre(txt) + "/" + txt_oculto
+	txt_oculto = File.exists?(directorioPadre(txt) + "/" + txt_oculto) == true ? directorioPadre(txt) + "/" + txt_oculto : Dir.pwd + "/" + txt_oculto
 
 	# Se usa Pandog, que a su vez usa Pandoc
 	system "ruby #{File.dirname(__FILE__)+ "/../../base-files/pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}"

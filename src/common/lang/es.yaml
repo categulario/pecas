@@ -60,11 +60,11 @@ analytics:
 
 # pc-pandog
 pandog: 
-  h: "\nPandog utiliza el poder de Pandoc para convertir archivos con elementos adicionales si se convierten de HTML, XHTML, HTM o XML a MD o visceversa.\n\nUso:\n  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]\n\nParámetros necesarios:\n  -i = [input] Nombre del archivo a convertir.\n  -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo:\n  pc-pandog -i directorio/al/archivo.md -o archivo.xhtml\n  Crea un archivo XHTML a partir de «archivo.md» presente en «directorio/al»."
-  iniciando: "Iniciando conversión con Pandoc…"
-  modificando: "Modificando el archivo creado por Pandoc…"
+  h: "\nPandog convierte entre archivos MD, HTML, HTM, XHTML, XML, JSON, TeX, EPUB, ODT o DOCX, estos tres últimos tipos a través de Pandoc.\n\nUso:\n  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]\n\nParámetros necesarios:\n  -i = [input] Nombre del archivo a convertir.\n  -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo:\n  pc-pandog -i directorio/al/archivo.md -o archivo.xhtml\n  Crea un archivo XHTML a partir de «archivo.md» presente en «directorio/al»."
+  iniciando: "Iniciando conversión…"
+  iniciando_pandoc: "Iniciando conversión con Pandoc…"
   extrayendo: "Extrayendo datos para crear archivo…"
-  error_ext: "\nNo se indicó el nombre de extensión para el archivo de salida."
+  error_ext: "\nAl parecer la extensión del archivo de salida no es válida."
   error_m: "\nNo fue posible modificar el archivo."
   error_json: "\nAl parecer el archivo JSON no cumple con la estructura requerida."
 

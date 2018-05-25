@@ -289,7 +289,7 @@ def codificacionValida? elemento
 end
 
 # Translitera el nombre de los archivos para evitar errores
-def transliterar texto, oracion = true
+def transliterar texto, oracion = true, cortar = false
 	# Elementos particulares a cambiar
 	elementos1 = "ñáàâäéèêëíìîïóòôöúùûü"
 	elementos2 = "naaaaeeeeiiiioooouuuu"
@@ -300,7 +300,11 @@ def transliterar texto, oracion = true
 	# Limita el nombre a cinco palabras
     if oracion
 	    texto = texto.split(/\s+/)
-	    texto = texto[0..4].join("_")
+        if cortar == false
+    	    texto = texto[0..4].join("_")
+        else
+    	    texto = texto.join("_")
+        end
     end
 	
 	# Cambia los elementos particulares
@@ -445,7 +449,7 @@ def epub_analisis epub
     return todo
 end
 
-# Convierte el archivo en un hash
+# Convierte el archivo tipo HTML en un hash
 def file_to_hash ruta
     puts "#{$l_g_analizando[0] + File.basename(ruta) + $l_g_analizando[1]}".green
 
@@ -703,6 +707,560 @@ def hash_to_html hash
     end
 
     return html
+end
+
+# Traduce de un MD al contenido del body de un html
+def md_to_html ruta
+    md = []
+    $headers_ids = []
+
+    # Traduce todos los estilos en línea
+    def translate_inline text
+
+        # Añade un atributo a <img>, <a> o <span> si así fue especificado
+        def add_attr text, min_rx, rx
+
+            # Arregla el problema de los paréntesis dentro de URL que en unos casos van ahí y en otros afuera.
+            text.scan(/(<.*?href="|<.*?src=")(.*?)(".*?>)(.*?)(<\/.*?>)/).each do |scan|
+                if scan[1] =~ /^[^\(]+?\)/
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub(/\).*/, '').gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4] + scan[1].gsub(/^.*?(\).*)/, '\1'))
+                else
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4])
+                end
+            end
+
+            if text =~ rx
+                text.scan(rx).each do |scan|
+
+                    # Si es <img> o <a>
+                    if min_rx != 'span'
+                        attributes = attributes(get_classes_ids([scan[1]]))
+                        tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
+                    else
+                        attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
+                        tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
+                    end
+
+                    text = text.gsub(scan.join(''), tag)
+                end
+            end
+
+            return text
+        end
+
+        regex = [
+            [/&/, '&#38;'],                                                         # Símbolo «&»
+            [/(.?)(\!\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],    # Imagen
+            [/(.?)(\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],        # Enlace
+            [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],        # Negritas semántica
+            [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                  # Negritas
+            [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                      # Itálicas semántica
+            [/([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/, 'i'],                       # Itálicas
+            [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                  # Tachado
+            [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                        # Subíndice
+            [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                     # Superíndice
+            [/(.?)(`)(([^`])+?)(`)/, 'code'],                                       # Código `
+            [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],       # Versalitas
+              [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],           # Versalitas ligera
+            [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                               # Span personalizado
+            [/(.?)(----)/, '―'],                                                    # Barra
+            [/(.?)(---)/, '—'],                                                     # Raya
+            [/(.?)(--)/, '–'],                                                      # Signo de menos
+            [/(.?)(\/,)/, '&#8201;'],                                               # Espacio fino
+            [/(.?)(\/\+)/, '&#160;']                                                # Espacio de no separación
+        ]
+
+        regex.each do |rx|
+            if text.scan(rx[0]).length > 0
+                # Si no se está escapando la sintaxis
+                if text.scan(rx[0])[0][0] != '\\'
+
+                    # Empiezan las sustituciones según el tipo de sintaxis
+                    if rx[1] == 'img'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
+                    elsif rx[1] == 'a'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>.*?<\/a>)({.*?})/)
+                    elsif rx[1] == 'i'
+                        text = text.gsub(rx[0], '\1' + '\2' + '<' + rx[1] + '>' + '\4' + '</' + rx[1] + '>')
+                    elsif rx[1] == 'code'
+                        text = text.gsub(rx[0], '\1' + '<code>' + '\3' + '</code>')
+
+                        # El contenido del código requiere muchas modificaciones para evitar conflicto con otros estilos en línea e incluso con la misma estructura HTML
+                        text.scan(/<code>(.+?)<\/code>/).each do |scan|
+                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub('<', '&lt;').gsub('>', '&gt;') }.join('') + '</code>')
+                        end
+                    elsif rx[1] == 'force_sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap">' + '\3' + '</span>')
+                    elsif rx[1] == 'sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap-light">' + '\3' + '</span>')
+                    elsif rx[1] == 'span'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
+                    # Sustituciones directas
+                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
+                        if rx[1] != '–'
+                            text = text.gsub(rx[0], '\1' + rx[1])
+                        else
+                            text.scan(/(--)(\w+)/).each do |s|
+                                if s[1] != 'note' && s[1] != 'ignore'
+                                    text = text.gsub(s.join(''), '–' + s[1])
+                                end
+                            end
+                        end
+                    # Todo lo demás es sustitución «plana» a los tags HTML
+                    else
+                        text = text.gsub(rx[0], '\1' + '<' + rx[1] + '>' + '\3' + '</' + rx[1] + '>')
+                    end
+                # Quita la diagonal inversa del escape
+                else
+                    new_rx = rx[0].to_s.gsub('(?-mix:(.{0,1})', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
+                    text = text.gsub(/\\(#{new_rx})/, '\1')
+                end
+            end
+        end
+
+        text = text.gsub('%60','`').gsub('%7E','~').gsub('%5E','^').gsub('%2A','*').gsub('%28','(').gsub('%29',')').gsub('%5f','_').gsub('%2B','+').gsub('%5C','\\').gsub('%7C','|').gsub('%5B','[').gsub('%5D',']').gsub('%7B','{').gsub('%7D','}')
+
+        # Regresa con la simplificación de \\ por \
+        return text.gsub('\\\\', '\\')
+    end
+
+    def translate_blocks md
+        translated_md = []
+
+        # Traduce los saltos de línea forzados
+        def line_break array
+            new_array = []
+
+            array.each do |e|
+                new_array.push(e.gsub(/\\$/, '<br/>'))
+            end
+
+            return new_array
+        end
+
+        # Traduce atributos HTML para clases y encabezados
+        def attributes class_id, header = false
+            attributes = ''
+            classes = ''
+            id = ''
+
+            # Evita ids repetidos
+            $i = 2
+            def verification_id id
+                $headers_ids.each do |h|
+                    # Si se encuentra un id repetido, se agrega una coletilla con «_» más el número correspondiente según su orden de aparición
+                    if h == id && id.length > 0
+                        id = id.gsub(/_\d+/, '') + '_' + $i.to_s
+                        $i += 1
+                    end
+                end
+
+                # Elimina dígitos al inicio del id para evitar que sea inválido
+                id = id.gsub(/^\d+-/, '')
+
+                # Colecciona para comparar
+                $headers_ids.push(id)
+
+                return id
+            end
+
+            # Obtiene el id como texto
+            if class_id != nil && class_id['id'] != nil
+                id = class_id['id']
+            else
+                if header != false
+                    id = transliterar(header.gsub(/<.*?>/,''), true, true).gsub('_', '-').gsub('--', '-')
+                end
+            end
+
+            id = verification_id(id)
+
+            # Obtiene las clases como texto
+            if class_id != nil && class_id['class'] != nil
+                classes = class_id['class'].join(' ')
+            end
+
+            # Añade id y clases como texto
+            attributes = (id.length > 0 ? ' id="' + id + '"' : '') + (classes.length > 0 ? ' class="' + classes + '"' : '')
+        end
+
+        # Traduce los encabezados
+        def translate_h array
+            text = line_break(array)
+            text = translate_inline(text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,''))
+            header = array.first.gsub(/^(#*).*$/, '\1').length.to_s
+            attribute = attributes(get_classes_ids(array), text)
+
+            # Regresa la traducción, es necesario que existe algo de texto
+            if text.length > 0
+                return '<h' + header + attribute + '>' + text + '</h' + header + '>'
+            else
+                return ''
+            end
+        end
+
+        # Traduce los bloques de cita
+        def translate_blockquote array
+            attribute = attributes(get_classes_ids(array))
+
+            # Un nuevo conjunto que elimina sintaxis de Markdown para los bloques de cita
+            new_array = []
+            array.each do |l|
+                new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{.*?}\s*$/,''))
+            end
+
+            text = translate_inline(line_break(new_array).join(' '))
+
+            # Regresa la traducción, es necesario que existe algo de texto
+            if text.length > 0
+                return '<blockquote' + attribute + '><p>' + text + '</p></blockquote>'
+            else
+                return ''
+            end
+        end
+
+        # Traduce las listas
+        def translate_li array
+            new_array = []
+
+            # Crea un hash donde se indica el nivel de jerarquía de cada ítem
+            def hierarchy control_level, array
+                tmp_array = []
+                new_array = []
+                level = 0
+                control_level = 0
+
+                # De cada elemento crea un objeto que indica el nivel, tipo y contenido (incluyendo atributos) del ítem
+                def create_obj e, level
+                    attribute = attributes(get_classes_ids([e.strip]))
+                    type = e.strip.split(/\s+/)[0][0] =~ /\d/ ? 'ol' : 'ul'
+
+                    # Si el objeto es un tipo de lista
+                    if e =~ /^\s*(@type|{.*?})/
+                        raw_style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'')
+                        style = raw_style != '' ? ' style="list-style-type: ' + raw_style + ' !important"' : ''
+
+                        # Si se trata de un estilo dash, en-dash o em-dash, desplaza el estilo a los atributos
+                        if style =~ /dash/
+                            style = ''
+                            attr_split = attribute.split(' class="')
+
+                            # Cuando en el atributo contiene clases
+                            if attr_split.length == 2
+                                attribute = attr_split[0] + ' class="' + raw_style + ' ' + attr_split[1]
+                            # Cuando en el atributo solo hay id
+                            elsif attr_split.length == 1
+                                attribute = attr_split[0] + ' class="' + raw_style + '"'
+                            # Cuando no hay ningún atributo
+                            elsif attr_split.length == 0
+                                attribute = ' class="' + raw_style + '"'
+                            end
+                        end
+
+                        obj = {'style' => style, 'attribute' => attribute}
+                    # Si el objeto es un ítem de lista
+                    else
+                        text = translate_inline(e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,''))
+                        obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
+                    end
+
+                    return obj
+                end
+
+                # Obtiene el nivel actual del ítem
+                def obtain_level e, level
+                    if e !~ /^\s*(@type|{.*?})/
+                        spaces = e.gsub(/^(\s*)?[^\s].*$/, '\1').length
+
+                        # Evita aumentar niveles más allá de la diferencia de uno por aquello de una mala redacción de la sintaxis
+                        if spaces / 2 > level
+                            level = level + 1
+                        elsif spaces / 2 < level
+                            level = (spaces / 2).to_i
+                        end
+
+                        return level
+                    end
+
+                    return level
+                end
+
+                # Guarda temporalmente un conjunto con cada uno de los ítems como objetos
+                array.each do |e|
+                    level = obtain_level(e, level)
+                    obj = create_obj(e, level)
+
+                    tmp_array.push(obj)
+                end
+
+                # Inicia la creación de la lista
+                if tmp_array.first['type'] != nil
+                    new_array.push('<' + tmp_array.first['type'] + '>')
+                else
+                    new_array.push('<' + tmp_array[1]['type'] + tmp_array.first['attribute'] + tmp_array.first['style'] + '>')
+                end
+
+                # Añade los contenidos de la lista
+                opens = []
+                counter = false
+                tmp_array.each_with_index do |e, i|
+
+                    # Esto implica que es un ítem, no un tipo de lista
+                    if e['level'] != nil
+                        # Si se trata de un nivel distinto
+                        if control_level != e['level']
+
+                            # Siel nuevo nivel es mayor
+                            if control_level < e['level']
+
+                                # Añade el tipo de lista a un conjunto para tener control en su cierre
+                                if counter == false
+                                    new_array.push('<li class="no-count"><' + e['type'] + '>')
+                                    opens.push(e['type'])
+                                else
+                                    counter = false
+                                end
+
+                            # Si el nuevo nivel es menor
+                            else
+
+                                # Añade la etiqueta final
+                                def add_end a, o
+                                    a.push('</' + o.last + '></li>')
+
+                                    # Elimina el último tipo, porque ya fue utilizado
+                                    return o[0..-2]
+                                end
+
+                                ends = (control_level - e['level']).abs
+                                for j in 1..ends
+                                    opens = add_end(new_array, opens)
+                                end
+                            end
+
+                            # Añade el contenido del ítem
+                            new_array.push(e['item'])
+
+                            # Actualiza el controlador de nivel
+                            control_level = e['level']
+                        # Si es el mismo nivel
+                        else
+                            # Añade el contenido del ítem
+                            new_array.push(e['item'])
+                        end
+                    # Si es un tipo de lista que no es para la primera jerarquía
+                    else
+                        if i > 0
+                            new_array.push('<li class="no-count"><' + tmp_array[i + 1]['type'] + e['attribute'] + e['style'] + '>')
+                            opens.push(tmp_array[i + 1]['type'])
+                            counter = true
+                        end
+                    end
+                end
+
+                if opens.length > 0
+                    opens.each do |o|
+                        new_array.push('</' + o+ '></li>')
+                    end
+                end
+
+                # Finaliza la creación de lista
+                if tmp_array.first['type'] != nil
+                    new_array.push('</' + tmp_array.first['type'] + '>')
+                else
+                    new_array.push('</' + tmp_array[1]['type'] + '>')
+                end
+
+                return new_array
+            end
+
+            # Mete las líneas de texto que forman parte de un ítem
+            array = array.join("\n").gsub(/\n\s*((?!(\s*\d+\.\s+|\s*\*\s+|\s*\+\s+|\s*-\s+|\s*@type|\s*{.*?})).*)/, ' \1').split("\n")
+
+            # Obtiene la jerarquía
+            new_array = hierarchy(0, array)
+        end
+
+        # Traduce las imágenes
+        def translate_img array
+            attribute = attributes(get_classes_ids(array))
+            url = array.join('').gsub(/.*\((.*?)\).*$/,'\1')
+            text = translate_inline(array.join('').gsub(/.*\[(.*?)\].*$/,'\1'))
+            src = url.length > 0 ? ' src="' + url + '"' : ''
+            alt = text.length > 0 ? ' alt="' + text.gsub(/<[^<]+?>/, '') + '"' : ''
+
+            # Según si hay pie de foto o no, es la estructura de la imagen
+            if text.length > 0
+                return '<figure><img' + attribute + src + alt + '/><figcaption>' + text + '</figcaption></figure>'
+            else
+                return '<img' + attribute + src + alt + '/>'
+            end
+        end
+
+        # Traduce los bloques de código
+        def translate_pre array
+            attribute = attributes(get_classes_ids(array))
+            new_class = array.first.gsub(/```/, '').strip
+            text = ''
+
+            # Acomoda el atributo para añadir una nueva clase si es que se especificó el tipo de bloque de código
+            if attribute.length > 0
+                attribute = attribute.split('class="')[0] + 'class="' + new_class + ' ' + attribute.split('class="')[1]
+            else
+                attribute = ' class="' + new_class + '"'
+            end
+
+            # Todo se anida en un <pre> y sus hijos empiezan con <code> donde cada uno tiene la clase «code-line-x», siendo x el número de línea
+            array.each_with_index do |e, i|
+                if i == 0
+                    text = '<pre' + attribute + '>'
+                elsif i == array.length - 1
+                    text += '</pre>'
+                else
+                    text += '<code class="code-line-' + i.to_s + '">' + e.gsub('<', '&lt;').gsub('>', '&gt;') + '</code>'
+                end
+            end
+
+            return text
+        end
+
+        # Traduce las barras horizontales
+        def translate_hr array
+            attribute = attributes(get_classes_ids(array))
+
+            return '<hr' + attribute + '/>'
+        end
+
+        # Traduce los párrafos
+        def translate_p array
+            attribute = attributes(get_classes_ids(array, true))
+            new_array = []
+
+            # Elimina todo espacio al inicio y al final
+            array.each do |e|
+                new_array.push(e.strip)
+            end
+
+            text = translate_inline(line_break(new_array).join(' ')).gsub(/\s*{.*?}\s*$/,'')
+
+            # Según si hay pie de foto o no, es la estructura de la imagen
+            if text.length > 0
+                return '', '<p' + attribute + '>' + text + '</p>'
+            else
+                return ''
+            end
+        end
+
+        md.each do |block|
+            # Si es encabezado
+            if block.first =~ /^#/
+                text = translate_h(block)
+            # Si es bloque de cita
+            elsif block.first =~  /^>/
+                text = translate_blockquote(block)
+            # Si es lista
+            elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+|@type|{.*?}\s*)/
+                text = translate_li(block)
+            # Si es imagen
+            elsif block.first =~ /^\!\[.*?\]\(.*?\)/
+                text = translate_img(block)
+            # Si es bloque de código
+            elsif block.first =~ /^```/
+                text = translate_pre(block)
+            # Si es barra horizontal
+            elsif block.first =~ /^---(\s*{.*?}\s*|\s*)$/
+                text = translate_hr(block)
+            # Si es HTML
+            elsif block.first =~ /^\s*<.*?>\s*$/
+                text = block.join('')
+            # Si es párrafo
+            else
+                text = translate_p(block)
+            end
+
+            # Solo se añade si hay texto
+            if text != nil && text.length > 0
+                translated_md.push(text)
+            end
+        end
+
+        return translated_md
+    end
+
+    md = get_blocks(ruta, md)
+    md = translate_blocks(md)
+
+    return md
+end
+
+# Obtiene los bloques de un Markdown
+def get_blocks ruta, md
+    raw = []
+    list = false
+
+    # Obtiene la información cruda
+	    archivo = File.open(ruta, 'r:UTF-8')
+	    archivo.each do |linea|
+        raw.push(linea.gsub(/\s+$/, ''))
+	    end
+	    archivo.close
+
+    # Obtiene los bloques
+    tmp = []
+    pre = false
+    raw.each_with_index do |linea, i|
+        if linea.strip == '' && tmp.length > 0 && pre == false
+            md.push(tmp)
+            tmp = []
+        else
+            if linea.strip.length > 0
+                if linea =~ /```/
+                    pre = !pre
+                end
+
+                tmp.push(linea)
+            else
+                if pre == true
+                    tmp.push(linea)
+                end
+            end
+        end
+
+        if i == raw.length - 1 && linea.strip != ''
+            md.push(tmp)
+        end
+    end
+
+    return md
+end
+
+# Obtiene las clases o identificadores de un bloque de Markdown
+def get_classes_ids array, space = false
+    # Solo si encuentra las llaves al final del bloque
+    if array.last =~ /\s*{.*?}\s*$/
+        elements = array.last.gsub(/.*{(.*?)}\s*/, '\1').split(/\s+/)
+        classes = []
+        ids = []
+
+        # Separa entre classes e identificadores y les quita el punto o el gato
+        elements.each do |e|
+            if e[0] == '.'
+                classes.push(e[1..-1])
+            elsif e[0] == '#'
+                ids.push(e[1..-1])
+            end
+        end
+
+        # Regresa nulo si no se encontraron classes o ids
+        if classes.length == 0 && ids.length == 0
+            return nil
+        end
+
+        # Si todo salió bien, regresa un objeto con las llaves «class» e «id».
+        return {'class' => classes, 'id' => ids[0]}
+    end
+
+    return nil
 end
 
 # Obtiene el caracter desde unicode; viene de: https://gist.github.com/O-I/6758583
