@@ -1199,11 +1199,11 @@ def get_blocks ruta, md
     list = false
 
     # Obtiene la información cruda
-	    archivo = File.open(ruta, 'r:UTF-8')
-	    archivo.each do |linea|
+	archivo = File.open(ruta, 'r:UTF-8')
+	archivo.each do |linea|
         raw.push(linea.gsub(/\s+$/, ''))
-	    end
-	    archivo.close
+	end
+	archivo.close
 
     # Obtiene los bloques
     tmp = []
