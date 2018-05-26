@@ -495,12 +495,11 @@ span.gloss, span.glosa {
     font-size: .75em;
 }
 
-/* Poetry / Poesía: <p class=\"poem\">Verse 1<br />verse 2<br />verse 3.</p>*/
+/* Poetry / Poesía: <p class=\"poetry\">Verse 1<br />verse 2<br />verse 3.</p>*/
 
-.poem, .poema {
+.poetry, .poesia {
     margin: 1em 1.5em;
     text-indent: 0;
-    white-space: pre-wrap;
 	-moz-hyphens: none;
     -webkit-hyphens: none;
     -o-hyphens: none;
