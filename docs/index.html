@@ -29,22 +29,54 @@
                 <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
                 <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
             </nav>
+            <nav class="espacio-arriba1">
+                <h3>Contacto</h3>
+                <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
+                <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
+            </nav>
         </header>
         <section>
-            <h1 id="inicio">Inicio</h1>
+            <h1 id="pecas-herramientas-editoriales">Pecas: herramientas editoriales</h1>
+            <p>Pecas es un conjunto de <i>scripts</i> que agilizan varios de los procesos del quehacer editorial. Las herramientas están en <a href="https://es.wikipedia.org/wiki/Liberaci%C3%B3n_continua">desarrollo continuo</a> y siguen el modelo del <a href="https://github.com/NikaZhenya/pecas#single-source-and-online-publishing-ssop"><i>single source and online publishing</i></a>.</p>
+            <h2 id="-instalacion">> Instalación</h2>
+            <p>Copia y pega en la terminal:</p>
+            <pre class="bash">
+                <code class="code-line-1">(cd ~ && mkdir .pecas && cd .pecas && git clone --depth 1 https://github.com/NikaZhenya/pecas.git . && bash install.sh) && source ~/.bash_profile</code>
+            </pre>
+            <h2 id="-requisitos">> Requisitos</h2>
+            <ul>
+                <li>
+                    <p>Todas las herramientas de Pecas requieren <a href="https://www.ruby-lang.org/">Ruby</a>.</p>
+                </li>
+                <li>
+                    <p>Algunas herramientas requieren otras dependencias, para más información usa:</p>
+                </li>
+            </ul>
+            <pre class="">
+                <code class="code-line-1">pc-doctor</code>
+            </pre>
+            <h2 id="-utilizacion">> Utilización</h2>
+            <p>Usa el comando <code>-h</code> de cada herramienta para leer su documentación.</p>
         </section>
         <style>
         body {margin:0;}
         body > * {float:left;}
-        header {width:calc(25% - 5em);background-color: black;color:white;border-radius:0 .5em .5em 0;}
-        header {margin-top: 5em;padding:2.5em;}
+        header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color: black;color:white;border-radius:0 .5em .5em 0;}
         header h1, section h1:first-child {margin:0;}
         header h1 + p {margin-top:1em!important;}
         header a {color: white;}
         header p {text-align:left;}
         header p + p {text-indent:0;}
         header nav > p:before {content:"> ";}
-        section {margin:5em;}
+        section {width:calc(75% - 10em);margin:5em;}
+        div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
+        div.example > div {clear:both;}
+        div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
+        div.example > div > div {float:left;width:50%;}
+        div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
+        div.example > div > div:first-child:before {content:"Escritura en Markdown";}
+        div.example > div > div:last-child:before {content:"Resultado en HTML";}
+        div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
         </style>
     </body>
 </html>

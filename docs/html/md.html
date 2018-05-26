@@ -29,22 +29,419 @@
                 <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
                 <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
             </nav>
+            <nav class="espacio-arriba1">
+                <h3>Contacto</h3>
+                <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
+                <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
+            </nav>
         </header>
         <section>
             <h1 id="pecas-markdown">Pecas Markdown</h1>
+            <p>Pecas Markdown se compone de dos tipos de elementos:</p>
+            <ol>
+                <li>
+                    <p><strong>Elementos en línea</strong> que se insertan adentro de un bloque.</p>
+                </li>
+                <li>
+                    <p><strong>Elementos en bloque</strong> que se crean dejando una línea en blanco entre cada bloque.</p>
+                </li>
+            </ol>
+            <h2 id="elementos-en-linea">Elementos en línea</h2>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">_Itálica_</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;i&gt;Itálica&lt;/i&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><i>Itálica</i></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">__Negrita__</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;b&gt;Negrita&lt;/b&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><b>Negrita</b></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">___Negrita e itálica___</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;i&gt;&lt;b&gt;Negrita e itálica&lt;/b&gt;&lt;/i&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><i><b>Negrita e itálica</b></i></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">*Itálica semántica*</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;em&gt;Itálica semántica&lt;/em&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><em>Itálica semántica</em></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">**Negrita semántica**</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;strong&gt;Negrita semántica&lt;/strong&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><strong>Negrita semántica</strong></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">***Negrita e itálica semántica***</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;em&gt;&lt;strong&gt;Negrita e itálica semántica&lt;/strong&gt;&lt;/em&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><em><strong>Negrita e itálica semántica</strong></em></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Un^superíndice^</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Un&lt;sup&gt;superíndice&lt;/sup&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Un<sup>superíndice</sup></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Un~subíndice~</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Un&lt;sub&gt;subíndice&lt;/sub&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Un<sub>subíndice</sub></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">~~Tachado~~</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;s&gt;Tachado&lt;/s&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><s>Tachado</s></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">++Versalita solo las minúsculas++</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;span class="smallcap-light"&gt;Versalita solo las minúsculas&lt;/span&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><span class="smallcap-light">Versalita solo las minúsculas</span></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">+++Versalita todo el texto+++</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;span class="smallcap"&gt;Versalita todo el texto&lt;/span&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><span class="smallcap">Versalita todo el texto</span></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">`Código en línea`</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;code&gt;Código en línea&lt;/code&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p><code>Código en línea</code></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Imagen en línea: ![Como una fórmula](../img/img_inline.png)</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Imagen en línea: &lt;img src="../img/img_inline.png" alt="Como una fórmula"/&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Imagen en línea: <img src="../img/img_inline.png" alt="Como una fórmula"/></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Enlace en línea: [un enlace](https://duckduckgo.com/)</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Enlace en línea: &lt;a href="https://duckduckgo.com/"&gt;un enlace&lt;/a&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Enlace en línea: <a href="https://duckduckgo.com/">un enlace</a></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">[Algo en span]{.clase1 .clase2}</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">&lt;span class="clase1 clase2"&gt;Algo en span&lt;/span&gt;</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p class="clase1 clase2"><span class="clase1 clase2">Algo en span</span></p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Salto de \</code><code class="code-line-2">línea</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Salto de &lt;br&gt; línea</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Salto de <br/> línea</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">----Barra----</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">―Barra―</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>―Barra―</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">---Raya---</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">—Raya—</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>—Raya—</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">--Signo de menos--</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">–Signo de menos–</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>–Signo de menos–</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Espacio/,fino</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Espacio&amp;#8201;fino</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Espacio&#8201;fino</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">Espacio de no/+separación</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">Espacio de no&amp;#160;separación</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>Espacio de no&#160;separación</p>
+                </div>
+            </div>
+            <div class="example">
+                <div>
+                    <div>
+                        <pre class="markdown">
+                            <code class="code-line-1">\*Si se escapa, evita interpretación de cualquier estilo en línea*.</code>
+                        </pre>
+                    </div>
+                    <div>
+                        <pre class="html">
+                            <code class="code-line-1">*Si se escapa, evita interpretación de cualquier estilo en línea*.</code>
+                        </pre>
+                    </div>
+                </div>
+                <div>
+                    <p>*Si se escapa, evita interpretación de cualquier estilo en línea*.</p>
+                </div>
+            </div>
+            <h2 id="elementos-en-bloque">Elementos en bloque</h2>
         </section>
         <style>
         body {margin:0;}
         body > * {float:left;}
-        header {width:calc(25% - 5em);background-color: black;color:white;border-radius:0 .5em .5em 0;}
-        header {margin-top: 5em;padding:2.5em;}
+        header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color: black;color:white;border-radius:0 .5em .5em 0;}
         header h1, section h1:first-child {margin:0;}
         header h1 + p {margin-top:1em!important;}
         header a {color: white;}
         header p {text-align:left;}
         header p + p {text-indent:0;}
         header nav > p:before {content:"> ";}
-        section {margin:5em;}
+        section {width:calc(75% - 10em);margin:5em;}
+        div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
+        div.example > div {clear:both;}
+        div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
+        div.example > div > div {float:left;width:50%;}
+        div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
+        div.example > div > div:first-child:before {content:"Escritura en Markdown";}
+        div.example > div > div:last-child:before {content:"Resultado en HTML";}
+        div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
         </style>
     </body>
 </html>

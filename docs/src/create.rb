@@ -29,6 +29,7 @@ end
 def create_html path
     html_name = "#{File.basename(path, '.md')}.html"
 
+    puts "Ejecutando «pc-pandog -i #{path} -o #{html_name}»…"
     system("pc-pandog -i #{path} -o #{html_name}")
 
     html = get_html(html_name)

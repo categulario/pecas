@@ -2,13 +2,20 @@
 <style>
 body {margin:0;}
 body > * {float:left;}
-header {width:calc(25% - 5em);background-color: black;color:white;border-radius:0 .5em .5em 0;}
-header {margin-top: 5em;padding:2.5em;}
+header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color: black;color:white;border-radius:0 .5em .5em 0;}
 header h1, section h1:first-child {margin:0;}
 header h1 + p {margin-top:1em!important;}
 header a {color: white;}
 header p {text-align:left;}
 header p + p {text-indent:0;}
 header nav > p:before {content:"> ";}
-section {margin:5em;}
+section {width:calc(75% - 10em);margin:5em;}
+div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
+div.example > div {clear:both;}
+div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
+div.example > div > div {float:left;width:50%;}
+div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
+div.example > div > div:first-child:before {content:"Escritura en Markdown";}
+div.example > div > div:last-child:before {content:"Resultado en HTML";}
+div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
 </style>

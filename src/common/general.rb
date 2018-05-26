@@ -750,8 +750,8 @@ def md_to_html ruta
 
         regex = [
             [/&/, '&#38;'],                                                         # Símbolo «&»
-            [/(.?)(\!\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],    # Imagen
-            [/(.?)(\[)(([^({.*?})]|\.)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],        # Enlace
+            [/(.?)(\!\[)(([^({.*?})]|\W)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],    # Imagen
+            [/(.?)(\[)(([^({.*?})]|\W)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],        # Enlace
             [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],        # Negritas semántica
             [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                  # Negritas
             [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                      # Itálicas semántica
@@ -802,7 +802,7 @@ def md_to_html ruta
                         else
                             text.scan(/(--)(\w+)/).each do |s|
                                 if s[1] != 'note' && s[1] != 'ignore'
-                                    text = text.gsub(s.join(''), '–' + s[1])
+                                    text = text.gsub(rx[0], '\1' + rx[1])
                                 end
                             end
                         end
@@ -812,7 +812,7 @@ def md_to_html ruta
                     end
                 # Quita la diagonal inversa del escape
                 else
-                    new_rx = rx[0].to_s.gsub('(?-mix:(.{0,1})', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
+                    new_rx = rx[0].to_s.gsub('(?-mix:(.?)', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
                     text = text.gsub(/\\(#{new_rx})/, '\1')
                 end
             end
