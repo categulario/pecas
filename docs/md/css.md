@@ -322,15 +322,20 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 <!-- Cualquiera de las dos clases -->
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-[Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.]{.glosa}
+[Maecenas ac lacus viverra.]{.glosa}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
-
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit.]{.gloss}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+[Lorem ipsum dolor sit amet.]{.gloss}
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 
 </section>
 ```
@@ -339,9 +344,9 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 ```html
 <section class="glosa gloss">
-    <p class="glosa">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="glosa">Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</span></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
-    <p><span class="gloss">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+    <p class="glosa">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="glosa">Maecenas ac lacus viverra.</span></p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+    <p><span class="gloss">Lorem ipsum dolor sit amet.</span> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </section>
 ```
 
@@ -350,15 +355,20 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 <section class="glosa gloss">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-[Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.]{.glosa}
+[Maecenas ac lacus viverra.]{.glosa}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
-
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit.]{.gloss}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+[Lorem ipsum dolor sit amet.]{.gloss}
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 
 </section>
 

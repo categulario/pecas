@@ -303,15 +303,15 @@ Línea horizontal:
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
 
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.frances}
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.versalita}
 ```
 
 </div><div>
 
 ```html
 <h2 id="id-encabezado" class="clase1 centrado">En cualquier bloque es posible poner    clases o identificadores</h2>
-<p class="frances">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+<p class="derecha">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
 <blockquote class="versalita">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
 </blockquote>
@@ -323,7 +323,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
    clases o identificadores {.clase1 .centrado #id-encabezado}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.frances}
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
 
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 > Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.versalita}
