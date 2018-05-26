@@ -51,7 +51,7 @@ hazard:
 
 ### Generales {.espacio-arriba2}
 
-* Llave : Tipo : Valor por defecto : Descripción 
+* Llave : Tipo : Valor por defecto : Descripción .
   * `title` : `String` : `Sin título` : Título de la obra. 
   * `subtitle` : `String` : `nil` : Subtítulo de la obra. 
   * `author` : `Array` : `Apellido, Nombre` : Personas o colectivos que escribieron la obra. 
@@ -64,25 +64,25 @@ hazard:
 
 ### Tabla de contenidos {.espacio-arriba2}
 
-* Llave : Tipo : Valor por defecto : Descripción 
+* Llave : Tipo : Valor por defecto : Descripción .
   * `no-toc` : `Array` : `nil` : Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. 
   * `no-spine` : `Array` : `nil` : Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. 
   * `custom` : `Object` : `nil` : Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada.
 
 ### EPUB fijo {.espacio-arriba2}
 
-* Llave : Tipo : Valor por defecto : Descripción 
+* Llave : Tipo : Valor por defecto : Descripción .
   * `px-width` : `Array` : `nil` : Anchura en pixeles para el EPUB. 
   * `px-height` : `Array` : `nil` : Altura en pixeles para el EPUB.
 
-### Fallbacks {.espacio-arriba2}
+### _Fallbacks_ {.espacio-arriba2}
 
-* Llave : Tipo : Valor por defecto : Descripción 
+* Llave : Tipo : Valor por defecto : Descripción .
   * `fallback` : `Object` : `nil` : Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB.
 
 ### WCAG {.espacio-arriba2}
 
-* Llave : Tipo : Valor por defecto : Descripción 
+* Llave : Tipo : Valor por defecto : Descripción .
   * `summary` : `String` : `Este EPUB…` : Breve texto donde se indican las características de accesibilidad de la publicación. 
   * `mode` : `Array` : `textual`<br/>`visual` : Modo en como ha de usarse la obra. 
   * `mode-sufficient` : `Array` : `textual, visual`<br/>`textual` : Los diferentes sentidos que pueden combinarse para el uso de la publicación. 
@@ -219,13 +219,13 @@ ignorará estas especificaciones.
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
 
-### *Fallbacks* {.espacio-arriba2}
+### _Fallbacks_ {.espacio-arriba2}
 
 En ciertas ocasiones en el EPUB se querrá incluir un recurso externo
 (un tipo de archivo que no es soportado directamente), por ejemplo un
 PDF embebido.
 
-Para ello es necesario indicar un *fallback* y así tener un EPUB
+Para ello es necesario indicar un _fallback_ y así tener un EPUB
 válido. La indicación es sencilla:
 
 ```
@@ -258,7 +258,7 @@ no es necesario.
 
 ### WCAG {.espacio-arriba2}
 
-Las *Web Content Accessibility Guidelines* son para «facilitar el 
+Las _Web Content Accessibility Guidelines_ son para «facilitar el 
 acceso de las personas con discapacidad, desarrollando pautas de 
 accesibilidad, mejorando las herramientas para la evaluación y 
 reparación de accesibilidad Web, llevando a cabo una labor educativa 
@@ -279,4 +279,4 @@ La estructura tiene que ser correcta, para ello la ayuda de validadores
 quizá sea pertinente:
 
 * [Validador sencillo](http://codebeautify.org/yaml-validator).
-* [Validador y JSON *parser*](https://yaml-online-parser.appspot.com/).
+* [Validador y JSON _parser_](https://yaml-online-parser.appspot.com/).
