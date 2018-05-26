@@ -329,6 +329,11 @@ ul {
     list-style-type: disc;
 }
 
+ol ol, ol ul,
+ul ol, ul ul {
+    margin: 0 1.5em;
+}
+
 ul.dash, ul.en-dash, ul.em-dash {
     list-style-type: none;
 }
@@ -444,7 +449,7 @@ pre {
 	box-shadow: .1em .1em .5em rgba(0,0,0,.45);
 	counter-reset: line;
 	overflow-y: scroll;
-    white-space: nowrap;
+    white-space: unset;
 }
 
 pre * {
@@ -458,6 +463,7 @@ pre code {
 	background-color: inherit;
 	border: none;
 	border-radius: 0;
+    white-space: pre;
 }
 
 pre code:before {
@@ -471,7 +477,7 @@ pre code:before {
 }
 
 pre code:only-child {
-    margin-top: .5em;
+    margin-top: .75em;
 }
 
 /* Glosses / Glosas */

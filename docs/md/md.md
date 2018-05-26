@@ -2,10 +2,335 @@
 
 Pecas Markdown se compone de dos tipos de elementos:
 
-1. **Elementos en línea** que se insertan adentro de un bloque.
-2. **Elementos en bloque** que se crean dejando una línea en blanco entre cada bloque.
+1. [**Elementos en bloque**](#elementos-en-bloque) que se crean dejando una línea en blanco entre cada bloque.
+2. [**Elementos en línea**](#elementos-en-linea) que se insertan adentro de un bloque.
 
-## Elementos en línea
+## Elementos en bloque {.espacio-arriba3}
+
+<div class="example"><div><div>
+
+```markdown
+Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+Otro párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+```
+
+</div><div>
+
+```html
+<p>Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+<p>Otro párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+```
+
+</div></div><div>
+
+Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+Otro párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+# Encabezado 1
+
+## Encabezado 2
+
+### Encabezado 3
+
+#### Encabezado 4
+
+##### Encabezado 5
+
+###### Encabezado 6
+```
+
+</div><div>
+
+```html
+<h1>Encabezado 1</h1>
+<h2>Encabezado 2</h2>
+<h3>Encabezado 3</h3>
+<h4>Encabezado 4</h4>
+<h5>Encabezado 5</h5>
+<h6>Encabezado 6</h6>
+```
+
+</div></div><div>
+
+# Encabezado 1
+
+## Encabezado 2
+
+### Encabezado 3
+
+#### Encabezado 4
+
+##### Encabezado 5
+
+###### Encabezado 6
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+> Bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+> Otro bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+```
+
+</div><div>
+
+```html
+<p>Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<blockquote>
+    <p>Bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+</blockquote>
+<blockquote>
+    <p>Otro bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+</blockquote>
+```
+
+</div></div><div>
+
+Párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+> Bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+> Otro bloque de cita. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+![Imagen con pie de foto.](../img/gnu.svg)
+
+![](../img/tux.svg)
+```
+
+</div><div>
+
+```html
+<figure>
+    <img src="../img/gnu.svg" alt="Imagen con pie de foto.">
+    <figcaption>Imagen con pie de foto.</figcaption>
+</figure>
+<img src="../img/tux.svg">
+```
+
+</div></div><div>
+
+![Imagen con pie de foto.](../img/gnu.svg)
+
+![](../img/tux.svg)
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+* Listado no numerado.
+  + Puede ser con «*», «+» o «-».
+  - Y puede anidarse.
+    @type[em-dash]
+    * Incluso cambiar el tipo de viñeta a
+      [estos](https://www.w3schools.com/cssref/pr_list-style-type.asp).
+    * O por estos: `dash`, `en-dash` o `em-dash`.
+```
+
+</div><div>
+
+```html
+<ul>
+    <li><p>Listado no numerado.</p></li>
+    <li class="no-count">
+        <ul>
+            <li><p>Puede ser con «*», «+» o «-».</p></li>
+            <li><p>Y puede anidarse.</p></li>
+            <li class="no-count">
+                <ul class="em-dash">
+                    <li><p>Incluso cambiar el tipo de viñeta a <a href="https://www.w3schools.com/cssref/pr_list-style-type.asp">estos</a>.</p></li>
+                    <li><p>O por estos: <code>dash</code>, <code>en-dash</code> o <code>em-dash</code>.</p></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+```
+
+</div></div><div>
+
+* Listado no numerado.
+  + Puede ser con «*», «+» o «-».
+  - Y puede anidarse.
+    @type[em-dash]
+    * Incluso cambiar el tipo de viñeta a
+      [estos](https://www.w3schools.com/cssref/pr_list-style-type.asp).
+    * O por estos: `dash`, `en-dash` o `em-dash`.
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+1. Listado numerado.
+  2. No es necesaria una numeración correcta.
+  20. Y puede anidarse.
+    @type[lower-alpha]
+    1. Incluso cambiar el tipo de viñeta a
+      [estos](https://www.w3schools.com/cssref/pr_list-style-type.asp).
+```
+
+</div><div>
+
+```html
+<ol>
+    <li><p>Listado numerado.</p></li>
+    <li class="no-count">
+        <ol>
+            <li><p>No es necesaria una numeración correcta.</p></li>
+            <li><p>Y puede anidarse.</p></li>
+            <li class="no-count">
+                <ol style="list-style-type: lower-alpha !important">
+                    <li><p>Incluso cambiar el tipo de viñeta a <a href="https://www.w3schools.com/cssref/pr_list-style-type.asp">estos</a>.</p></li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+</ol>
+```
+
+</div></div><div>
+
+1. Listado numerado.
+  2. No es necesaria una numeración correcta.
+  20. Y puede anidarse.
+    @type[lower-alpha]
+    1. Incluso cambiar el tipo de viñeta a
+      [estos](https://www.w3schools.com/cssref/pr_list-style-type.asp).
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+&#96;&#96;&#96;
+Bloque de código genérico.
+
+Soporta varias líneas.
+&#96;&#96;&#96;
+
+&#96;&#96;&#96;ruby
+# Bloque de código con clase según el tipo de sintaxis.
+
+# Soporta varias líneas, este ejemplo es con la clase «ruby».
+&#96;&#96;&#96;
+```
+
+</div><div>
+
+```html
+<pre class="">
+    <code class="code-line-1">Bloque de código genérico.</code>
+    <code class="code-line-2"></code>
+    <code class="code-line-3">Soporta varias líneas.</code>
+</pre>
+<pre class="ruby">
+    <code class="code-line-1"># Bloque de código con clase según el tipo de sintaxis.</code>
+    <code class="code-line-2"></code>
+    <code class="code-line-3"># Soporta varias líneas, este ejemplo es con la clase «ruby».</code>
+</pre>
+```
+
+</div></div><div>
+
+```
+Bloque de código genérico.
+
+Soporta varias líneas.
+```
+
+```ruby
+# Bloque de código con clase según el tipo de sintaxis.
+
+# Soporta varias líneas, este ejemplo es con la clase «ruby».
+```
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+Línea horizontal:
+
+---
+```
+
+</div><div>
+
+```html
+<p>Línea horizontal:</p>
+<hr/>
+```
+
+</div></div><div>
+
+Línea horizontal:
+
+---
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+## En cualquier bloque es posible poner 
+   clases o identificadores {.clase1 .centrado #id-encabezado}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.frances}
+```
+
+</div><div>
+
+```html
+<h2 id="id-encabezado" class="clase1 centrado">En cualquier bloque es posible poner    clases o identificadores</h2>
+<p class="frances">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+<blockquote class="versalita">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+</blockquote>
+```
+
+</div></div><div>
+
+## En cualquier bloque es posible poner 
+   clases o identificadores {.clase1 .centrado #id-encabezado}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.frances}
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.versalita}
+
+</div></div>
+
+## Elementos en línea {.espacio-arriba3}
 
 <div class="example"><div><div>
 
@@ -226,54 +551,58 @@ Un~subíndice~
 <div class="example"><div><div>
 
 ```markdown
-Imagen en línea: ![Como una fórmula](../img/img_inline.png)
+Imagen en línea: ![Como una fórmula](../img/img_inline.png), 
+![Como una fórmula con clases o identificador](../img/img_inline.png){.clase1 .clase2 #id-imagen}.
 ```
 
 </div><div>
 
 ```html
-Imagen en línea: <img src="../img/img_inline.png" alt="Como una fórmula"/>
+Imagen en línea: <img src="../img/img_inline.png" alt="Como una fórmula">, <img id="id-imagen" class="clase1 clase2" src="../img/img_inline.png" alt="Como una fórmula con clases o identificador">.
 ```
 
 </div></div><div>
 
-Imagen en línea: ![Como una fórmula](../img/img_inline.png)
+Imagen en línea: ![Como una fórmula](../img/img_inline.png), 
+![Como una fórmula con clases o identificador](../img/img_inline.png){.clase1 .clase2 #id-imagen}.
 
 </div></div>
 
 <div class="example"><div><div>
 
 ```markdown
-Enlace en línea: [un enlace](https://duckduckgo.com/)
+Enlace en línea: [un enlace](https://duckduckgo.com/), 
+[otro enlace](https://duckduckgo.com/){.clase1 .clase2 #id-enlace} con clases o identificador.
 ```
 
 </div><div>
 
 ```html
-Enlace en línea: <a href="https://duckduckgo.com/">un enlace</a>
+Enlace en línea: <a href="https://duckduckgo.com/">un enlace</a>, <a id="id-enlace" class="clase1 clase2" href="https://duckduckgo.com/">otro enlace</a> con clases o identificador.
 ```
 
 </div></div><div>
 
-Enlace en línea: [un enlace](https://duckduckgo.com/)
+Enlace en línea: [un enlace](https://duckduckgo.com/), 
+[otro enlace](https://duckduckgo.com/){.clase1 .clase2 #id-enlace} con clases o identificador.
 
 </div></div>
 
 <div class="example"><div><div>
 
 ```markdown
-[Algo en span]{.clase1 .clase2}
+[Contenido en span]{.clase1 .clase2 #id-span} con clases o identificador.
 ```
 
 </div><div>
 
 ```html
-<span class="clase1 clase2">Algo en span</span>
+<span id="id-span" class="clase1 clase2">Contenido en span</span> con clases o identificador.
 ```
 
 </div></div><div>
 
-[Algo en span]{.clase1 .clase2}
+[Contenido en span]{.clase1 .clase2 #id-span} con clases o identificador.
 
 </div></div>
 
@@ -404,5 +733,3 @@ Espacio de no/+separación
 \*Si se escapa, evita interpretación de cualquier estilo en línea*.
 
 </div></div>
-
-## Elementos en bloque

@@ -731,7 +731,6 @@ def md_to_html ruta
 
             if text =~ rx
                 text.scan(rx).each do |scan|
-
                     # Si es <img> o <a>
                     if min_rx != 'span'
                         attributes = attributes(get_classes_ids([scan[1]]))
@@ -779,7 +778,7 @@ def md_to_html ruta
                     if rx[1] == 'img'
                         text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
                     elsif rx[1] == 'a'
-                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>.*?<\/a>)({.*?})/)
+                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>[^<]+?<\/a>)({.*?})/)
                     elsif rx[1] == 'i'
                         text = text.gsub(rx[0], '\1' + '\2' + '<' + rx[1] + '>' + '\4' + '</' + rx[1] + '>')
                     elsif rx[1] == 'code'
