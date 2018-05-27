@@ -749,8 +749,8 @@ def md_to_html ruta
 
         regex = [
             [/&/, '&#38;'],                                                         # Símbolo «&»
-            [/(.?)(\!\[)(([^({.*?})]|\W)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],    # Imagen
-            [/(.?)(\[)(([^({.*?})]|\W)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],        # Enlace
+            [/(.?)(\!\[)(([^({.*?})]|\.|\?)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'], # Imagen
+            [/(.?)(\[)(([^({.*?})]|\.|\?)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],     # Enlace
             [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],        # Negritas semántica
             [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                  # Negritas
             [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                      # Itálicas semántica
@@ -760,7 +760,7 @@ def md_to_html ruta
             [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                     # Superíndice
             [/(.?)(`)(([^`])+?)(`)/, 'code'],                                       # Código `
             [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],       # Versalitas
-              [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],           # Versalitas ligera
+            [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],             # Versalitas ligera
             [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                               # Span personalizado
             [/(.?)(----)/, '―'],                                                    # Barra
             [/(.?)(---)/, '—'],                                                     # Raya
@@ -773,7 +773,6 @@ def md_to_html ruta
             if text.scan(rx[0]).length > 0
                 # Si no se está escapando la sintaxis
                 if text.scan(rx[0])[0][0] != '\\'
-
                     # Empiezan las sustituciones según el tipo de sintaxis
                     if rx[1] == 'img'
                         text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
@@ -796,14 +795,24 @@ def md_to_html ruta
                         text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
                     # Sustituciones directas
                     elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
-                        if rx[1] != '–'
-                            text = text.gsub(rx[0], '\1' + rx[1])
-                        else
+                        if rx[1] == '–'
                             text.scan(/(--)(\w+)/).each do |s|
                                 if s[1] != 'note' && s[1] != 'ignore'
                                     text = text.gsub(rx[0], '\1' + rx[1])
                                 end
                             end
+                        elsif rx[1] == '&#38;'
+                            text.scan(/&\S*\s*/).each do |s|
+                                if s !~ /&\S+;/
+                                    if s !~ /&$/
+                                        text = text.gsub(s, '&#38;' + s[1..-1])
+                                    else
+                                        text = text.gsub(/&$/, '&#38;') 
+                                    end
+                                end
+                            end
+                        else
+                            text = text.gsub(rx[0], '\1' + rx[1])
                         end
                     # Todo lo demás es sustitución «plana» a los tags HTML
                     else
@@ -886,7 +895,7 @@ def md_to_html ruta
         # Traduce los encabezados
         def translate_h array
             text = line_break(array)
-            text = translate_inline(text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{.*?}\s*$/,''))
+            text = translate_inline(text.join(' ').gsub(/^#*\s*/,'').gsub(/\s*{[^{]*?}\s*$/,''))
             header = array.first.gsub(/^(#*).*$/, '\1').length.to_s
             attribute = attributes(get_classes_ids(array), text)
 
@@ -905,7 +914,7 @@ def md_to_html ruta
             # Un nuevo conjunto que elimina sintaxis de Markdown para los bloques de cita
             new_array = []
             array.each do |l|
-                new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{.*?}\s*$/,''))
+                new_array.push(l.gsub(/^>\s*/, '').gsub(/\s*{[^{]*?}\s*$/,''))
             end
 
             text = translate_inline(line_break(new_array).join(' '))
@@ -936,7 +945,7 @@ def md_to_html ruta
 
                     # Si el objeto es un tipo de lista
                     if e =~ /^\s*(@type|{.*?})/
-                        raw_style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{.*?}\s*/,'')
+                        raw_style = e.strip.gsub(/^\s*@type\[(.*?)\].*$/, '\1').gsub(/\s*{[^{]*?}\s*/,'')
                         style = raw_style != '' ? ' style="list-style-type: ' + raw_style + ' !important"' : ''
 
                         # Si se trata de un estilo dash, en-dash o em-dash, desplaza el estilo a los atributos
@@ -959,7 +968,7 @@ def md_to_html ruta
                         obj = {'style' => style, 'attribute' => attribute}
                     # Si el objeto es un ítem de lista
                     else
-                        text = translate_inline(e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{.*?}\s*$/,''))
+                        text = translate_inline(e.strip.gsub(/^.+?\s+/, '').gsub(/\s*{[^{]*?}\s*$/,''))
                         obj = {'level' => level, 'type' => type, 'item' => '<li' + attribute + '><p>' + text + '</p></li>'}
                     end
 
@@ -1140,7 +1149,7 @@ def md_to_html ruta
                 new_array.push(e.strip)
             end
 
-            text = translate_inline(line_break(new_array).join(' ')).gsub(/\s*{.*?}\s*$/,'')
+            text = translate_inline(line_break(new_array).join(' ')).gsub(/\s*{[^{]*?}\s*$/,'')
 
             # Según si hay pie de foto o no, es la estructura de la imagen
             if text.length > 0
@@ -1167,7 +1176,7 @@ def md_to_html ruta
             elsif block.first =~ /^```/
                 text = translate_pre(block)
             # Si es barra horizontal
-            elsif block.first =~ /^---(\s*{.*?}\s*|\s*)$/
+            elsif block.first =~ /^---(\s*{[^{]*?}\s*|\s*)$/
                 text = translate_hr(block)
             # Si es HTML
             elsif block.first =~ /^\s*<.*?>\s*$/
@@ -1236,7 +1245,7 @@ end
 # Obtiene las clases o identificadores de un bloque de Markdown
 def get_classes_ids array, space = false
     # Solo si encuentra las llaves al final del bloque
-    if array.last =~ /\s*{.*?}\s*$/
+    if array.last =~ /\s*{[^{]*?}\s*$/
         elements = array.last.gsub(/.*{(.*?)}\s*/, '\1').split(/\s+/)
         classes = []
         ids = []
