@@ -18,12 +18,16 @@ general:
   id_author: "pc-author"
   id_publisher: "pc-publisher"
   meta_data: "meta-data.yaml"
-  marca: "--"
-  marca_in_1: "("
-  marca_in_2: ")"
-  ignore: "--ignore--"
-  note_content: "--note-content--"
-  note: ["--note", "--"]
+  marca: "@"
+  marca_in_1: "]"
+  marca_in_2: "["
+  marca_b: "--"
+  marca_in_1_b: "("
+  marca_in_2_b: ")"
+  ignore: "@ignore"
+  ignore_b: "--ignore--"
+  note: ["@note"]
+  note_b: ["--note", "--"]
   descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
   analizando: ["Obteniendo información de ", "…"]
   epub_analisis: "epub-output"

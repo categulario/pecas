@@ -81,11 +81,11 @@ Este *script* supone dos elementos para su ejecución:
 
 #### Marcas en los archivos principales
 
-La etiqueta por defecto es `--note--`, la cual indicará dónde irá una nota.
+La etiqueta por defecto es `@note` o `--note--`, la cual indicará dónde irá una nota.
 Por ejemplo:
 
 ```markdown
-# Encabezado 1--note--
+# Encabezado 1@note
 
 Esto es un párrafo con una nota al pie--note--.
 ```
@@ -94,11 +94,12 @@ Esta herramienta sustituirá la nota por defecto por una nota numerada (el usuar
 no tiene que preocuparse por la numeración o la referencia).
 
 Hay ocasiones que se requiere una mayor personalización, como agregar una letra, 
-un símbolo o texto. Para este caso se puede usar esta sintaxis: `--note(CONTENIDO)--`, 
-donde `CONTENIDO` es lo que se desea mostrar en lugar del número. Por ejemplo:
+un símbolo o texto. Para este caso se puede usar esta sintaxis: `@note[CONTENIDO]` 
+o `--note(CONTENIDO)--`, donde `CONTENIDO` es lo que se desea mostrar en lugar del 
+número. Por ejemplo:
 
 ```markdown
-# Encabezado 1--note(†)--
+# Encabezado 1@note[†]
 
 Esto es un párrafo con una nota al pie--note(sup)--.
 ```

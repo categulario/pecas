@@ -119,7 +119,7 @@ archivos.each do |archivo|
     archivo.each do |linea|
         palabras = linea.split
         palabras.each do |palabra|
-            if palabra =~ /#{$l_g_note[0]}.*?#{$l_g_note[1]}/
+            if palabra =~ /#{$l_g_note[0]}.*?#{$l_g_note[1]}/ || palabra =~ /#{$l_g_note_b[0]}.*?#{$l_g_note_b[1]}/
                 arcConteo = arcConteo + 1
             end
         end
@@ -191,7 +191,7 @@ archivos.each do |archivo|
 				end
 				
 				# Si es una nota sencilla
-				if palabra =~ /#{$l_g_note[0] + $l_g_note[1]}/
+				if palabra =~ /#{$l_g_note[0]}[^\[]/ || palabra =~ /#{$l_g_note_b[0] + $l_g_note_b[1]}/ 
 					# Indica que hay nota
 					notaHay = true
 					
@@ -211,13 +211,19 @@ archivos.each do |archivo|
 					end
 					
 					# Hace los cambios a la palabra
-					palabra = palabra.gsub(/#{$l_g_note[0] + $l_g_note[1]}/, nota)
+					palabra = palabra.gsub(/#{$l_g_note[0]}/, nota).gsub(/#{$l_g_note_b[0] + $l_g_note_b[1]}/, nota)
 					
 					# Suma un elemento
 					notaNum = notaNum + 1
 					notaReal = notaReal + 1
 				# Si es una nota personalizada
-				elsif palabra =~ /#{$l_g_note[0]}(.*?)#{$l_g_note[1]}/
+				elsif palabra =~ /#{$l_g_note[0]}(\[.*?\])/ || palabra =~ /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/
+                    if palabra =~ /#{$l_g_note[0]}(\[.*?\])/
+                        new_syntax = true
+                    else
+                        new_syntax = false
+                    end
+
 					# Indica que hay nota
 					notaHay = true
 					
@@ -225,8 +231,12 @@ archivos.each do |archivo|
 					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
 					
 					# Obtiene el contenido mediante un match que obtiene capturas de las cuales solo se usa la primera, quitándole los elementos innecesarios
-					contenido = /#{$l_g_note[0]}(.*?)#{$l_g_note[1]}/.match(palabra).captures.first.gsub($l_g_marca_in_1,"").gsub($l_g_marca_in_2,"")
-					
+                    if new_syntax == true
+    					contenido = /#{$l_g_note[0]}(\[.*?\])/.match(palabra).captures.first.gsub($l_g_marca_in_1,"").gsub($l_g_marca_in_2,"")
+                    else
+    					contenido = /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/.match(palabra).captures.first.gsub($l_g_marca_in_1_b,"").gsub($l_g_marca_in_2_b,"")
+                    end
+
 					if texHay
 						nota = "\\let\\svthefootnote\\thefootnote\\let\\thefootnote\\relax\\textsuperscript{#{contenido}}\\footnote{\\textsuperscript{#{contenido}} #{txtNotas[notaReal]}}\\addtocounter{footnote}{-1}\\let\\thefootnote\\svthefootnote"
 					else
@@ -236,7 +246,11 @@ archivos.each do |archivo|
 					end
 					
 					# Hace los cambios a la palabra
-					palabra = palabra.gsub(/#{$l_g_note[0]}.*?#{$l_g_note[1]}/, nota)
+                    if new_syntax == true
+    					palabra = palabra.gsub(/#{$l_g_note[0]}(\[.*?\])/, nota)
+                    else
+    					palabra = palabra.gsub(/#{$l_g_note_b[0]}.*?#{$l_g_note_b[1]}/, nota)
+                    end
 					
 					# Suma un elemento
 					notaReal = notaReal + 1

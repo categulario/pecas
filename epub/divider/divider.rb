@@ -98,8 +98,8 @@ def creacion objeto, rutaCSS, indice
     
     # Añade cuerpo
     objeto.contenido.each do |linea|
-		if linea !~ /#{$l_g_ignore}/
-			contenidoTodo.push(linea)
+		if linea.gsub(/<[^<]+?>$/, '') !~ /#{$l_g_ignore}$/ && linea.gsub(/<[^<]+?>$/, '') !~ /#{$l_g_ignore_b}$/
+			contenidoTodo.push(linea.strip)
         end
     end
 
@@ -151,7 +151,9 @@ archivoTodo.each do |linea|
 			lineaLimpia = linea.strip
 							.gsub(/\s*<(?!\S|\s+)*?br.*?>/, ". ")
 							.gsub(/<.*?>/, "")
+                            .gsub(/@\S+/, "")
 							.gsub(/--.*?--/, "")
+                            .strip
 
 			# Obtención del título
 			objeto.titulo = lineaLimpia

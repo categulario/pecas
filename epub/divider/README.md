@@ -75,13 +75,14 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Exclusión de líneas de los archivos creados
 
 Existen ocasiones en que se desea dividir el documento, pero no se quieren
-ignorar algunas líneas. Para esto basta con agregar la marca `--ignore--`.
+ignorar algunas líneas. Para esto basta con agregar la marca `@ignore` o 
+`--ignore--` al final de la línea.
 
 Por ejemplo, en el archivo a dividir se tiene:
 
 ```html
 	...
-	<h1>Epígrafe--ignore--</h1>
+	<h1>Epígrafe @ignore</h1>
 	<p class="epigrafe">Esto es un epígrafe.</p>
 	...
 ```
