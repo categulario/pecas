@@ -87,7 +87,7 @@ end
 def beautifier archivo
 	b = ".beautifier"
 	elementos = []
-	
+
 	# Extrae el texto del archivo original
 	archivo_abierto = File.open(archivo, "r")
 	archivo_abierto.each do |l|
@@ -96,10 +96,10 @@ def beautifier archivo
 	archivo_abierto.close
 	
 	# Se añaden las líneas espaciadas al nuevo archivo
-	archivo_final = File.open(b, "w") 
+	archivo_final = File.open(directorioPadre(archivo) + '/' + File.basename(b), "w") 
 	archivo_final.puts beautifier_html(elementos)
 	archivo_final.close
 	
 	# Renombra el nuevo archivo para sustituir el original
-	File.rename(b, File.basename(archivo))
+	File.rename(directorioPadre(archivo) + '/' + File.basename(b), directorioPadre(archivo) + '/' + File.basename(archivo))
 end

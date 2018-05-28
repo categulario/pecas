@@ -378,6 +378,7 @@ def epub_analisis epub
     unzip = if OS.windows? then unzip = "#{File.dirname(__FILE__)+ '/../../src/alien/info-zip/unzip.exe'}" else unzip = "unzip" end
     todo = {}
     archivo_opf = nil
+    pwd_old = Dir.pwd
 
     # Obtiene las rutas absolutas a cada archivo HTML dentro del EPUB
     def html_urls urls, opf, path
@@ -445,6 +446,9 @@ def epub_analisis epub
     html.each_with_index do |h,i|
         todo['htmls'].push(file_to_hash(h))
     end
+
+    # Regresa al directorio inicial
+    Dir.chdir(pwd_old)
 
     return todo
 end
