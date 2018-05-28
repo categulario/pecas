@@ -29,6 +29,10 @@ end
 def create_html path
     html_name = "#{File.basename(path, '.md')}.html"
 
+    if html_name !~ /index/
+        html_name = 'md/' + html_name
+    end
+
     puts "Ejecutando «pc-pandog -i #{path} -o #{html_name}»…"
     system("pc-pandog -i #{path} -o #{html_name}")
 

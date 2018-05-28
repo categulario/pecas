@@ -104,8 +104,10 @@ Los `String` pueden escribirse sin estar rodeados de comillas simples
 title: Sin título
 ```
 
-Sin embargo, si en el texto existe algún caracter especial 
-las comillas ayudan a evitar errores. Por ejemplo:
+Sin embargo, si en el texto existe algún caracter especial (`:`, `{`, 
+`}`, `[`, `]`, `,`, `&`, `*`, `#`, `¿`, `?`, `|`, `-`, `<`, `>`, `=`, 
+`¡`, `!`, `%`, `@`, `\`) las comillas ayudan a evitar errores.
+Por ejemplo:
 
 ```
 title: "Título: ¿va sin comillas? ¡No!"
