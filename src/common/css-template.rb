@@ -476,10 +476,6 @@ pre code:before {
 	color: #888;
 }
 
-pre code:only-child {
-    margin-top: .75em;
-}
-
 /* Glosses / Glosas */
 
 section.gloss, body.gloss, section.glosa, body.glosa {   /* El estilo ha de ponerse en el contenedor de los párrafos y en el span de la glosa */
