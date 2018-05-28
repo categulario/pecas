@@ -809,7 +809,7 @@ def md_to_html ruta
                             text.scan(/&\S*\s*/).each do |s|
                                 if s !~ /&\S+;/
                                     if s !~ /&$/
-                                        text = text.gsub(s, '&#38;' + s[1..-1])
+                                        text = text.gsub(s, s.gsub('&', '&#38;'))
                                     else
                                         text = text.gsub(/&$/, '&#38;') 
                                     end
@@ -1174,7 +1174,7 @@ def md_to_html ruta
             elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+|@type|{.*?}\s*)/
                 text = translate_li(block)
             # Si es imagen
-            elsif block.first =~ /^\!\[.*?\]\(.*?\)/
+            elsif block.first =~ /^\!\[/
                 text = translate_img(block)
             # Si es bloque de código
             elsif block.first =~ /^```/
