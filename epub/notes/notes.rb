@@ -190,34 +190,8 @@ archivos.each do |archivo|
 					end
 				end
 				
-				# Si es una nota sencilla
-				if palabra =~ /#{$l_g_note[0]}[^\[]/ || palabra =~ /#{$l_g_note_b[0] + $l_g_note_b[1]}/ 
-					# Indica que hay nota
-					notaHay = true
-					
-					# Identifica si es la primera nota del archivo
-					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
-				
-					if texHay
-						if reset
-							nota = "\\footnote[#{notaNum}]{#{txtNotas[notaReal]}}"
-						else
-							nota = "\\footnote{#{txtNotas[notaReal]}}"
-						end
-					else					
-						nota = "<sup class=\"#{$l_no_nota_sup}\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">#{notaNum}</a></sup>"
-						nota_contenido = txtNotas[notaReal].gsub("<p>","")
-						archivo_tmp_footer.push("<p class=\"#{$l_no_nota_p}\" id=\"#{id_pre}n-#{notaReal + 1}\"><a class=\"#{$l_no_nota_a}\" href=\"#{if !inner then File.basename(archivo) end}#n-#{notaReal + 1}\">#{notaNum}</a> #{nota_contenido}")
-					end
-					
-					# Hace los cambios a la palabra
-					palabra = palabra.gsub(/#{$l_g_note[0]}/, nota).gsub(/#{$l_g_note_b[0] + $l_g_note_b[1]}/, nota)
-					
-					# Suma un elemento
-					notaNum = notaNum + 1
-					notaReal = notaReal + 1
 				# Si es una nota personalizada
-				elsif palabra =~ /#{$l_g_note[0]}(\[.*?\])/ || palabra =~ /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/
+				if palabra =~ /#{$l_g_note[0]}(\[.*?\])/ || palabra =~ /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/
                     if palabra =~ /#{$l_g_note[0]}(\[.*?\])/
                         new_syntax = true
                     else
@@ -254,7 +228,33 @@ archivos.each do |archivo|
 					
 					# Suma un elemento
 					notaReal = notaReal + 1
-				end
+				# Si es una nota sencilla
+				elsif palabra =~ /#{$l_g_note[0]}/ || palabra =~ /#{$l_g_note_b[0] + $l_g_note_b[1]}/ 
+					# Indica que hay nota
+					notaHay = true
+
+					# Identifica si es la primera nota del archivo
+					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
+				
+					if texHay
+						if reset
+							nota = "\\footnote[#{notaNum}]{#{txtNotas[notaReal]}}"
+						else
+							nota = "\\footnote{#{txtNotas[notaReal]}}"
+						end
+					else					
+						nota = "<sup class=\"#{$l_no_nota_sup}\" id=\"n-#{notaReal + 1}\"><a href=\"#{href}n-#{notaReal + 1}\">#{notaNum}</a></sup>"
+						nota_contenido = txtNotas[notaReal].gsub("<p>","")
+						archivo_tmp_footer.push("<p class=\"#{$l_no_nota_p}\" id=\"#{id_pre}n-#{notaReal + 1}\"><a class=\"#{$l_no_nota_a}\" href=\"#{if !inner then File.basename(archivo) end}#n-#{notaReal + 1}\">#{notaNum}</a> #{nota_contenido}")
+					end
+
+					# Hace los cambios a la palabra
+					palabra = palabra.gsub(/#{$l_g_note[0]}/, nota).gsub(/#{$l_g_note_b[0] + $l_g_note_b[1]}/, nota)
+
+					# Suma un elemento
+					notaNum = notaNum + 1
+					notaReal = notaReal + 1
+                end
 				
 				palabras_tmp.push(palabra)
 			end
