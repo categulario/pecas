@@ -482,10 +482,12 @@ argumento "-h", $l_re_h
 
 # Para Windows es necesaria la ruta a zip.exe
 if OS.windows?
+    path = File.dirname(__FILE__).gsub(/^C:/, '/c')
+
 	if win32
-		zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x32.exe"}"
+		zip = "#{path + "/../../src/alien/info-zip/zip-x32.exe"}"
 	else
-		zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x64.exe"}"
+		zip = "#{path + "/../../src/alien/info-zip/zip-x64.exe"}"
 	end
 else
 	zip = "zip"
@@ -864,6 +866,10 @@ insertar $l_g_id_publisher, editores(yaml["publisher"]), $l_re_recreando_legal
 # Para la creación del EPUB
 rutaEpub = "#{carpeta + "-" + uid_corto}.epub"
 espacio = " "
+
+if OS.windows?
+    rutaEpub = rutaEpub.gsub(/^C:/, '/c')
+end
 
 # Elimina el EPUB previo si lo hay
 Dir.glob(directorioPadre(carpeta) + "/*") do |archivo|
