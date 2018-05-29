@@ -65,19 +65,3 @@ Además del PDF con OCR, se crea un archivo de texto con el contenido de las im�
 ```
   
 Además del PDF con OCR, se crea otro PDF con compresión y un archivo de texto.
-
-## Notas sobre Windows
-
-Para que el *script* funcione correctamente en Windows, es necesario agregar
-Tesseract y Ghostscript al path, así como agregar la variable `TESSDATA_PREFIX`.
-
-[Aquí está un tutorial para poder hacerlo](http://www.computerhope.com/issues/ch000549.htm).
-La configuración queda como se muestra a continuación.
-
-> Path configurado:
-
-> ![Path configurado](win_path.jpg)
-
-> `TESSDATA_PREFIX` agregado:
-
-> ![`TESSDATA_PREFIX` agregado](win_tessdata_prefix)

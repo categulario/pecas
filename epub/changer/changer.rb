@@ -33,13 +33,6 @@ end
 # Nombre final que tendrá el EPUB
 epub_nombre_final = File.basename(epub_nombre, '.*') + '_' + epub_version.gsub('.','-') + '.epub'
 
-# Para Windows es necesaria la ruta a zip.exe
-if OS.windows?
-	zip = "#{File.dirname(__FILE__)+ "/../../src/alien/info-zip/zip-x64.exe"}"
-else
-	zip = "zip"
-end
-
 # Borra el proyecto si no es necesario o compatible
 def borrar_proyecto
     FileUtils.rm_rf($l_g_epub_analisis)
@@ -126,8 +119,8 @@ if version_actual.to_i == 3
     ops = epub_objeto["opf"]["path"].gsub($l_g_epub_analisis, '').split('/')[1]
 
     # Crea el EPUB
-    system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -X mimetype -q")
-    system ("#{zip} #{arregloRutaTerminal('../' + epub_nombre_final)} -r #{ops} META-INF -x \*.DS_Store \*._* -q")
+    system ("zip #{arregloRutaTerminal('../' + epub_nombre_final)} -X mimetype -q")
+    system ("zip #{arregloRutaTerminal('../' + epub_nombre_final)} -r #{ops} META-INF -x \*.DS_Store \*._* -q")
 
     # Elimina el proyecto EPUB si así se indicó
     Dir.chdir('..')

@@ -474,24 +474,9 @@ end
 # Argumentos
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd + "/#{$l_cr_epub_nombre}" end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_g_meta_data end
-zip = if argumento "-z", zip != nil then argumento "-z", zip else nil end
 depth = if argumento "--depth", depth != nil then argumento "--depth", depth else nil end
-win32 = argumento "-32", win32, 1
 argumento "-v", $l_re_v
 argumento "-h", $l_re_h
-
-# Para Windows es necesaria la ruta a zip.exe
-if OS.windows?
-    path = File.dirname(__FILE__).gsub(/^C:/, '/c')
-
-	if win32
-		zip = "#{path + "/../../src/alien/info-zip/zip-x32.exe"}"
-	else
-		zip = "#{path + "/../../src/alien/info-zip/zip-x64.exe"}"
-	end
-else
-	zip = "zip"
-end
 
 # Indaga si creará un menú personalizado a partir de la búsqueda de profundidad
 if depth.to_i > 0
@@ -867,10 +852,6 @@ insertar $l_g_id_publisher, editores(yaml["publisher"]), $l_re_recreando_legal
 rutaEpub = "#{carpeta + "-" + uid_corto}.epub"
 espacio = " "
 
-if OS.windows?
-    rutaEpub = rutaEpub.gsub(/^C:/, '/c')
-end
-
 # Elimina el EPUB previo si lo hay
 Dir.glob(directorioPadre(carpeta) + "/*") do |archivo|
     if File.basename(archivo) == File.basename(rutaEpub)
@@ -885,7 +866,7 @@ Dir.chdir(carpeta)
 
 # Crea el EPUB
 puts "#{$l_re_creando_epub[0] + espacio + $l_re_creando_epub[1] + carpeta + $l_re_creando_epub[2] + File.basename(rutaEpub) + $l_re_creando_epub[3]}".green
-system ("#{zip} \"#{rutaEpub}\" -X mimetype -q")
-system ("#{zip} \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .* -q")
+system ("zip \"#{rutaEpub}\" -X mimetype -q")
+system ("zip \"#{rutaEpub}\" -r #{carpetasPrincipales[-2]} #{carpetasPrincipales[-1]} -x .* -q")
 
 puts $l_g_fin

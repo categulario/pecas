@@ -11,24 +11,6 @@ Encoding.default_internal = Encoding::UTF_8
 require File.dirname(__FILE__) + "/../common/lang.rb"
 require File.dirname(__FILE__) + "/../common/xhtml-beautifier.rb"
 
-## MÓDULOS
-
-# Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
-module OS
-    def OS.windows?
-        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-    end
-    def OS.mac?
-        (/darwin/ =~ RUBY_PLATFORM) != nil
-    end
-    def OS.unix?
-        !OS.windows?
-    end
-    def OS.linux?
-        OS.unix? and not OS.mac?
-    end
-end
-
 ## CLASES
 
 # Para detectar que es un número entero; viene de: http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
@@ -184,15 +166,7 @@ def arregloRuta elemento
     elemento = elemento.strip
 
     # Elimina caracteres confictivos
-    elementoFinal = elemento.gsub("file:","").gsub("%20"," ")
-
-    if OS.windows?
-        # En Windows cuando hay rutas con espacios se agregan comillas dobles que se tiene que eliminar
-        elementoFinal = elementoFinal.gsub('"', '')
-    else
-        # En UNIX pueden quedar diagonales de espace que también se ha de eliminar
-        elementoFinal =  elementoFinal.gsub('\\', '')
-    end
+    elementoFinal = elemento.gsub("file:","").gsub("%20"," ").gsub('\\', '')
 
     # Se codifica para que no exista problemas con las tildes
     elementoFinal = elementoFinal.encode!(Encoding::UTF_8)
@@ -202,13 +176,7 @@ end
 
 # Enmienda ciertos problemas con la línea de texto pasa su uso directo en el sistema
 def arregloRutaTerminal elemento
-	ruta = elemento
-	
-	if OS.windows?
-		ruta = '"' + ruta + '"'
-	else
-		ruta = ruta.gsub(/\s/, "\\ ")
-	end
+	ruta = elemento.gsub(/\s/, "\\ ")
 	
 	return ruta.gsub(",", "\\,")
 end
@@ -220,14 +188,7 @@ end
 
 # Obtiene el directorio donde se encuentra el archivo para uso directo en el sistema
 def directorioPadreTerminal archivo
-
-    directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/")
-
-	if OS.windows?
-		directorio = '"' + directorio + '"'
-	else
-		directorio = directorio.gsub(/\s/, "\\ ")
-	end
+    directorio = ((arregloRuta File.absolute_path(archivo)).split("/"))[0..-2].join("/").gsub(/\s/, "\\ ")
 	
 	return directorio
 end
@@ -375,7 +336,6 @@ end
 def epub_analisis epub
 
     epub_directorio = directorioPadre epub
-    unzip = if OS.windows? then unzip = "#{File.dirname(__FILE__)+ '/../../src/alien/info-zip/unzip.exe'}" else unzip = "unzip" end
     todo = {}
     archivo_opf = nil
     pwd_old = Dir.pwd
@@ -419,7 +379,7 @@ def epub_analisis epub
 
     # Descomprime para iniciar el análisis
     puts $l_g_descomprimiendo
-    system ("#{unzip} -qq #{arregloRutaTerminal epub} -d #{arregloRutaTerminal epub_directorio}/#{$l_g_epub_analisis}")
+    system ("unzip -qq #{arregloRutaTerminal epub} -d #{arregloRutaTerminal epub_directorio}/#{$l_g_epub_analisis}")
 
     # Busca el archivo OPF
     Dir.glob($l_g_epub_analisis + "/**/*") do |archivo|

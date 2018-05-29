@@ -13,10 +13,6 @@ $divisor = '/'
 $comillas = '\''
 $version = ''
 
-if OS.windows?
-    $comillas = ''
-end
-
 # Obtiene los argumentos necesarios
 if ARGF.argv.length < 1
     puts "\nUn argumento es necesario, la ruta al EPUB.".red.bold

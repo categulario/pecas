@@ -16,7 +16,6 @@ lenguaje = argumento "-l", lenguaje
 nombre = argumento "-o", nombre
 txt = argumento "-t", txt, 1
 comprimido = argumento "-c", comprimido, 1
-gswin32 = argumento "-32", gswin32, 1
 argumento "-v", $l_tg_v
 argumento "-h", $l_tg_h
 
@@ -32,7 +31,7 @@ Dir.chdir(directorio)
 
 # Conjunto para los archivos de texto
 txts = Array.new
-pdfs = Array.new	# Solo para Windows
+pdfs = Array.new
 
 # Cuenta la cantidad de archivos a reconocer
 total = 0
@@ -55,9 +54,7 @@ Dir.foreach(directorio) do |archivo|
 			puts "#{$l_tg_procesando[0] + actual.to_s + $l_tg_procesando[1] + total.to_s + $l_tg_procesando[2]}".green.bold
 			puts "#{$l_tg_reconociendo[0] + archivo + $l_tg_reconociendo[1]}".green
 
-			if OS.windows?
-				pdfs.push(".#{archivo_sin_extension}.pdf")
-			end
+			pdfs.push(".#{archivo_sin_extension}.pdf")
 			
 			# Crea un PDF con OCR
 			`tesseract -l #{lenguaje} #{archivo} .#{archivo_sin_extension} pdf`
@@ -82,22 +79,14 @@ begin
 	puts $l_tg_uniendo_pdf
 
 	# PDFS a PDF
-	if OS.windows?
-		pdfs = pdfs.sort
-		`gswin#{gswin32 == nil ? "64" : "32"}c -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf #{pdfs.join(" ")}`
-	else
-		`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf .*.pdf`
-	end
+	pdfs = pdfs.sort
+	`gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=#{nombre}.pdf .*.pdf`
 	
 	if comprimido
 		puts "#{$l_tg_comprimiendo[0] + nombre + $l_tg_comprimiendo[1]}".green
 		
 		# PDF a PDF comprimido
-		if OS.windows?
-			`gswin#{gswin32 == nil ? "64" : "32"}c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
-		else
-			`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
-		end
+    	`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile=#{nombre}-#{$l_tg_comprimido}.pdf #{nombre}.pdf`
 	end
 rescue
 	puts $l_tg_error_gs

@@ -26,7 +26,6 @@ css = if argumento "-s", css != nil then argumento "-s", css end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_au_prefijo + $l_g_meta_data end
 no_preliminares = argumento "--no-pre", no_preliminares, 1
 depth = if argumento "--depth", depth != nil then argumento "--depth", depth else nil end
-win32 = argumento "-32", win32, 1
 indice = if argumento "--index", indice != nil then argumento "--index", indice else "3" end
 inner = argumento "--inner", inner, 1
 reset = argumento "--reset", reset, 1
@@ -265,7 +264,7 @@ else
 	end
 	
 	# Recreación del EPUB
-	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} -d #{$l_au_epub_nombre} #{parametro yaml, "-y"} #{parametro depth, "--depth"} #{if win32 then "-32" end}"
+	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} -d #{$l_au_epub_nombre} #{parametro yaml, "-y"} #{parametro depth, "--depth"}"
 	
 	# Localiza el nombre del EPUB
 	Dir.glob("*.epub") do |e|
