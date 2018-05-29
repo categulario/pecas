@@ -57,6 +57,27 @@
             </pre>
             <h2 id="-utilizacion">> Utilización</h2>
             <p>Usa el comando <code>-h</code> de cada herramienta para leer su documentación.</p>
+            <h2 id="-particularidades-para-windows">> Particularidades para Windows</h2>
+            <p>Es posible usar Pecas tal como si se estuviera en sistemas UNIX, pero considerando lo siguiente.</p>
+            <h3 id="windows-10">Windows 10</h3>
+            <p>Se necesita instalar Ubuntu como <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</p>
+            <h3 id="windows-7-y-8">Windows 7 y 8</h3>
+            <p>Se necesita instalar <a href="https://www.cygwin.com/">Cygwin</a> con los siguientes paquetes:</p>
+            <ul>
+                <li>
+                    <p><code>git</code>.</p>
+                </li>
+                <li>
+                    <p><code>zip</code>.</p>
+                </li>
+                <li>
+                    <p><code>unzip</code>.</p>
+                </li>
+                <li>
+                    <p><code>make</code>. (Solo si se desea instalar <a href="https://github.com/NikaZhenya/sexy-bash-prompt">sexy-bash-prompt</a>).</p>
+                </li>
+            </ul>
+            <p>Además se tiene que instalar una gema de ruby con: <code>gem install json_pure</code>.</p>
         </section>
         <style>
         body {margin:0;}

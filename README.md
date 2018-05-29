@@ -45,11 +45,34 @@ Usa el comando `-h` de cada herramienta para leer su documentación o lee en lí
 
 Existen además temas auxiliares:
 
-| Tema                                                                                 | Descripción|
-|--------------------------------------------------------------------------------------|------------|
-| [CSS](https://github.com/NikaZhenya/pecas/tree/master/epub/others/css)               | Lista y explicación de los estilos más comunes de la plantilla por defecto.         |
-| [JavaScript](https://github.com/NikaZhenya/pecas/tree/master/epub/others/javascript) | Lista y explicación de *scripts* que dan algunas funcionalidades extras a los EPUB. |
-| [YAML](https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml)             | Explicación de la estructura del archivo para los metadatos de los libros.          |
+| Tema                                                          | Descripción                                                                 |
+|---------------------------------------------------------------|-----------------------------------------------------------------------------|
+| [Markdown](https://nikazhenya.github.io/pecas/html/md.html)   | Explicación de la sintaxis de Markdown usada por Pecas.                     |
+| [CSS](https://nikazhenya.github.io/pecas/html/css.html)       | Explicación de los estilos más comunes de la plantilla por defecto.         |
+| [YAML](https://nikazhenya.github.io/pecas/html/yaml.html)     | Explicación de la estructura del archivo para los metadatos de los libros.  |
+| [JavaScript](https://nikazhenya.github.io/pecas/html/js.html) | Explicación de *scripts* que dan algunas funcionalidades extras a los EPUB. |
+
+# Particularidades para Windows
+
+Es posible usar Pecas tal como si se estuviera en sistemas UNIX,
+pero considerando lo siguiente.
+
+## Windows 10
+
+Se necesita instalar Ubuntu como 
+[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+## Windows 7 y 8
+
+Se necesita instalar [Cygwin](https://www.cygwin.com/) con los 
+siguientes paquetes:
+
+* `git`.
+* `zip`.
+* `unzip`.
+* `make`. (Solo si se desea instalar [sexy-bash-prompt](https://github.com/NikaZhenya/sexy-bash-prompt)).
+
+Además se tiene que instalar una gema de ruby con: `gem install json_pure`.
 
 # *Single source and online publishing* (SSOP)
 
