@@ -11,6 +11,24 @@ Encoding.default_internal = Encoding::UTF_8
 require File.dirname(__FILE__) + "/../common/lang.rb"
 require File.dirname(__FILE__) + "/../common/xhtml-beautifier.rb"
 
+## MÓDULOS
+
+# Obtiene el tipo de sistema operativo; viene de: http://stackoverflow.com/questions/170956/how-can-i-find-which-operating-system-my-ruby-program-is-running-on
+module OS
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+    def OS.mac?
+        (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+    def OS.unix?
+        !OS.windows?
+    end
+    def OS.linux?
+        OS.unix? and not OS.mac?
+    end
+end
+
 ## CLASES
 
 # Para detectar que es un número entero; viene de: http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
