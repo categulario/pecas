@@ -54,14 +54,15 @@ end
 # Obtiene el mimetype y la codificación de un archivo; inspirado en: https://stackoverflow.com/questions/24897465/determining-encoding-for-a-file-in-ruby
 class String
     def detect_mimetype_charset
-        if OS.linux? || OS.mac?
-            if OS.linux?
-                output = `file -i #{arregloRutaTerminal self}`.strip.split(': ')[1].split('; ')
-            else
+        begin
+            if OS.mac?
                 output = `file -I #{arregloRutaTerminal self}`.strip.split(': ')[1].split('; ')
+            else
+                output = `file -i #{arregloRutaTerminal self}`.strip.split(': ')[1].split('; ')
             end
+
             return [output[0], output[1].split('=')[1]]
-        else
+        rescue
             $l_g_error_no_identificado
         end
     end
