@@ -90,8 +90,10 @@ def ejecutar texto, comando
 			    puts m
 			    $log.push(m.gsub(/\n/,"\n  ").gsub("  Info(prcgen):I1037","=>Info(prcgen):I1037").gsub("  Info(prcgen):I1038","=>Info(prcgen):I1038").gsub("[32m","  ").gsub("[39m","").gsub(/^  info:/,"\n  info:"))
             rescue
-                # Cuando ace no se encuentra, marca un error aquí…
-                siFallo $l_au_ace
+                if comando =~ /ace\s/
+                    # Cuando ace no se encuentra, marca un error aquí…
+                    siFallo $l_au_ace
+                end
             end
 		end
 	rescue
