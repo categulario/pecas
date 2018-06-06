@@ -32,9 +32,11 @@ reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
 rotacion = argumento "--rotate", rotacion, 1
 overwrite = argumento "--overwrite", overwrite, 1
-no_analytics = argumento "--no-analytics", no_analytics, 1
 no_legacy = argumento "--no-legacy", no_legacy, 1
+no_analytics = argumento "--no-analytics", no_analytics, 1
+no_epubcheck = argumento "--no-epubcheck", no_epubcheck, 1
 no_ace = argumento "--no-ace", no_ace, 1
+no_kindlegen = argumento "--no-kindlegen", no_kindlegen, 1
 
 # Variables que se usarán
 $log = Array.new
@@ -293,12 +295,14 @@ else
         FileUtils.mv("#{$l_an_archivo_nombre}json", $l_au_logs + '/pc-analytics')
     end
 
-	# Verificación con EpubCheck del EPUB más reciente
-	verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"
-	
-	# Verificación con EpubCheck del EPUB 3.0.0
-    if no_legacy != true
-    	verificacion epub_final + "_3-0-0.epub", 3, "# epubcheck 3.0.1"
+    if no_epubcheck != true
+	    # Verificación con EpubCheck del EPUB más reciente
+	    verificacion epub_final + ".epub", 4, "# epubcheck 4.0.2"
+	    
+	    # Verificación con EpubCheck del EPUB 3.0.0
+        if no_legacy != true
+        	verificacion epub_final + "_3-0-0.epub", 3, "# epubcheck 3.0.1"
+        end
     end
 	
     # Ace
@@ -308,9 +312,11 @@ else
     end
 
 	# KindleGen
-	puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green
-	ejecutar "\n# kindlegen", "kindlegen #{epub_final + ".epub"}"
-    siFallo $l_au_kindlegen
+    if no_kindlegen != true
+	    puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green
+	    ejecutar "\n# kindlegen", "kindlegen #{epub_final + ".epub"}"
+        siFallo $l_au_kindlegen
+    end
 	
 	# Elimina el archivo XHTML porque ya no es necesario
 	FileUtils.rm_rf(xhtml)
@@ -318,4 +324,6 @@ else
 	reporte
 end
 
-puts "\n" + $l_g_fin
+if no_kindlegen != true
+    puts "\n" + $l_g_fin
+end

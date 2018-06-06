@@ -49,10 +49,12 @@ con una sola línea de comandos.
 * `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
 * `--section` = Divide el archivo madre cada `<section>`.
 * `--rotate` = Permite rotación aleatoria de las palabras en la nube de palabras de 30° a 150°.
-* `--overwrite` = Sobrescribe los archivos sin dar advertencia.
-* `--no-analytics` = Evita la creación de analítica.
 * `--no-legacy` = Evita la conversión de EPUB a una versión anterior.
+* `--no-analytics` = Evita la creación de analítica.
+* `--no-epubcheck` = Evita la verificación de EpubCheck.
 * `--no-ace` = Evita la verificación de ACE.
+* `--no-kindlegen` = Evita la creación del MOBI con KindleGen.
+* `--overwrite` = Sobrescribe los archivos sin dar advertencia.
 
 ### Parámetros únicos:
 
