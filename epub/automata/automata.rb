@@ -264,7 +264,7 @@ else
 	
 	# Adición de notas
 	if notas
-		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -f #{arregloRutaTerminal notas} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
+		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -n #{arregloRutaTerminal notas} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
 	end
 	
 	# Recreación del EPUB

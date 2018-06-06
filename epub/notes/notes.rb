@@ -11,7 +11,7 @@ require File.dirname(__FILE__) + "/../../src/common/xhtml-template.rb"
 require File.dirname(__FILE__) + "/../../src/common/xhtml-beautifier.rb"
 
 # Argumentos
-txt = if argumento "-f", txt != nil then argumento "-f", txt end
+txt = if argumento "-n", txt != nil then argumento "-n", txt end
 carpeta = if argumento "-d", carpeta != nil then argumento "-d", carpeta else Dir.pwd end
 css = if argumento "-s", css != nil then argumento "-s", css end
 reset = argumento "--reset", reset, 1
@@ -189,9 +189,9 @@ archivos.each do |archivo|
 						return false
 					end
 				end
-				
+
 				# Si es una nota personalizada
-				if palabra =~ /#{$l_g_note[0]}(\[.*?\])/ || palabra =~ /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/
+				if palabra =~ /#{$l_g_note[0]}(\[.*?\])/ || palabra =~ /#{$l_g_note_b[0]}(.+?)#{$l_g_note_b[1]}/
                     if palabra =~ /#{$l_g_note[0]}(\[.*?\])/
                         new_syntax = true
                     else

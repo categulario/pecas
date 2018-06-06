@@ -5,14 +5,14 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ## Uso:
 
   ```
-  pc-notes -f [archivo con las notas]
+  pc-notes -n [archivo con las notas]
   ```
 
 ## Descripción de los parámetros
 
 ### Parámetro necesario:
 
-* `-f` = [file] Archivo con las notas en formato MD.
+* `-n` = [file] Archivo con las notas en formato MD.
 
 ### Parámetros opcionales:
 
@@ -31,7 +31,7 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo sencillo:
 
 ```
-  pc-recreator -f directorio/a/notas.md
+  pc-recreator -n directorio/a/notas.md
 ```
   
   Añade las notas presentes en `notas.md` a los archivos que se encuentren en el directorio actual.
@@ -39,7 +39,7 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo con un directorio específico:
 
 ```
-  pc-recreator -f directorio/a/notas.md -d directorio/html/o/tex
+  pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex
 ```
   
   Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex`.
@@ -47,7 +47,7 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo con un directorio específico y con una hoja de estilo:
 
 ```
-  pc-recreator -f directorio/a/notas.md -d directorio/html -s ruta/al/archivo.css
+  pc-recreator -n directorio/a/notas.md -d directorio/html -s ruta/al/archivo.css
 ```
   
   Igual que el ejemplo anterior pero se añade una hoja de estilo; ojo: se ignora si hay `--inner`.
@@ -55,7 +55,7 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo con un directorio específico y reseteo de la numeración:
 
 ```
-  pc-recreator -f directorio/a/notas.md -d directorio/html/o/tex --reset
+  pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex --reset
 ```
   
   Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex` y el contador inicia en 1 en cada archivo.
@@ -63,7 +63,7 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo con un directorio específico, reseteo de la numeración e incrustado en los archivos:
 
 ```
-  pc-recreator -f directorio/a/notas.md -d directorio/html --reset --inner
+  pc-recreator -n directorio/a/notas.md -d directorio/html --reset --inner
 ```
   
   Igual que el ejemplo anterior pero el contenido de las notas se añaden al final de cada archivo.
