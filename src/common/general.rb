@@ -759,6 +759,7 @@ def md_to_html ruta
                     # Empiezan las sustituciones según el tipo de sintaxis
                     if rx[1] == 'img'
                         text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
+                        text = text.gsub(/(alt=".*?)@\w+(.*?")/, '\1\2')
                     elsif rx[1] == 'a'
                         text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>[^<]+?<\/a>)({.*?})/)
                     elsif rx[1] == 'i'
