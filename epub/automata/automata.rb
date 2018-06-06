@@ -46,7 +46,7 @@ epub_final = ""
 # Elimina los archivos excepto el YAML
 def remover
 	Dir.glob("*") do |archivo|
-		if File.extname(archivo) != ".yaml" then FileUtils.rm_rf(archivo) end
+		if File.extname(archivo) != ".yaml" && File.extname(archivo) != ".sh" then FileUtils.rm_rf(archivo) end
 	end
 end
 
