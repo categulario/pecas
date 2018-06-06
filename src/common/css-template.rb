@@ -263,8 +263,10 @@ b, strong {
 }
 
 .initial, .capitular {
-    font-size: 2em;
-    padding-right: 1px;
+    float: left;
+    font-size: 3em;
+    margin-top: .15em;
+    padding-right: .1em;
 }
 
 .uppercase, .versal {
@@ -306,6 +308,10 @@ b, strong {
         -ms-hyphens: auto;
         hyphens: auto;
     }
+}
+
+.underline, .subrayado {
+    text-decoration: underline black;
 }
 
 /* Links / Enlaces */
