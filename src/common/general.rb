@@ -752,6 +752,11 @@ def md_to_html ruta
             [/(.?)(\/\+)/, '&#160;']                                                    # Espacio de no separación
         ]
 
+        # Inicio de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
+        text.scan(/@note\[(\*+?)\]/).each do |scan|
+            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('@@@' * scan[0].length) + ']')
+        end
+
         regex.each do |rx|
             if text.scan(rx[0]).length > 0
                 # Si no se está escapando la sintaxis
@@ -811,6 +816,11 @@ def md_to_html ruta
         end
 
         text = text.gsub('%60','`').gsub('%7E','~').gsub('%5E','^').gsub('%2A','*').gsub('%28','(').gsub('%29',')').gsub('%5f','_').gsub('%2B','+').gsub('%5C','\\').gsub('%7C','|').gsub('%5B','[').gsub('%5D',']').gsub('%7B','{').gsub('%7D','}')
+
+        # Fin de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
+        text.scan(/@note\[(@{3}+?)\]/).each do |scan|
+            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('*' * (scan[0].length / 3)) + ']')
+        end
 
         # Regresa con la simplificación de \\ por \
         return text.gsub('\\\\', '\\')
