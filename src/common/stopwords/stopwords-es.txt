@@ -121,6 +121,7 @@ asi
 aun
 bah
 bis
+cit
 con
 del
 dos
@@ -174,6 +175,7 @@ me
 mi
 ni
 no
+op
 se
 si
 su
