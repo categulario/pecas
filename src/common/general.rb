@@ -1080,6 +1080,9 @@ def md_to_html ruta
             src = url.length > 0 ? ' src="' + url + '"' : ''
             alt = text.length > 0 ? ' alt="' + text.gsub(/<[^<]+?>/, '') + '"' : ''
 
+            # Elimina sintaxis de Pecas como @note
+            alt = alt.gsub(/@\w+/, '')
+
             # Según si hay pie de foto o no, es la estructura de la imagen
             if text.length > 0
                 return '<figure><img' + attribute + src + alt + '/><figcaption>' + text + '</figcaption></figure>'
