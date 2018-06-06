@@ -1,13 +1,27 @@
 </section>
+<footer>
+<nav class="espacio-arriba1">   
+<h3>Repositorio</h3>
+<p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
+<p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
+<p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
+</nav>
+<nav class="espacio-arriba1">   
+<h3>Contacto</h3>
+<p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
+<p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
+</nav>
+<p class="centrado">Pecas es <i>software</i> libre bajo licencia <a href="https://gnu.org/licenses/gpl.html" target="_blank">GPLv3+</a>.
+</footer>
 <style>
 body {margin:0;}
 body > * {float:left;}
-header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color: black;color:white;border-radius:0 .5em .5em 0;}
+header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
 header h1, section h1:first-child {margin:0;}
 header h1 + p {margin-top:1em!important;}
 header a {color: white;}
-header p {text-align:left;}
-header p + p {text-indent:0;}
+header p, footer nav {text-align:left;}
+header p + p, footer p + p {text-indent:0;}
 header nav > p:before {content:"> ";}
 section {width:calc(75% - 10em);margin:5em;}
 div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
@@ -18,4 +32,21 @@ div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text
 div.example > div > div:first-child:before {content:"Escritura en Markdown";}
 div.example > div > div:last-child:before {content:"Resultado en HTML";}
 div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
+footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
+footer > p {margin-top: 1em;}
+footer > nav {display:none;}
+footer nav > * {display:inline;}
+footer nav > p:before {content:"> ";}
+footer nav > p:not(:first-of-type):before {content:"| ";}
+@media screen and (max-width: 768px) {
+    body > * {float:none;}
+    header {width:100%;margin-top:0;}
+    header > p:first-of-type {display:inline;}
+    header > nav:not(:first-of-type) {display:none;}
+    header nav > * {display:inline;}
+    header nav > p:not(:first-of-type):before {content:"| ";}
+    section {width:calc(100% - 5em);margin:2.5em;}
+    div.example > div, div.example > div > div {float:none;width:100%;}
+    footer > nav {display:block;text-align:center;}
+}
 </style>

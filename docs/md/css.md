@@ -318,6 +318,52 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 <div class="example"><div><div>
 
 ```markdown
+[Lorem]{.subrayado} ipsum dolor sit amet, consectetur adipiscing elit. 
+[Maecenas ac lacus viverra]{.underline}, scelerisque nisl non, pretium turpis.
+```
+
+</div><div>
+
+```html
+<p><span class="subrayado">Lorem</span> ipsum dolor sit amet, consectetur adipiscing elit. <span class="underline">Maecenas ac lacus viverra</span>, scelerisque nisl non, pretium turpis.</p>
+```
+
+</div></div><div>
+
+[Lorem]{.subrayado} ipsum dolor sit amet, consectetur adipiscing elit. 
+[Maecenas ac lacus viverra]{.underline}, scelerisque nisl non, pretium turpis.
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
+![Imagen con pie de foto.](../img/gnu.svg){.anchura-auto}
+
+![](../img/tux.svg){.auto-width}
+```
+
+</div><div>
+
+```html
+<figure>
+    <img class="anchura-auto" src="../img/gnu.svg" alt="Imagen con pie de foto.">
+    <figcaption>Imagen con pie de foto.</figcaption>
+</figure>
+<img class="auto-width" src="../img/tux.svg">
+```
+
+</div></div><div>
+
+![Imagen con pie de foto.](../img/gnu.svg){.anchura-auto}
+
+![](../img/tux.svg){.auto-width}
+
+</div></div>
+
+<div class="example"><div><div>
+
+```markdown
 <section class="glosa gloss">
 <!-- Cualquiera de las dos clases -->
 
