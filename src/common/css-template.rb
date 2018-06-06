@@ -314,6 +314,19 @@ b, strong {
     text-decoration: underline black;
 }
 
+.auto-width, .anchura-auto {
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+    .auto-width, .anchura-auto {
+        max-width: 100%;
+    }
+}
+
 /* Links / Enlaces */
 
 a, a:link, a:visited {
