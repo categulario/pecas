@@ -78,82 +78,86 @@ def create_index index_data, index_prefix, files_content, css
         abort
     end
 
-    title = index_data["name"]
-    list_raw = index_data["content"]
-    list = {"index" => index_prefix, "items" => []}
-    list_existent = []
-    list_final = []
+    # Solo si el contenido es un conjunto con más de un elemento que no sea vacío
+    if index_data["content"].class == Array && index_data["content"].compact.length > 0
 
-    # Limpia la lista
-    puts "#{$l_in_limpiando[0] + title + $l_in_limpiando[1]}".green
-    list_raw.each do |item|
-        if item.class == Array
-            i1 = item[0].to_s
-            i2 = item[1].to_s
+        title = index_data["name"]
+        list_raw = index_data["content"]
+        list = {"index" => index_prefix, "items" => []}
+        list_existent = []
+        list_final = []
 
-            if i1 != '' && i2 != ''
-                list["items"].push([i1.strip, i2.gsub(/^\//, '').gsub(/\/$/, '')])
-            end
-        else
-            item = item.to_s
+        # Limpia la lista
+        puts "#{$l_in_limpiando[0] + title + $l_in_limpiando[1]}".green
+        list_raw.each do |item|
+            if item.class == Array
+                i1 = item[0].to_s
+                i2 = item[1].to_s
 
-            if item != ''
-                list["items"].push([item.strip, item.strip])
-            end
-        end
-    end
+                if i1 != '' && i2 != ''
+                    list["items"].push([i1.strip, i2.gsub(/^\//, '').gsub(/\/$/, '')])
+                end
+            else
+                item = item.to_s
 
-    begin
-        puts $l_in_buscando
-
-        html = true
-        files_content.each do |file|
-            # Si es HTML
-            if File.basename(file) != '.tex'
-
-                # Convierte el hash a HTML ya con las referencias añadidas
-                data = hash_to_html(file_to_hash(file), list)
-
-                list_existent = list_existent + data[0]
-
-                # Crea el archivo
-	            archivo = File.new(file, 'w:UTF-8')
-	            archivo.puts data[1]
-	            archivo.close
+                if item != ''
+                    list["items"].push([item.strip, item.strip])
+                end
             end
         end
 
-        puts $l_in_anadiendo
+        begin
+            puts $l_in_buscando
 
-        # Crea el archivo
-        if html
-            file_index = $l_in_index_file.gsub('-', index_prefix.to_s + '-') + 'xhtml'
+            html = true
+            files_content.each do |file|
+                # Si es HTML
+                if File.basename(file) != '.tex'
 
-            archivo = File.new(file_index, 'w:UTF-8')
-            archivo.puts xhtmlTemplateHead(title, css == nil ? '' : css, 'index')
-            if css == nil then archivo.puts "<style>#{$css_template_min}</style>" end
-            archivo.puts "<section class=\"#{$l_in_item_section}\">"
-            archivo.puts "<h1>#{title}</h1>"
-            if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\"><style>@media screen and (min-width:768px){.i-item-div{column-count:2;column-gap:2em;column-rule:solid 1px lightgray;}}</style>" end
-            archivo.puts array_to_html(list_existent, index_prefix)
-            if $two_columns then archivo.puts '</div>' end
-            archivo.puts '</section>'
-            archivo.puts $xhtmlTemplateFoot
-            archivo.close
+                    # Convierte el hash a HTML ya con las referencias añadidas
+                    data = hash_to_html(file_to_hash(file), list)
 
-            beautifier(file_index)
+                    list_existent = list_existent + data[0]
+
+                    # Crea el archivo
+	                archivo = File.new(file, 'w:UTF-8')
+	                archivo.puts data[1]
+	                archivo.close
+                end
+            end
+
+            puts $l_in_anadiendo
+
+            # Crea el archivo
+            if html
+                file_index = $l_in_index_file.gsub('-', index_prefix.to_s + '-') + 'xhtml'
+
+                archivo = File.new(file_index, 'w:UTF-8')
+                archivo.puts xhtmlTemplateHead(title, css == nil ? '' : css, 'index')
+                if css == nil then archivo.puts "<style>#{$css_template_min}</style>" end
+                archivo.puts "<section class=\"#{$l_in_item_section}\">"
+                archivo.puts "<h1>#{title}</h1>"
+                if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\"><style>@media screen and (min-width:768px){.i-item-div{column-count:2;column-gap:2em;column-rule:solid 1px lightgray;}}</style>" end
+                archivo.puts array_to_html(list_existent, index_prefix)
+                if $two_columns then archivo.puts '</div>' end
+                archivo.puts '</section>'
+                archivo.puts $xhtmlTemplateFoot
+                archivo.close
+
+                beautifier(file_index)
+            end
+
+        # Si algo sale mal, elimina todo lo hecho y recupera la información
+        rescue
+            puts $l_in_error_incorporacion
+            files_content.each do |file|
+                file_name = file
+                puts "#{$l_in_recuperando[0] + file_name + $l_in_recuperando[1]}".green
+                FileUtils.rm(file_name)
+                FileUtils.mv(file_name + '.bak', file_name)
+            end
+            abort
         end
-
-    # Si algo sale mal, elimina todo lo hecho y recupera la información
-    rescue
-        puts $l_in_error_incorporacion
-        files_content.each do |file|
-            file_name = file
-            puts "#{$l_in_recuperando[0] + file_name + $l_in_recuperando[1]}".green
-            FileUtils.rm(file_name)
-            FileUtils.mv(file_name + '.bak', file_name)
-        end
-        abort
     end
 end
 
