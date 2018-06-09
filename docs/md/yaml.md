@@ -295,6 +295,11 @@ En el primer caso se buscará `EPUB` y en el índice el término
 aparecerá como `EPUB`. En el segundo caso se buscará `index.rb` y 
 aparecerá como `index.rb, herramienta de Pecas`.
 
+### Orden alfabético
+
+No hay necesidad de ordenar las entradas alfabéticamente, ya que se
+hace automáticamente.
+
 ### RegEx
 
 Es posible que las búsqueda no sean literales, sino con [RegEx](https://en.wikipedia.org/wiki/Regular_expression).
