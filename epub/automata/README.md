@@ -7,15 +7,15 @@ con una sola línea de comandos.
 
 ### Uso para inicializar:
 
-  ```
-  pc-automata --init
-  ```
+```
+pc-automata --init
+```
   
 ### Uso para automatizar:
 
-  ```
-  pc-automata -f [archivo madre]
-  ```
+```
+pc-automata -f [archivo madre]
+```
   
 ## Descripción de los parámetros
 
@@ -66,15 +66,15 @@ con una sola línea de comandos.
 ### Ejemplo sencillo:
 
 ```
-  pc-automata -f archivo-madre.md
+pc-automata -f archivo-madre.md
 ```
 
-  Crea un proyecto EPUB, un EPUB 3.0.1, un EPUB 3.0.0 y un MOBI a partir del `archivo-madre.md`.
+Crea un proyecto EPUB, un EPUB 3.0.1, un EPUB 3.0.0 y un MOBI a partir del `archivo-madre.md`.
   
 ### Ejemplo complejo:
 
 ```
-  pc-automata -f archivo-madre.md -n notas.md -d automata/ -c portada.jpg -i imagenes/ -s styles.css -y automata/meta-datos.yaml --section --reset --inner
+pc-automata -f archivo-madre.md -n notas.md -d automata/ -c portada.jpg -i imagenes/ -s styles.css -y automata/meta-datos.yaml --section --reset --inner
 ```
   
-  Crea un proyecto EPUB, un EPUB 3.0.1, un EPUB 3.0.0 y un MOBI a partir del `archivo-madre.md`, las notas al pie de `notas.md` adentro de cada archivo y con reinicio de numeración, la portada `portada.jpg`, las hojas de estilos `styles.css` y los metadatos `automata/meta-datos.yaml`, divididos cada etiqueta \<section\> y en un proyecto de pc-automata llamado `automata`.
+Crea un proyecto EPUB, un EPUB 3.0.1, un EPUB 3.0.0 y un MOBI a partir del `archivo-madre.md`, las notas al pie de `notas.md` adentro de cada archivo y con reinicio de numeración, la portada `portada.jpg`, las hojas de estilos `styles.css` y los metadatos `automata/meta-datos.yaml`, divididos cada etiqueta \<section\> y en un proyecto de pc-automata llamado `automata`.

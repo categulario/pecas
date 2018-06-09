@@ -9,9 +9,9 @@ Tegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con 
 
 ## Uso
 
-  ```
-  pc-tegs -d [directorio] -l [idioma] -o [nombre del archivo]
-  ```
+```
+pc-tegs -d [directorio] -l [idioma] -o [nombre del archivo]
+```
 
 ## Descripción de los parámetros
 
@@ -37,7 +37,7 @@ Tegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con 
 ### Ejemplo sencillo
 
 ```
-  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba
+pc-tegs -d directorio/de/las/imágenes -l spa -o prueba
 ```
 
 Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en `directorio/de/las/imágenes`.
@@ -45,7 +45,7 @@ Crea un archivo PDF con OCR en español y sin compresión a partir de las imáge
 ### Ejemplo con PDF comprimido
 
 ```
-  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c
+pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c
 ```
 
 Además del PDF con OCR, se crea otro PDF con compresión.
@@ -53,7 +53,7 @@ Además del PDF con OCR, se crea otro PDF con compresión.
 ### Ejemplo con archivo de texto
 
 ```
-  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -t
+pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -t
 ```
 
 Además del PDF con OCR, se crea un archivo de texto con el contenido de las imágenes.
@@ -61,7 +61,7 @@ Además del PDF con OCR, se crea un archivo de texto con el contenido de las im�
 ### Ejemplo con PDF comprimido y archivo de texto
 
 ```
-  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c -t
+pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c -t
 ```
   
 Además del PDF con OCR, se crea otro PDF con compresión y un archivo de texto.

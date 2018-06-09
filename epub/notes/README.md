@@ -4,9 +4,9 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 
 ## Uso:
 
-  ```
-  pc-notes -n [archivo con las notas]
-  ```
+```
+pc-notes -n [archivo con las notas]
+```
 
 ## Descripción de los parámetros
 
@@ -31,55 +31,55 @@ Notes agrega de manera automatizada las notas al pie a archivos con sintaxis tip
 ### Ejemplo sencillo:
 
 ```
-  pc-recreator -n directorio/a/notas.md
+pc-recreator -n directorio/a/notas.md
 ```
   
-  Añade las notas presentes en `notas.md` a los archivos que se encuentren en el directorio actual.
+Añade las notas presentes en `notas.md` a los archivos que se encuentren en el directorio actual.
  
 ### Ejemplo con un directorio específico:
 
 ```
-  pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex
+pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex
 ```
   
-  Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex`.
+Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex`.
   
 ### Ejemplo con un directorio específico y con una hoja de estilo:
 
 ```
-  pc-recreator -n directorio/a/notas.md -d directorio/html -s ruta/al/archivo.css
+pc-recreator -n directorio/a/notas.md -d directorio/html -s ruta/al/archivo.css
 ```
   
-  Igual que el ejemplo anterior pero se añade una hoja de estilo; ojo: se ignora si hay `--inner`.
+Igual que el ejemplo anterior pero se añade una hoja de estilo; ojo: se ignora si hay `--inner`.
   
 ### Ejemplo con un directorio específico y reseteo de la numeración:
 
 ```
-  pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex --reset
+pc-recreator -n directorio/a/notas.md -d directorio/html/o/tex --reset
 ```
   
-  Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex` y el contador inicia en 1 en cada archivo.
+Añade las notas presentes en `notas.md` a los archivos que se encuentren en `directorio/html/o/tex` y el contador inicia en 1 en cada archivo.
   
 ### Ejemplo con un directorio específico, reseteo de la numeración e incrustado en los archivos:
 
 ```
-  pc-recreator -n directorio/a/notas.md -d directorio/html --reset --inner
+pc-recreator -n directorio/a/notas.md -d directorio/html --reset --inner
 ```
   
-  Igual que el ejemplo anterior pero el contenido de las notas se añaden al final de cada archivo.
+Igual que el ejemplo anterior pero el contenido de las notas se añaden al final de cada archivo.
 
-------
+---
 
-## Notas
+# Notas
 
-### Etiquetas de Pecas para las notas
+## Etiquetas de Pecas para las notas
 
 Este *script* supone dos elementos para su ejecución:
 
 1. Que existe alguna marca en los archivos principales que indican el lugar de la nota.
 2. Que existe un archivo secundario con todos los contenidos de las notas.
 
-#### Marcas en los archivos principales
+### Marcas en los archivos principales
 
 La etiqueta por defecto es `@note` o `--note--`, la cual indicará dónde irá una nota.
 Por ejemplo:
@@ -107,7 +107,7 @@ Esto es un párrafo con una nota al pie--note(sup)--.
 Esta herramienta sustituirá la nota personalizada por el contenido y referencia
 correspondiente.
 
-#### Archivo con las notas
+### Archivo con las notas
 
 El archivo con las notas no necesita nada en especial, únicamente considérese
 que el orden de aparación es como se define la referencia entre la marca y su contenido. 

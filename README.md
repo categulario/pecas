@@ -83,7 +83,7 @@ Las ventajas de esta metodología son:
 
 1. Un mayor control semántico y estructural del contenido.
 2. El fin al dilema donde «el tiempo de publicación es proporcional a la 
-cantidad de formatos deseados».
+   cantidad de formatos deseados».
 3. La practicidad de prescindir de respaldos de los formatos finales.
 4. La ventaja de actualizar la obra continuamente y sin dificultades.
 5. La posibilidad de agregar excepciones según cada formato de salida.
@@ -97,29 +97,33 @@ cantidad de formatos deseados».
 
 # Para aprender más
 
-* *Edición digital como metodología para una edición global*, en formato [EPUB 3.0.1](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.epub), [EPUB 3.0.0](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global_3-0-0.epub) y [MOBI](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.mobi)
-    * Libro donde se explica la edición ramificada y otros temas. Esta publicación fue hecha con Pecas.
-* [Taller de Edición Digital](http://ted.cliteratu.re/)
-    * Sitio donde se documentan aspectos relacionados a esta metodología de trabajo.
+* *Edición digital como metodología para una edición global*, en formato 
+  [EPUB 3.0.1](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.epub), 
+  [EPUB 3.0.0](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global_3-0-0.epub) 
+  y [MOBI](https://github.com/NikaZhenya/entradas-eguaras/raw/master/ebooks/edicion_digital_como_metodologia_para_una_edicion_global.mobi).
+  Libro donde se explica la edición ramificada y otros temas. Esta publicación fue hecha con Pecas.
+* [Taller de Edición Digital](http://ted.cliteratu.re/). Sitio donde 
+  se documentan aspectos relacionados a esta metodología de trabajo.
 
-# Pendientes
+# ¿Pendientes?
 
 * EPUB
-  * Todos.
-    * Terminar de resolver el problema de las rutas relativas en los parámetros de cada `script`.
   * `recreator.rb`.
     * Posibilidad de crear sumario.
   * `cites.rb`.
     * Terminar el desarrollo.
-  * `index.rb`.
-    * Terminar el desarrollo.
   * `joiner.rb`.
-    * Desarrollar script periférico que una todos los XHTML en uno solo y con sus estilos dentro del documento (sin referencia externa).
-    * Podría ser el mismo que se plantea como idea para *web*, con opción de adición del TOC.
+    * Desarrollar script periférico que una todos los XHTML en uno 
+      solo y con sus estilos dentro del documento (sin referencia externa).
+    * Podría ser el mismo que se plantea como idea para *web*, con 
+      opción de adición del TOC.
+* PDF
+  * En general empezar con su despliegue.
 
 # ¿Pecas?
 
-Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el mundo exterior, ¡larga vida a Pecas!
+Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el 
+mundo exterior, ¡larga vida a Pecas!
 
 # Licencia
 

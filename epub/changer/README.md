@@ -1,12 +1,12 @@
-# Changer.rb
+# Changer
 
 Cambia versiones de EPUB entre 2.0.0, 2.0.1, 3.0.0 y 3.0.1.
 
 ## Uso:
 
-  ```
-  pc-changer
-  ```
+```
+pc-changer
+```
 
 ## Descripción de los parámetros
 
@@ -29,7 +29,7 @@ Cambia versiones de EPUB entre 2.0.0, 2.0.1, 3.0.0 y 3.0.1.
 ### Ejemplo sencillo:
 
 ```
-  pc-changer -e archivo.epub --version 3.0.0
+pc-changer -e archivo.epub --version 3.0.0
 ```
 
 Convierte el «archivo.epub» a versión 3.0.0.
@@ -37,12 +37,12 @@ Convierte el «archivo.epub» a versión 3.0.0.
 ### Ejemplo sin eliminar el proyecto EPUB:
 
 ```
-  pc-changer -e archivo.epub --version 3.0.0 --standalone
+pc-changer -e archivo.epub --version 3.0.0 --standalone
 ```
 
 Convertirá como el ejemplo anterior, pero sin eliminar la carpeta de proyecto que sirvió para la conversión.
   
-------
+---
 
 # Nota
 

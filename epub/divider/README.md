@@ -4,9 +4,9 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 
 ## Uso:
 
-  ```
-  pc-divider -f [archivo a dividir]
-  ```
+```
+pc-divider -f [archivo a dividir]
+```
 
 ## Descripción de los parámetros
 
@@ -31,44 +31,44 @@ Divider separa un documento HTML cada `<h1>` o `<section>`.
 ### Ejemplo sencillo:
 
 ```
-  pc-divider -f archivo/a/dividir.xhtml
+pc-divider -f archivo/a/dividir.xhtml
 ```
 
-  Dividirá el archivo `dividir.xhtml` cada `<h1>`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
+Dividirá el archivo `dividir.xhtml` cada `<h1>`, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.
 
 ### Ejemplo en un directorio específico:
 
 ```
-  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado
+pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado
 ```
 
-  Dividirá como el ejemplo anterior, poniendo los archivos creados en `directorio/deseado`.
+Dividirá como el ejemplo anterior, poniendo los archivos creados en `directorio/deseado`.
 
 ### Ejemplo en un directorio e incluyendo una hoja de estilo:
 
 ```
-  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css
+pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css
 ```
 
-  Dividirá como el ejemplo anterior, vinculando la hoja de estilo `archivo.css` en cada archivo creado.
+Dividirá como el ejemplo anterior, vinculando la hoja de estilo `archivo.css` en cada archivo creado.
 
 ### Ejemplo en un directorio e incluyendo una hoja de estilo y con otro índice:
 
 ```
-  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1
+pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1
 ```
 
-  Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.
+Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.
   
 ### Ejemplo en un directorio, dividido cada `<section>` e incluyendo una hoja de estilo y con otro índice:
 
 ```
-  pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section
+pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section
 ```
 
-  Semejante al ejemplo anterior, solo que la división es cada `<section>` en lugar de cada `<h1>`.
+Semejante al ejemplo anterior, solo que la división es cada `<section>` en lugar de cada `<h1>`.
 
-------
+---
 
 ## Notas
 
@@ -81,18 +81,18 @@ ignorar algunas líneas. Para esto basta con agregar la marca `@ignore` o
 Por ejemplo, en el archivo a dividir se tiene:
 
 ```html
-	...
-	<h1>Epígrafe @ignore</h1>
-	<p class="epigrafe">Esto es un epígrafe.</p>
-	...
+...
+<h1>Epígrafe @ignore</h1>
+<p class="epigrafe">Esto es un epígrafe.</p>
+...
 ```
 
 Esto crearía un nuevo archivo sin incluir el `<h1>`:
 
 ```html
-	...
-	<p class="epigrafe">Esto es un epígrafe.</p>
-	...
+...
+<p class="epigrafe">Esto es un epígrafe.</p>
+...
 ```
 
 ### Vinculación de la hoja de estilo

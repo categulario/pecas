@@ -4,9 +4,9 @@ Analytics analiza archivos EPUB, XML, XHTML o HTML para un mayor cuidado editori
 
 ## Uso:
 
-  ```
-  pc-analytics -f [archivo]
-  ```
+```
+pc-analytics -f [archivo]
+```
 
 ## Descripción de los parámetros
 
@@ -31,7 +31,7 @@ Analytics analiza archivos EPUB, XML, XHTML o HTML para un mayor cuidado editori
 ### Ejemplo sencillo:
 
 ```
-  pc-analytics -f directorio/al/archivo.epub
+pc-analytics -f directorio/al/archivo.epub
 ```
 
 Analiza el `archivo.epub` y crea una salida HTML con el análisis básico, incluyendo una nube de palabras y una gráfica de pastel.
@@ -39,7 +39,7 @@ Analiza el `archivo.epub` y crea una salida HTML con el análisis básico, inclu
 ### Ejemplo con análisis profundo:
 
 ```
-  pc-analytics -f directorio/al/archivo.epub --deep
+pc-analytics -f directorio/al/archivo.epub --deep
 ```
 
 Semejante al ejemplo anterior pero además crea un análisis profundo, solo visible en JSON o YAML; se crea un JSON si no se especificó `--json` o `--yaml`.
@@ -47,12 +47,12 @@ Semejante al ejemplo anterior pero además crea un análisis profundo, solo visi
 ### Ejemplo con análisis profundo y rotación:
 
 ```
-  pc-analytics -f directorio/al/archivo.epub --deep --rotate
+pc-analytics -f directorio/al/archivo.epub --deep --rotate
 ```
 
 Semejante al ejemplo anterior pero además las palabras de la nube serán rotadas aleatoriamente, en lugar de permanecer horizontales.
 
-------
+---
 
 # Notas 
 

@@ -4,9 +4,9 @@ Doctor analiza el estado de Pecas y sus dependencias.
 
 ## Uso:
 
-  ```
-  pc-doctor
-  ```
+```
+pc-doctor
+```
 
 ## Descripción de los parámetros
 
@@ -23,7 +23,7 @@ Doctor analiza el estado de Pecas y sus dependencias.
 ### Ejemplo sencillo:
 
 ```
-  pc-doctor
+pc-doctor
 ```
 
 Da un análisis del estado de Pecas y sus dependencias.
@@ -31,7 +31,7 @@ Da un análisis del estado de Pecas y sus dependencias.
 ### Ejemplo con un proyecto EPUB específico:
 
 ```
-  pc-doctor --update
+pc-doctor --update
 ```
 
 Actualiza Pecas.
@@ -39,7 +39,7 @@ Actualiza Pecas.
 ### Ejemplo con un proyecto EPUB y metadatos específicos:
 
 ```
-  pc-doctor --restore --update --install-dependencies
+pc-doctor --restore --update --install-dependencies
 ```
 
 Restaura y actualiza Pecas, para después instalar sus dependencias.

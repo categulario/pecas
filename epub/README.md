@@ -9,42 +9,37 @@ pensados para agilizar o automatizar el desarrollo
 de libros EPUB. Estos son:
 
 1. `creator.rb`. Crea un proyecto para EPUB con 
-distintas opciones.
-
+   distintas opciones.
 2. `divider.rb`. Separa un documento HTML cada `<h1>`.
-
 3. `notes.rb`. Agrega de manera automatizada
-las notas a archivos con sintaxis tipo HTML o 
-documentos TeX.
-
+   las notas a archivos con sintaxis tipo HTML o 
+   documentos TeX.
 4. `cites.rb`. Agrega de manera automatizada la
-bibliografía en formato `.bib`
-([BibTeX](http://www.bibtex.org/)) a un EPUB.
-
+   bibliografía en formato `.bib`
+   ([BibTeX](http://www.bibtex.org/)) a un EPUB.
 5. `recreator.rb`. Recrea los archivos OPF, NCX y
-NAV así como crea o recrea el archivo EPUB.
-
+   NAV así como crea o recrea el archivo EPUB.
 6. `changer.rb`. Cambia versiones de EPUB entre
-`2.0.0`, `2.0.1`, `3.0.0` y `3.0.1`.
-
-7. `index.rb`. Agrega índices analíticos para un
-EPUB.
+   `2.0.0`, `2.0.1`, `3.0.0` y `3.0.1`.
+7. `index.rb`. Agrega índices analíticos a archivos HTML, HTM,
+   XHTML, XML o TeX.
 
 ## Automatización
 
 * `automata.rb`. Automatiza el flujo de trabajo al poder
-usar todos los *scripts* con una sola línea de comandos.
+  usar todos los *scripts* con una sola línea de comandos.
 
 ## YAML
 
-Para la creación de metadatos, se utiliza un archivo con extensión `.yaml`.
-Si se desconoce cómo usar el archivo, [consúltese el apartado de YAML](https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml).
+Para la creación de metadatos o índices, se utiliza un archivo con 
+extensión `.yaml`. [Consúltese el apartado de YAML](https://nikazhenya.github.io/pecas/html/yaml.html)
+para ver su documentación.
 
 ## *Scripts* de JavaScript para EPUB
 
-Estos *scripts* implementan algunas funcionalidades
-adicionales a los EPUB, se encuentran en la carpeta
-[`JavaScript`](https://github.com/NikaZhenya/pecas/tree/master/epub/others/javascript).
+Estos *scripts* implementan algunas funcionalidades adicionales a los 
+EPUB, [consúltese el apartado de JavaScript](https://nikazhenya.github.io/pecas/html/js.html)
+para ver su documentación.
 
 ## EpubCheck
 

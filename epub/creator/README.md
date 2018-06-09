@@ -4,9 +4,9 @@ Creator crea un proyecto para EPUB con distintas opciones.
 
 ## Uso:
 
-  ```
-  pc-creator
-  ```
+```
+pc-creator
+```
 
 ## Descripción de los parámetros
 
@@ -30,7 +30,7 @@ Creator crea un proyecto para EPUB con distintas opciones.
 ### Ejemplo sencillo:
 
 ```
-  pc-creator
+pc-creator
 ```
 
 Crea un proyecto EPUB en el directorio actual y con el nombre `epub-creator`.
@@ -38,7 +38,7 @@ Crea un proyecto EPUB en el directorio actual y con el nombre `epub-creator`.
 ### Ejemplo en un directorio específico:
 
 ```
-  pc-creator -d directorio/deseado
+pc-creator -d directorio/deseado
 ```
 
 Crea un proyecto EPUB en `directorio/deseado` y con el nombre `epub-creator`.
@@ -46,7 +46,7 @@ Crea un proyecto EPUB en `directorio/deseado` y con el nombre `epub-creator`.
 ### Ejemplo en un directorio y nombre específicos:
 
 ```
-  pc-creator -d directorio/deseado -o proyecto_epub
+pc-creator -d directorio/deseado -o proyecto_epub
 ```
 
 Crea un proyecto EPUB en `directorio/deseado` y con el nombre `proyecto_epub`.
@@ -54,7 +54,7 @@ Crea un proyecto EPUB en `directorio/deseado` y con el nombre `proyecto_epub`.
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:
 
 ```
-  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css
+pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo `archivo.css` en lugar del CSS defecto.
@@ -62,7 +62,7 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo `ar
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:
 
 ```
-  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg
+pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de `portada.jpg`.
@@ -70,23 +70,23 @@ Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra 
 ### Ejemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:
 
 ```
-  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes
+pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes
 ```
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en `ruta/al/directorio/con/imagenes`.
 
-------
+---
 
 # Notas
 
 ## YAML
 
 Este *script* genera un archivo con extensión `.yaml` para los metadatos
-del libro. [Consúltese aquí](https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml)
+del libro. [Consúltese aquí](https://nikazhenya.github.io/pecas/html/yaml.html)
 para mayor información.
 
 ## CSS
 
 Al usar `pc-creator` se genera una hoja de estilos CSS por defecto si no se
 usa la opción `-s`. Esta plantilla incluye varios elementos que mejoran 
-el diseño y estructura del EPUB que pueden [consultarse aquí](https://github.com/NikaZhenya/pecas/tree/master/epub/others/css).
+el diseño y estructura del EPUB que pueden [consultarse aquí](https://nikazhenya.github.io/pecas/html/css.html).
