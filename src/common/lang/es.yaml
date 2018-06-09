@@ -29,7 +29,7 @@ general:
   note: ["@note"]
   note_b: ["--note", "--"]
   descomprimiendo: "Descomprimiendo EPUB para iniciar su análisis…"
-  analizando: ["Obteniendo información de ", "…"]
+  analizando: ["Obteniendo información de «", "»…"]
   epub_analisis: "epub-output"
   xhtml_analisis: "xhtml-output.xhtml"
   linea: "-------------------------------------"
@@ -98,7 +98,7 @@ automata:
   init_contenido: "Archivo para detectar que se trata de un proyecto de Automata, no borrar."
   log: "log-all.txt"
   creando: ["Creando carpeta del proyecto con el nombre «","»…"]
-  eliminando: "Eliminando ficheros excepto los archivos YAML o TXT…"
+  eliminando: "Eliminando ficheros excepto los archivos YAML o SH…"
   verificando: ["verificando «","»…"]
   convirtiendo: ["convirtiendo «","» a MOBI…"]
   epubcheck: ["Epubcheck","no pudo ser localizado, los EPUB no pueden ser verificados…"]
@@ -111,7 +111,7 @@ automata:
 
 # pc-creator
 creator: 
-  h: "\nCreator crea un proyecto para EPUB con distintas opciones.\n\nUso:\n  pc-creator\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se creará el proyecto.\n  -o = [output] Nombre del proyecto.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  -c = [cover] Ruta a la imagen de portada que se desea incluir.\n  -i = [images] Ruta a la carpeta con las imágenes que se desean incluir.\n  -x = [xhtml] Ruta a la carpeta con los archivos XHTML que se desean incluir.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n  --no-pre = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).\n\nEjemplo sencillo:\n  pc-creator\n  Crea un proyecto EPUB en el directorio actual y con el nombre «epub-creator».\n\nEjemplo en un directorio específico:\n  pc-creator -d directorio/deseado\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «epub-creator».\n\nEjemplo en un directorio y nombre específicos:\n  pc-creator -d directorio/deseado -o proyecto_epub\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «proyecto_epub».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo «archivo.css» en lugar del CSS por defecto.\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de «portada.jpg».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en «ruta/al/directorio/con/imagenes».\n  \nNota: también se generará «meta-data.yaml», que sirve para los metadatos del libro. Si se desconoce cómo usar el archivo, consúltese <https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml>. Si no se usará pc-recreator para generar el EPUB, este archivo es innecesario y puede eliminarse."
+  h: "\nCreator crea un proyecto para EPUB con distintas opciones.\n\nUso:\n  pc-creator\n\nParámetros opcionales:\n  -d = [directory] Directorio donde se creará el proyecto.\n  -o = [output] Nombre del proyecto.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  -c = [cover] Ruta a la imagen de portada que se desea incluir.\n  -i = [images] Ruta a la carpeta con las imágenes que se desean incluir.\n  -x = [xhtml] Ruta a la carpeta con los archivos XHTML que se desean incluir.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n  --no-pre = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).\n\nEjemplo sencillo:\n  pc-creator\n  Crea un proyecto EPUB en el directorio actual y con el nombre «epub-creator».\n\nEjemplo en un directorio específico:\n  pc-creator -d directorio/deseado\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «epub-creator».\n\nEjemplo en un directorio y nombre específicos:\n  pc-creator -d directorio/deseado -o proyecto_epub\n  Crea un proyecto EPUB en «directorio/deseado» y con el nombre «proyecto_epub».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo la hoja de estilo «archivo.css» en lugar del CSS por defecto.\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo y una portada:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo un XHTML que muestra la imagen de «portada.jpg».\n\nEjemplo en un directorio y nombre específicos, e incluyendo una hoja de estilo, una portada y varias imágenes:\n  pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta/a/la/portada.jpg -i ruta/al/directorio/con/imagenes\n  Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en «ruta/al/directorio/con/imagenes».\n  \nNota: también se generará «meta-data.yaml», que sirve para los metadatos del libro. Si se desconoce cómo usar el archivo, consúltese <https://nikazhenya.github.io/pecas/html/yaml.html>. Si no se usará pc-recreator para generar el EPUB, este archivo es innecesario y puede eliminarse."
   epub_nombre: "epub-creator"
   aviso: "Se usa pc-recreator para completar este archivo."
   yaml: "---\n# Generales\ntitle: Sin título\nsubtitle: \nauthor:\n  - Apellido, Nombre\npublisher:\nsynopsis: \ncategory: \nversion: 1.0.0\ncover: \nnavigation: nav.xhtml\n\n# Tabla de contenidos\nno-toc: \nno-spine: \ncustom: \n\n# Si se quiere EPUB fijo\npx-width: \npx-height: \n\n# Fallbacks\nfallback: \n\n# WCAG:\nsummary: Este EPUB está optimizado para personas con deficiencias visuales; cualquier observación por favor póngase en contacto.\nmode:\n  - textual\n  - visual\nmode-sufficient:\n  - textual, visual\n  - textual\nfeature:\n  - structuralNavigation\n  - alternativeText\n  - resizeText\nhazard:\n  - none\ncontrol:\napi: ARIA"
@@ -148,7 +148,7 @@ notes:
 
 # pc-recreator
 recreator: 
-  h: "\nRecreator recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.\n\nUso:\n  pc-recreator\n\nParámetros opcionales:\n  -d = [directory] Directorio del proyecto EPUB.\n  -y = [yaml] Archivo de los metadatos para el EPUB.\n  --depth = Número entero que indica el nivel de profundidad de la tabla de contenidos.\n  \nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda. bits.\n\nEjemplo sencillo:\n  pc-recreator\n  Crea un archivo EPUB buscando dentro del directorio actual los ficheros «epub-creator» y «meta-data.yaml».\n \nEjemplo con un proyecto EPUB específico:\n  pc-recreator -d directorio/para/epub\n  Crea un archivo EPUB de «directorio/para/epub» buscando dentro del directorio actual el fichero «meta-data.yaml».\n\nEjemplo con un proyecto EPUB y metadatos específicos:\n  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml\n  Crea un archivo EPUB de «directorio/para/epub» usando el fichero «archivo/meta-datos.yaml».\n\nEjemplo con un proyecto EPUB, metadatos específicos y profundidad:\n  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml --depth 4\n  Crea un archivo EPUB de «directorio/para/epub» usando el fichero «archivo/meta-datos.yaml» y con una tabla de contenidos con hasta encabezados «h4».\n  \nNota: se requiere un archivo YAML con una estructura específica para poder general el EPUB. Si se desconoce esta información, consúltese <https://github.com/NikaZhenya/pecas/tree/master/epub/others/yaml>."
+  h: "\nRecreator recrea los archivos OPF, NCX y NAV así como crea o recrea el archivo EPUB.\n\nUso:\n  pc-recreator\n\nParámetros opcionales:\n  -d = [directory] Directorio del proyecto EPUB.\n  -y = [yaml] Archivo de los metadatos para el EPUB.\n  --depth = Número entero que indica el nivel de profundidad de la tabla de contenidos.\n  \nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda. bits.\n\nEjemplo sencillo:\n  pc-recreator\n  Crea un archivo EPUB buscando dentro del directorio actual los ficheros «epub-creator» y «meta-data.yaml».\n \nEjemplo con un proyecto EPUB específico:\n  pc-recreator -d directorio/para/epub\n  Crea un archivo EPUB de «directorio/para/epub» buscando dentro del directorio actual el fichero «meta-data.yaml».\n\nEjemplo con un proyecto EPUB y metadatos específicos:\n  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml\n  Crea un archivo EPUB de «directorio/para/epub» usando el fichero «archivo/meta-datos.yaml».\n\nEjemplo con un proyecto EPUB, metadatos específicos y profundidad:\n  pc-recreator -d directorio/para/epub -y archivo/meta-datos.yaml --depth 4\n  Crea un archivo EPUB de «directorio/para/epub» usando el fichero «archivo/meta-datos.yaml» y con una tabla de contenidos con hasta encabezados «h4».\n  \nNota: se requiere un archivo YAML con una estructura específica para poder general el EPUB. Si se desconoce esta información, consúltese <https://nikazhenya.github.io/pecas/html/yaml.html>."
   nuevo: " nuevo "
   recreando_opf: "Recreando OPF…"
   recreando_ncx: "Recreando NCX…"
@@ -159,7 +159,7 @@ recreator:
   recreando_autoria: "Autoría"
   eliminando_viewports: "Eliminando viewports para evitar conflictos con el EPUB fluido…"
   eliminando_epub: "Eliminando EPUB previo…"
-  creando_epub: ["Creando","EPUB en «","» con el nombre «","»…"]
+  creando_epub: ["Creando","EPUB en "," con el nombre «","»…"]
   advertencia_depth: "Ignorando el parámetro --depth porque no es un número entero mayor a cero…"
   advertencia_fijo: ["Ignorando medidas para el EPUB fijo porque «","» no tiene valor…"]
   error_y: ["\nAl parecer el archivo «","» no tiene una sintaxis correcta."]
@@ -183,6 +183,29 @@ changer:
   error_version2: "\nSolo es posible actualizar a versiones 3. Las versiones 2 se consideran obsoletas; véase <http://idpf.org/epub/201>."
   error_version3: ["\nEl EPUB ya está en la versión ", ". No se ha realizado ningún cambio."]
   error_archivo: ["\nAl parecer el archivo «", "» tiene un error de sintaxis. Borrando todos los cambios…"]
+
+# pc-index
+index:
+  h: "\nIndex agrega índices índices analíticos a archivos HTML, HTM, XHTML, XML o TeX.\n\nUso para inicializar:\n  pc-index --init\n\nUso para crear índices:\n  pc-index\n\nParámetro necesario para la inicialización\n  --init = Crea el archivo YAML para la información de los índices.\n\nParámetros opcionales para la inicialización\n  -d = [directory] Ubicación de la carpeta destino para el YAML.\n  --index = Nombre del archivo YAML.\n\nParámetros opcionales para la autmatización\n  -d = [directory] Ruta a los archivos HTML, HTM, XHTML, XML o TeX.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  --index = Nombre del archivo YAML con la información de los índices.\n  --no-alphabet = Evita añadir letras del alfabeto en la lista de términos.\n  --two-columns = Agrega estilo para desplegar dos columnas; en sintaxis tipo HTML se despliega a partir de los 768px de ancho.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-index\n  Analiza los archivos HTML, HTM, XHTML, XML o TeX de la carpeta actual así como el archivo «index-data.yaml» previamente generado para crear índices a una columna, con letras del alfabeto y con los estilos por defecto.\n\nEjemplo complejo:\n  pc-index --no-alphabet --two-columns\n  Similar al ejemplo anterior pero sin letras del alfabeto y con estilo de dos columnas.\n\nNota: si se desconoce cómo completar el archivo YAML, consúltese <https://nikazhenya.github.io/pecas/html/yaml.html>."
+  archivo_nombre: "index-data.yaml"
+  archivo_contenido: "---\n- name: Índice 1\n  content:\n  - \n  - \n- name: Índice 2\n  content:\n  - \n  - "
+  creando: ["Creando «","» en ","…"]
+  respaldando: ["Respaldando información de «", "»…"]
+  limpiando: ["Limpiando lista de palabras de «", "»…"]
+  recuperando: ["Recuperando información de «", "»…"]
+  buscando: "Buscando entradas en los archivos…"
+  anadiendo: "Añadiendo entradas…"
+  eliminando: "Eliminando respaldos…"
+  index_file: "9999-index."
+  item_id: "i-item-id"
+  item_span: "i-item-span"
+  item_section: "i-item-section"
+  item_div: "i-item-div"
+  item_a: "i-item-a"
+  error_yaml: "\nYa existe un archivo para los índices. Para corregirlo, elimina o renombra el archivo."
+  error_procesamiento: ["\nNo fue posible obtener la información de «", "». Verifica que tenga la sintaxis correcta."]
+  error_data: "\nEl archivo YAML no tiene los campos «name» o «content»."
+  error_incorporacion: "\nNo fue posible crear el índice."
 
 # pc-doctor
 doctor:

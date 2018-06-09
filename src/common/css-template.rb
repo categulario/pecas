@@ -620,7 +620,6 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 	color: #0000EE;
 }
 
-
 .#{$l_no_nota_p}, .#{$l_no_nota_p2} {
     margin-left: 3em;
     font-size: .9em;
@@ -635,6 +634,22 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 .#{$l_no_nota_p2} {
     margin-top: 0;
     text-indent: 1.5em;
+}
+
+/* Indexes / Índices analíticos */
+
+.#{$l_in_item_section} p {
+    margin-top: .5em !important;
+}
+
+.#{$l_in_item_a}:before {
+	content: \"[\";
+	color: #0000EE;
+}
+
+.#{$l_in_item_a}:after {
+	content: \"]\";
+	color: #0000EE;
 }
 
 /* For print / Para impresión */

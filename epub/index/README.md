@@ -1,28 +1,65 @@
-# Index.rb
+# Index
 
-## Índice
-
-* [Descripción](#descripción)
-* [Uso](#uso)
-
-<!-- * [Explicación](#explicación) -->
-
----
-
-## Descripción
-
-Este *script* agrega índices analíticos a un libro EPUB.
+Index agrega índices índices analíticos a archivos HTML, HTM, XHTML, XML o TeX.
 
 ## Uso
 
-**En desarrollo.**
+### Uso para inicializar:
 
-<!-- ###### 1. Desde el *shell* ejecutar el *script* cuyo único parámetro sea la ruta a la carpeta del EPUB.
+```
+pc-index --init
+```
+  
+### Uso para crear índices:
 
-Para mayor comodidad en el *shell* arrastra el archivo `index.rb` y después
-haz lo mismo con la carpeta del EPUB.
+```
+pc-index
+```
 
-    Para usuarios de Windows, una vez instalado Ruby han de buscar el programa
-    «Start Command Prompt with Ruby» para poder ejecutar esta orden. -->
+### Parámetro necesario para la inicialización
 
-<!-- ## Explicación -->
+* `--init` = Crea el archivo YAML para la información de los índices.
+
+### Parámetros opcionales para la inicialización
+
+* `-d` = [directory] Ubicación de la carpeta destino para el YAML.
+* `--index` = Nombre del archivo YAML.
+  
+### Parámetros opcionales para la autmatización
+
+* `-d` = [directory] Ruta a los archivos HTML, HTM, XHTML, XML o TeX.
+* `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
+* `--index` = Nombre del archivo YAML con la información de los índices.
+* `--no-alphabet` = Evita añadir letras del alfabeto en la lista de términos.
+* `--two-columns` = Agrega estilo para desplegar dos columnas; en sintaxis tipo HTML se despliega a partir de los 768px de ancho.
+
+### Parámetros únicos:
+
+* `-v` = [version] Muestra la versión.
+* `-h` = [help] Muestra esta ayuda.
+
+## Ejemplos
+
+### Ejemplo sencillo:
+
+```
+pc-index
+```
+
+Analiza los archivos HTML, HTM, XHTML, XML o TeX de la carpeta actual así como el archivo «index-data.yaml» previamente generado para crear índices a una columna, con letras del alfabeto y con los estilos por defecto.
+  
+### Ejemplo complejo:
+
+```
+pc-index --no-alphabet --two-columns
+```
+
+Similar al ejemplo anterior pero sin letras del alfabeto y con estilo de dos columnas.
+
+---
+
+# Nota
+
+## YAML
+
+Si se desconoce cómo completar el archivo YAML, [consúltese esta información](https://nikazhenya.github.io/pecas/html/yaml.html).

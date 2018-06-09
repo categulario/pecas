@@ -606,15 +606,18 @@ def file_to_hash ruta
 end
 
 # Convierte el hash a un conjunto con sintaxis HTML
-def hash_to_html hash
+def hash_to_html hash, list = nil
     tipo = if File.extname(hash['file'])[1..-1] == 'opf' || File.extname(hash['file'])[1..-1] == 'xml' || File.extname(hash['file'])[1..-1] == 'xhtml' || File.extname(hash['file'])[1..-1] == 'html' || File.extname(hash['file'])[1..-1] == 'htm' then tipo = File.extname(hash['file'])[1..-1] else tipo = nil end
     html = []
+    $i_item = 1
+    $ids_items = []
+    $file_item = hash['file']
 
     # Comprobación porque la extensión y el nivel son necesarios
     if tipo == nil then puts $l_g_error_hash; abort end
     
     # Pasa el contenido del hash a HTML
-    def contenido_a_html a, html
+    def contenido_a_html a, html, list, on_body, on_style
 
         # Añade atributos si los hay
         def atributos elemento
@@ -649,10 +652,19 @@ def hash_to_html hash
         end
 
         # Iteración de cada contenido
-        a.each do |e|
+        a.each_with_index do |e|
             # Si es tag
             if e.kind_of?(Hash)
                 e.each do |k,v|
+
+                    # Ayuda a determinar cuando el contenido ya es de las etiquetas body o style
+                    if k =~ /body/
+                        on_body = true
+                    elsif k =~ /style/
+                        on_style = true
+                    else
+                        on_style = false
+                    end
 
                     # Inicio del tag, sea único o de apertura
                     html.push("<#{k[1..-1]}" + cierre(v))
@@ -660,7 +672,7 @@ def hash_to_html hash
                     # Si no es tag único
                     if v != nil && v['content'] != nil
                         # Nueva iteración para seguir yendo al fondo
-                        contenido_a_html(v['content'], html)
+                        contenido_a_html(v['content'], html, list, on_body, on_style)
 
                         # Añade el tag de cierre
                         html.push("</#{k[1..-1]}>" + espacio(v))
@@ -669,12 +681,62 @@ def hash_to_html hash
                 end
             # Si es texto
             else
-                html.push(e)
+                # Cuando no se trata de pc-index
+                if list == nil
+                    html.push(e)
+                # Uso exclusivo para la adición de entradas de los índices con pc-index
+                else
+                    if on_body == true && on_style == false
+                        i_index = list["index"]
+
+                        # Iteración de cada elemento del índice
+                        list["items"].each_with_index do |item, i|
+                            regex = /\b(#{item.last})\b/
+
+                            # Añade las referencias pero sin el identificador único de cada coincidencia, así es posible tener términos que tengan más de una palabra
+                            e = e.gsub(regex, '<span class="' + $l_in_item_span + '" id="' + $l_in_item_id + '-' + i_index.to_s + '-' + i.to_s + '-@@@">' + '\1' + '</span>')
+
+                            # La división por palabra ayuda a analizar cada una para agregarle el identificador único a cada coincidencia
+                            words = e.split(' ')
+                            e_new = []
+
+                            # Crea el objeto que estará capturando el término, los identificadores que contiene y el archivo donde se encuentra
+                            if !$ids_items.any? {|hash| hash['term'].include?(item.first)}
+                                $ids_items.push({'term' => item.first, 'id' => i, 'ids' => []})
+                            end
+
+                            # Iteración de cada palabra del contenido
+                            words.each do |w|
+                                # Si la palabra contiene el elemento del índice, se agrega la referencia
+                                if w =~ /-@@@">/
+                                    e_new.push(w.gsub('-@@@">', '-' + $i_item.to_s + '">'))
+
+                                    # Añade el identificador y el archivo donde se encuentra
+                                    $ids_items.map {|hash| if hash['term'] == item.first then hash['ids'].push([$file_item, $i_item]) end}
+
+                                    # Aumenta uno los números para el índice
+                                    $i_item = $i_item + 1
+                                else
+                                    e_new.push(w)
+                                end
+                            end
+
+                            # Se recrea la línea de texto completo, incluyendo los espacios al inicio o al finales, si los tiene
+                            e = (e[0] == ' ' ? e[0] : '') + e_new.join(' ') + (e[-1] == ' ' ? e[-1] : '')
+
+                        end
+                    end
+
+                    html.push(e)
+                end
             end
         end
+
+        # Elimina las entradas que no tuvieron ninguna coincidencia
+        $ids_items.map {|hash| if hash['ids'].length == 0 then $ids_items.delete(hash) end}
     end
 
-    contenido_a_html(hash['content'], html)
+    contenido_a_html(hash['content'], html, list, false, false)
 
     # Jerarquiza
     html = beautifier_html(html)
@@ -689,7 +751,11 @@ def hash_to_html hash
         html.unshift("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
     end
 
-    return html
+    if list == nil
+        return html
+    else
+        return [$ids_items, html]
+    end
 end
 
 # Traduce de un MD al contenido del body de un html

@@ -251,6 +251,29 @@ $l_ch_error_version2 = langObj["changer"]["error_version2"].red.bold
 $l_ch_error_version3 = langObj["changer"]["error_version3"]
 $l_ch_error_archivo = langObj["changer"]["error_archivo"]
 
+# Index
+$l_in_v = obtener_version
+$l_in_h = langObj["index"]["h"]
+$l_in_archivo_nombre = langObj["index"]["archivo_nombre"]
+$l_in_archivo_contenido = langObj["index"]["archivo_contenido"]
+$l_in_creando = langObj["index"]["creando"]
+$l_in_respaldando = langObj["index"]["respaldando"]
+$l_in_limpiando = langObj["index"]["limpiando"]
+$l_in_recuperando = langObj["index"]["recuperando"]
+$l_in_buscando = langObj["index"]["buscando"].green
+$l_in_anadiendo = langObj["index"]["anadiendo"].green
+$l_in_eliminando = langObj["index"]["eliminando"].green
+$l_in_index_file = langObj["index"]["index_file"]
+$l_in_item_id = langObj["index"]["item_id"]
+$l_in_item_span = langObj["index"]["item_span"]
+$l_in_item_section = langObj["index"]["item_section"]
+$l_in_item_div = langObj["index"]["item_div"]
+$l_in_item_a = langObj["index"]["item_a"]
+$l_in_error_yaml = langObj["index"]["error_yaml"].red.bold
+$l_in_error_procesamiento = langObj["index"]["error_procesamiento"]
+$l_in_error_data = langObj["index"]["error_data"].red.bold
+$l_in_error_incorporacion = langObj["index"]["error_incorporacion"].red.bold
+
 # Doctor
 $l_dr_v = obtener_version
 $l_dr_h = langObj["doctor"]["h"]
