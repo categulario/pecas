@@ -1,12 +1,21 @@
 # YAML
 
-## Estructura
+Pecas utiliza dos tipos de archivos YAML:
 
-La estructura básica del archivo creado es la siguiente.
+1. [**Para metadatos**](#para-metadatos).
+2. [**Para índices analíticos**](#para-indices-analiticos).
+
+Ambos tienen [consideraciones generales](#consideraciones-generales).
+
+## Para metadatos {.espacio-arriba3}
+
+### Estructura
+
+La estructura básica es la siguiente.
 
 ```
 ---
-# Generales
+## Generales
 title: Sin título
 subtitle: 
 author:
@@ -18,19 +27,19 @@ version: 1.0.0
 cover: 
 navigation: nav.xhtml
 
-# Tabla de contenidos
+## Tabla de contenidos
 no-toc: 
 no-spine: 
 custom: 
 
-# Si se quiere EPUB fijo
+## Si se quiere EPUB fijo
 px-width: 
 px-height: 
 
-# Fallbacks
+## Fallbacks
 fallback: 
 
-# WCAG:
+## WCAG:
 summary: Este EPUB está optimizado para personas con deficiencias visuales; cualquier observación por favor póngase en contacto.
 mode:
   - textual
@@ -47,9 +56,9 @@ control:
 hazard:
 ```
 
-## Descripción de los campos {.espacio-arriba3}
+### Descripción de los campos
 
-### Generales {.espacio-arriba2}
+#### Generales
 
 * Llave : Tipo : Valor por defecto : Descripción .
   * `title` : `String` : `Sin título` : Título de la obra. 
@@ -62,25 +71,25 @@ hazard:
   * `cover` : `String` : `nil` : Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. 
   * `navigation` : `String` : `nav.xhtml` : Archivo XHTML para la tabla de contenidos.
 
-### Tabla de contenidos {.espacio-arriba2}
+#### Tabla de contenidos
 
 * Llave : Tipo : Valor por defecto : Descripción .
   * `no-toc` : `Array` : `nil` : Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en la tabla de contenidos. 
   * `no-spine` : `Array` : `nil` : Conjunto de archivos XHTML, con o sin extensión, que no se desean mostrar en el orden de lectura; p. ej., anexos, notas al pie o tablas. 
   * `custom` : `Object` : `nil` : Objetos jerarquizados de los XHTML, con o sin extensión, para elaborar una tabla de contenidos personalizada.
 
-### EPUB fijo {.espacio-arriba2}
+#### EPUB fijo
 
 * Llave : Tipo : Valor por defecto : Descripción .
   * `px-width` : `Array` : `nil` : Anchura en pixeles para el EPUB. 
   * `px-height` : `Array` : `nil` : Altura en pixeles para el EPUB.
 
-### _Fallbacks_ {.espacio-arriba2}
+#### _Fallbacks_
 
 * Llave : Tipo : Valor por defecto : Descripción .
   * `fallback` : `Object` : `nil` : Objetos jerarquizados de los recursos externos, con o sin extensión, para poderlos incluir en el EPUB.
 
-### WCAG {.espacio-arriba2}
+#### WCAG
 
 * Llave : Tipo : Valor por defecto : Descripción .
   * `summary` : `String` : `Este EPUB…` : Breve texto donde se indican las características de accesibilidad de la publicación. 
@@ -93,50 +102,16 @@ hazard:
 
 > Todos los campos vacíos son ignorados ya que son `nil`.
 
-## Consideraciones particulares {.espacio-arriba3}
+### Particularidades
 
-### Líneas de texto {.espacio-arriba2}
-
-Los `String` pueden escribirse sin estar rodeados de comillas simples 
-(`'`) o dobles (`"`). Por ejemplo:
-
-```
-title: Sin título
-```
-
-Sin embargo, si en el texto existe algún caracter especial (`:`, `{`, 
-`}`, `[`, `]`, `,`, `&`, `*`, `#`, `¿`, `?`, `|`, `-`, `<`, `>`, `=`, 
-`¡`, `!`, `%`, `@`, `\`) las comillas ayudan a evitar errores.
-Por ejemplo:
-
-```
-title: "Título: ¿va sin comillas? ¡No!"
-```
-
-### Conjuntos {.espacio-arriba2}
-
-Los `Array` pueden escribirse de dos formas. La más clara y sencilla:
-
-```
-category:
-  - Categoría 1
-  - Categoría 2
-``` 
-
-La más compacta:
-
-```
-category: ["Categoría 1","Categoría 2"]
-```
-
-### Nombre de los autores {.espacio-arriba2}
+#### Nombre de los autores
 
 La separación `Apellido, Nombre` no es obligatoria; si no se desea
 —porque el autor no tiene alguno de los elementos— o no se quiere 
 —porque se trata de un colectivo— solo evítese el uso de comas; por 
 ejemplo: `Anónimo` o `Algún colectivo`.
 
-### EPUB fijo {.espacio-arriba2}
+#### EPUB fijo
 
 Para elaborar un epub fijo es necesario ingresar el tamaño en pixeles
 de la anchura y la altura con `px-width` y `px-height` respectivamente.
@@ -145,7 +120,7 @@ de la anchura y la altura con `px-width` y `px-height` respectivamente.
 
 > Si las medidas no son convertibles a números enteros, marcará error.
 
-### `no-toc` y `no-spine` {.espacio-arriba2}
+#### `no-toc` y `no-spine`
 
 Es posible usar expresiones regulares en lugar de nombres específicos,
 solo es necesario poner la expresión entre diagonales, p. ej. `/regex/`.
@@ -153,7 +128,7 @@ solo es necesario poner la expresión entre diagonales, p. ej. `/regex/`.
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
 
-### `custom` {.espacio-arriba2}
+#### `custom`
 
 Por defecto `pc-recreator` crea una tabla de contenidos corrida y ordenada
 alfabéticamente. Si no se desea este comportamiento, es posible crear
@@ -221,7 +196,7 @@ ignorará estas especificaciones.
 > Puede indicarse la extensión del archivo, aunque no es necesario, ya
 que solo considera archivos XHTML.
 
-### _Fallbacks_ {.espacio-arriba2}
+#### _Fallbacks_
 
 En ciertas ocasiones en el EPUB se querrá incluir un recurso externo
 (un tipo de archivo que no es soportado directamente), por ejemplo un
@@ -258,7 +233,7 @@ ignorará estas especificaciones.
 > Puede indicarse la extensión del archivo externo o del XHTML, aunque 
 no es necesario.
 
-### WCAG {.espacio-arriba2}
+#### WCAG
 
 Las _Web Content Accessibility Guidelines_ son para «facilitar el 
 acceso de las personas con discapacidad, desarrollando pautas de 
@@ -269,13 +244,142 @@ de páginas Web y abriendo nuevos campos de accesibilidad a través de
 la investigación en esta área».
 
 Véase el [artículo](https://es.wikipedia.org/wiki/WCAG_1.0) de la 
-Wikipedia para más información.
-
-Para conocer los tipos de valores que pueden introducirse en el YAML,
-consúltese esta [sección](http://kb.daisy.org/publishing/docs/metadata/schema-org.html)
+Wikipedia para más información. Para conocer los tipos de valores que 
+pueden introducirse en el YAML, consúltese esta [sección](http://kb.daisy.org/publishing/docs/metadata/schema-org.html)
 del sitio del [DAISY Consortium](http://www.daisy.org/).
 
-## Validadores {.espacio-arriba3}
+## Para índices analíticos {.espacio-arriba3}
+
+### Estructura
+
+La estructura básica es la siguiente.
+
+```
+---
+- name: Índice 1
+  content:
+  - 
+  - 
+- name: Índice 2
+  content:
+  - 
+  - 
+```
+
+### Descripción de los campos
+
+* Llave : Tipo : Valor por defecto : Descripción .
+  * `name` : `String` : `Índice n` : Nombre del índice analítico.
+  * `content` : `Array` : `Array` : Listado de términos para el índice.
+
+### Tipo de entradas para `content`
+
+Las entradas pueden ser de dos tipos:
+
+1. `String`: texto cuya búsqueda y aparición en el índice será literal.
+2. `Array`: un conjunto de dos elementos `String`; el primer elemento 
+   será el texto que aparecerá en el índice; el segundo elemento es el 
+   término que se buscará en los archivos.
+
+Ejemplo:
+
+```
+---
+- name: Índice 1
+  content:
+  - "EPUB"
+  - ["index.rb, herramienta de Pecas", "index.rb"]
+```
+
+En el primer caso se buscará `EPUB` y en el índice el término 
+aparecerá como `EPUB`. En el segundo caso se buscará `index.rb` y 
+aparecerá como `index.rb, herramienta de Pecas`.
+
+### RegEx
+
+Es posible que las búsqueda no sean literales, sino con [RegEx](https://en.wikipedia.org/wiki/Regular_expression).
+Solo considera lo siguiente:
+
+* Las entradas se siguen escribiendo como `String` (sea directamente o
+  en un `Array` como se indica en la sección anterior).
+* La delimitación con `/` es opcional.
+* El uso de barras inversas (`\\`) debe de ser doble.
+
+Ejemplo:
+
+```
+---
+- name: Índice 1
+  content:
+  - ["HTML", "[XHTML]+"]
+  - ["Edición", "/(e|E)dici\\S+/"]
+```
+
+En el primer caso se buscará `/[XHTML]+/` que abarca términos como
+`HTML`, `HTM`, `XHTML` o `XML` que aparecerán aglutinados bajo el 
+término `HTML`. En el segundo caso se buscará `/(e|E)dici\S+/` cuyas
+coincidencias se aglutinarán en el término `Edición`.
+
+### Múltiples índices
+
+Como muestra la estructura básica, es posible crear más de un índice,
+solo es de agregar otro `name` y `content`:
+
+```
+---
+- name: Índice 1
+  content:
+  - 
+  - 
+- name: Índice 2
+  content:
+  - 
+  - 
+- name: "¡Otro índice!"
+  content:
+  - 
+  - 
+```
+
+> Ojo: Los índices sin entradas en el `content` serán ignorados.
+
+## Consideraciones generales {.espacio-arriba3}
+
+### Líneas de texto
+
+Los `String` pueden escribirse sin estar rodeados de comillas simples 
+(`'`) o dobles (`"`). Por ejemplo:
+
+```
+title: Sin título
+```
+
+Sin embargo, si en el texto existe algún caracter especial (`:`, `{`, 
+`}`, `[`, `]`, `,`, `&`, `*`, `#`, `¿`, `?`, `|`, `-`, `<`, `>`, `=`, 
+`¡`, `!`, `%`, `@`, `\`) las comillas ayudan a evitar errores.
+Por ejemplo:
+
+```
+title: "Título: ¿va sin comillas? ¡No!"
+```
+
+### Conjuntos
+
+Los `Array` pueden escribirse de dos formas. La más clara y sencilla:
+
+```
+category:
+  - Categoría 1
+  - Categoría 2
+``` 
+
+La más compacta:
+
+```
+category: ["Categoría 1","Categoría 2"]
+```
+
+### Validadores
 
 La estructura tiene que ser correcta, para ello la ayuda de validadores
 quizá sea pertinente:
