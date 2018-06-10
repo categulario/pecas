@@ -260,8 +260,14 @@ La estructura básica es la siguiente.
   content:
   - 
   - 
+  ignore:
+  - 
+  - 
 - name: Índice 2
   content:
+  - 
+  - 
+  ignore:
   - 
   - 
 ```
@@ -271,6 +277,7 @@ La estructura básica es la siguiente.
 * Llave : Tipo : Valor por defecto : Descripción .
   * `name` : `String` : `Índice n` : Nombre del índice analítico.
   * `content` : `Array` : `Array` : Listado de términos para el índice.
+  * `ignore` : `Array` : `Array` : Listado de archivos a ignorar para el índice (opcional: puede eliminarse por completo del YAML).
 
 ### Tipo de entradas para `content`
 
@@ -295,18 +302,41 @@ En el primer caso se buscará `EPUB` y en el índice el término
 aparecerá como `EPUB`. En el segundo caso se buscará `index.rb` y 
 aparecerá como `index.rb, herramienta de Pecas`.
 
+### Tipo de entradas para `ignore`
+
+Solo se aceptan entradas de tipo `String`.
+
 ### Orden alfabético
 
 No hay necesidad de ordenar las entradas alfabéticamente, ya que se
 hace automáticamente.
 
+### Pecas Markdown
+
+Todas las entradas de tipo `String` aceptan Pecas Markdown, solo
+hay que considerar que si no se usan `Array` la búsqueda será literal.
+
+Ejemplo:
+
+```
+---
+- name: Índice 1
+  content:
+  - "+++HTML+++"
+  - ["+++HTML+++", "HTML"]
+```
+
+En el primer caso se buscará todo lo que coincida con `+++HTML+++` y
+en la entrada el término `+++HTML+++` se verá como +++HTML+++ (en versalita). 
+En el segundo caso se buscará todo lo que coincida con `HTML` y en la 
+entrada el término `+++HTML+++` se verá como +++HTML+++ (en versalita). 
+
 ### RegEx
 
-Es posible que las búsqueda no sean literales, sino con [RegEx](https://en.wikipedia.org/wiki/Regular_expression).
-Solo considera lo siguiente:
+Es posible usar [RegEx](https://en.wikipedia.org/wiki/Regular_expression)
+en las entradas de tipo `String`. Solo considera lo siguiente:
 
-* Las entradas se siguen escribiendo como `String` (sea directamente o
-  en un `Array` como se indica en la sección anterior).
+* Las entradas se siguen escribiendo como `String`.
 * La delimitación con `/` es opcional.
 * El uso de barras inversas (`\\`) debe de ser doble.
 
@@ -318,17 +348,22 @@ Ejemplo:
   content:
   - ["HTML", "[XHTML]+"]
   - ["Edición", "/(e|E)dici\\S+/"]
+  ignore:
+  - "^00(0|1|2)-"
 ```
 
-En el primer caso se buscará `/[XHTML]+/` que abarca términos como
-`HTML`, `HTM`, `XHTML` o `XML` que aparecerán aglutinados bajo el 
-término `HTML`. En el segundo caso se buscará `/(e|E)dici\S+/` cuyas
-coincidencias se aglutinarán en el término `Edición`.
+En el primer caso la expresión regular es `/[XHTML]+/` que abarca 
+términos como `HTML`, `HTM`, `XHTML` o `XML` que aparecerán aglutinados 
+bajo el término `HTML`. En el segundo caso se buscará la expresión 
+`/(e|E)dici\S+/` cuyas coincidencias se aglutinarán en el término 
+`Edición`. En el último caso se ignorarán todos los archivos cuyo
+nombre coincida con `/^00(0|1|2)-/`, como `000-portada.xhtml`,
+`001-portadilla.xhtml` y `002-legal.xhtml`.
 
 ### Múltiples índices
 
 Como muestra la estructura básica, es posible crear más de un índice,
-solo es de agregar otro `name` y `content`:
+solo es de agregar al menos otro `name` y `content`:
 
 ```
 ---
