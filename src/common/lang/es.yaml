@@ -188,11 +188,11 @@ changer:
 index:
   h: "\nIndex agrega índices índices analíticos a archivos HTML, HTM, XHTML, XML o TeX.\n\nUso para inicializar:\n  pc-index --init\n\nUso para crear índices:\n  pc-index\n\nParámetro necesario para la inicialización\n  --init = Crea el archivo YAML para la información de los índices.\n\nParámetros opcionales para la inicialización\n  -d = [directory] Ubicación de la carpeta destino para el YAML.\n  --index = Nombre del archivo YAML.\n\nParámetros opcionales para la autmatización\n  -d = [directory] Ruta a los archivos HTML, HTM, XHTML, XML o TeX.\n  -s = [style sheet] Ruta al archivo CSS que se desea incluir.\n  --index = Nombre del archivo YAML con la información de los índices.\n  --no-alphabet = Evita añadir letras del alfabeto en la lista de términos.\n  --two-columns = Agrega estilo para desplegar dos columnas; en sintaxis tipo HTML se despliega a partir de los 768px de ancho.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-index\n  Analiza los archivos HTML, HTM, XHTML, XML o TeX de la carpeta actual así como el archivo «index-data.yaml» previamente generado para crear índices a una columna, con letras del alfabeto y con los estilos por defecto.\n\nEjemplo complejo:\n  pc-index --no-alphabet --two-columns\n  Similar al ejemplo anterior pero sin letras del alfabeto y con estilo de dos columnas.\n\nNota: si se desconoce cómo completar el archivo YAML, consúltese <https://nikazhenya.github.io/pecas/html/yaml.html>."
   archivo_nombre: "index-data.yaml"
-  archivo_contenido: "---\n- name: Índice 1\n  content:\n  - \n  - \n- name: Índice 2\n  content:\n  - \n  - "
+  archivo_contenido: "---\n- name: Índice 1\n  content:\n  - \n  - \n  ignore:\n  - \n  - \n- name: Índice 2\n  content:\n  - \n  - \n  ignore:\n  - \n  - "
   creando: ["Creando «","» en ","…"]
-  respaldando: ["Respaldando información de «", "»…"]
+  respaldando: "Respaldando información…"
   limpiando: ["Limpiando lista de palabras de «", "»…"]
-  recuperando: ["Recuperando información de «", "»…"]
+  restaurando: "Restaurando información…"
   buscando: "Buscando entradas en los archivos…"
   anadiendo: "Añadiendo entradas…"
   eliminando: "Eliminando respaldos…"

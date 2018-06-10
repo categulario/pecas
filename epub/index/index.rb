@@ -24,54 +24,67 @@ css = if argumento "-s", css != nil then argumento "-s", css end
 $no_alphabet = argumento "--no-alphabet", init, 1
 $two_columns = argumento "--two-columns", init, 1
 
-# Construye el HTML para los términos
-def array_to_html list, index_prefix
+def create_index index_data, index_prefix, files_content, css
+
+    # Construye el HTML para los términos
+    def array_to_html list, index_prefix
         # Ordena alfabéticamente los términos
         list = list.sort_by{|s| transliterar(s['term'], false)}
-        actual_term = ''
+        list_index_ordered_tmp = []
+        list_index_ordered = []
         actual_letter = ''
         html_term = []
-        i = 1
 
-        # Iteración de cada término o su continuación
-        list.each_with_index do |hash, j|
-            # Cuando ya no es el mismo término, resetea el contador, cierra elementos anteriores y abre el nuevo
-            if hash['term'] != actual_term
-                actual_term = hash['term']
-                i = 1
+        # Ordena la lista correctamente
+        list.each do |e|
+            if list_index_ordered_tmp.length == 0 || e['term'] == list_index_ordered_tmp.last['term']
+                list_index_ordered_tmp.push(e)
+            else
+                list_index_ordered.push(list_index_ordered_tmp.sort_by!{|s| s[/\d+/].to_i})
+                list_index_ordered_tmp = []
+                list_index_ordered_tmp.push(e)
 
-                if html_term.length > 0
-                    html_term.push('.</p>')
+                if e === list.last
+                    list_index_ordered.push(list_index_ordered_tmp)
                 end
-
-                # Si tampoco coincide la inicial, añade una nueva letra
-                if actual_letter != hash['term'][0] && $no_alphabet != true
-                    actual_letter = hash['term'][0].upcase
-                    html_term.push('<h2>' + actual_letter + '</h2>')
-                end
-
-                html_term.push('<p class="frances">' + actual_term + ': ')
-            end
-
-            # Iteración de cada id del término
-            html_tmp = []
-            hash['ids'].each do |id|
-                html_tmp.push('<a class="' + $l_in_item_a + '" href="' + id.first + '#' + $l_in_item_id + '-' + index_prefix.to_s + '-' + hash['id'].to_s + '-' + id.last.to_s + '">' + i.to_s + '</a>, ')
-
-                i = i + 1
-            end
-            html_term.push(html_tmp.join(''))
-
-            # Cierre al último elemento
-            if j == list.length - 1
-                html_term.push('.</p>')
             end
         end
 
-    return html_term.join('').gsub(', .', '.')
-end
+        # Iteración de cada término o su continuación
+        list_index_ordered.each_with_index do |array, j|
 
-def create_index index_data, index_prefix, files_content, css
+            # Si no coincide la inicial, añade una nueva letra
+            if actual_letter != translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0] && $no_alphabet != true
+                actual_letter = translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0].upcase
+                html_term.push('<h2>' + actual_letter + '</h2>')
+            end
+
+            # Crea cada uno de los elementos
+            i = 1
+            array.each do |e|
+                html_a = '<a class="' + $l_in_item_a + '" href="' + e['file'] + '#' + $l_in_item_id + '-' + e['id'] + '">' + i.to_s + '</a>'
+
+                # En el primer elemento se abre el párrafo
+                if e === array.first
+                    html_term.push('<p class="frances">' + translate_inline(e['term']) + ': ')
+                end
+
+                # En el último elemento (que también puede ser el primero) se cierra el párrafo
+                if e === array.last
+                    html_term.push(html_a + '.</p>')
+                # En los elementos intermedios (que también uno puede ser el primero) se coloca una coma
+                else
+                    html_term.push(html_a + ', ')
+                end
+
+                # Aumento del índice visible
+                i = i + 1 
+            end
+        end
+
+        return html_term.join('')
+    end
+
     # Verifica que se tengan los dos campos necesarios de cada índice
     if index_data["name"] == nil || index_data["content"] == nil
         puts $l_in_error_data
@@ -79,13 +92,12 @@ def create_index index_data, index_prefix, files_content, css
     end
 
     # Solo si el contenido es un conjunto con más de un elemento que no sea vacío
-    if index_data["content"].class == Array && index_data["content"].compact.length > 0
+    if index_data['content'].class == Array && index_data['content'].compact.length > 0
 
-        title = index_data["name"]
-        list_raw = index_data["content"]
-        list = {"index" => index_prefix, "items" => []}
+        title = index_data['name']
+        list_raw = index_data['content']
+        list = {'index' => index_prefix, 'items' => [], 'ignore' => index_data['ignore']}
         list_existent = []
-        list_final = []
 
         # Limpia la lista
         puts "#{$l_in_limpiando[0] + title + $l_in_limpiando[1]}".green
@@ -111,18 +123,32 @@ def create_index index_data, index_prefix, files_content, css
 
             html = true
             files_content.each do |file|
-                # Si es HTML
-                if File.basename(file) != '.tex'
 
-                    # Convierte el hash a HTML ya con las referencias añadidas
-                    data = hash_to_html(file_to_hash(file), list)
+                # Indaga si el archivo no tiene que ser ignorado
+                accepted = true
+                if list['ignore'] != nil && list['ignore'].class == Array && list['ignore'].length > 0
+                    list['ignore'].each do |rx|
+                        if file =~ /#{rx}/
+                            accepted = false
+                            break
+                        end
+                    end
+                end
 
-                    list_existent = list_existent + data[0]
+                if accepted
+                    # Si es HTML
+                    if File.basename(file) != '.tex'
 
-                    # Crea el archivo
-	                archivo = File.new(file, 'w:UTF-8')
-	                archivo.puts data[1]
-	                archivo.close
+                        # Convierte el hash a HTML ya con las referencias añadidas
+                        data = hash_to_html(file_to_hash(file), list)
+
+                        list_existent = list_existent + data[0]
+
+                        # Crea el archivo
+	                    archivo = File.new(file, 'w:UTF-8')
+	                    archivo.puts data[1]
+	                    archivo.close
+                    end
                 end
             end
 
@@ -133,11 +159,11 @@ def create_index index_data, index_prefix, files_content, css
                 file_index = $l_in_index_file.gsub('-', index_prefix.to_s + '-') + 'xhtml'
 
                 archivo = File.new(file_index, 'w:UTF-8')
-                archivo.puts xhtmlTemplateHead(title, css == nil ? '' : css, 'index')
+                archivo.puts xhtmlTemplateHead(title, css == nil ? '' : css)
                 if css == nil then archivo.puts "<style>#{$css_template_min}</style>" end
-                archivo.puts "<section class=\"#{$l_in_item_section}\">"
+                archivo.puts "<section class=\"#{$l_in_item_section}\" epub:type=\"index\" role=\"doc-index\">"
                 archivo.puts "<h1>#{title}</h1>"
-                if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\"><style>@media screen and (min-width:768px){.i-item-div{column-count:2;column-gap:2em;column-rule:solid 1px lightgray;}}</style>" end
+                if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\">" end
                 archivo.puts array_to_html(list_existent, index_prefix)
                 if $two_columns then archivo.puts '</div>' end
                 archivo.puts '</section>'
@@ -146,13 +172,12 @@ def create_index index_data, index_prefix, files_content, css
 
                 beautifier(file_index)
             end
-
         # Si algo sale mal, elimina todo lo hecho y recupera la información
         rescue
             puts $l_in_error_incorporacion
+            puts $l_in_restaurando
             files_content.each do |file|
                 file_name = file
-                puts "#{$l_in_recuperando[0] + file_name + $l_in_recuperando[1]}".green
                 FileUtils.rm(file_name)
                 FileUtils.mv(file_name + '.bak', file_name)
             end
@@ -200,7 +225,9 @@ else
     Dir.chdir(directory)
 
     # Obtiene la ruta relativa al CSS
-    css = if css != nil then css.gsub(Dir.pwd + '/', '') end
+    if css != nil
+        css = get_relative_path(Dir.pwd, css)
+    end
 
     # Obtiene los archivos a los que se les incluirán los términos
     files = []
@@ -212,14 +239,14 @@ else
 
     # Respalda los archivos
     files = files.sort
+    puts $l_in_respaldando
     files.each do |e| 
-        puts "#{$l_in_respaldando[0] + File.basename(e) + $l_in_respaldando[1]}".green
         FileUtils.cp(e, File.basename(e) + '.bak')
     end
 
     # Llama a la creación del índice
     yaml.each_with_index do |y, i|
-        create_index(y, i + 1, files.sort, css)
+        create_index(y, i + 1, files, css)
     end
 
     # Elimina respaldos

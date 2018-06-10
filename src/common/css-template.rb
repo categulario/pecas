@@ -642,6 +642,14 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: .5em !important;
 }
 
+@media screen and (min-width:768px){
+    .#{$l_in_item_div} {
+        column-count:2;
+        column-gap:2em;
+        column-rule:solid 1px lightgray;
+    }
+}
+
 .#{$l_in_item_a}:before {
 	content: \"[\";
 	color: #0000EE;

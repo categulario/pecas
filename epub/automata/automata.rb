@@ -31,12 +31,18 @@ inner = argumento "--inner", inner, 1
 reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
 rotacion = argumento "--rotate", rotacion, 1
+
+with_indexes = argumento "--with-indexes", init, 1
+two_columns = argumento "--two-columns", init, 1
+
 overwrite = argumento "--overwrite", overwrite, 1
 no_legacy = argumento "--no-legacy", no_legacy, 1
 no_analytics = argumento "--no-analytics", no_analytics, 1
 no_epubcheck = argumento "--no-epubcheck", no_epubcheck, 1
 no_ace = argumento "--no-ace", no_ace, 1
 no_kindlegen = argumento "--no-kindlegen", no_kindlegen, 1
+
+no_alphabet = argumento "--no-alphabet", init, 1
 
 # Variables que se usarán
 $log = Array.new
@@ -196,6 +202,12 @@ if init
 	$l_g_meta_data = File.new($l_au_prefijo + $l_g_meta_data, "w:UTF-8")
 	$l_g_meta_data.puts $l_cr_yaml
 	$l_g_meta_data.close
+
+	# Crea el archivo para índices
+	index = $l_in_archivo_nombre
+	$l_in_archivo_nombre = File.new($l_au_prefijo + $l_in_archivo_nombre, "w:UTF-8")
+	$l_in_archivo_nombre.puts $l_in_archivo_contenido
+	$l_in_archivo_nombre.close
 	
 	# Crea el archivo de inicialización
 	inicializacion = $l_au_init_archivo
@@ -266,7 +278,11 @@ else
 	if notas
 		ejecutar "\n# pc-notes", "ruby #{File.dirname(__FILE__)+ "/../notes/notes.rb"} -n #{arregloRutaTerminal notas} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if inner then "--inner" end} #{if reset then "--reset" end}"
 	end
-	
+
+    if with_indexes
+        ejecutar "\n# pc-index", "ruby #{File.dirname(__FILE__)+ "/../index/index.rb"} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{if no_alphabet then "--no-alphabet" end} #{if two_columns then "--two-columns" end}"
+    end
+
 	# Recreación del EPUB
 	ejecutar "\n# pc-recreator", "ruby #{File.dirname(__FILE__)+ "/../recreator/recreator.rb"} -d #{$l_au_epub_nombre} #{parametro yaml, "-y"} #{parametro depth, "--depth"}"
 	

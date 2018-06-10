@@ -700,11 +700,6 @@ def hash_to_html hash, list = nil
                             words = e.split(' ')
                             e_new = []
 
-                            # Crea el objeto que estará capturando el término, los identificadores que contiene y el archivo donde se encuentra
-                            if !$ids_items.any? {|hash| hash['term'].include?(item.first)}
-                                $ids_items.push({'term' => item.first, 'id' => i, 'ids' => []})
-                            end
-
                             # Iteración de cada palabra del contenido
                             words.each do |w|
                                 # Si la palabra contiene el elemento del índice, se agrega la referencia
@@ -712,7 +707,7 @@ def hash_to_html hash, list = nil
                                     e_new.push(w.gsub('-@@@">', '-' + $i_item.to_s + '">'))
 
                                     # Añade el identificador y el archivo donde se encuentra
-                                    $ids_items.map {|hash| if hash['term'] == item.first then hash['ids'].push([$file_item, $i_item]) end}
+                                    $ids_items.push({'term' => item.first, 'id' => i_index.to_s + '-' + i.to_s + '-' + $i_item.to_s, 'file' => $file_item})
 
                                     # Aumenta uno los números para el índice
                                     $i_item = $i_item + 1
@@ -731,9 +726,6 @@ def hash_to_html hash, list = nil
                 end
             end
         end
-
-        # Elimina las entradas que no tuvieron ninguna coincidencia
-        $ids_items.map {|hash| if hash['ids'].length == 0 then $ids_items.delete(hash) end}
     end
 
     contenido_a_html(hash['content'], html, list, false, false)
@@ -762,135 +754,6 @@ end
 def md_to_html ruta
     md = []
     $headers_ids = []
-
-    # Traduce todos los estilos en línea
-    def translate_inline text
-
-        # Añade un atributo a <img>, <a> o <span> si así fue especificado
-        def add_attr text, min_rx, rx
-
-            # Arregla el problema de los paréntesis dentro de URL que en unos casos van ahí y en otros afuera.
-            text.scan(/(<.*?href="|<.*?src=")(.*?)(".*?>)(.*?)(<\/.*?>)/).each do |scan|
-                if scan[1] =~ /^[^\(]+?\)/
-                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub(/\).*/, '').gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4] + scan[1].gsub(/^.*?(\).*)/, '\1'))
-                else
-                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4])
-                end
-            end
-
-            if text =~ rx
-                text.scan(rx).each do |scan|
-                    # Si es <img> o <a>
-                    if min_rx != 'span'
-                        attributes = attributes(get_classes_ids([scan[1]]))
-                        tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
-                    else
-                        attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
-                        tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
-                    end
-
-                    text = text.gsub(scan.join(''), tag)
-                end
-            end
-
-            return text
-        end
-
-        regex = [
-            [/&/, '&#38;'],                                                             # Símbolo «&»
-            [/(.?)(\!\[)(([^({.*?})]|\.|\?|\*)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'img'],  # Imagen
-            [/(.?)(\[)(([^({.*?})]|\.|\?|\*)+?)(\]\()([^\s]*)(\))(\W|\s|$)/, 'a'],      # Enlace
-            [/(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/, 'strong'],            # Negritas semántica
-            [/(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/, 'b'],                      # Negritas
-            [/(.?)(\*)(([^\*])+?)(\*)/, 'em'],                                          # Itálicas semántica
-            [/([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/, 'i'],                           # Itálicas
-            [/(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/, 's'],                      # Tachado
-            [/(.?)(~)(([^~])+?)(~)/, 'sub'],                                            # Subíndice
-            [/(.?)(\^)(([^\^])+?)(\^)/, 'sup'],                                         # Superíndice
-            [/(.?)(`)(([^`])+?)(`)/, 'code'],                                           # Código `
-            [/(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/, 'force_sc'],           # Versalitas
-            [/(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/, 'sc'],                 # Versalitas ligera
-            [/(.?)(\[)([^\[]+?)(\])({.*?})/, 'span'],                                   # Span personalizado
-            [/(.?)(----)/, '―'],                                                        # Barra
-            [/(.?)(---)/, '—'],                                                         # Raya
-            [/(.?)(--)/, '–'],                                                          # Signo de menos
-            [/(.?)(\/,)/, '&#8201;'],                                                   # Espacio fino
-            [/(.?)(\/\+)/, '&#160;']                                                    # Espacio de no separación
-        ]
-
-        # Inicio de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
-        text.scan(/@note\[(\*+?)\]/).each do |scan|
-            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('@@@' * scan[0].length) + ']')
-        end
-
-        regex.each do |rx|
-            if text.scan(rx[0]).length > 0
-                # Si no se está escapando la sintaxis
-                if text.scan(rx[0])[0][0] != '\\'
-                    # Empiezan las sustituciones según el tipo de sintaxis
-                    if rx[1] == 'img'
-                        text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
-                        text = text.gsub(/(alt=".*?)@\w+(.*?")/, '\1\2')
-                    elsif rx[1] == 'a'
-                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>[^<]+?<\/a>)({.*?})/)
-                    elsif rx[1] == 'i'
-                        text = text.gsub(rx[0], '\1' + '\2' + '<' + rx[1] + '>' + '\4' + '</' + rx[1] + '>')
-                    elsif rx[1] == 'code'
-                        text = text.gsub(rx[0], '\1' + '<code>' + '\3' + '</code>')
-
-                        # El contenido del código requiere muchas modificaciones para evitar conflicto con otros estilos en línea e incluso con la misma estructura HTML
-                        text.scan(/<code>(.+?)<\/code>/).each do |scan|
-                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub('<', '&lt;').gsub('>', '&gt;') }.join('') + '</code>')
-                        end
-                    elsif rx[1] == 'force_sc'
-                        text = text.gsub(rx[0], '\1' + '<span class="smallcap">' + '\3' + '</span>')
-                    elsif rx[1] == 'sc'
-                        text = text.gsub(rx[0], '\1' + '<span class="smallcap-light">' + '\3' + '</span>')
-                    elsif rx[1] == 'span'
-                        text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
-                    # Sustituciones directas
-                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
-                        if rx[1] == '–'
-                            text.scan(/(--)(\w+)/).each do |s|
-                                if s[1] != 'note' && s[1] != 'ignore'
-                                    text = text.gsub(rx[0], '\1' + rx[1])
-                                end
-                            end
-                        elsif rx[1] == '&#38;'
-                            text.scan(/&\S*\s*/).each do |s|
-                                if s !~ /&\S+;/
-                                    if s !~ /&$/
-                                        text = text.gsub(s, s.gsub('&', '&#38;'))
-                                    else
-                                        text = text.gsub(/&$/, '&#38;') 
-                                    end
-                                end
-                            end
-                        else
-                            text = text.gsub(rx[0], '\1' + rx[1])
-                        end
-                    # Todo lo demás es sustitución «plana» a los tags HTML
-                    else
-                        text = text.gsub(rx[0], '\1' + '<' + rx[1] + '>' + '\3' + '</' + rx[1] + '>')
-                    end
-                # Quita la diagonal inversa del escape
-                else
-                    new_rx = rx[0].to_s.gsub('(?-mix:(.?)', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
-                    text = text.gsub(/\\(#{new_rx})/, '\1')
-                end
-            end
-        end
-
-        text = text.gsub('%60','`').gsub('%7E','~').gsub('%5E','^').gsub('%2A','*').gsub('%28','(').gsub('%29',')').gsub('%5f','_').gsub('%2B','+').gsub('%5C','\\').gsub('%7C','|').gsub('%5B','[').gsub('%5D',']').gsub('%7B','{').gsub('%7D','}')
-
-        # Fin de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
-        text.scan(/@note\[(@{3}+?)\]/).each do |scan|
-            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('*' * (scan[0].length / 3)) + ']')
-        end
-
-        # Regresa con la simplificación de \\ por \
-        return text.gsub('\\\\', '\\')
-    end
 
     def translate_blocks md
         translated_md = []
@@ -1224,28 +1087,28 @@ def md_to_html ruta
 
         md.each do |block|
             # Si es encabezado
-            if block.first =~ /^#/
+            if detect_block_type(block.first) == 'header'
                 text = translate_h(block)
             # Si es bloque de cita
-            elsif block.first =~  /^>/
+            elsif detect_block_type(block.first) == 'quote'
                 text = translate_blockquote(block)
             # Si es lista
-            elsif block.first =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+|@type|{.*?}\s*)/
+            elsif detect_block_type(block.first) == 'list'
                 text = translate_li(block)
             # Si es imagen
-            elsif block.first =~ /^\!\[/
+            elsif detect_block_type(block.first) == 'image'
                 text = translate_img(block)
             # Si es bloque de código
-            elsif block.first =~ /^```/
+            elsif detect_block_type(block.first) == 'code'
                 text = translate_pre(block)
             # Si es barra horizontal
-            elsif block.first =~ /^---(\s*{[^{]*?}\s*|\s*)$/
+            elsif detect_block_type(block.first) == 'bar'
                 text = translate_hr(block)
             # Si es HTML
-            elsif block.first =~ /^\s*<.*?>\s*$/
+            elsif detect_block_type(block.first) == 'html'
                 text = block.join('')
             # Si es párrafo
-            else
+            elsif detect_block_type(block.first) == 'paragraph'
                 text = translate_p(block)
             end
 
@@ -1262,6 +1125,199 @@ def md_to_html ruta
     md = translate_blocks(md)
 
     return md
+end
+
+# Detecta eltipo de block de Pecas Markdown
+def detect_block_type line
+    # Si es encabezado
+    if line =~ /^#/
+        return 'header'
+    # Si es bloque de cita
+    elsif line =~  /^>/
+        return 'quote'
+    # Si es lista
+    elsif line =~ /^(\*\s+|\+\s+|-\s+|\d+\.\s+|@type|{.*?}\s*)/
+        return 'list'
+    # Si es imagen
+    elsif line =~ /^\!\[/
+        return 'image'
+    # Si es bloque de código
+    elsif line =~ /^```/
+        return 'code'
+    # Si es barra horizontal
+    elsif line =~ /^---(\s*{[^{]*?}\s*|\s*)$/
+        return 'bar'
+    # Si es HTML
+    elsif line =~ /^\s*<.*?>\s*$/
+        return 'html'
+    # Si es párrafo
+    else
+        return 'paragraph'
+    end
+end
+
+# Traduce todos los estilos en línea de Pecas Markdown
+def translate_inline text, html = true
+
+    # Empajera el regex detectado con lo que trabajará para sustitución
+    def pair_regex r1, r2
+        r = []
+        r1.each_with_index do |e, i|
+            r.push([e, r2[i]])
+        end
+        return r
+    end
+
+    regex_raw = [
+        /&/,                                                                # Símbolo «&»
+        /(.?)(\!\[)(([^({.*?})]|\.|\?|\*)+?)(\]\()([^\s]*)(\))(\W|\s|$)/,   # Imagen
+        /(.?)(\[)(([^({.*?})]|\.|\?|\*)+?)(\]\()([^\s]*)(\))(\W|\s|$)/,     # Enlace
+        /(.?)(\*{2})(({|}|\d|(\*.*?\*)|[^\*{2}])+?)(\*{2})/,                # Negritas semántica
+        /(.?)(_{2})(({|}|\d|(_.*?_)|[^_{2}])+?)(_{2})/,                     # Negritas
+        /(.?)(\*)(([^\*])+?)(\*)/,                                          # Itálicas semántica
+        /([^(http:\S)]|\W|^)(.?)(_)(([^_])+?)(_)/,                          # Itálicas
+        /(.?)(~{2})(({|}|\d|(~.*?~)|[^~{2}])+?)(~{2})/,                     # Tachado
+        /(.?)(~)(([^~])+?)(~)/,                                             # Subíndice
+        /(.?)(\^)(([^\^])+?)(\^)/,                                          # Superíndice
+        /(.?)(\+{3})(({|}|\d|(\+.*?\+)|[^+{3}])+?)(\+{3})/,                 # Versalitas
+        /(.?)(\+{2})(({|}|\d|(\+.*?\+)|[^+{2}])+?)(\+{2})/,                 # Versalitas ligera
+        /(.?)(`)(([^`])+?)(`)/,                                             # Código
+        /(.?)(\[)([^\[]+?)(\])({.*?})/,                                     # Span personalizado
+        /(.?)(----)/,                                                       # Barra
+        /(.?)(---)/,                                                        # Raya
+        /(.?)(--)/,                                                         # Signo de menos
+        /(.?)(\/,)/,                                                        # Espacio fino
+        /(.?)(\/\+)/                                                        # Espacio de no separación
+    ]
+
+    if html == true
+        regex_html = [
+            '&#38;',    # Símbolo «&»
+            'img',      # Imagen
+            'a',        # Enlace
+            'strong',   # Negritas semántica
+            'b',        # Negritas
+            'em',       # Itálicas semántica
+            'i',        # Itálicas
+            's',        # Tachado
+            'sub',      # Subíndice
+            'sup',      # Superíndice
+            'force_sc', # Versalitas
+            'sc',       # Versalitas ligera
+            'code',     # Código
+            'span',     # Span personalizado
+            '―',        # Barra
+            '—',        # Raya
+            '–',        # Signo de menos
+            '&#8201;',  # Espacio fino
+            '&#160;'    # Espacio de no separación
+        ]
+
+        regex = pair_regex(regex_raw, regex_html)
+
+        # Añade un atributo a <img>, <a> o <span> si así fue especificado
+        def add_attr text, min_rx, rx
+
+            # Arregla el problema de los paréntesis dentro de URL que en unos casos van ahí y en otros afuera.
+            text.scan(/(<.*?href="|<.*?src=")(.*?)(".*?>)(.*?)(<\/.*?>)/).each do |scan|
+                if scan[1] =~ /^[^\(]+?\)/
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub(/\).*/, '').gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4] + scan[1].gsub(/^.*?(\).*)/, '\1'))
+                else
+                    text = text.gsub(scan.join(''), scan[0] + scan[1].gsub('`','%60').gsub('~','%7E').gsub('^','%5E').gsub('*','%2A').gsub('_','%5f').gsub('(','%28').gsub(')','%29') + scan[2] + scan[3] + scan[4])
+                end
+            end
+
+            if text =~ rx
+                text.scan(rx).each do |scan|
+                    # Si es <img> o <a>
+                    if min_rx != 'span'
+                        attributes = attributes(get_classes_ids([scan[1]]))
+                        tag = scan[0].split('<' + min_rx)[0] + '<' + min_rx + attributes + scan[0].split('<' + min_rx)[1]
+                    else
+                        attributes = attributes(get_classes_ids([scan[1].gsub(/>.*$/, '')]))
+                        tag = scan[0] + attributes + scan[1].gsub(/{.*?}/, '')
+                    end
+
+                    text = text.gsub(scan.join(''), tag)
+                end
+            end
+
+            return text
+        end
+
+        # Inicio de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
+        text.scan(/@note\[(\*+?)\]/).each do |scan|
+            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('@@@' * scan[0].length) + ']')
+        end
+
+        regex.each do |rx|
+            if text.scan(rx[0]).length > 0
+                # Si no se está escapando la sintaxis
+                if text.scan(rx[0])[0][0] != '\\'
+                    # Empiezan las sustituciones según el tipo de sintaxis
+                    if rx[1] == 'img'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<img src="' + '\6' + '" alt="' + '\3' + '"/>' + '\8'), rx[1], /(<img[^<]+?\/>)({.*?})/)
+                        text = text.gsub(/(alt=".*?)@\w+(.*?")/, '\1\2')
+                    elsif rx[1] == 'a'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<a href="' + '\6' + '">' + '\3' + '</a>' + '\8'), rx[1], /(<a[^<]+?>[^<]+?<\/a>)({.*?})/)
+                    elsif rx[1] == 'i'
+                        text = text.gsub(rx[0], '\1' + '\2' + '<' + rx[1] + '>' + '\4' + '</' + rx[1] + '>')
+                    elsif rx[1] == 'code'
+                        text = text.gsub(rx[0], '\1' + '<code>' + '\3' + '</code>')
+
+                        # El contenido del código requiere muchas modificaciones para evitar conflicto con otros estilos en línea e incluso con la misma estructura HTML
+                        text.scan(/<code>(.+?)<\/code>/).each do |scan|
+                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub(/<span class="smallcap">(.*?)<\/span>/, '+++' + '\1' + '+++').gsub(/<span class="smallcap-light">(.*?)<\/span>/, '++' + '\1' + '++').gsub('<', '&lt;').gsub('>', '&gt;') }.join('') + '</code>')
+                        end
+                    elsif rx[1] == 'force_sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap">' + '\3' + '</span>')
+                    elsif rx[1] == 'sc'
+                        text = text.gsub(rx[0], '\1' + '<span class="smallcap-light">' + '\3' + '</span>')
+                    elsif rx[1] == 'span'
+                        text = add_attr(text.gsub(rx[0], '\1' + '<span' + '\5' + '>' + '\3' + '</span>'), rx[1], /(<span)({[^<]*?<\/span>)/)
+                    # Sustituciones directas
+                    elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
+                        if rx[1] == '–'
+                            text.scan(/(--)(\w+)/).each do |s|
+                                if s[1] != 'note' && s[1] != 'ignore'
+                                    text = text.gsub(rx[0], '\1' + rx[1])
+                                end
+                            end
+                        elsif rx[1] == '&#38;'
+                            text.scan(/&\S*\s*/).each do |s|
+                                if s !~ /&\S+;/
+                                    if s !~ /&$/
+                                        text = text.gsub(s, s.gsub('&', '&#38;'))
+                                    else
+                                        text = text.gsub(/&$/, '&#38;') 
+                                    end
+                                end
+                            end
+                        else
+                            text = text.gsub(rx[0], '\1' + rx[1])
+                        end
+                    # Todo lo demás es sustitución «plana» a los tags HTML
+                    else
+                        text = text.gsub(rx[0], '\1' + '<' + rx[1] + '>' + '\3' + '</' + rx[1] + '>')
+                    end
+                # Quita la diagonal inversa del escape
+                else
+                    new_rx = rx[0].to_s.gsub('(?-mix:(.?)', '').gsub('\\(', '#').gsub('\\)', '%').gsub('(', '').gsub(')', '').gsub('#', '\\(').gsub('%', '\\)')
+                    text = text.gsub(/\\(#{new_rx})/, '\1')
+                end
+            end
+        end
+
+        text = text.gsub('%60','`').gsub('%7E','~').gsub('%5E','^').gsub('%2A','*').gsub('%28','(').gsub('%29',')').gsub('%5f','_').gsub('%2B','+').gsub('%5C','\\').gsub('%7C','|').gsub('%5B','[').gsub('%5D',']').gsub('%7B','{').gsub('%7D','}')
+
+        # Fin de solución del conflicto entre notas personalizadas con asterisco y las itálicas: «ejemplo@note[*] *una itálica*»
+        text.scan(/@note\[(@{3}+?)\]/).each do |scan|
+            text = text.gsub('@note[' + scan[0] + ']', '@note[' + ('*' * (scan[0].length / 3)) + ']')
+        end
+
+        # Regresa con la simplificación de \\ por \
+        return text.gsub('\\\\', '\\')
+    end
 end
 
 # Obtiene los bloques de un Markdown
@@ -1349,4 +1405,33 @@ def obtener_unicode char
             puts "This is the unicode of #{char}: #{pos.to_s(16)}"
         end
     end
+end
+
+# Obtiene la ruta relativo a un archivo
+# OJO: es muy similar a archivoCSSBusqueda, falta revisar si puede sustituirse archivoCSSBusqueda por esta
+def get_relative_path pwd, file_location
+    file_location_array = file_location.split('/')
+    pwd_array = pwd.split('/')
+    relative_path = []
+
+    # Inicia una comparación de fichero por fichero
+    file_location_array.each_with_index do |e, i|
+        if File.file?(e)
+            relative_path.push(e)
+        else
+            # Cuando ya no hay coincidencia empieza la ruta
+            if e != pwd_array[i]
+                # Si aún quedan ficheros desde la ubicación actual, son reemplazados por «..»
+                if pwd_array[i] != nil
+                    pwd_array[i..-1].each {|j| relative_path.push('..')}
+                    pwd_array = []
+                end
+
+                relative_path.push(e)
+            end
+        end
+    end
+
+    # Regresa la ruta relativa
+    return relative_path.join('/')
 end
