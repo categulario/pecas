@@ -313,8 +313,8 @@ hace automáticamente.
 
 ### Pecas Markdown
 
-Todas las entradas de tipo `String` aceptan Pecas Markdown, solo
-hay que considerar que si no se usan `Array` la búsqueda será literal.
+Todas las entradas de tipo `String` en `content` aceptan Pecas Markdown, 
+solo hay que considerar que si no se usan `Array` la búsqueda será literal.
 
 Ejemplo:
 
@@ -327,9 +327,9 @@ Ejemplo:
 ```
 
 En el primer caso se buscará todo lo que coincida con `+++HTML+++` y
-en la entrada el término `+++HTML+++` se verá como +++HTML+++ (en versalita). 
-En el segundo caso se buscará todo lo que coincida con `HTML` y en la 
-entrada el término `+++HTML+++` se verá como +++HTML+++ (en versalita). 
+la entrada se verá como +++HTML+++ (en versalita). En el segundo caso 
+se buscará todo lo que coincida con `HTML` y la entrada se verá como 
++++HTML+++ (en versalita). 
 
 ### RegEx
 
@@ -371,8 +371,14 @@ solo es de agregar al menos otro `name` y `content`:
   content:
   - 
   - 
+  ignore:
+  - 
+  - 
 - name: Índice 2
   content:
+  - 
+  - 
+  ignore:
   - 
   - 
 - name: "¡Otro índice!"

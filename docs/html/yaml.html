@@ -338,12 +338,12 @@
             <h3 id="orden-alfabetico">Orden alfabético</h3>
             <p>No hay necesidad de ordenar las entradas alfabéticamente, ya que se hace automáticamente.</p>
             <h3 id="pecas-markdown">Pecas Markdown</h3>
-            <p>Todas las entradas de tipo <code>String</code> aceptan Pecas Markdown, solo hay que considerar que si no se usan <code>Array</code> la búsqueda será literal.</p>
+            <p>Todas las entradas de tipo <code>String</code> en <code>content</code> aceptan Pecas Markdown, solo hay que considerar que si no se usan <code>Array</code> la búsqueda será literal.</p>
             <p>Ejemplo:</p>
             <pre class="">
                 <code class="code-line-1">---</code><code class="code-line-2">- name: Índice 1</code><code class="code-line-3">  content:</code><code class="code-line-4">  - "+++HTML+++"</code><code class="code-line-5">  - ["+++HTML+++", "HTML"]</code>
             </pre>
-            <p>En el primer caso se buscará todo lo que coincida con <code>+++HTML+++</code> y en la entrada el término <code>+++HTML+++</code> se verá como <span class="smallcap">HTML</span> (en versalita). En el segundo caso se buscará todo lo que coincida con <code>HTML</code> y en la entrada el término <code>+++HTML+++</code> se verá como <span class="smallcap">HTML</span> (en versalita).</p>
+            <p>En el primer caso se buscará todo lo que coincida con <code>+++HTML+++</code> y la entrada se verá como <span class="smallcap">HTML</span> (en versalita). En el segundo caso se buscará todo lo que coincida con <code>HTML</code> y la entrada se verá como <span class="smallcap">HTML</span> (en versalita).</p>
             <h3 id="regex">RegEx</h3>
             <p>Es posible usar <a href="https://en.wikipedia.org/wiki/Regular_expression">RegEx</a> en las entradas de tipo <code>String</code>. Solo considera lo siguiente:</p>
             <ul>
@@ -365,7 +365,7 @@
             <h3 id="multiples-indices">Múltiples índices</h3>
             <p>Como muestra la estructura básica, es posible crear más de un índice, solo es de agregar al menos otro <code>name</code> y <code>content</code>:</p>
             <pre class="">
-                <code class="code-line-1">---</code><code class="code-line-2">- name: Índice 1</code><code class="code-line-3">  content:</code><code class="code-line-4">  -</code><code class="code-line-5">  -</code><code class="code-line-6">- name: Índice 2</code><code class="code-line-7">  content:</code><code class="code-line-8">  -</code><code class="code-line-9">  -</code><code class="code-line-10">- name: "¡Otro índice!"</code><code class="code-line-11">  content:</code><code class="code-line-12">  -</code><code class="code-line-13">  -</code>
+                <code class="code-line-1">---</code><code class="code-line-2">- name: Índice 1</code><code class="code-line-3">  content:</code><code class="code-line-4">  -</code><code class="code-line-5">  -</code><code class="code-line-6">  ignore:</code><code class="code-line-7">  -</code><code class="code-line-8">  -</code><code class="code-line-9">- name: Índice 2</code><code class="code-line-10">  content:</code><code class="code-line-11">  -</code><code class="code-line-12">  -</code><code class="code-line-13">  ignore:</code><code class="code-line-14">  -</code><code class="code-line-15">  -</code><code class="code-line-16">- name: "¡Otro índice!"</code><code class="code-line-17">  content:</code><code class="code-line-18">  -</code><code class="code-line-19">  -</code>
             </pre>
             <blockquote>
                 <p>Ojo: Los índices sin entradas en el <code>content</code> serán ignorados.</p>
