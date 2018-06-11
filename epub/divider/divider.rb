@@ -48,7 +48,7 @@ carpeta = comprobacionDirectorio carpeta
 Dir.chdir(carpeta)
 
 # Obtiene la ruta al archivo CSS
-rutaCSS = archivoCSSBusqueda archivoCSS, carpeta
+rutaCSS = get_relative_path(carpeta, archivoCSS)
 
 # Inicia la división
 puts $l_di_dividiendo

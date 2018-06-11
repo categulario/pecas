@@ -30,7 +30,7 @@ txt = comprobacionArchivo txt, [".md"]
 css = comprobacionArchivo css, [".css"]
 
 # Obtiene la ruta al archivo CSS
-css = archivoCSSBusqueda css, carpeta
+css = get_relative_path(carpeta, css)
 
 # Variables que se usarán
 txtEsMD = if File.extname(txt) == ".md" then txtEsMD = true else txtEsMD = false end
