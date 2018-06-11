@@ -212,15 +212,23 @@ else
             no_push = false
         else
             if linea =~ /^title:/
-                yaml_nuevo.push('title: "' + $metadata_para_epub['title'][0].gsub('"', '\"') + '"')
+                if $metadata_para_epub['title'] != nil
+                    yaml_nuevo.push('title: "' + $metadata_para_epub['title'][0].gsub('"', '\"') + '"')
+                end
             elsif linea =~ /^author:/
                 no_push = true
             elsif linea =~ /^publisher:/
-                yaml_nuevo.push('publisher: ' + $metadata_para_epub['publisher'].to_s)
+                if $metadata_para_epub['publisher'] != nil
+                    yaml_nuevo.push('publisher: ' + $metadata_para_epub['publisher'].to_s)
+                end
             elsif linea =~ /^synopsis:/
-                yaml_nuevo.push('synopsis: "' + $metadata_para_epub['synopsis'][0].gsub('"', '\"') + '"')
+                if $metadata_para_epub['synopsis'] != nil
+                    yaml_nuevo.push('synopsis: "' + $metadata_para_epub['synopsis'][0].gsub('"', '\"') + '"')
+                end
             elsif linea =~ /^category:/
-                yaml_nuevo.push('category: ' + $metadata_para_epub['category'].to_s)
+                if $metadata_para_epub['category'] != nil
+                    yaml_nuevo.push('category: ' + $metadata_para_epub['category'].to_s)
+                end
             elsif linea =~ /^cover:/
                 yaml_nuevo.push('cover: ' + portada)
             else

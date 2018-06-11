@@ -340,14 +340,16 @@ def epub_analisis epub
             if k =~ /manifest/
                 # Iteración del contenido del manifiesto
                 v['content'].each do |i|
-                    # Obtiene la ruta relativa del archivo
-                    archivo = i['$item']['attributes']['_href']
+                    if i['$item'] != nil
+                        # Obtiene la ruta relativa del archivo
+                        archivo = i['$item']['attributes']['_href']
 
-                    # Se añade la ruta absoluta si se trata de un documento tipo HTML
-                    if File.extname(archivo)[1..-1] == 'xhtml' || File.extname(archivo)[1..-1] == 'html' || File.extname(archivo)[1..-1] == 'htm'
-                        # Se excluye el HTMl de navegación
-                        if i['$item']['attributes']['_properties'] != 'nav'
-                            urls.push(path + '/' + archivo)
+                        # Se añade la ruta absoluta si se trata de un documento tipo HTML
+                        if File.extname(archivo)[1..-1] == 'xhtml' || File.extname(archivo)[1..-1] == 'html' || File.extname(archivo)[1..-1] == 'htm'
+                            # Se excluye el HTMl de navegación
+                            if i['$item']['attributes']['_properties'] != 'nav'
+                                urls.push(path + '/' + archivo)
+                            end
                         end
                     end
                 end
