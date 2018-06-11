@@ -24,6 +24,7 @@ pc-creator
 * `-v` = [version] Muestra la versión.
 * `-h` = [help] Muestra la ayuda, la cual es este contenido.
 * `--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
+* `--only-css` = Crea un archivo CSS con la hoja de estilos por defecto en lugar de un proyecto EPUB.
 
 ## Ejemplos
 
@@ -75,13 +76,29 @@ pc-creator -d directorio/deseado -o proyecto_epub -s ruta/al/archivo.css -c ruta
 
 Crea un proyecto EPUB como el ejemplo anterior, incluyendo una copia de las imágenes presentes en `ruta/al/directorio/con/imagenes`.
 
+### Ejemplo para solo crear un archivo CSS:
+
+```
+pc-creator --only-css
+```
+
+Crea solo un archivo CSS con los estilos por defecto.
+
+### Ejemplo para solo crear un archivo CSS en una ubicación específica:
+
+```
+pc-creator -d directorio/deseado --only-css
+```
+
+Igual que le ejemplo anterior pero la hoja se crea en «directorio/deseado».
+
 ---
 
 # Notas
 
 ## YAML
 
-Este *script* genera un archivo con extensión `.yaml` para los metadatos
+El EPUB generará un archivo con extensión `.yaml` para los metadatos
 del libro. [Consúltese aquí](https://nikazhenya.github.io/pecas/html/yaml.html)
 para mayor información.
 

@@ -187,6 +187,7 @@ $l_cr_xhtml_portada = langObj["creator"]["xhtml_portada"]
 $l_cr_xhtml_portadilla = langObj["creator"]["xhtml_portadilla"]
 $l_cr_xhtml_legal = langObj["creator"]["xhtml_legal"]
 $l_cr_creando = langObj["creator"]["creando"]
+$l_cr_creando2 = langObj["creator"]["creando2"].green
 $l_cr_error_meta = langObj["creator"]["error_meta"].red.bold
 
 # Divider
