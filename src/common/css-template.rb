@@ -466,8 +466,6 @@ pre {
 	line-height: 1.25;
 	border-radius: .25em;
 	box-shadow: .1em .1em .5em rgba(0,0,0,.45);
-	counter-reset: line;
-	overflow-y: scroll;
     white-space: unset;
 }
 
@@ -482,17 +480,36 @@ pre code {
 	background-color: inherit;
 	border: none;
 	border-radius: 0;
-    white-space: pre;
 }
 
 pre code:before {
 	width: 1.5em;
-	counter-increment: line;
-	content: counter(line);
 	display: inline-block;
 	padding: 0 .5em;
 	margin-right: .5em;
 	color: #888;
+}
+
+@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+    pre {
+	    counter-reset: line;
+	    overflow: scroll;
+    }
+
+    pre code:before {
+	    counter-increment: line;
+	    content: counter(line);
+    }
+
+    pre code {
+        white-space: pre;
+    }
+}
+
+@media amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+    pre code:before {
+	    content: \"•\";
+    }
 }
 
 /* Glosses / Glosas */
@@ -642,11 +659,13 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: .5em !important;
 }
 
-@media screen and (min-width:768px){
-    .#{$l_in_item_div} {
-        column-count:2;
-        column-gap:2em;
-        column-rule:solid 1px lightgray;
+@media screen and (min-width:768px) {
+    @media not amzn-mobi {
+        .#{$l_in_item_div} {
+            column-count: 2;
+            column-gap: 2em;
+            column-rule: solid 1px lightgray;
+        }
     }
 }
 
