@@ -290,7 +290,7 @@ end
 
 # Crea las tablas de contenidos personalizados
 def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espacio
-	
+
 	# Examina si los archivos existen
 	def aplicar? archivoOtros, archivo, yaml
 		
@@ -300,7 +300,7 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 			def id_buscar archivoOtros, nombre
 				archivoOtros.each do |archivo|
 					# Si se trata de un archivo XHTML y tiene el indentificador
-					if File.extname(archivo) == ".xhtml"
+					if File.basename(archivo) == File.basename($actual_xhtml)
 						archivo_abierto = File.open(File.absolute_path(archivo), 'r:UTF-8')
 						archivo_abierto.each do |linea|
 							if linea =~ /id="#{nombre.gsub("@@",".")}"/
@@ -334,7 +334,9 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 							end
 						end
 					end
-					
+
+                    $actual_xhtml = a
+
 					return [a, nil]
 				end
 			end
