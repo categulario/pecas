@@ -70,3 +70,15 @@ Si se desconoce esta información, [consúltese aquí](https://nikazhenya.github
 Por defecto el título, el autor y el nombre de la editorial son incrustados
 según lo especificado en el archivo YAML. Si no se desea este comportamiento
 solo elimínese los `id` que inician con `pc-` en alguno de estos dos archivos.
+
+## `--depth`
+
+Hay tres cuestiones a considerar al usar la opción `--depth`:
+
+1. La profundidad implica el máximo número de encabezado a analizar.
+   Por ejemplo, si se escribe `--depth 3` se analizarán encabezados
+   `h2` y `h3`.
+2. Solo se colocarán en las tablas de contenidos los encabezados que
+   cuenten con identificadores, ya que es necesario para crear el enlace.
+3. No se analizan los encabezados `h1` ya que Pecas supone que a cada
+   sección le corresponde solo un encabezado `h1`.
