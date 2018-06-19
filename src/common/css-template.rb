@@ -165,7 +165,7 @@ h1:not(.title) + p, h1:not(.titulo) + p {
     margin-top: 4em;
 }
 
-p, blockquote, li, details, aside {
+p, blockquote, li, figcaption, details, aside {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-size: 1em;
     text-align: justify;
