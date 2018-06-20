@@ -42,13 +42,16 @@ pc-automata -f [archivo madre]
 * `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
 * `-y` = [yaml] Ruta al archivo con los metadatos para el EPUB.
 * `-32` = [32 bits] SOLO WINDOWS, indica si la computadora es de 32 bits.
-* `--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
 * `--index` = Índice con el que ha de comenzar la numeración de los archivos divididos.
 * `--inner` = SOLO HTML, incluye las notas al pie al final del archivo.
 * `--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
 * `--depth` = Número entero que indica el nivel de profundidad de la tabla de contenidos.
 * `--section` = Divide el archivo madre cada `<section>`.
 * `--rotate` = Permite rotación aleatoria de las palabras en la nube de palabras de 30° a 150°.
+* `--with-indexes` = Incluye índices analíticos del `index-data.yaml`.
+* `--two-columns` = Agrega estilo para desplegar dos columnas; en sintaxis tipo HTML se despliega a partir de los 768px de ancho.
+* `--no-alphabet` = Evita añadir letras del alfabeto en la lista de términos.
+* `--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
 * `--no-legacy` = Evita la conversión de EPUB a una versión anterior.
 * `--no-analytics` = Evita la creación de analítica.
 * `--no-epubcheck` = Evita la verificación de EpubCheck.

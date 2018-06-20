@@ -31,17 +31,14 @@ inner = argumento "--inner", inner, 1
 reset = argumento "--reset", reset, 1
 seccion = argumento "--section", seccion, 1
 rotacion = argumento "--rotate", rotacion, 1
-
 with_indexes = argumento "--with-indexes", init, 1
 two_columns = argumento "--two-columns", init, 1
-
 overwrite = argumento "--overwrite", overwrite, 1
 no_legacy = argumento "--no-legacy", no_legacy, 1
 no_analytics = argumento "--no-analytics", no_analytics, 1
 no_epubcheck = argumento "--no-epubcheck", no_epubcheck, 1
 no_ace = argumento "--no-ace", no_ace, 1
 no_kindlegen = argumento "--no-kindlegen", no_kindlegen, 1
-
 no_alphabet = argumento "--no-alphabet", init, 1
 
 # Variables que se usarán
