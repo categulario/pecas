@@ -4,6 +4,8 @@
 
 Encoding.default_internal = Encoding::UTF_8
 
+require 'fileutils'
+
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../src/common/general.rb"
 require File.dirname(__FILE__) + "/../../src/common/lang.rb"
@@ -65,16 +67,16 @@ end
 # Convierte archivo MD
 if txtEsMD
 	# Se determina la ruta y nombre del archivo convertido
-	txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
+	$txt_oculto = $l_no_oculto + if texHay then ".tex" else ".html" end
 
 	# Crea la ruta absoluta
-	txt_oculto = File.exists?(directorioPadre(txt) + "/" + txt_oculto) == true ? directorioPadre(txt) + "/" + txt_oculto : Dir.pwd + "/" + txt_oculto
+	$txt_oculto = File.exists?(directorioPadre(txt) + "/" + $txt_oculto) == true ? directorioPadre(txt) + "/" + $txt_oculto : Dir.pwd + "/" + $txt_oculto
 
 	# Se usa Pandog, que a su vez usa Pandoc
-	system "ruby #{File.dirname(__FILE__)+ "/../../base-files/pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal txt_oculto}"
+	system "ruby #{File.dirname(__FILE__)+ "/../../base-files/pandog/pandog.rb"} -i #{arregloRutaTerminal txt} -o #{arregloRutaTerminal $txt_oculto}"
 		
 	# Cuenta la cantidad de notas al pie en el archivo de texto y va preparando las notas
-	archivo = File.open(txt_oculto, 'r:UTF-8')
+	archivo = File.open($txt_oculto, 'r:UTF-8')
 	linea_tmp = Array.new
 	archivo.each do |linea|
 		linea = linea.strip
@@ -106,7 +108,7 @@ if txtEsMD
 	end
 	
 	# Modifica los elementos innecesarios
-	archivo = File.open(txt_oculto, 'w:UTF-8')
+	archivo = File.open($txt_oculto, 'w:UTF-8')
 	archivo.puts txtNotas
 	archivo.close
 end
@@ -132,6 +134,7 @@ if txtConteo != arcConteo
 	puts $l_no_error_c[0].red.bold
 	puts "  #{txtConteo.to_s + $l_no_error_c[1] + File.basename(txt) + $l_no_error_c[2]}".red.bold
 	puts "  #{arcConteo.to_s + $l_no_error_c[3]}".red.bold
+    FileUtils.rm($txt_oculto)
     abort
 end
 
@@ -298,6 +301,6 @@ if htmlHay && !inner
 end
 
 # Elimina el archivo oculto que sirvió para las notas
-File.delete(txt_oculto)
+File.delete($txt_oculto)
 
 puts $l_g_fin
