@@ -54,8 +54,8 @@ def create_index index_data, index_prefix, files_content, css
         list_index_ordered.each_with_index do |array, j|
 
             # Si no coincide la inicial, añade una nueva letra
-            if actual_letter != translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0] && $no_alphabet != true
-                actual_letter = translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0].upcase
+            if actual_letter.downcase != transliterar(translate_inline(array.first['term']).downcase.gsub(/<[^>]*?>/,'')[0]) && $no_alphabet != true
+                actual_letter = transliterar(translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0]).upcase
                 html_term.push('<h2>' + actual_letter + '</h2>')
             end
 
