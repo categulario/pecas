@@ -233,11 +233,11 @@ blockquote + blockquote {
 }
 
 .no-hyphens, .sin-separacion {
-    -moz-hyphens: none;
-    -webkit-hyphens: none;
-    -o-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
+    -moz-hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -o-hyphens: none !important;
+    -ms-hyphens: none !important;
+    hyphens: none !important;
 }
 
 .invisible {
