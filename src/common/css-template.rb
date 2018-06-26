@@ -118,11 +118,11 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     margin-bottom: 1em;
     text-align: left;
-    -moz-hyphens: none;
-    -webkit-hyphens: none;
-    -o-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
+    -moz-hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -o-hyphens: none !important;
+    -ms-hyphens: none !important;
+    hyphens: none !important;
 }
 
 * + h1 {
