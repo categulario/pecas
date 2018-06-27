@@ -98,13 +98,13 @@ automata:
   init_contenido: "Archivo para detectar que se trata de un proyecto de Automata, no borrar."
   log: "log-all.txt"
   creando: ["Creando carpeta del proyecto con el nombre «","»…"]
-  eliminando: "Eliminando ficheros excepto los archivos YAML o SH…"
+  eliminando: "Eliminando ficheros excepto los archivos YAML, RB o SH…"
   verificando: ["verificando «","»…"]
   convirtiendo: ["convirtiendo «","» a MOBI…"]
   epubcheck: ["Epubcheck","no pudo ser localizado, los EPUB no pueden ser verificados…"]
   ace: "Ace no pudo ser localizado, el EPUB no puede ser verificado…"
   kindlegen: "Kindlegen no pudo ser localizado, no fue posible crear un archivo MOBI…"
-  pregunta: "La automatización solo permite la existencia de archivos YAML o SH, ¿eliminar el resto de los archivos? [Y/n] "
+  pregunta: "La automatización solo permite la existencia de archivos YAML, RB o SH, ¿eliminar el resto de los archivos? [Y/n] "
   error_a: "\nProceso abortado por el usuario."
   error_e: ["\nAl parecer la capeta «","» no es un proyecto para Automata."]
   error_r: ["\nAlgo salió mal, eliminando archivos creados…","Proceso abortado satisfactoriamente, un log ha sido creado para su análisis."]
