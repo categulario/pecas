@@ -5,6 +5,8 @@ importar una externa. Esta hoja contiene los siguientes estilos.
 
 ## Estilos {.invisible}
 
+### .justificado / .justified
+
 <div class="example"><div><div>
 
 ```markdown
@@ -31,6 +33,8 @@ importar una externa. Esta hoja contiene los siguientes estilos.
    Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.justified}
 
 </div></div>
+
+### .derecha / .right
 
 <div class="example"><div><div>
 
@@ -59,6 +63,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.right}
 
 </div></div>
 
+### .izquierda / .left
+
 <div class="example"><div><div>
 
 ```markdown
@@ -85,6 +91,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.left}
 
 </div></div>
+
+### .centrado / .centered
 
 <div class="example"><div><div>
 
@@ -113,6 +121,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.centered}
 
 </div></div>
 
+### .frances / .hanging
+
 <div class="example"><div><div>
 
 ```markdown
@@ -139,6 +149,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.hanging}
 
 </div></div>
+
+### .sangria y .sin-sangria
 
 <div class="example"><div><div>
 
@@ -167,6 +179,10 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.sin-sangria}
 
 </div></div>
 
+### .indent y .no-indent
+
+> OJO: es el mismo a .sangria y .sin-sangria.
+
 <div class="example"><div><div>
 
 ```markdown
@@ -193,6 +209,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.no-indent}
 
 </div></div>
+
+### .oculto / .hidden e .invisible
 
 <div class="example"><div><div>
 
@@ -235,25 +253,33 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.hidden}
 
 </div></div>
 
+### .capitular
+
 <div class="example"><div><div>
 
 ```markdown
 [L]{.capitular}orem ipsum dolor sit amet, consectetur adipiscing elit. 
-Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. ipsum 
+dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, 
+scelerisque nisl non, pretium turpis.
 ```
 
 </div><div>
 
 ```html
-<p><span class="capitular">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
+<p><span class="capitular">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
 ```
 
 </div></div><div>
 
 [L]{.capitular}orem ipsum dolor sit amet, consectetur adipiscing elit. 
-Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. ipsum 
+dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, 
+scelerisque nisl non, pretium turpis.
 
 </div></div>
+
+### .versal / .uppercase
 
 <div class="example"><div><div>
 
@@ -275,6 +301,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### .versalita-ligera / .smallcap-light
+
 <div class="example"><div><div>
 
 ```markdown
@@ -294,6 +322,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 [Maecenas]{.smallcap-light} ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
+
+### .versalita / .smallcap
 
 <div class="example"><div><div>
 
@@ -315,6 +345,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### .subrayado / .underline
+
 <div class="example"><div><div>
 
 ```markdown
@@ -334,6 +366,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 [Maecenas ac lacus viverra]{.underline}, scelerisque nisl non, pretium turpis.
 
 </div></div>
+
+### .anchura-auto / .auto-width
 
 <div class="example"><div><div>
 
@@ -360,6 +394,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 ![](../img/tux.svg){.auto-width}
 
 </div></div>
+
+### .glosa / .gloss
 
 <div class="example"><div><div>
 
@@ -420,6 +456,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 </div></div>
 
+### .epigrafe / .epigraph
+
 <div class="example"><div><div>
 
 ```markdown
@@ -448,6 +486,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Maecenas ac lacus viverra, scelerisque nisl non. <br/> ++Pretium turpis++. {.epigraph}
 
 </div></div>
+
+### .poesia / .poetry
 
 <div class="example"><div><div>
 
@@ -484,6 +524,8 @@ elit. {.poesia}
 Maecenas ac <br/> lacus viverra, <br/> scelerisque nisl non, <br/> pretium turpis. {.poetry}
 
 </div></div>
+
+### .espacio-arriba1 / .vertical-space1, .espacio-arriba2 / .vertical-space2 y .espacio-arriba3 / .vertical-space3
 
 <div class="example"><div><div>
 

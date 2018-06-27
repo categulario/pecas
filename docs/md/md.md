@@ -7,6 +7,8 @@ Pecas Markdown se compone de dos tipos de elementos:
 
 ## Elementos en bloque {.espacio-arriba3}
 
+### Párrafo
+
 <div class="example"><div><div>
 
 ```markdown
@@ -33,6 +35,8 @@ Otro párrafo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
+
+### Encabezados
 
 <div class="example"><div><div>
 
@@ -77,6 +81,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### Bloque de cita
+
 <div class="example"><div><div>
 
 ```markdown
@@ -113,6 +119,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### Imagen
+
 <div class="example"><div><div>
 
 ```markdown
@@ -139,10 +147,12 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### Lista no numerada
+
 <div class="example"><div><div>
 
 ```markdown
-* Listado no numerado.
+* Lista no numerada.
   + Puede ser con «*», «+» o «-».
   - Y puede anidarse.
     @type[em-dash]
@@ -155,7 +165,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 ```html
 <ul>
-    <li><p>Listado no numerado.</p></li>
+    <li><p>Lista no numerada.</p></li>
     <li class="no-count">
         <ul>
             <li><p>Puede ser con «*», «+» o «-».</p></li>
@@ -173,7 +183,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div><div>
 
-* Listado no numerado.
+* Lista no numerada.
   + Puede ser con «*», «+» o «-».
   - Y puede anidarse.
     @type[em-dash]
@@ -183,10 +193,12 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### Lista numerada
+
 <div class="example"><div><div>
 
 ```markdown
-1. Listado numerado.
+1. Lista numerada.
   2. No es necesaria una numeración correcta.
   20. Y puede anidarse.
     @type[lower-alpha]
@@ -198,7 +210,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 ```html
 <ol>
-    <li><p>Listado numerado.</p></li>
+    <li><p>Lista numerada.</p></li>
     <li class="no-count">
         <ol>
             <li><p>No es necesaria una numeración correcta.</p></li>
@@ -215,7 +227,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
 </div></div><div>
 
-1. Listado numerado.
+1. Lista numerada.
   2. No es necesaria una numeración correcta.
   20. Y puede anidarse.
     @type[lower-alpha]
@@ -223,6 +235,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
       [estos](https://www.w3schools.com/cssref/pr_list-style-type.asp).
 
 </div></div>
+
+### Bloque de código
 
 <div class="example"><div><div>
 
@@ -271,6 +285,8 @@ Soporta varias líneas.
 
 </div></div>
 
+### Línea horizontal
+
 <div class="example"><div><div>
 
 ```markdown
@@ -294,11 +310,13 @@ Línea horizontal:
 
 </div></div>
 
+### Opción de clases e identificador
+
 <div class="example"><div><div>
 
 ```markdown
 ## En cualquier bloque es posible poner 
-   clases o identificadores {.clase1 .centrado #id-encabezado}
+   clases o identificador {.clase1 .centrado #id-encabezado}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
@@ -310,7 +328,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
 </div><div>
 
 ```html
-<h2 id="id-encabezado" class="clase1 centrado">En cualquier bloque es posible poner    clases o identificadores</h2>
+<h2 id="id-encabezado" class="clase1 centrado">En cualquier bloque es posible poner    clases o identificador</h2>
 <p class="derecha">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
 <blockquote class="versalita">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
@@ -320,7 +338,7 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
 </div></div><div>
 
 ## En cualquier bloque es posible poner 
-   clases o identificadores {.clase1 .centrado #id-encabezado}
+   clases o identificador {.clase1 .centrado #id-encabezado}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
@@ -331,6 +349,8 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.derecha}
 </div></div>
 
 ## Elementos en línea {.espacio-arriba3}
+
+### Itálica
 
 <div class="example"><div><div>
 
@@ -350,6 +370,8 @@ _Itálica_
 
 </div></div>
 
+### Negrita
+
 <div class="example"><div><div>
 
 ```markdown
@@ -367,6 +389,8 @@ __Negrita__
 __Negrita__
 
 </div></div>
+
+### Negrita e itálica
 
 <div class="example"><div><div>
 
@@ -386,6 +410,8 @@ ___Negrita e itálica___
 
 </div></div>
 
+### Itálica semántica
+
 <div class="example"><div><div>
 
 ```markdown
@@ -403,6 +429,8 @@ ___Negrita e itálica___
 *Itálica semántica*
 
 </div></div>
+
+### Negrita semántica
 
 <div class="example"><div><div>
 
@@ -422,6 +450,8 @@ ___Negrita e itálica___
 
 </div></div>
 
+### Negrita e itálica semántica
+
 <div class="example"><div><div>
 
 ```markdown
@@ -439,6 +469,8 @@ ___Negrita e itálica___
 ***Negrita e itálica semántica***
 
 </div></div>
+
+### Superíndice
 
 <div class="example"><div><div>
 
@@ -458,6 +490,8 @@ Un^superíndice^
 
 </div></div>
 
+### Subíndice
+
 <div class="example"><div><div>
 
 ```markdown
@@ -475,6 +509,8 @@ Un<sub>subíndice</sub>
 Un~subíndice~
 
 </div></div>
+
+### Tachado
 
 <div class="example"><div><div>
 
@@ -494,6 +530,8 @@ Un~subíndice~
 
 </div></div>
 
+### Versalita
+
 <div class="example"><div><div>
 
 ```markdown
@@ -511,6 +549,8 @@ Un~subíndice~
 ++Versalita solo las minúsculas++
 
 </div></div>
+
+### Versalita forzada
 
 <div class="example"><div><div>
 
@@ -530,6 +570,8 @@ Un~subíndice~
 
 </div></div>
 
+### Código
+
 <div class="example"><div><div>
 
 ```markdown
@@ -547,6 +589,8 @@ Un~subíndice~
 `Código en línea`
 
 </div></div>
+
+### Imagen
 
 <div class="example"><div><div>
 
@@ -568,6 +612,8 @@ Imagen en línea: ![Como una fórmula](../img/img_inline.png),
 
 </div></div>
 
+### Enlace
+
 <div class="example"><div><div>
 
 ```markdown
@@ -588,6 +634,10 @@ Enlace en línea: [un enlace](https://duckduckgo.com/),
 
 </div></div>
 
+### Elemento &lt;span&gt;
+
+> OJO: solo para +++HTML+++.
+
 <div class="example"><div><div>
 
 ```markdown
@@ -605,6 +655,8 @@ Enlace en línea: [un enlace](https://duckduckgo.com/),
 [Contenido en span]{.clase1 .clase2 #id-span} con clases o identificador.
 
 </div></div>
+
+### Salto de línea
 
 <div class="example"><div><div>
 
@@ -626,6 +678,8 @@ línea
 
 </div></div>
 
+### Barra
+
 <div class="example"><div><div>
 
 ```markdown
@@ -643,6 +697,8 @@ línea
 ----Barra----
 
 </div></div>
+
+### Raya
 
 <div class="example"><div><div>
 
@@ -662,6 +718,8 @@ línea
 
 </div></div>
 
+### Signo de menos
+
 <div class="example"><div><div>
 
 ```markdown
@@ -679,6 +737,8 @@ línea
 --Signo de menos--
 
 </div></div>
+
+### Espacio fino
 
 <div class="example"><div><div>
 
@@ -698,6 +758,8 @@ Espacio/,fino
 
 </div></div>
 
+### Espacio de no separación
+
 <div class="example"><div><div>
 
 ```markdown
@@ -715,6 +777,8 @@ Espacio de no&amp;#160;separación
 Espacio de no/+separación
 
 </div></div>
+
+### Escape
 
 <div class="example"><div><div>
 
