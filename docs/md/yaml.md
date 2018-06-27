@@ -165,7 +165,7 @@ Esto generaría esté índice:
 3. `013-archivo-padre3`
 
 También es posible incluir encabezados `h2`-`h6` escribiendo 
-`--id(identificador)--`, a la vez que es hijo de un archivo, 
+`id[identificador]`, a la vez que es hijo de un archivo, 
 por ejemplo:
 
 ```
@@ -173,11 +173,11 @@ custom:
   007-archivo-padre-2:
     008-archivo-hijo-4:
     009-archivo-hijo-5:
-      --id(identificador1)--:
+      id[identificador1]:
       010-archivo-nieto-1.xhtml:
     012-archivo-hijo-6:
   003-archivo-padre-1.xhtml:
-    --id(identificador2)--:
+    id[identificador2]:
     005-archivo-hijo-2:
     006-archivo-hijo-3:
   013-archivo-padre3:

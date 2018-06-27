@@ -162,7 +162,7 @@ def extraerEncabezado depth, yaml
 				if h_num <= depth
 					# Para elementos secundarios
 					if h_num > 1 && h_id != ""
-						elemento = ("  " * h_num) + "--id(" + h_id + ")--:"
+						elemento = ("  " * h_num) + "id[" + h_id + "]:"
 					end
 				end
 					
@@ -295,7 +295,7 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 	def aplicar? archivoOtros, archivo, yaml
 		
 		# Si se trata de un identificador
-		if archivo.strip =~ /--id\(/
+		if archivo.strip =~ /id\[/
 			# Busca el identificador
 			def id_buscar archivoOtros, nombre
 				archivoOtros.each do |archivo|
@@ -319,7 +319,7 @@ def iterarHash yaml, archivoOtros, lista, array, archivoBase, tipo, nivel, espac
 			end
 		
 			# Llama a la búsqueda del identificador
-			return id_buscar archivoOtros, archivo.gsub(/^.*?--id\((.*?)\).*$/,'\1')
+			return id_buscar archivoOtros, archivo.gsub(/^.*?id\[(.*?)\].*$/,'\1')
 		# Si se trata de un archivo
 		else
 			archivoOtros.each do |a|
@@ -504,12 +504,12 @@ carpeta = comprobacionDirectorio carpeta
 # Comprueba, adquiere el path absoluto del archivo YAML y obtiene su información
 yaml = comprobacionArchivo yaml, [".yaml"]
 
-begin
+#begin
 	yaml = YAML.load_file(yaml)
-rescue
-	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
-	abort
-end
+#rescue
+#	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
+#	abort
+#end
 
 # Comprueba las medidas del EPUB fijo, si lo hay
 if yaml["px-width"] != nil && yaml["px-height"] != nil	
