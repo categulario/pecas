@@ -184,6 +184,48 @@ def create_index index_data, index_prefix, files_content, css
                 archivo.close
 
                 beautifier(file_index)
+
+                # A continuación se extraen los términos que no fueron encontrados
+                list_items_all = []
+                list_items_existent = []
+                list_items_inexistent = []
+
+                # Depura la lista de todos los términos
+                list['items'].each do |e|
+                    list_items_all.push(e[0])
+                end
+                list_items_all = list_items_all.sort_by{|s| transliterar(s, false)}.uniq
+
+                # Depura la lista de los términos existentes
+                list_existent.each do |e|
+                    list_items_existent.push(e['term'])
+                end
+                list_items_existent = list_items_existent.sort_by{|s| transliterar(s, false)}.uniq
+
+                # Depura la lista de términos no existentes
+                list_items_all.each do |e|
+                    existant = false
+
+                    # Si existe, va a ser ignorado
+                    list_items_existent.each do |ee|
+                        if e == ee
+                            existant = true
+                            break
+                        end
+                    end
+
+                    if !existant
+                        list_items_inexistent.push(e)
+                    end
+                end
+
+                # Imprime la lista de términos no existentes si es que hay alguno
+                if list_items_inexistent.length > 0
+                    puts $l_g_linea
+                    puts $l_in_advertencia
+                    list_items_inexistent.each{|e| puts '- ' + e}
+                    puts $l_g_linea
+                end
             end
         # Si algo sale mal, elimina todo lo hecho y recupera la información
         rescue
