@@ -135,7 +135,7 @@ h4, h5, h6 {
 }
 
 h1 {
-    margin-bottom: 4em;
+    margin-bottom: 6em;
 }
 
 h3, h5 {
@@ -557,8 +557,8 @@ span.gloss, span.glosa {
 }
 
 h1 + .contributor, h1 + .contribuidor {
-    margin-top: -4em !important;
-    margin-bottom: 4em;
+    margin-top: -6em !important;
+    margin-bottom: 6em;
 }
 
 .copyright, .legal * {

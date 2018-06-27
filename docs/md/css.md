@@ -3,7 +3,7 @@
 Pecas incluye una hoja de estilos por defecto si es que no se desea
 importar una externa. Esta hoja contiene los siguientes estilos.
 
-## Estilos {.invisible}
+## Estilos {.oculto}
 
 ### .justificado / .justified
 
