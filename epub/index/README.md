@@ -30,7 +30,7 @@ pc-index
 * `-d` = [directory] Ruta a los archivos HTML, HTM, XHTML, XML o TeX.
 * `-s` = [style sheet] Ruta al archivo CSS que se desea incluir.
 * `--index` = Nombre del archivo YAML con la información de los índices.
-* `--no-alphabet` = Evita añadir letras del alfabeto en la lista de términos.
+* `--no-alphabet` = Evita añadir letras del alfabeto en la lista de términos, dejando un espacio en su lugar.
 * `--two-columns` = Agrega estilo para desplegar dos columnas; en sintaxis tipo HTML se despliega a partir de los 768px de ancho.
 
 ### Parámetros únicos:

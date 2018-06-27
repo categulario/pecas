@@ -54,9 +54,22 @@ def create_index index_data, index_prefix, files_content, css
         list_index_ordered.each_with_index do |array, j|
 
             # Si no coincide la inicial, añade una nueva letra
-            if actual_letter.downcase != transliterar(translate_inline(array.first['term']).downcase.gsub(/<[^>]*?>/,'')[0]) && $no_alphabet != true
+            if actual_letter.downcase != transliterar(translate_inline(array.first['term']).downcase.gsub(/<[^>]*?>/,'')[0])
+                first_letter = actual_letter == '' ? true : false
                 actual_letter = transliterar(translate_inline(array.first['term']).gsub(/<[^>]*?>/,'')[0]).upcase
-                html_term.push('<h2>' + actual_letter + '</h2>')
+
+                # Define cómo será la estructura de cada letra capital según si se quiere mostrar o no
+                if $no_alphabet != true
+                    h2 = '<h2>'
+                else
+                    if first_letter
+                        h2 = '<h2 class="hidden">'
+                    else
+                        h2 = '<h2 class="invisible">'
+                    end
+                end
+
+                html_term.push(h2 + actual_letter + '</h2>')
             end
 
             # Crea cada uno de los elementos
