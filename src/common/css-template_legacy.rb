@@ -73,17 +73,17 @@ body {
 }
 
 .no-margin, .sin-margen {
-    margin: -4em;
+	margin: -4em;
 }
 
 @media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
-    body {
-        margin: 0;
-    }
+	body {
+		margin: 0;
+	}
 
-    .no-margin, .sin-margen {
-        margin: 0;
-    }
+	.no-margin, .sin-margen {
+		margin: 0;
+	}
 }
 
 @media screen and (min-width: 1025px) {
@@ -92,24 +92,24 @@ body {
     }
     
     .no-margin, .sin-margen {
-        margin: -5em;
-    }
+		margin: -5em;
+	}
 
-    @media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
-        body {
-            margin: 0;
-        }
+	@media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
+		body {
+			margin: 0;
+		}
 
-        .no-margin, .sin-margen {
-            margin: 0;
-        }
-    }
+		.no-margin, .sin-margen {
+			margin: 0;
+		}
+	}
 }
 
 /* Sections / Secciones */
 
 section + section {
-    margin-top: 10em;
+	margin-top: 10em;
 }
 
 /* Headers / Encabezados */
@@ -118,7 +118,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     margin-bottom: 1em;
     text-align: left;
-    font-size: 1em;
     -moz-hyphens: none !important;
     -webkit-hyphens: none !important;
     -o-hyphens: none !important;
@@ -126,39 +125,45 @@ h1, h2, h3, h4, h5, h6 {
     hyphens: none !important;
 }
 
-h2, h3, h4, h5, h6 {
-    margin-top: 2em;
+* + h1 {
+    margin-top:5em;
 }
 
-h4, h5, h6 {
-    text-align: right;
+* + h2, h3, h4, h5, h6 {
+    margin-top: 1em;
 }
 
 h1 {
-    margin-bottom: 4em;
+    margin-top: 3em;
+    font-size: 1.75em;
 }
 
-h3, h5 {
-    font-style: italic;
-}
-
-h6 {
-    font-weight: bold;
-}
-
-h1.title, h1.titulo {
-    margin-top: 4em;
-    margin-bottom: 0;
-    font-size: 2em;
-}
-
-h2.subtitle, h2.subtitulo {
-    margin-top: .5em;
-    margin-bottom: 3em;
+h2 {
     font-size: 1.25em;
 }
 
+h3 {
+    font-size: 1.125em;
+}
+
+h4 {
+    font-style: italic;
+    font-weight: bold;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h6 {
+    font-style: italic;
+}
+
 /* Paragraphs / Párrafos */
+
+h1:not(.title) + p, h1:not(.titulo) + p {
+    margin-top: 4em;
+}
 
 p, blockquote, li, figcaption, details, aside {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
@@ -269,7 +274,7 @@ b, strong {
 }
 
 .normal, .redonda {
-    font-variant: none;
+	 font-variant: none;
 }
 
 .smallcap-light, .versalita-ligera { /* In Kindle the small-caps won't work because it doesn't support “font-variant” property / En Kindle no funcionarán las versalitas porque no soporta la propiedad «font-variant» */
@@ -388,41 +393,41 @@ img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no exi
 }
 
 figure {
-    margin: 2em auto;
+	margin: 2em auto;
 }
 
 figcaption {
-    font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
-    margin-top: .5em;
-    font-size: .9em;
+	font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+	margin-top: .5em;
+	font-size: .9em;
 }
 
 figure + figure {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 p + img {
-    margin-left: -1.5em;
-    margin-top: 2em;
-    margin-bottom: 2em;
+	margin-left: -1.5em;
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
 
 .caption, .leyenda {
-    font-size: .9em;
-    margin-top: -1.5em;
-    margin-bottom: 2em;
+	font-size: .9em;
+	margin-top: -1.5em;
+	margin-bottom: 2em;
 }
 
 .caption + img, .leyenda + img {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 img + .caption, img + .leyenda {
-    margin-top: .5em;
+	margin-top: .5em;
 }
 
 .caption + p, .leyenda + p {
-    text-indent: 0;
+	text-indent: 0;
 }
 
 p > img {
@@ -445,55 +450,55 @@ sub {
 /* Code / Código (inspirados en https://codepen.io/elomatreb/pen/hbgxp)*/
 
 code {
-    font-family: monospace;
-    background-color: #fff;
-    padding: .125em .5em;
-    border: 1px solid #ddd;
-    border-radius: .25em;
+	font-family: monospace;
+	background-color: #fff;
+	padding: .125em .5em;
+	border: 1px solid #ddd;
+	border-radius: .25em;
 }
 
 pre {
-    width: 90%;
-    font-family: monospace;
-    background-color: #fff;
-    margin: 2em auto;
-    padding: .5em;
-    line-height: 1.25;
-    border-radius: .25em;
-    box-shadow: .1em .1em .5em rgba(0,0,0,.45);
+	width: 90%;
+	font-family: monospace;
+	background-color: #fff;
+	margin: 2em auto;
+	padding: .5em;
+	line-height: 1.25;
+	border-radius: .25em;
+	box-shadow: .1em .1em .5em rgba(0,0,0,.45);
     white-space: unset;
 }
 
 pre * {
-    color: #555;
+	color: #555;
 }
 
 pre code {
     display: block;
-    margin: 0;
-    padding: 0;
-    background-color: inherit;
-    border: none;
-    border-radius: 0;
+	margin: 0;
+	padding: 0;
+	background-color: inherit;
+	border: none;
+	border-radius: 0;
 }
 
 pre code:before {
-    width: 1.5em;
-    display: inline-block;
-    padding: 0 .5em;
-    margin-right: .5em;
-    color: #888;
+	width: 1.5em;
+	display: inline-block;
+	padding: 0 .5em;
+	margin-right: .5em;
+	color: #888;
 }
 
 @media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
     pre {
-        counter-reset: line;
-        overflow: scroll;
+	    counter-reset: line;
+	    overflow: scroll;
     }
 
     pre code:before {
-        counter-increment: line;
-        content: counter(line);
+	    counter-increment: line;
+	    content: counter(line);
     }
 
     pre code {
@@ -503,7 +508,7 @@ pre code:before {
 
 @media amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
     pre code:before {
-        content: \"•\";
+	    content: \"•\";
     }
 }
 
@@ -527,7 +532,7 @@ span.gloss, span.glosa {
 .poetry, .poesia {
     margin: 1em 1.5em;
     text-indent: 0;
-    -moz-hyphens: none;
+	-moz-hyphens: none;
     -webkit-hyphens: none;
     -o-hyphens: none;
     -ms-hyphens: none;
@@ -549,16 +554,16 @@ span.gloss, span.glosa {
 }
 
 .author, .autor {
-    width: 250px; /* Avoids 100% width in author image / Se añade a la imagen del autor para que no abarque el 100% */
+	width: 250px; /* Avoids 100% width in author image / Se añade a la imagen del autor para que no abarque el 100% */
 }
 
 .contributor + p, .contribuidor + p {
-    text-indent: 0;
+	text-indent: 0;
 }
 
 h1 + .contributor, h1 + .contribuidor {
-    margin-top: -4em !important;
-    margin-bottom: 4em;
+	margin-top: 0em !important;
+	margin-bottom: 4em;
 }
 
 .copyright, .legal * {
@@ -623,13 +628,13 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 }
 
 .#{$l_no_nota_sup}:before, .#{$l_no_nota_a}:before {
-    content: \"[\";
-    color: #0000EE;
+	content: \"[\";
+	color: #0000EE;
 }
 
 .#{$l_no_nota_sup}:after, .#{$l_no_nota_a}:after {
-    content: \"]\";
-    color: #0000EE;
+	content: \"]\";
+	color: #0000EE;
 }
 
 .#{$l_no_nota_p}, .#{$l_no_nota_p2} {
@@ -654,8 +659,8 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: .5em !important;
 }
 
-.#{$l_in_item_div} > h2:first-child, .#{$l_in_item_div2} > h2:first-child {
-    margin-top: 0;
+.#{$l_in_item_div}, .#{$l_in_item_div2} {
+    margin-top: 4em;
 }
 
 @media screen and (min-width:768px) {
@@ -669,13 +674,13 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 }
 
 .#{$l_in_item_a}:before {
-    content: \"[\";
-    color: #0000EE;
+	content: \"[\";
+	color: #0000EE;
 }
 
 .#{$l_in_item_a}:after {
-    content: \"]\";
-    color: #0000EE;
+	content: \"]\";
+	color: #0000EE;
 }
 
 /* For print / Para impresión */
@@ -701,15 +706,15 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 
 # Plantilla minificada
 $css_template_min = $css_template
-                        .gsub(/\/\*.*?\*\//,"")                 # Elimina los comentarios
-                        .gsub(/^\s+/, "")                       # Elimina espacios al inicio de la línea
-                        .gsub(/,\s+/,",").gsub(/\s+,\s+/,",")   # Elimina los espacios entre comas
+						.gsub(/\/\*.*?\*\//,"")                 # Elimina los comentarios
+						.gsub(/^\s+/, "")						# Elimina espacios al inicio de la línea
+                        .gsub(/,\s+/,",").gsub(/\s+,\s+/,",")	# Elimina los espacios entre comas
                         .gsub(/:\s+/,":").gsub(/\s+:\s+/,":")   # Elimina los espacios entre dos puntos
                         .gsub(/\s+{\s+/,"{").gsub(/{\s+/,"{")   # Elimina los espacios entre corchetes
                         .gsub(/}\s+/,"}").gsub(/\s+}\s+/,"}")   # Elimina los espacios entre corchetes
                         .gsub(/;\s+/,";").gsub(/\s+;\s+/,";")   # Elimina los espacios entre puntos y coma
-                        .gsub(/\s+\+\s+/, "+")                  # Elimina espacios entre el operador «+»
-                        .gsub(/\s+>\s+/, ">")                   # Elimina espacios entre el operador «>»
-                        .gsub(/\s+~\s+/, "~")                   # Elimina espacios entre el operador «~»
+                        .gsub(/\s+\+\s+/, "+")					# Elimina espacios entre el operador «+»
+                        .gsub(/\s+>\s+/, ">")					# Elimina espacios entre el operador «>»
+                        .gsub(/\s+~\s+/, "~")					# Elimina espacios entre el operador «~»
                         .gsub(/\s+/," ")                        # Elimina los dobles espacios como precaución
-                        .gsub(/\n/,"")                          # Elimina los saltos de línea como precaución
+                        .gsub(/\n/,"")                    		# Elimina los saltos de línea como precaución
