@@ -659,6 +659,10 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     margin-top: .5em !important;
 }
 
+.#{$l_in_item_div}, .#{$l_in_item_div2} {
+    margin-top: 4em;
+}
+
 @media screen and (min-width:768px) {
     @media not amzn-mobi {
         .#{$l_in_item_div} {

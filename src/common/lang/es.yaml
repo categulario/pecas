@@ -202,6 +202,7 @@ index:
   item_span: "i-item-span"
   item_section: "i-item-section"
   item_div: "i-item-div"
+  item_div2: "i-item-div-single"
   item_a: "i-item-a"
   error_yaml: "\nYa existe un archivo para los índices. Para corregirlo, elimina o renombra el archivo."
   error_procesamiento: ["\nNo fue posible obtener la información de «", "». Verifica que tenga la sintaxis correcta."]

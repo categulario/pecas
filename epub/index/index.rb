@@ -176,9 +176,9 @@ def create_index index_data, index_prefix, files_content, css
                 if css == nil then archivo.puts "<style>#{$css_template_min}</style>" end
                 archivo.puts "<section class=\"#{$l_in_item_section}\" epub:type=\"index\" role=\"doc-index\">"
                 archivo.puts "<h1>#{title}</h1>"
-                if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\">" end
+                if $two_columns then archivo.puts "<div class=\"#{$l_in_item_div}\">" else archivo.puts "<div class=\"#{$l_in_item_div2}\">" end
                 archivo.puts array_to_html(list_existent, index_prefix)
-                if $two_columns then archivo.puts '</div>' end
+                archivo.puts '</div>'
                 archivo.puts '</section>'
                 archivo.puts $xhtmlTemplateFoot
                 archivo.close

@@ -269,6 +269,7 @@ $l_in_item_id = langObj["index"]["item_id"]
 $l_in_item_span = langObj["index"]["item_span"]
 $l_in_item_section = langObj["index"]["item_section"]
 $l_in_item_div = langObj["index"]["item_div"]
+$l_in_item_div2 = langObj["index"]["item_div2"]
 $l_in_item_a = langObj["index"]["item_a"]
 $l_in_error_yaml = langObj["index"]["error_yaml"].red.bold
 $l_in_error_procesamiento = langObj["index"]["error_procesamiento"]
