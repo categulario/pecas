@@ -19,6 +19,7 @@ epubCSS = if argumento "-s", epubCSS != nil then argumento "-s", epubCSS end
 epubPortada = if argumento "-c", epubPortada != nil then argumento "-c", epubPortada end
 epubImagenes = if argumento "-i", epubImagenes != nil then argumento "-i", epubImagenes end
 epub_xhtml = if argumento "-x", epub_xhtml != nil then argumento "-x", epub_xhtml end
+epub_js = if argumento "-j", epub_js != nil then argumento "-j", epub_js end
 epub_no_preliminares = argumento "--no-pre", epub_no_preliminares, 1
 only_css = argumento "--only-css", only_css, 1
 argumento "-v", $l_cr_v
@@ -190,8 +191,19 @@ else
 	    $l_cr_xhtml_legal.close
     end
 
+    # Agrega archivos XHTML adicionales
     if epub_xhtml
 	    adicion_archivos(epub_xhtml, epub_ubicacion, "xhtml", ["xhtml"])
+    end
+
+    # Agrega archivos JavaScript
+    if epub_js
+        Dir.mkdir('../js')   
+
+        # En pc-automata obtiene la ruta absoluta, pero para el uso de pc-creator de manera autónoma se tiene que agregar más elementos a la ruta
+        if File.directory?(epub_js) == false then epub_js = '../../../' + epub_js end
+
+	    adicion_archivos(epub_js, epub_ubicacion, "js", ["js"])
     end
 end
 
