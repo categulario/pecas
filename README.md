@@ -108,6 +108,8 @@ Las ventajas de esta metodología son:
 # ¿Pendientes?
 
 * EPUB
+  * Todos.
+    * Hay un problema si se usan comentarios HTML…
   * `recreator.rb`.
     * Posibilidad de crear sumario.
   * `cites.rb`.
