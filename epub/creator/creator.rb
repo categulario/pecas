@@ -17,13 +17,18 @@ epub_ubicacion = if argumento "-d", epub_ubicacion != nil then argumento "-d", e
 epubNombre = if argumento "-o", epubNombre != nil then argumento "-o", epubNombre else $l_cr_epub_nombre end
 epubCSS = if argumento "-s", epubCSS != nil then argumento "-s", epubCSS end
 epubPortada = if argumento "-c", epubPortada != nil then argumento "-c", epubPortada end
-epubImagenes = if argumento "-i", epubImagenes != nil then argumento "-i", epubImagenes end
+epub_img = if argumento "-i", epub_img != nil then argumento "-i", epub_img end
 epub_xhtml = if argumento "-x", epub_xhtml != nil then argumento "-x", epub_xhtml end
 epub_js = if argumento "-j", epub_js != nil then argumento "-j", epub_js end
 epub_no_preliminares = argumento "--no-pre", epub_no_preliminares, 1
 only_css = argumento "--only-css", only_css, 1
 argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
+
+# Obtiene la ruta absoluta a algunas carpetas
+if epub_img then epub_img = File.absolute_path(epub_img) end
+if epub_xhtml then epub_xhtml = File.absolute_path(epub_xhtml) end
+if epub_js then epub_js = File.absolute_path(epub_js) end
 
 # Se va a la carpeta para crear los archivos
 epub_ubicacion = comprobacionDirectorio epub_ubicacion
@@ -44,7 +49,7 @@ else
     epubPortada = comprobacionArchivo epubPortada, [".jpg", ".jpeg", ".gif", ".png", ".svg"]
 
     # Comprueba que exista la carpeta de las imágenes
-    epubImagenes = comprobacionDirectorio epubImagenes
+    epub_img = comprobacionDirectorio epub_img
 
     # Verifica que no existan conflictos con el nombre de los archivos a crear
     if File.exists?(epubNombre) == true
@@ -116,12 +121,12 @@ else
     nav.close
 
     # Crea la carpeta para las imágenes
-    if epubPortada != nil || epubImagenes != nil
+    if epubPortada != nil || epub_img != nil
 	    Dir.mkdir "img"
 	    
 	    # Copia las imágenes
-	    if epubImagenes != nil
-		    adicion_archivos(epubImagenes, epub_ubicacion, "img", ["jpg","jpeg","gif","png","svg"])
+	    if epub_img != nil
+		    adicion_archivos(epub_img, epub_ubicacion, "img", ["jpg","jpeg","gif","png","svg"])
 	    end
     end
 
@@ -198,12 +203,14 @@ else
 
     # Agrega archivos JavaScript
     if epub_js
-        Dir.mkdir('../js')   
+        # La adición de archivos y la creación de su carpeta contenedora depende de la ubicación actual
+        if File.basename(Dir.getwd) == 'OPS'
+            Dir.mkdir('js')
+        elsif File.basename(Dir.getwd) == 'xhtml'
+            Dir.mkdir('../js')
+        end
 
-        # En pc-automata obtiene la ruta absoluta, pero para el uso de pc-creator de manera autónoma se tiene que agregar más elementos a la ruta
-        if File.directory?(epub_js) == false then epub_js = '../../../' + epub_js end
-
-	    adicion_archivos(epub_js, epub_ubicacion, "js", ["js"])
+        adicion_archivos(epub_js, epub_ubicacion, "js", ["js"])
     end
 end
 
