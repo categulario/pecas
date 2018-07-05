@@ -24,7 +24,11 @@ pc-doctor
 
 ## > Utilización
 
-Usa el comando `-h` de cada herramienta para leer su documentación.
+Usa el comando `-h` de cada herramienta para leer su documentación. __Por ejemplo__:
+
+```
+pc-doctor -h
+```
 
 ## > Actualización
 
