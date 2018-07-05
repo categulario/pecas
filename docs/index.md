@@ -25,10 +25,51 @@ pc-doctor
 
 Usa el comando `-h` de cada herramienta para leer su documentación.
 
-## > Particularidades para Windows
+---
 
-Es posible usar Pecas tal como si se estuviera en sistemas UNIX,
-pero considerando lo siguiente.
+## > Particularidades para todos los sistemas operativos
+
+### Uso de EpubCheck para verificar +++EPUB+++
+
+[EpubCheck](https://github.com/IDPF/epubcheck) es la herramienta oficial 
+para verificar que la estructura del +++EPUB+++ sea la correcta.
+
+Es necesario tener instalado Java SE Development Kit (+++JDK+++),
+sin importar tu sistema operativo, [descárgalo aquí](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
+
+> Nota: no es necesario instalarlo, puedes verificar archivos +++EPUB+++
+> con EpubCheck en línea desde [este enlace](http://validator.idpf.org/).
+
+### Uso de Ace para verificar +++EPUB+++
+
+[Ace](https://daisy.github.io/ace/) es una herramienta que permite
+verificar el grado de accesibilidad del +++EPUB+++ para personas con
+deficiencia visual.
+
+Para instalarlo visita [este enlace](https://daisy.github.io/ace/getting-started/installation/).
+
+Para cualquier problema relacionado a su instalación, revisa [esta enlace](https://daisy.github.io/ace/help/troubleshooting/).
+
+> Nota: su instalación solo es recomendable. Pecas puede usarse sin su
+> presencia.
+
+## > Particularidades para Mac
+
+### Pecas no puede instalarse: SSL_ERROR_SYSCALL
+
+Esto quiere decir que es necesario actualizar [`git`](https://git-scm.com/). 
+Para estoy hay que descargarlo [aquí](https://sourceforge.net/projects/git-osx-installer/files/git-2.18.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect)
+y reinstalarlo.
+
+Una vez instalado, copia y pega en la terminal:
+
+```bash
+rm -rf ~/.pecas
+```
+
+Para terminar, repite de nuevo [la instalación](#-instalacion).
+
+## > Particularidades para Windows
 
 ### Windows 10
 

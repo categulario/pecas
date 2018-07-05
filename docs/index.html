@@ -57,80 +57,103 @@
             </pre>
             <h2 id="-utilizacion">> Utilización</h2>
             <p>Usa el comando <code>-h</code> de cada herramienta para leer su documentación.</p>
-            <h2 id="-particularidades-para-windows">> Particularidades para Windows</h2>
-            <p>Es posible usar Pecas tal como si se estuviera en sistemas UNIX, pero considerando lo siguiente.</p>
-            <h3 id="windows-10">Windows 10</h3>
-            <p>Se necesita instalar Ubuntu como <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</p>
-            <h3 id="windows-7-y-8">Windows 7 y 8</h3>
-            <p>Se necesita instalar <a href="https://www.cygwin.com/">Cygwin</a> con los siguientes paquetes:</p>
-            <ul>
-                <li>
-                    <p><code>git</code>.</p>
-                </li>
-                <li>
-                    <p><code>zip</code>.</p>
-                </li>
-                <li>
-                    <p><code>unzip</code>.</p>
-                </li>
-                <li>
-                    <p><code>make</code>. (Solo si se desea instalar <a href="https://github.com/NikaZhenya/sexy-bash-prompt">sexy-bash-prompt</a>).</p>
-                </li>
-            </ul>
-            <p>Además se tiene que instalar una gema de ruby con: <code>gem install json_pure</code>.</p>
-        </section>
-        <footer>
-            <nav class="espacio-arriba1">
-                <h3>Repositorio</h3>
-                <p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
-                <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
-                <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
-            </nav>
-            <nav class="espacio-arriba1">
-                <h3>Contacto</h3>
-                <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
-                <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
-            </nav>
-            <p class="centrado">Pecas es <i>software</i> libre bajo licencia <a href="https://gnu.org/licenses/gpl.html" target="_blank">GPLv3+</a>.
-            <p class="centrado">Dona para unos tacos con <span class="versalita">ETH</span>: <a href="https://etherscan.io/address/0x39b0bf0cf86776060450aba23d1a6b47f5570486" target="_blank">0x39b0Bf0CF86776060450ABA23d1a6b47f5570486</a>.</p>
-            <p class="centrado">Dona para unas croquetas con <span class="versalita">DOGE</span>: <a href="https://dogechain.info/address/DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G" target="_blank">DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G</a>.</p>
-        </footer>
-        <style>
-        body {margin:0;}
-        body > * {float:left;}
-        header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
-        header h1 {margin:0; font-size: 2em;}
-        header h1 + p {margin-top:1em!important;}
-        header a {color: white;}
-        header p, footer nav {text-align:left;}
-        header p + p, footer p + p {text-indent:0;}
-        header nav > p:before {content:"> ";}
-        section {width:calc(75% - 10em);margin:5em;}
-        div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
-        div.example > div {clear:both;}
-        div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
-        div.example > div > div {float:left;width:50%;}
-        div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
-        div.example > div > div:first-child:before {content:"Escritura en Markdown";}
-        div.example > div > div:last-child:before {content:"Resultado en HTML";}
-        div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
-        footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
-        footer > p {margin-top: 1em;}
-        footer > nav {display:none;}
-        footer nav > * {display:inline;}
-        footer nav > p:before {content:"> ";}
-        footer nav > p:not(:first-of-type):before {content:"| ";}
-        @media screen and (max-width: 768px) {
-        body > * {float:none;}
-        header {width:calc(100% - 5em);margin-top:0;border-radius:0;}
-        header > p:first-of-type {display:inline;}
-        header > nav:not(:first-of-type) {display:none;}
-        header nav > * {display:inline;}
-        header nav > p:not(:first-of-type):before {content:"| ";}
-        section {width:calc(100% - 5em);margin:2.5em;}
-        div.example > div, div.example > div > div {float:none;width:100%;}
-        footer > nav {display:block;text-align:center;}
-        }
-        </style>
-    </body>
-</html>
+            <hr/>
+                <h2 id="-particularidades-para-todos-los-sistemas-operativos">> Particularidades para todos los sistemas operativos</h2>
+                <h3 id="uso-de-epubcheck-para-verificar-epub">Uso de EpubCheck para verificar <span class="smallcap">EPUB</span></h3>
+                <p><a href="https://github.com/IDPF/epubcheck">EpubCheck</a> es la herramienta oficial para verificar que la estructura del <span class="smallcap">EPUB</span> sea la correcta.</p>
+                <p>Es necesario tener instalado Java SE Development Kit (<span class="smallcap">JDK</span>), sin importar tu sistema operativo, <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">descárgalo aquí</a>.</p>
+                <blockquote>
+                    <p>Nota: no es necesario instalarlo, puedes verificar archivos <span class="smallcap">EPUB</span> con EpubCheck en línea desde <a href="http://validator.idpf.org/">este enlace</a>.</p>
+                </blockquote>
+                <h3 id="uso-de-ace-para-verificar-epub">Uso de Ace para verificar <span class="smallcap">EPUB</span></h3>
+                <p><a href="https://daisy.github.io/ace/">Ace</a> es una herramienta que permite verificar el grado de accesibilidad del <span class="smallcap">EPUB</span> para personas con deficiencia visual.</p>
+                <p>Para instalarlo visita <a href="https://daisy.github.io/ace/getting-started/installation/">este enlace</a>.</p>
+                <p>Para cualquier problema relacionado a su instalación, revisa <a href="https://daisy.github.io/ace/help/troubleshooting/">esta enlace</a>.</p>
+                <blockquote>
+                    <p>Nota: su instalación solo es recomendable. Pecas puede usarse sin su presencia.</p>
+                </blockquote>
+                <h2 id="-particularidades-para-mac">> Particularidades para Mac</h2>
+                <h3 id="pecas-no-puede-instalarse-ssl-error-syscall">Pecas no puede instalarse: SSL_ERROR_SYSCALL</h3>
+                <p>Esto quiere decir que es necesario actualizar <a href="https://git-scm.com/"><code>git</code></a>. Para estoy hay que descargarlo <a href="https://sourceforge.net/projects/git-osx-installer/files/git-2.18.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect">aquí</a> y reinstalarlo.</p>
+                <p>Una vez instalado, copia y pega en la terminal:</p>
+                <pre class="bash">
+                    <code class="code-line-1">rm -rf ~/.pecas</code>
+                </pre>
+                <p>Para terminar, repite de nuevo <a href="#-instalacion">la instalación</a>.</p>
+                <h2 id="-particularidades-para-windows">> Particularidades para Windows</h2>
+                <h3 id="windows-10">Windows 10</h3>
+                <p>Se necesita instalar Ubuntu como <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</p>
+                <h3 id="windows-7-y-8">Windows 7 y 8</h3>
+                <p>Se necesita instalar <a href="https://www.cygwin.com/">Cygwin</a> con los siguientes paquetes:</p>
+                <ul>
+                    <li>
+                        <p><code>git</code>.</p>
+                    </li>
+                    <li>
+                        <p><code>zip</code>.</p>
+                    </li>
+                    <li>
+                        <p><code>unzip</code>.</p>
+                    </li>
+                    <li>
+                        <p><code>make</code>. (Solo si se desea instalar <a href="https://github.com/NikaZhenya/sexy-bash-prompt">sexy-bash-prompt</a>).</p>
+                    </li>
+                </ul>
+                <p>Además se tiene que instalar una gema de ruby con: <code>gem install json_pure</code>.</p>
+            </section>
+            <footer>
+                <nav class="espacio-arriba1">
+                    <h3>Repositorio</h3>
+                    <p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
+                    <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
+                    <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
+                </nav>
+                <nav class="espacio-arriba1">
+                    <h3>Contacto</h3>
+                    <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
+                    <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
+                </nav>
+                <p class="centrado">Pecas es <i>software</i> libre bajo licencia <a href="https://gnu.org/licenses/gpl.html" target="_blank">GPLv3+</a>.
+                <p class="centrado">Dona para unos tacos con <span class="versalita">ETH</span>: <a href="https://etherscan.io/address/0x39b0bf0cf86776060450aba23d1a6b47f5570486" target="_blank">0x39b0Bf0CF86776060450ABA23d1a6b47f5570486</a>.</p>
+                <p class="centrado">Dona para unas croquetas con <span class="versalita">DOGE</span>: <a href="https://dogechain.info/address/DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G" target="_blank">DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G</a>.</p>
+            </footer>
+            <style>
+            body {margin:0;}
+            body > * {float:left;}
+            header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
+            header h1 {margin:0; font-size: 2em;}
+            header h1 + p {margin-top:1em!important;}
+            header a {color: white;}
+            header p, footer nav {text-align:left;}
+            header p + p, footer p + p {text-indent:0;}
+            header nav > p:before {content:"> ";}
+            section {width:calc(75% - 10em);margin:5em;}
+            div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
+            div.example > div {clear:both;}
+            div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
+            div.example > div > div {float:left;width:50%;}
+            div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
+            div.example > div > div:first-child:before {content:"Escritura en Markdown";}
+            div.example > div > div:last-child:before {content:"Resultado en HTML";}
+            div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
+            hr {margin: 2em auto !important;}
+            hr, footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
+            footer > p {margin-top: 1em;}
+            footer > nav {display:none;}
+            footer nav > * {display:inline;}
+            footer nav > p:before {content:"> ";}
+            footer nav > p:not(:first-of-type):before {content:"| ";}
+            @media screen and (max-width: 768px) {
+            body > * {float:none;}
+            header {width:calc(100% - 5em);margin-top:0;border-radius:0;}
+            header > p:first-of-type {display:inline;}
+            header > nav:not(:first-of-type) {display:none;}
+            header nav > * {display:inline;}
+            header nav > p:not(:first-of-type):before {content:"| ";}
+            section {width:calc(100% - 5em);margin:2.5em;}
+            div.example > div, div.example > div > div {float:none;width:100%;}
+            footer > nav {display:block;text-align:center;}
+            }
+            </style>
+        </body>
+    </html>
