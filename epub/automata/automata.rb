@@ -328,10 +328,14 @@ else
 
 	# KindleGen
     if no_kindlegen != true
-	    puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green
-	    ejecutar "\n# kindlegen", "kindlegen #{epub_final + ".epub"}"
-        FileUtils.mv(epub_final + '.mobi', epub_final.gsub('epub-', 'mobi-') + '.mobi')
-        siFallo $l_au_kindlegen
+        begin
+	        puts "\nkindlegen: #{$l_au_convirtiendo[0] + epub_final + '.epub' + $l_au_convirtiendo[1]}".green
+	        ejecutar "\n# kindlegen", "kindlegen #{epub_final + ".epub"}"
+            FileUtils.mv(epub_final + '.mobi', epub_final.gsub('epub-', 'mobi-') + '.mobi')
+            siFallo $l_au_kindlegen
+        rescue
+            puts $l_au_kindlegen
+        end
     end
 	
 	# Elimina el archivo XHTML porque ya no es necesario
