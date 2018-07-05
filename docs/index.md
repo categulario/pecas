@@ -12,10 +12,11 @@ Copia y pega en la terminal:
 (cd ~ && mkdir .pecas && cd .pecas && git clone --depth 1 https://github.com/NikaZhenya/pecas.git . && bash install.sh) && source ~/.bash_profile
 ```
 
-## > Requisitos
+## > Requisitos y verificación de estado
 
 * Todas las herramientas de Pecas requieren [Ruby](https://www.ruby-lang.org/).
-* Algunas herramientas requieren otras dependencias, para más información usa:
+* Algunas herramientas requieren otras dependencias, para ver el estado 
+  de Pecas usa:
 
 ```
 pc-doctor
@@ -24,6 +25,14 @@ pc-doctor
 ## > Utilización
 
 Usa el comando `-h` de cada herramienta para leer su documentación.
+
+## > Actualización
+
+Para actualizar Pecas usa:
+
+```
+pc-doctor --update
+```
 
 ---
 
