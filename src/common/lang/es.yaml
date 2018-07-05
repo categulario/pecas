@@ -220,6 +220,7 @@ doctor:
   instalando-brew: "=> Instalando gestor de paquetes brew…"
   instalado: "instalado (versión desconocida)"
   no-instalado: "no instalado"
+  nil-instalado: "no es posible detectar su instalación"
   falta: "=> Faltan algunas dependencias.\n   Para instalarlas usa:\n   pc-doctor --install-dependencies"
   pregunta: "Elige alguno de los siguientes gestores de paquetes:\n  0) Ninguno.\n  1) apt-get [Debian, Ubuntu, Linux Mint]\n  2) pacman [Arch Linux, Parabola]\n  3) apt [WSL Ubuntu]\n  4) brew [macOS]\n: "
   ninguno: "\nNingún gestor elegido."

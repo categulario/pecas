@@ -26,13 +26,18 @@ def revisionDependencias install, d
     d.select do |k, v|
         # Obtiene la versión, eliminando todo posible texto y dejando solo el número
         begin
-            output = v['version'] ? `#{k} --version` : `#{k} -v`
-            version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1]
-            version = version.gsub(/^[A-Za-z\s,\.:;]*?(\d.*?)\s.*$/, '\1')
+            if v['version'] == nil
+                version = $l_dr_nil_instalado
+            else
+                output = v['version'] ? `#{k} --version` : `#{k} -v`
 
-            # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
-            if version.gsub(/[\d|\.|-|_]/,'') != ''
-                version = $l_dr_instalado
+                version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1]
+                version = version.gsub(/^[A-Za-z\s,\.:;]*?(\d.*?)\s.*$/, '\1')
+
+                # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
+                if version.gsub(/[\d|\.|-|_]/,'') != ''
+                    version = $l_dr_instalado
+                end
             end
         # Si no existe, determina que falta una dependencia
         rescue
@@ -133,11 +138,11 @@ dependencias = {
         'pecas' => ['pc-tiff2pdf'],
         'version' => false
     },
-    'gs' => {
+    'tiffcp' => {
         'nombre' => 'Libtiff',
         'paquete' => ['libtiff'],
         'pecas' => ['pc-tiff2pdf'],
-        'version' => true
+        'version' => nil
     }
 }
 
