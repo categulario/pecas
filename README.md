@@ -28,20 +28,20 @@ pc-doctor
 
 Usa el comando `-h` de cada herramienta para leer su documentación o lee en línea:
 
-| Herramienta    | Ubicación                                                                                      |
-|----------------|------------------------------------------------------------------------------------------------|
-| `pc-automata`  | [`epub/automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/automata)               |
-| `pc-analytics` | [`base-files/analytics`](https://github.com/NikaZhenya/pecas/tree/master/base-files/analytics) |
-| `pc-changer`   | [`epub/changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/changer)                 |
-| `pc-cites`     | [`epub/cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/cites)                     |
-| `pc-creator`   | [`epub/creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/creator)                 |
-| `pc-divider`   | [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider)                 |
-| `pc-doctor`    | [`src/doctor`](https://github.com/NikaZhenya/pecas/tree/master/src/doctor)                     |
-| `pc-index`     | [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index)                     |
-| `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                     |
-| `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)       |
-| `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)             |
-| `pc-tegs`      | [`digitization/tegs`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tegs)       |
+| Herramienta    | Ubicación                                                                                        |
+|----------------|--------------------------------------------------------------------------------------------------|
+| `pc-automata`  | [`epub/automata`](https://github.com/NikaZhenya/pecas/tree/master/epub/automata)                 |
+| `pc-analytics` | [`base-files/analytics`](https://github.com/NikaZhenya/pecas/tree/master/base-files/analytics)   |
+| `pc-changer`   | [`epub/changer`](https://github.com/NikaZhenya/pecas/tree/master/epub/changer)                   |
+| `pc-cites`     | [`epub/cites`](https://github.com/NikaZhenya/pecas/tree/master/epub/cites)                       |
+| `pc-creator`   | [`epub/creator`](https://github.com/NikaZhenya/pecas/tree/master/epub/creator)                   |
+| `pc-divider`   | [`epub/divider`](https://github.com/NikaZhenya/pecas/tree/master/epub/divider)                   |
+| `pc-doctor`    | [`src/doctor`](https://github.com/NikaZhenya/pecas/tree/master/src/doctor)                       |
+| `pc-index`     | [`epub/index`](https://github.com/NikaZhenya/pecas/tree/master/epub/index)                       |
+| `pc-notes`     | [`epub/notes`](https://github.com/NikaZhenya/pecas/tree/master/epub/notes)                       |
+| `pc-pandog`    | [`base-files/pandog`](https://github.com/NikaZhenya/pecas/tree/master/base-files/pandog)         |
+| `pc-recreator` | [`epub/recreator`](https://github.com/NikaZhenya/pecas/tree/master/epub/recreator)               |
+| `pc-tiff2pdf`  | [`digitization/tiff2pdf`](https://github.com/NikaZhenya/pecas/tree/master/digitization/tiff2pdf) |
 
 Existen además temas auxiliares:
 

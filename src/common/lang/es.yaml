@@ -3,7 +3,7 @@
 general: 
   pc_pandog: "pc-pandog"
   pc_analytics: "pc-analytics"
-  pc_tegs: "pc-tegs"
+  pc_tiff2pdf: "pc-tiff2pdf"
   pc_creator: "pc-creator"
   pc_divider: "pc-divider"
   pc_notes: "pc-notes"
@@ -72,20 +72,16 @@ pandog:
   error_m: "\nNo fue posible modificar el archivo."
   error_json: "\nAl parecer el archivo JSON no cumple con la estructura requerida."
 
-# pc-tegs
-tegs: 
-  h: "\nTegs utiliza el poder de Tesseract y de Ghostscript para crear archivos PDF con OCR o TXT a partir de imágenes TIFF, PNG o BMP.\n\nUso:\n  pc-tegs -d [directorio] -l [idioma] -o [nombre del archivo]\n\nParámetros necesarios:\n  -l = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: <https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages>\n  -o = [output] Nombre para el o los archivos que se crearán.\n\nParámetros opcionales:\n  -d = [directory] Directorio que contiene las imágenes.\n  -t = [text] Crea un TXT adicional al PDF creado.\n  -c = [compressed] Crea un PDF comprimido adcional al PDF creado.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba\n  Crea un archivo PDF con OCR en español y sin compresión a partir de las imágenes presentes en «directorio/de/las/imágenes».\n\nEjemplo con PDF comprimido:\n  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c\n  Además del PDF con OCR, se crea otro PDF con compresión.\n\nEjemplo con archivo de texto:\n  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -t\n  Además del PDF con OCR, se crea un archivo de texto con el contenido de las imágenes.\n\nEjemplo con PDF comprimido y archivo de texto:\n  pc-tegs -d directorio/de/las/imágenes -l spa -o prueba -c -t\n  Además del PDF con OCR, se crea otro PDF con compresión y un archivo de texto."
-  comprimido: "comprimido"
-  procesando: ["Procesando "," de ","."]
-  reconociendo: ["Reconociendo ","…"]
-  extrayendo: ["Extrayendo texto de ","…"]
-  uniendo_pdf: "Uniendo archivos pdf, esta operación puede durar varios minutos…"
-  comprimiendo: ["Comprimiendo ",".pdf, esta operación puede durar varios minutos…"]
-  uniendo_txt: "Uniendo archivos txt…"
-  limpiando: "Limpiando directorio…"
+# pc-tiff2pdf
+tiff2pdf: 
+  h: "\nTiff2pdf utiliza el poder de libtiff y de tesseract para crear archivos PDF con OCR o TXT a partir de imágenes TIFF.\n\nUso:\n  pc-tiff2pdf -d [directorio] -l [idioma] -o [nombre del archivo]\n\nParámetros necesarios:\n  -l = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: <https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages>\n  -o = [output] Nombre para el o los archivos que se crearán.\n\nParámetros opcionales:\n  -d = [directory] Directorio que contiene las imágenes.\n  --tif = Crea un TIF que contiene todas las imágenes.\n  --txt = Crea un TXT adicional al PDF creado.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-tiff2pdf -d directorio/de/las/imágenes -l spa -o prueba\n  Crea un archivo PDF con OCR en español a partir de las imágenes presentes en «directorio/de/las/imágenes».\n\nEjemplo con archivo de texto:\n  pc-tiff2pdf -d directorio/de/las/imágenes -l spa -o prueba -t\n  Además del PDF con OCR, se crea un archivo de texto con el contenido de las imágenes."
+  uniendo: ["Uniendo ", " páginas a un solo archivo TIF…"]
+  extranendo: "Extrañendo caracteres para producir un PDF…"
+  extranendo2: "Extrañendo caracteres para producir un PDF y un TXT…"
+  eliminando: "Eliminando archivo TIF creado…"
   error: 
-    te: "\nNo fue posible iniciar Tesseract."
-    gs: "\nNo fue posible iniciar Ghostscript."
+    ti: "\nNo fue posible iniciar tiffcp."
+    te: "\nNo fue posible iniciar tesseract."
     
 # pc-automata
 automata:

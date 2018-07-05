@@ -130,13 +130,13 @@ dependencias = {
     'tesseract' => {
         'nombre' => 'Tesseract',
         'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
-        'pecas' => ['pc-tegs'],
+        'pecas' => ['pc-tiff2pdf'],
         'version' => false
     },
     'gs' => {
-        'nombre' => 'Ghostscript',
-        'paquete' => ['ghostscript'],
-        'pecas' => ['pc-tegs'],
+        'nombre' => 'Libtiff',
+        'paquete' => ['libtiff'],
+        'pecas' => ['pc-tiff2pdf'],
         'version' => true
     }
 }

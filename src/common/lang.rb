@@ -71,7 +71,7 @@ langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
 # Generales
 $l_g_pc_pandog = langObj["general"]["pc_pandog"]
 $l_g_pc_analytics = langObj["general"]["pc_analytics"]
-$l_g_pc_tegs = langObj["general"]["pc_tegs"]
+$l_g_pc_tiff2pdf = langObj["general"]["pc_tiff2pdf"]
 $l_g_pc_creator = langObj["general"]["pc_creator"]
 $l_g_pc_divider = langObj["general"]["pc_divider"]
 $l_g_pc_notes = langObj["general"]["pc_notes"]
@@ -140,19 +140,15 @@ $l_pg_error_ext = langObj["pandog"]["error_ext"].red.bold
 $l_pg_error_m = langObj["pandog"]["error_m"].red.bold
 $l_pg_error_json = langObj["pandog"]["error_json"].red.bold
 
-# Tegs
+# Tiff2pdf
 $l_tg_v = obtener_version
-$l_tg_h = langObj["tegs"]["h"]
-$l_tg_comprimido = langObj["tegs"]["comprimido"]
-$l_tg_procesando = langObj["tegs"]["procesando"]
-$l_tg_reconociendo = langObj["tegs"]["reconociendo"]
-$l_tg_extrayendo = langObj["tegs"]["extrayendo"]
-$l_tg_uniendo_pdf = langObj["tegs"]["uniendo_pdf"].green
-$l_tg_comprimiendo = langObj["tegs"]["comprimiendo"]
-$l_tg_uniendo_txt = langObj["tegs"]["uniendo_txt"].green
-$l_tg_limpiando = langObj["tegs"]["limpiando"].green
-$l_tg_error_te = langObj["tegs"]["error"]["te"].red.bold
-$l_tg_error_gs = langObj["tegs"]["error"]["gs"].red.bold
+$l_tg_h = langObj["tiff2pdf"]["h"]
+$l_tg_uniendo = langObj["tiff2pdf"]["uniendo"]
+$l_tg_extranendo = langObj["tiff2pdf"]["extranendo"].green
+$l_tg_extranendo2 = langObj["tiff2pdf"]["extranendo2"].green
+$l_tg_eliminando = langObj["tiff2pdf"]["eliminando"].green
+$l_tg_error_ti = langObj["tiff2pdf"]["error"]["ti"].red.bold
+$l_tg_error_te = langObj["tiff2pdf"]["error"]["te"].red.bold
 
 # Automata
 $l_au_v = obtener_version

@@ -14,9 +14,9 @@
    viewBox="0 0 731.71875 714.64405"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.0 r"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
    sodipodi:docname="flujo-de-trabajo.svg"
-   inkscape:export-filename="/home/nika-zhenya/Repositorios/Herramientas/Digitalizacion/flujo-de-trabajo.png"
+   inkscape:export-filename="/home/nika-zhenya/Repositorios/pecas/digitization/flujo-de-trabajo.png"
    inkscape:export-xdpi="299.98151"
    inkscape:export-ydpi="299.98151">
   <defs
@@ -566,16 +566,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.79123601"
-     inkscape:cx="357.264"
-     inkscape:cy="414.87441"
+     inkscape:cx="-255.70102"
+     inkscape:cy="404.76365"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1025"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      showguides="false" />
   <metadata
@@ -586,7 +586,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -5213,7 +5213,7 @@
            style="fill:#0000ff;stroke-width:0.37091208px"
            id="tspan5735"><tspan
    style="fill:#000000;stroke-width:0.37091208px"
-   id="tspan5739">o </tspan>Tegs</tspan></tspan></text>
+   id="tspan5739">o </tspan>tiff2pdf</tspan></tspan></text>
     <text
        id="text8334"
        y="684.14667"
@@ -5235,7 +5235,7 @@
            style="fill:#0000ff;stroke-width:0.37091208px"
            id="tspan5731"><tspan
    style="fill:#000000;stroke-width:0.37091208px"
-   id="tspan5741">o </tspan>Tegs</tspan></tspan></text>
+   id="tspan5741">o </tspan>tiff2pdf</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:14.836483px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.37091208px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -5253,7 +5253,7 @@
          y="800.81561"
          id="tspan5737"><tspan
    style="fill:#000000;stroke-width:0.37091208px"
-   id="tspan5745">o </tspan>Tegs</tspan></text>
+   id="tspan5745">o </tspan>tiff2pdf</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:14.836483px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.37091208px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -5275,7 +5275,7 @@
          x="388.10818"
          id="tspan8362"
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.34552097px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';text-align:center;letter-spacing:-0.37091208px;text-anchor:middle;fill:#0000ff;stroke-width:0.37091208px">Tegs</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.34552097px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';text-align:center;letter-spacing:-0.37091208px;text-anchor:middle;fill:#0000ff;stroke-width:0.37091208px">tiff2pdf</tspan></text>
     <text
        id="text8368"
        y="732.43866"
@@ -5293,7 +5293,7 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.34552097px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';text-align:center;letter-spacing:-0.37091208px;text-anchor:middle;fill:#0000ff;stroke-width:0.37091208px"
          id="tspan5727"><tspan
    style="fill:#000000;stroke-width:0.37091208px"
-   id="tspan5743">o </tspan>Tegs</tspan></text>
+   id="tspan5743">o </tspan>tiff2pdf</tspan></text>
     <text
        id="text8376"
        y="839.75983"
@@ -5436,7 +5436,7 @@
          sodipodi:role="line"
          id="tspan6605"
          x="388.10818"
-         y="694.20752">Tegs</tspan></text>
+         y="694.20752">tiff2pdf</tspan></text>
     <text
        id="text6611"
        y="742.42615"
@@ -5447,7 +5447,7 @@
          x="388.10818"
          id="tspan6609"
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.34552097px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';text-align:center;letter-spacing:-0.37091208px;text-anchor:middle;fill:#0000ff;stroke-width:0.37091208px">Tegs</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.34552097px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';text-align:center;letter-spacing:-0.37091208px;text-anchor:middle;fill:#0000ff;stroke-width:0.37091208px">tiff2pdf</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:14.836483px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.37091208px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -5458,7 +5458,7 @@
          sodipodi:role="line"
          id="tspan6613"
          x="388.10818"
-         y="790.64471">Tegs</tspan></text>
+         y="790.64471">tiff2pdf</tspan></text>
     <text
        id="text6621"
        y="936.27039"
