@@ -334,7 +334,7 @@ else
             FileUtils.mv(epub_final + '.mobi', epub_final.gsub('epub-', 'mobi-') + '.mobi')
             siFallo $l_au_kindlegen
         rescue
-            puts $l_au_kindlegen
+            puts $l_au_kindlegen.yellow
         end
     end
 	
