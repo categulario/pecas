@@ -26,7 +26,7 @@ pc-doctor
 ## Utilización
 
 Todas las herramientas de Pecas cuentan con el comando `-h` que permite
-leer su documentación. __Por ejemplo__:
+leer su documentación. _Por ejemplo_:
 
 ```
 pc-doctor -h
