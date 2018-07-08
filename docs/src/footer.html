@@ -26,6 +26,7 @@ header p, footer nav {text-align:left;}
 header p + p, footer p + p {text-indent:0;}
 header nav > p:before {content:"> ";}
 section {width:calc(75% - 10em);margin:5em;}
+h2:before {content: "> ";}
 div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
 div.example > div {clear:both;}
 div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
@@ -47,7 +48,9 @@ footer nav > p:not(:first-of-type):before {content:"| ";}
     header > p:first-of-type {display:inline;}
     header > nav:not(:first-of-type) {display:none;}
     header nav > * {display:inline;}
-    header nav > p:not(:first-of-type):before {content:"| ";}
+    header nav > p:before {content:"| ";}
+    header h3 + p:before {content: "";}
+    header h3:after {content: ": ";}
     section {width:calc(100% - 5em);margin:2.5em;}
     div.example > div, div.example > div > div {float:none;width:100%;}
     footer > nav {display:block;text-align:center;}

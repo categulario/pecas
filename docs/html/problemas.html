@@ -38,29 +38,121 @@
             </nav>
         </header>
         <section>
-            <h1 id="scripts-de-javascript-para-epub"><i>Scripts</i> de JavaScript para EPUB</h1>
-            <p>Estos <i>scripts</i> implementan algunas funcionalidades adicionales a los EPUB.</p>
-            <h2 id="implementacion" class="espacio-arriba3">Implementación</h2>
-            <p>Solo vincula el archivo <code>.js</code> adentro de la etiqueta <code>head</code> de los XHTML del EPUB, por ejemplo:</p>
-            <pre class="">
-                <code class="code-line-1">&lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;</code>
+            <h1 id="solucion-de-problemas">Solución de problemas</h1>
+            <p>Hay ocasiones donde el uso o instalación de Pecas es un poco conflictivo. Aquí están los problemas más comunes y sus soluciones.</p>
+            <ul>
+                <li>
+                    <p><a href="#en-todos-los-sistemas-operativos">En todos los sistemas operativos</a></p>
+                </li>
+                <li class="no-count">
+                    <ul>
+                        <li>
+                            <p><a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</a></p>
+                        </li>
+                        <li>
+                            <p><a href="#uso-de-epubcheck-para-verificar-epub">Uso de EpubCheck para verificar EPUB</a></p>
+                        </li>
+                        <li>
+                            <p><a href="#uso-de-ace-para-verificar-epub">Uso de Ace para verificar EPUB</a></p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><a href="#en-linux">En Linux</a></p>
+                </li>
+                <li class="no-count">
+                    <ul>
+                        <li>
+                            <p><a href="#error-con-pctiff2pdf-tiffcp-no-se-encontro-la-orden">Error con <code>pc-tiff2pdf</code>: <code>tiffcp: no se encontró la orden</code></a></p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><a href="#en-mac">En Mac</a></p>
+                </li>
+                <li class="no-count">
+                    <ul>
+                        <li>
+                            <p><a href="#pecas-no-puede-descargarse-ssl-error-syscall">Pecas no puede descargarse: SSL_ERROR_SYSCALL</a></p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><a href="#en-windows">En Windows</a></p>
+                </li>
+                <li class="no-count">
+                    <ul>
+                        <li>
+                            <p><a href="#como-uso-pecas-en-windows">¿Cómo uso Pecas en Windows?</a></p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h2 id="en-todos-los-sistemas-operativos" class="espacio-arriba3">En todos los sistemas operativos</h2>
+            <h3 id="pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</h3>
+            <p>Esto quiere decir que el primer intento de instalación de Pecas fue fallido. Esto sucede porque en tu directorio de usuario se creo una carpeta oculta llamada <code>.pecas</code>. Para volver a instalar Pecas hay que eliminarla ejecutando lo siguiente:</p>
+            <pre class="bash">
+                <code class="code-line-1">rm -rf ~/.pecas</code>
             </pre>
-            <h2 id="documentacion" class="espacio-arriba3">Documentación</h2>
-            <p>Para saber cómo emplear cada uno de los <i>scripts</i> solo es necesario leer las líneas comentadas al inicio de estos archivos.</p>
-            <h2 id="scripts" class="espacio-arriba3"><em>Scripts</em></h2>
-            <ul>
-                <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/poetry.js"><code>poetry.js</code></a>. Posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.</p>
-                </li>
-            </ul>
+            <p>Para terminar, repite de nuevo <a href="https://nikazhenya.github.io/pecas/index.html#instalacion">la instalación</a>.</p>
+            <h3 id="uso-de-epubcheck-para-verificar-epub">Uso de EpubCheck para verificar <span class="smallcap">EPUB</span></h3>
+            <p><a href="https://github.com/IDPF/epubcheck">EpubCheck</a> es la herramienta oficial para verificar que la estructura del <span class="smallcap">EPUB</span> sea la correcta.</p>
+            <p>Es necesario tener instalado Java SE Development Kit (<span class="smallcap">JDK</span>), sin importar tu sistema operativo, <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">descárgalo aquí</a>.</p>
             <blockquote>
-                <p><strong>CUIDADO</strong>. Este <i>script</i> tiene errores que aún no han sido arreglados.</p>
+                <p>Nota: no es necesario instalarlo, puedes verificar archivos <span class="smallcap">EPUB</span> con EpubCheck en línea desde <a href="http://validator.idpf.org/">este enlace</a>.</p>
             </blockquote>
+            <h3 id="uso-de-ace-para-verificar-epub">Uso de Ace para verificar <span class="smallcap">EPUB</span></h3>
+            <p><a href="https://daisy.github.io/ace/">Ace</a> es una herramienta que permite verificar el grado de accesibilidad del <span class="smallcap">EPUB</span> para personas con deficiencia visual.</p>
+            <p>Para instalarlo visita <a href="https://daisy.github.io/ace/getting-started/installation/">este enlace</a>.</p>
+            <p>Para cualquier problema relacionado a su instalación, revisa <a href="https://daisy.github.io/ace/help/troubleshooting/">esta enlace</a>.</p>
+            <blockquote>
+                <p>Nota: su instalación solo es recomendable. Pecas puede usarse sin su presencia.</p>
+            </blockquote>
+            <h2 id="en-linux" class="espacio-arriba3">En Linux</h2>
+            <h3 id="error-con-pctiff2pdf-tiffcp-no-se-encontro-la-orden">Error con <code>pc-tiff2pdf</code>: <code>tiffcp: no se encontró la orden</code></h3>
+            <p>En algunas distribuciones de Linux <code>libtiff</code> no incluye las herramientas tiff. Para solucionarlo, se tienen que instalar el paquete <code>libtiff-tools</code> que en algunas distribuciones se encuentra en el paquete <code>tiff</code>.</p>
+            <h2 id="en-mac" class="espacio-arriba3">En Mac</h2>
+            <h3 id="pecas-no-puede-descargarse-ssl-error-syscall">Pecas no puede descargarse: SSL_ERROR_SYSCALL</h3>
+            <p>Esto quiere decir que es necesario actualizar <a href="https://git-scm.com/"><code>git</code></a>. Para esto hay que descargarlo <a href="https://sourceforge.net/projects/git-osx-installer/files/git-2.18.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect">aquí</a> y reinstalarlo.</p>
+            <p>Ahora solo hay eliminar el fechero existente, descrito en «<a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</a>».</p>
+            <h2 id="en-windows" class="espacio-arriba3">En Windows</h2>
+            <h3 id="como-uso-pecas-en-windows">¿Cómo uso Pecas en Windows?</h3>
+            <p>Según la versión de Windows, tenemos las siguientes alternativas.</p>
+            <h4 id="windows-10">Windows 10</h4>
+            <p>Se necesita instalar Ubuntu como <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</p>
+            <p>Si no te agrada la idea o quieres tener algo más compacto, es posible utilicar <a href="https://www.cygwin.com/">Cygwin</a>, descrito en la siguiente sección.</p>
+            <h4 id="windows-7-8-y-10">Windows 7, 8 y 10</h4>
+            <p>Se necesita instalar <a href="https://www.cygwin.com/">Cygwin</a> con los siguientes paquetes:</p>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/zoom.js"><code>zoom.js</code></a>. Posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.</p>
+                    <p><code>git</code>. Controlador de versiones que permite descargar el repositorio de Pecas.</p>
+                </li>
+                <li>
+                    <p><code>ruby</code>. El lenguaje de programación con el que está escrito Pecas.</p>
+                </li>
+                <li>
+                    <p><code>zip</code>. Sirve para crear el <span class="smallcap">EPUB</span>.</p>
+                </li>
+                <li>
+                    <p><code>unzip</code>. Se usa en los procesos para cambiar versiones de <span class="smallcap">EPUB</span> o para crear analíticas.</p>
+                </li>
+                <li>
+                    <p><code>tesseract-ocr</code>. Es el motor <span class="smallcap">OCR</span> que permite la detección de caracteres de imágenes exportadas a <span class="smallcap">PDF</span>.</p>
+                </li>
+                <li>
+                    <p><code>tesseract-ocr-spa</code>. Es el diccionario en español para <code>tesseract-ocr</code>.</p>
+                </li>
+                <li>
+                    <p><code>libtiff6</code>. Biblioteca para poder utilizar diversas herramientas para imágenes <span class="smallcap">TIFF</span></p>
+                </li>
+                <li>
+                    <p><code>tiff</code>. Conjunto de herramientas para imágenes <span class="smallcap">TIFF</span> que utilizan <code>libtiff6</code>.</p>
+                </li>
+                <li>
+                    <p><code>make</code>. Solo si se desea instalar <a href="https://github.com/NikaZhenya/sexy-bash-prompt">sexy-bash-prompt</a>.</p>
                 </li>
             </ul>
+            <p>Una vez instalado, desde Cygwin se tiene que instalar una gema de ruby con: <code>gem install json_pure</code>.</p>
         </section>
         <footer>
             <nav class="espacio-arriba1">
