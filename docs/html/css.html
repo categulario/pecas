@@ -432,6 +432,7 @@
         header nav > p:before {content:"> ";}
         section {width:calc(75% - 10em);margin:5em;}
         h2:before {content: "> ";}
+        div.example h2:before {content: none;}
         div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
         div.example > div {clear:both;}
         div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
@@ -440,8 +441,7 @@
         div.example > div > div:first-child:before {content:"Escritura en Markdown";}
         div.example > div > div:last-child:before {content:"Resultado en HTML";}
         div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
-        hr {margin: 2em auto !important;}
-        hr, footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
+        footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
         footer > p {margin-top: 1em;}
         footer > nav {display:none;}
         footer nav > * {display:inline;}
@@ -454,7 +454,7 @@
         header > nav:not(:first-of-type) {display:none;}
         header nav > * {display:inline;}
         header nav > p:before {content:"| ";}
-        header h3 + p:before {content: "";}
+        header h3 + p:before {content: none;}
         header h3:after {content: ": ";}
         section {width:calc(100% - 5em);margin:2.5em;}
         div.example > div, div.example > div > div {float:none;width:100%;}
