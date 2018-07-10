@@ -23,9 +23,9 @@ conocer los diversos _scripts_ de Pecas.
 
 ## Solución de problemas 
 
-¿Estás teniendo dificultades con Pecas? Visita el área de [solución de problemas](html/problemas.html).
+¿Estás teniendo dificultades con Pecas? Visita el apartado de [solución de problemas](html/problemas.html).
 
 ## Uso en Windows
 
-¿Usas Windows y quieres usar Pecas? Visita [este apartado](html/problemas.html#como-uso-pecas-en-windows)
-del área de solución de problemas.
+¿Usas Windows y quieres usar Pecas? Visita [esta sección](html/problemas.html#como-uso-pecas-en-windows)
+del apartado de solución de problemas.
