@@ -5,12 +5,12 @@ Aquí están los problemas más comunes y sus soluciones.
 
 * [En todos los sistemas operativos](#en-todos-los-sistemas-operativos)
   * [Pecas no puede instalarse: El fichero ya existe](#pecas-no-puede-instalarse-el-fichero-ya-existe)
-  * [Uso de EpubCheck para verificar EPUB](#uso-de-epubcheck-para-verificar-epub)
-  * [Uso de Ace para verificar EPUB](#uso-de-ace-para-verificar-epub)
+  * [Uso de EpubCheck para verificar +++EPUB+++](#uso-de-epubcheck-para-verificar-epub)
+  * [Uso de Ace para verificar +++EPUB+++](#uso-de-ace-para-verificar-epub)
 * [En Linux](#en-linux)
   * [Error con `pc-tiff2pdf`: `tiffcp: no se encontró la orden`](#error-con-pctiff2pdf-tiffcp-no-se-encontro-la-orden)
 * [En Mac](#en-mac)
-  * [Pecas no puede descargarse: SSL_ERROR_SYSCALL](#pecas-no-puede-descargarse-ssl-error-syscall)
+  * [Pecas no puede descargarse: +++SSL_ERROR_SYSCALL+++](#pecas-no-puede-descargarse-ssl-error-syscall)
 * [En Windows](#en-windows)
   * [¿Cómo uso Pecas en Windows?](#como-uso-pecas-en-windows)
 
@@ -27,7 +27,7 @@ que eliminarla ejecutando lo siguiente:
 rm -rf ~/.pecas
 ```
 
-Para terminar, repite de nuevo [la instalación](https://nikazhenya.github.io/pecas/index.html#instalacion).
+Para terminar, repite de nuevo [la instalación](../index.html#instalacion).
 
 ### Uso de EpubCheck para verificar +++EPUB+++
 
@@ -63,7 +63,7 @@ que en algunas distribuciones se encuentra en el paquete `tiff`.
 
 ## En Mac {.espacio-arriba3}
 
-### Pecas no puede descargarse: SSL_ERROR_SYSCALL
+### Pecas no puede descargarse: +++SSL_ERROR_SYSCALL+++
 
 Esto quiere decir que es necesario actualizar [`git`](https://git-scm.com/). 
 Para esto hay que descargarlo [aquí](https://sourceforge.net/projects/git-osx-installer/files/git-2.18.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect)

@@ -14,8 +14,8 @@
    viewBox="0 0 731.71875 742.35563"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.0 r"
-   sodipodi:docname="flujo-de-trabajo.svg"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   sodipodi:docname="flujo_general.svg"
    inkscape:export-filename="/home/nika-zhenya/Repositorios/Herramientas/flujo-de-trabajo.png"
    inkscape:export-xdpi="299.98151"
    inkscape:export-ydpi="299.98151">
@@ -2740,17 +2740,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.79123601"
-     inkscape:cx="362.59622"
-     inkscape:cy="296.31208"
+     inkscape:zoom="3.164944"
+     inkscape:cx="426.57967"
+     inkscape:cy="377.09966"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="g4626"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1025"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      showguides="false" />
   <metadata
@@ -2761,7 +2761,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2811,7 +2811,7 @@
                id="tspan152"
                x="268.41812"
                y="424.70804"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle">Digitalización</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666663px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle">Digitalización</tspan></text>
         </g>
         <g
            transform="matrix(0.375,0,0,0.375,105.24529,1442.0248)"
@@ -2827,7 +2827,7 @@
              x="269.66812"
              style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:-1px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666663px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle"
                y="424.70804"
                x="268.41812"
                id="tspan15600"
@@ -3258,7 +3258,7 @@
                id="tspan4632"
                x="319.22989"
                y="427.11771"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle">Archivo madre</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666663px;font-family:monospace;-inkscape-font-specification:monospace;text-align:center;letter-spacing:-2.5px;word-spacing:0px;text-anchor:middle">Archivo madre</tspan></text>
         </g>
         <g
            id="g34652"

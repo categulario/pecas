@@ -10,12 +10,12 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="880.5"
-   height="1478.53"
-   viewBox="0 0 880.5 1478.53"
+   height="1428.53"
+   viewBox="0 0 880.5 1428.53"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.1 r"
-   sodipodi:docname="flujo-de-trabajo.svg"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   sodipodi:docname="flujo_epub.svg"
    inkscape:export-filename="/home/nika-zhenya/Repositorios/Herramientas/EPUB/flujo-de-trabajo.png"
    inkscape:export-xdpi="83.730003"
    inkscape:export-ydpi="83.730003">
@@ -1316,16 +1316,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49384196"
-     inkscape:cx="675.93794"
-     inkscape:cy="746.11301"
+     inkscape:cx="184.89016"
+     inkscape:cy="738.01325"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1025"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -1343,22 +1343,22 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,426.16806)">
+     transform="translate(0,376.16803)">
     <text
        transform="scale(0.98853527,1.0115977)"
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:16.10430145px;line-height:89.99999762%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39563957px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="99.726486"
+       x="49.146603"
        y="-294.91333"
        id="text12540-3"><tspan
          sodipodi:role="line"
-         x="99.726486"
+         x="49.146603"
          y="-294.91333"
          id="tspan12544-0"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:37.74445343px;line-height:89.99999762%;font-family:Helvetica;-inkscape-font-specification:'Helvetica Bold';letter-spacing:-0.04026075px;stroke-width:0.39563957px">Proceso para EPUB</tspan><tspan
          sodipodi:role="line"
-         x="99.726486"
-         y="-275.14151"
+         x="49.146603"
+         y="-275.14154"
          id="tspan12548-7"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:89.99999762%;font-family:Helvetica;-inkscape-font-specification:'Helvetica Italic';letter-spacing:-0.04026075px;stroke-width:0.39563957px">Del archivo digital a la publicación digital</tspan></text>
     <g

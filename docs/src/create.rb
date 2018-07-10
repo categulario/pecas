@@ -135,7 +135,6 @@ def create_html path
     html_name = "#{File.basename(path, '.md')}.html"
 
     if html_name !~ /^index/
-puts '--------------------', html_name
         html_name = 'md/' + html_name
     end
 
@@ -154,7 +153,11 @@ puts '--------------------', html_name
             write = true
         elsif l =~ /<style>/
             new_html.push(l)
-            new_html.push($header.join("\n"))
+            if html_name !~ /^index/
+                new_html.push($header.join("\n"))
+            else
+                new_html.push($header.join("\n").gsub('../index.html', '').gsub(/"(\S+?\.html)"/, 'html/' + '\1'))  
+            end
         elsif l =~ /<\/body>/
             new_html.push($footer.join("\n"))
             new_html.push(l)
