@@ -52,7 +52,9 @@ def create_md tool
 
     # Cambia las rutas y < y > por código HTML
     def diple l
-        return l.gsub('de +++YAML+++ en <http://pecas.cliteratu.re>', 'de [+++YAML+++](yaml.html)').gsub('<','&lt;').gsub('>','&gt;')
+        return l.gsub('de +++YAML+++ en <http://pecas.cliteratu.re>', 'de [+++YAML+++](yaml.html)')
+                .gsub('Lista de acrónimos: <https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages>', '[Lista de acrónimos](https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages)')
+                .gsub('<','&lt;').gsub('>','&gt;')
     end
 
     # Agrega versalitas
