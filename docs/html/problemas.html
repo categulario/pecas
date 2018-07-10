@@ -51,7 +51,13 @@
                 <li class="no-count">
                     <ul>
                         <li>
-                            <p><a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</a></p>
+                            <p><a href="#como-actualizo-pecas">¿Cómo actualizo Pecas</a></p>
+                        </li>
+                        <li>
+                            <p><a href="#no-cuento-con-internet-como-puedo-leer-la-documentacion">No cuento con internet, ¿cómo puedo leer la documentación?</a></p>
+                        </li>
+                        <li>
+                            <p><a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: <code>El fichero ya existe</code></a></p>
                         </li>
                         <li>
                             <p><a href="#uso-de-epubcheck-para-verificar-epub">Uso de EpubCheck para verificar <span class="smallcap">EPUB</span></a></p>
@@ -93,38 +99,48 @@
                 </li>
             </ul>
             <h2 id="en-todos-los-sistemas-operativos" class="espacio-arriba3">En todos los sistemas operativos</h2>
-            <h3 id="pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</h3>
-            <p>Esto quiere decir que el primer intento de instalación de Pecas fue fallido. Esto sucede porque en tu directorio de usuario se creo una carpeta oculta llamada <code>.pecas</code>. Para volver a instalar Pecas hay que eliminarla ejecutando lo siguiente:</p>
+            <h3 id="como-actualizo-pecas">¿Cómo actualizo Pecas?</h3>
+            <p>Pecas se actualiza constantemente, se arreglan errores o se implementan nuevos elementos. ¡No te quedes fuera!, de vez en cuando ejecuta:</p>
+            <pre class="">
+                <code class="code-line-1">pc-doctor --update</code>
+            </pre>
+            <h3 id="no-cuento-con-internet-como-puedo-leer-la-documentacion">No cuento con internet, ¿cómo puedo leer la documentación?</h3>
+            <p>Todas las herramientas de Pecas cuentan con el comando <code>-h</code> que permite leer su documentación. <i>Por ejemplo</i>:</p>
+            <pre class="">
+                <code class="code-line-1">pc-automata -h</code>
+            </pre>
+            <h3 id="pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: <code>El fichero ya existe</code></h3>
+            <p>Esto quiere decir que falló la primera pretensión de instalar Pecas. En posteriores intentos se ha querido crear una carpeta llamada <code>.pecas</code>, pero esta ya existe. Para solucionar este problema, hay que eliminar ese fichero ejecutando lo siguiente:</p>
             <pre class="bash">
                 <code class="code-line-1">rm -rf ~/.pecas</code>
             </pre>
             <p>Para terminar, repite de nuevo <a href="../index.html#instalacion">la instalación</a>.</p>
             <h3 id="uso-de-epubcheck-para-verificar-epub">Uso de EpubCheck para verificar <span class="smallcap">EPUB</span></h3>
             <p><a href="https://github.com/IDPF/epubcheck">EpubCheck</a> es la herramienta oficial para verificar que la estructura del <span class="smallcap">EPUB</span> sea la correcta.</p>
-            <p>Es necesario tener instalado Java SE Development Kit (<span class="smallcap">JDK</span>), sin importar tu sistema operativo, <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">descárgalo aquí</a>.</p>
+            <p class="espacio-arriba1 sin-sangria">Es necesario tener instalado Java SE Development Kit (<span class="smallcap">JDK</span>), sin importar tu sistema operativo, <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">descárgalo aquí</a>.</p>
             <blockquote>
                 <p>Nota: no es necesario instalarlo, puedes verificar archivos <span class="smallcap">EPUB</span> con EpubCheck en línea desde <a href="http://validator.idpf.org/">este enlace</a>.</p>
             </blockquote>
             <h3 id="uso-de-ace-para-verificar-epub">Uso de Ace para verificar <span class="smallcap">EPUB</span></h3>
             <p><a href="https://daisy.github.io/ace/">Ace</a> es una herramienta que permite verificar el grado de accesibilidad del <span class="smallcap">EPUB</span> para personas con deficiencia visual.</p>
-            <p>Para instalarlo visita <a href="https://daisy.github.io/ace/getting-started/installation/">este enlace</a>.</p>
-            <p>Para cualquier problema relacionado a su instalación, revisa <a href="https://daisy.github.io/ace/help/troubleshooting/">esta enlace</a>.</p>
+            <p class="espacio-arriba1 sin-sangria">Para instalarlo visita <a href="https://daisy.github.io/ace/getting-started/installation/">este enlace</a>.</p>
+            <p class="espacio-arriba1 sin-sangria">Para cualquier problema relacionado a su instalación, revisa <a href="https://daisy.github.io/ace/help/troubleshooting/">esta enlace</a>.</p>
             <blockquote>
                 <p>Nota: su instalación solo es recomendable. Pecas puede usarse sin su presencia.</p>
             </blockquote>
             <h2 id="en-linux" class="espacio-arriba3">En Linux</h2>
             <h3 id="error-con-pctiff2pdf-tiffcp-no-se-encontro-la-orden">Error con <code>pc-tiff2pdf</code>: <code>tiffcp: no se encontró la orden</code></h3>
-            <p>En algunas distribuciones de Linux <code>libtiff</code> no incluye las herramientas tiff. Para solucionarlo, se tienen que instalar el paquete <code>libtiff-tools</code> que en algunas distribuciones se encuentra en el paquete <code>tiff</code>.</p>
+            <p>En algunas distribuciones de Linux <code>libtiff</code> no incluye las herramientas tiff. Para solucionarlo, se tiene que instalar el paquete <code>libtiff-tools</code> que en algunas distribuciones se encuentra en el paquete <code>tiff</code>.</p>
             <h2 id="en-mac" class="espacio-arriba3">En Mac</h2>
             <h3 id="pecas-no-puede-descargarse-ssl-error-syscall">Pecas no puede descargarse: <span class="smallcap">SSL_ERROR_SYSCALL</span></h3>
             <p>Esto quiere decir que es necesario actualizar <a href="https://git-scm.com/"><code>git</code></a>. Para esto hay que descargarlo <a href="https://sourceforge.net/projects/git-osx-installer/files/git-2.18.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect">aquí</a> y reinstalarlo.</p>
-            <p>Ahora solo hay eliminar el fechero existente, descrito en «<a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: El fichero ya existe</a>».</p>
+            <p class="espacio-arriba1 sin-sangria">Ahora solo hay eliminar el fechero existente, descrito en «<a href="#pecas-no-puede-instalarse-el-fichero-ya-existe">Pecas no puede instalarse: <code>El fichero ya existe</code></a>».</p>
             <h2 id="en-windows" class="espacio-arriba3">En Windows</h2>
             <h3 id="como-uso-pecas-en-windows">¿Cómo uso Pecas en Windows?</h3>
             <p>Según la versión de Windows, tenemos las siguientes alternativas.</p>
             <h4 id="windows-10">Windows 10</h4>
             <p>Se necesita instalar Ubuntu como <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</p>
-            <p>Si no te agrada la idea o quieres tener algo más compacto, es posible utilicar <a href="https://www.cygwin.com/">Cygwin</a>, descrito en la siguiente sección.</p>
+            <p class="espacio-arriba1 sin-sangria">Si no te agrada la idea o quieres tener algo más liviano, es posible utilizar <a href="https://www.cygwin.com/">Cygwin</a>, descrito en la siguiente sección.</p>
             <h4 id="windows-7-8-y-10">Windows 7, 8 y 10</h4>
             <p>Se necesita instalar <a href="https://www.cygwin.com/">Cygwin</a> con los siguientes paquetes:</p>
             <ul>
@@ -150,13 +166,16 @@
                     <p><code>libtiff6</code>. Biblioteca para poder utilizar diversas herramientas para imágenes <span class="smallcap">TIFF</span></p>
                 </li>
                 <li>
-                    <p><code>tiff</code>. Conjunto de herramientas para imágenes <span class="smallcap">TIFF</span> que utilizan <code>libtiff6</code>.</p>
+                    <p><code>tiff</code>. Conjunto de herramientas para imágenes <span class="smallcap">TIFF</span> que utiliza <code>libtiff6</code>.</p>
                 </li>
                 <li>
                     <p><code>make</code>. Solo si se desea instalar <a href="https://github.com/NikaZhenya/sexy-bash-prompt">sexy-bash-prompt</a>.</p>
                 </li>
             </ul>
-            <p>Una vez instalado, desde Cygwin se tiene que instalar una gema de ruby con: <code>gem install json_pure</code>.</p>
+            <p>Una vez instalado, desde Cygwin instala una gema de Ruby ejecutando:</p>
+            <pre class="">
+                <code class="code-line-1">gem install json_pure</code>
+            </pre>
         </section>
         <footer>
             <nav class="espacio-arriba1">

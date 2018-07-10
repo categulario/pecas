@@ -11,6 +11,7 @@ Encoding.default_internal = Encoding::UTF_8
 require File.expand_path("../../..", File.absolute_path(__FILE__)) + '/src/common/xhtml-beautifier.rb'
 require File.expand_path("../../..", File.absolute_path(__FILE__)) + "/src/common/lang.rb"
 
+$tools_md = {}
 tools = [
     ["pc-tiff2pdf", $l_tg_h],
     ["pc-analytics", $l_an_h],
@@ -96,6 +97,8 @@ def create_md tool
                     end                    
                 # Descripción
                 else
+                    # Esto servirá para crear «herramientas.md»
+                    $tools_md["#{tool[0]}"] = [tool[0], l.gsub(/^\S+\s+/, '')]
                     new.push(l)
                 end
             end
@@ -127,6 +130,29 @@ def create_md tool
 
 	archivo = File.new(Dir.pwd + '/md/' + tool[0] + '.md', 'w:UTF-8')
 	archivo.puts new
+	archivo.close
+end
+
+# Crea el «heramientas.md»
+def create_md_tools
+	archivo = File.new(Dir.pwd + '/md/herramientas.md', 'w:UTF-8')
+	archivo.puts "# Herramientas\n\n"
+	archivo.puts "## Digitalización\n\n"
+    archivo.puts "* [`#{$tools_md["pc-tiff2pdf"][0]}`](#{$tools_md["pc-tiff2pdf"][0]}.html): #{$tools_md["pc-tiff2pdf"][1]}"
+	archivo.puts "\n## Archivos madre\n\n"
+    archivo.puts "* [`#{$tools_md["pc-analytics"][0]}`](#{$tools_md["pc-analytics"][0]}.html): #{$tools_md["pc-analytics"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-pandog"][0]}`](#{$tools_md["pc-pandog"][0]}.html): #{$tools_md["pc-pandog"][1]}"
+	archivo.puts "\n## +++EPUB+++\n\n"
+    archivo.puts "* [`#{$tools_md["pc-automata"][0]}`](#{$tools_md["pc-automata"][0]}.html): #{$tools_md["pc-automata"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-creator"][0]}`](#{$tools_md["pc-creator"][0]}.html): #{$tools_md["pc-creator"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-divider"][0]}`](#{$tools_md["pc-divider"][0]}.html): #{$tools_md["pc-divider"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-notes"][0]}`](#{$tools_md["pc-notes"][0]}.html): #{$tools_md["pc-notes"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-cites"][0]}`](#{$tools_md["pc-cites"][0]}.html): #{$tools_md["pc-cites"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-index"][0]}`](#{$tools_md["pc-index"][0]}.html): #{$tools_md["pc-index"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-recreator"][0]}`](#{$tools_md["pc-recreator"][0]}.html): #{$tools_md["pc-recreator"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-changer"][0]}`](#{$tools_md["pc-changer"][0]}.html): #{$tools_md["pc-changer"][1]}"
+	archivo.puts "\n## Estado de Pecas y sus dependencias\n\n"
+    archivo.puts "* [`#{$tools_md["pc-doctor"][0]}`](#{$tools_md["pc-doctor"][0]}.html): #{$tools_md["pc-doctor"][1]}"
 	archivo.close
 end
 
@@ -190,6 +216,7 @@ $footer = get_html('src/footer.html')
 tools.each do |tool|
     create_md(tool)
 end
+create_md_tools
 
 # Crea las páginas HTML
 create_html('index.md')

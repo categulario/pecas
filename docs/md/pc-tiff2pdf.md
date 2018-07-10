@@ -1,6 +1,6 @@
 # Uso de `pc-tiff2pdf`
 
-Tiff2pdf utiliza el poder de libtiff y de tesseract para crear archivos +++PDF+++ con +++OCR+++ o +++TXT+++ a partir de imágenes +++TIFF+++.
+Tiff2pdf utiliza el poder de Libtiff y de Tesseract para crear archivos +++PDF+++ con +++OCR+++ o +++TXT+++ a partir de imágenes +++TIFF+++.
 
 ## Dependencias necesarias:
 

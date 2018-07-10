@@ -13,37 +13,19 @@ Copia y pega en la terminal:
 (cd ~ && mkdir .pecas && cd .pecas && git clone --depth 1 https://github.com/NikaZhenya/pecas.git . && bash install.sh) && source ~/.bash_profile
 ```
 
-## Requisitos y verificación de estado
-
-Pecas cuenta con una herramienta que permite ver si existe una actualización
-disponible o si alguna dependencia aún no está instalada. Su ejecución desde
-la terminal es:
-
-```
-pc-doctor
-```
+Para terminar, puedes verificar el estado de Pecas o sus [dependencias](https://es.wikipedia.org/wiki/Dependencias_de_software)
+con [`pc-doctor`](html/pc-doctor.html).
 
 ## Utilización
 
-Todas las herramientas de Pecas cuentan con el comando `-h` que permite
-leer su documentación. _Por ejemplo_:
+Revisa el apartado de [herramientas](html/herramientas.html) para 
+conocer los diversos _scripts_ de Pecas.
 
-```
-pc-doctor -h
-```
-
-## Actualización
-
-Pecas se actualiza constantemente, se arreglan errores o se implementan
-nuevos elementos. ¡No te quedes fuera!, de vez en cuando ejecuta:
-
-```
-pc-doctor --update
-```
-
-## Solución de problemas y uso en Windows
+## Solución de problemas 
 
 ¿Estás teniendo dificultades con Pecas? Visita el área de [solución de problemas](html/problemas.html).
 
+## Uso en Windows
+
 ¿Usas Windows y quieres usar Pecas? Visita [este apartado](html/problemas.html#como-uso-pecas-en-windows)
-del área de solución de problemas. {.espacio-arriba1 .sin-sangria}
+del área de solución de problemas.
