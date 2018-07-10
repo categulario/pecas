@@ -105,7 +105,7 @@ dependencias = {
     'pandoc' => {
         'nombre' => 'Pandoc', 
         'paquete' => ['pandoc'],
-        'pecas' => ['pc-automata','pc-pandog','pc-notes', 'pc-analytics'],
+        'pecas' => ['pc-pandog'],
         'version' => false
     },
     'hunspell' => {

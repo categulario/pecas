@@ -42,29 +42,67 @@
             </nav>
         </header>
         <section>
-            <h1 id="scripts-de-javascript-para-epub"><i>Scripts</i> de JavaScript para EPUB</h1>
-            <p>Estos <i>scripts</i> implementan algunas funcionalidades adicionales a los EPUB.</p>
-            <h2 id="implementacion" class="espacio-arriba3">Implementación</h2>
-            <p>Solo vincula el archivo <code>.js</code> adentro de la etiqueta <code>head</code> de los XHTML del EPUB, por ejemplo:</p>
+            <h1 id="uso-de-pcdivider">Uso de <code>pc-divider</code></h1>
+            <p>Divider separa un documento <span class="smallcap">HTML</span> cada &lt;h1&gt; o &lt;section&gt;.</p>
+            <h2 id="uso">Uso:</h2>
             <pre class="">
-                <code class="code-line-1">&lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;</code>
+                <code class="code-line-1">pc-divider -f [archivo a dividir]</code>
             </pre>
-            <h2 id="documentacion" class="espacio-arriba3">Documentación</h2>
-            <p>Para saber cómo emplear cada uno de los <i>scripts</i> solo es necesario leer las líneas comentadas al inicio de estos archivos.</p>
-            <h2 id="scripts" class="espacio-arriba3"><em>Scripts</em></h2>
+            <h2 id="parametro-necesario">Parámetro necesario:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/poetry.js"><code>poetry.js</code></a>. Posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.</p>
+                    <p><code>-f</code> = [file] Archivo <span class="smallcap">HTML</span>, <span class="smallcap">XHTML</span>, <span class="smallcap">XML</span> o <span class="smallcap">HTM</span> a dividir.</p>
                 </li>
             </ul>
-            <blockquote>
-                <p><strong>CUIDADO</strong>. Este <i>script</i> tiene errores que aún no han sido arreglados.</p>
-            </blockquote>
+            <h2 id="parametros-opcionales">Parámetros opcionales:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/zoom.js"><code>zoom.js</code></a>. Posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.</p>
+                    <p><code>-d</code> = [directory] Directorio donde se pondrán los archivos creados.</p>
+                </li>
+                <li>
+                    <p><code>-s</code> = [style sheet] Ruta al archivo <span class="smallcap">CSS</span> que se desea vincular.</p>
+                </li>
+                <li>
+                    <p><code>-i</code> = [index] Índice con el que ha de comenzar la numeración del nombre de los archivos creados.</p>
+                </li>
+                <li>
+                    <p><code>--section</code> = Divide el documento cada &lt;section&gt;.</p>
                 </li>
             </ul>
+            <h2 id="parametros-unicos">Parámetros únicos:</h2>
+            <ul>
+                <li>
+                    <p><code>-v</code> = [version] Muestra la versión.</p>
+                </li>
+                <li>
+                    <p><code>-h</code> = [help] Muestra esta ayuda.</p>
+                </li>
+            </ul>
+            <h2 id="ejemplo-sencillo">Ejemplo sencillo:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-divider -f archivo/a/dividir.xhtml</code>
+            </pre>
+            <p>Dividirá el archivo <code>dividir.xhtml</code> cada &lt;h1&gt;, poniendo los archivos creados en el directorio actual y empezando con el índice número 3.</p>
+            <h2 id="ejemplo-en-un-directorio-especifico">Ejemplo en un directorio específico:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado</code>
+            </pre>
+            <p>Dividirá como el ejemplo anterior, poniendo los archivos creados en <code>directorio/deseado</code>.</p>
+            <h2 id="ejemplo-en-un-directorio-e-incluyendo-una-hoja-de-estilo">Ejemplo en un directorio e incluyendo una hoja de estilo:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css</code>
+            </pre>
+            <p>Dividirá como el ejemplo anterior, vinculando la hoja de estilo <code>archivo.css</code> en cada archivo creado.</p>
+            <h2 id="ejemplo-en-un-directorio-e-incluyendo-una-hoja-de-estilo-y-con-otro-indice">Ejemplo en un directorio e incluyendo una hoja de estilo y con otro índice:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1</code>
+            </pre>
+            <p>Dividirá como el ejemplo anterior, iniciando la numeración de los archivos con el número 1.</p>
+            <h2 id="ejemplo-en-un-directorio-dividido-cada-ltsectiongt-e-incluyendo-una-hoja-de-estilo-y-con-otro-indice">Ejemplo en un directorio, dividido cada &lt;section&gt; e incluyendo una hoja de estilo y con otro índice:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-divider -f archivo/a/dividir.xhtml -d directorio/deseado -s ruta/al/archivo.css -i 1 --section</code>
+            </pre>
+            <p>Semejante al ejemplo anterior, solo que la división es cada &lt;section&gt; en lugar de cada &lt;h1&gt;.</p>
         </section>
         <footer>
             <nav class="espacio-arriba1">

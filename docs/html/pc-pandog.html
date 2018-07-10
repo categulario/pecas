@@ -42,29 +42,41 @@
             </nav>
         </header>
         <section>
-            <h1 id="scripts-de-javascript-para-epub"><i>Scripts</i> de JavaScript para EPUB</h1>
-            <p>Estos <i>scripts</i> implementan algunas funcionalidades adicionales a los EPUB.</p>
-            <h2 id="implementacion" class="espacio-arriba3">Implementación</h2>
-            <p>Solo vincula el archivo <code>.js</code> adentro de la etiqueta <code>head</code> de los XHTML del EPUB, por ejemplo:</p>
+            <h1 id="uso-de-pcpandog">Uso de <code>pc-pandog</code></h1>
+            <p>Pandog convierte entre archivos MD, <span class="smallcap">HTML</span>, <span class="smallcap">HTM</span>, <span class="smallcap">XHTML</span>, <span class="smallcap">XML</span>, <span class="smallcap">JSON</span>, TeX, <span class="smallcap">EPUB</span>, <span class="smallcap">ODT</span> o <span class="smallcap">DOCX</span>, estos tres últimos tipos a través de Pandoc.</p>
+            <h2 id="dependencias-opcionales">Dependencias opcionales:</h2>
+            <ul>
+                <li>
+                    <p><code>pandoc</code></p>
+                </li>
+            </ul>
+            <h2 id="uso">Uso:</h2>
             <pre class="">
-                <code class="code-line-1">&lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;</code>
+                <code class="code-line-1">pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]</code>
             </pre>
-            <h2 id="documentacion" class="espacio-arriba3">Documentación</h2>
-            <p>Para saber cómo emplear cada uno de los <i>scripts</i> solo es necesario leer las líneas comentadas al inicio de estos archivos.</p>
-            <h2 id="scripts" class="espacio-arriba3"><em>Scripts</em></h2>
+            <h2 id="parametros-necesarios">Parámetros necesarios:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/poetry.js"><code>poetry.js</code></a>. Posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.</p>
+                    <p><code>-i</code> = [input] Nombre del archivo a convertir.</p>
+                </li>
+                <li>
+                    <p><code>-o</code> = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.</p>
                 </li>
             </ul>
-            <blockquote>
-                <p><strong>CUIDADO</strong>. Este <i>script</i> tiene errores que aún no han sido arreglados.</p>
-            </blockquote>
+            <h2 id="parametros-unicos">Parámetros únicos:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/zoom.js"><code>zoom.js</code></a>. Posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.</p>
+                    <p><code>-v</code> = [version] Muestra la versión.</p>
+                </li>
+                <li>
+                    <p><code>-h</code> = [help] Muestra esta ayuda.</p>
                 </li>
             </ul>
+            <h2 id="ejemplo">Ejemplo:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-pandog -i directorio/al/archivo.md -o archivo.xhtml</code>
+            </pre>
+            <p>Crea un archivo <span class="smallcap">XHTML</span> a partir de <code>archivo.md</code> presente en <code>directorio/al</code>.</p>
         </section>
         <footer>
             <nav class="espacio-arriba1">

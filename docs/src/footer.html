@@ -1,7 +1,7 @@
 </section>
 <footer>
 <nav class="espacio-arriba1">   
-<h3>Repositorio</h3>
+<h3>Repositorios</h3>
 <p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
 <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
 <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
@@ -21,6 +21,7 @@ body > * {float:left;}
 header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
 header h1 {margin:0; font-size: 2em;}
 header h1 + p {margin-top:1em!important;}
+header h3 {margin-top:1em;}
 header a {color: white;}
 header p, footer nav {text-align:left;}
 header p + p, footer p + p {text-indent:0;}
@@ -36,7 +37,7 @@ div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text
 div.example > div > div:first-child:before {content:"Escritura en Markdown";}
 div.example > div > div:last-child:before {content:"Resultado en HTML";}
 div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
-footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 0 1em 1em 1em;}
+footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 1em;}
 footer > p {margin-top: 1em;}
 footer > nav {display:none;}
 footer nav > * {display:inline;}
@@ -50,7 +51,8 @@ footer nav > p:not(:first-of-type):before {content:"| ";}
     header nav > * {display:inline;}
     header nav > p:before {content:"| ";}
     header h3 + p:before {content: none;}
-    header h3:after {content: ": ";}
+    header h3:before {content:"\a";white-space: pre;}
+    header h3:after {content: " > ";}
     section {width:calc(100% - 5em);margin:2.5em;}
     div.example > div, div.example > div > div {float:none;width:100%;}
     footer > nav {display:block;text-align:center;}

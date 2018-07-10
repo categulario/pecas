@@ -42,88 +42,117 @@
             </nav>
         </header>
         <section>
-            <h1 id="scripts-de-javascript-para-epub"><i>Scripts</i> de JavaScript para EPUB</h1>
-            <p>Estos <i>scripts</i> implementan algunas funcionalidades adicionales a los EPUB.</p>
-            <h2 id="implementacion" class="espacio-arriba3">Implementación</h2>
-            <p>Solo vincula el archivo <code>.js</code> adentro de la etiqueta <code>head</code> de los XHTML del EPUB, por ejemplo:</p>
+            <h1 id="uso-de-pcchanger">Uso de <code>pc-changer</code></h1>
+            <p>Changer cambia versiones de <span class="smallcap">EPUB</span> entre 2.0.0, 2.0.1, 3.0.0 y 3.0.1.</p>
+            <h2 id="dependencias-necesarias">Dependencias necesarias:</h2>
+            <ul>
+                <li>
+                    <p><code>zip</code></p>
+                </li>
+                <li>
+                    <p><code>unzip</code></p>
+                </li>
+            </ul>
+            <h2 id="uso">Uso:</h2>
             <pre class="">
-                <code class="code-line-1">&lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;</code>
+                <code class="code-line-1">pc-changer</code>
             </pre>
-            <h2 id="documentacion" class="espacio-arriba3">Documentación</h2>
-            <p>Para saber cómo emplear cada uno de los <i>scripts</i> solo es necesario leer las líneas comentadas al inicio de estos archivos.</p>
-            <h2 id="scripts" class="espacio-arriba3"><em>Scripts</em></h2>
+            <h2 id="parametros-necesarios">Parámetros necesarios:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/poetry.js"><code>poetry.js</code></a>. Posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.</p>
+                    <p><code>-e</code> = [epub] Archivo <span class="smallcap">EPUB</span>.</p>
+                </li>
+                <li>
+                    <p><code>--version</code> = Versión a convertir.</p>
                 </li>
             </ul>
-            <blockquote>
-                <p><strong>CUIDADO</strong>. Este <i>script</i> tiene errores que aún no han sido arreglados.</p>
-            </blockquote>
+            <h2 id="parametro-opcional">Parámetro opcional:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/zoom.js"><code>zoom.js</code></a>. Posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.</p>
+                    <p><code>--standalone</code> = No elimina el proyecto <span class="smallcap">EPUB</span>; ideal para hacer cambios manuales.</p>
                 </li>
             </ul>
-        </section>
-        <footer>
-            <nav class="espacio-arriba1">
-                <h3>Repositorios</h3>
-                <p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
-                <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
-                <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
-            </nav>
-            <nav class="espacio-arriba1">
-                <h3>Contacto</h3>
-                <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
-                <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
-            </nav>
-            <p class="centrado">Pecas es <i>software</i> libre bajo licencia <a href="https://gnu.org/licenses/gpl.html" target="_blank">GPLv3+</a>.
-            <p class="centrado">Dona para unos tacos con <span class="versalita">ETH</span>: <a href="https://etherscan.io/address/0x39b0bf0cf86776060450aba23d1a6b47f5570486" target="_blank">0x39b0Bf0CF86776060450ABA23d1a6b47f5570486</a>.</p>
-            <p class="centrado">Dona para unas croquetas con <span class="versalita">DOGE</span>: <a href="https://dogechain.info/address/DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G" target="_blank">DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G</a>.</p>
-        </footer>
-        <style>
-        body {margin:0;}
-        body > * {float:left;}
-        header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
-        header h1 {margin:0; font-size: 2em;}
-        header h1 + p {margin-top:1em!important;}
-        header h3 {margin-top:1em;}
-        header a {color: white;}
-        header p, footer nav {text-align:left;}
-        header p + p, footer p + p {text-indent:0;}
-        header nav > p:before {content:"> ";}
-        section {width:calc(75% - 10em);margin:5em;}
-        h2:before {content: "> ";}
-        div.example h2:before {content: none;}
-        div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
-        div.example > div {clear:both;}
-        div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
-        div.example > div > div {float:left;width:50%;}
-        div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
-        div.example > div > div:first-child:before {content:"Escritura en Markdown";}
-        div.example > div > div:last-child:before {content:"Resultado en HTML";}
-        div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
-        footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 1em;}
-        footer > p {margin-top: 1em;}
-        footer > nav {display:none;}
-        footer nav > * {display:inline;}
-        footer nav > p:before {content:"> ";}
-        footer nav > p:not(:first-of-type):before {content:"| ";}
-        @media screen and (max-width: 768px) {
-        body > * {float:none;}
-        header {width:calc(100% - 5em);margin-top:0;border-radius:0;}
-        header > p:first-of-type {display:inline;}
-        header > nav:not(:first-of-type) {display:none;}
-        header nav > * {display:inline;}
-        header nav > p:before {content:"| ";}
-        header h3 + p:before {content: none;}
-        header h3:before {content:"\a";white-space: pre;}
-        header h3:after {content: " > ";}
-        section {width:calc(100% - 5em);margin:2.5em;}
-        div.example > div, div.example > div > div {float:none;width:100%;}
-        footer > nav {display:block;text-align:center;}
-        }
-        </style>
-    </body>
-</html>
+            <h2 id="parametros-unicos">Parámetros únicos:</h2>
+            <ul>
+                <li>
+                    <p><code>-v</code> = [version] Muestra la versión.</p>
+                </li>
+                <li>
+                    <p><code>-h</code> = [help] Muestra esta ayuda.</p>
+                </li>
+            </ul>
+            <h2 id="ejemplo-sencillo">Ejemplo sencillo:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-changer -e archivo.epub --version 3.0.0</code>
+            </pre>
+            <p>Convierte el <code>archivo.epub</code> a versión 3.0.0.</p>
+            <h2 id="ejemplo-sin-eliminar-el-proyecto-epub">Ejemplo sin eliminar el proyecto <span class="smallcap">EPUB</span>:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-changer -e archivo.epub --version 3.0.0 --standalone</code>
+            </pre>
+            <p>Convertirá como el ejemplo anterior, pero sin eliminar la carpeta de proyecto que sirvió para la conversión.</p>
+            <hr class="espacio-arriba3"/>
+                <p class="espacio-arriba3">Nota: no se permite la conversión de versiones 3 a 2.</p>
+                <p class="espacio-arriba1 sin-sangria">Nota: cuando se pasa de versiones 2 a 3 es muy recomendado utilizar la opción <code>--standalone</code> por si es necesario hacer cambios manuales para evitar errores en la verificación.</p>
+            </section>
+            <footer>
+                <nav class="espacio-arriba1">
+                    <h3>Repositorios</h3>
+                    <p><a href="https://github.com/NikaZhenya/pecas" target="_blank">GitHub</a></p>
+                    <p><a href="https://gitlab.com/NikaZhenya/pecas" target="_blank">GitLab</a></p>
+                    <p><a href="http://git.cliteratu.re/pecas/" target="_blank">GitList</a></p>
+                </nav>
+                <nav class="espacio-arriba1">
+                    <h3>Contacto</h3>
+                    <p><a href="mailto:nika.zhenya@cliteratu.re" target="_blank">nika.zhenya@cliteratu.re</a></p>
+                    <p><a href="https://twitter.com/_perroTuerto" target="_blank">@_perroTuerto</a></p>
+                </nav>
+                <p class="centrado">Pecas es <i>software</i> libre bajo licencia <a href="https://gnu.org/licenses/gpl.html" target="_blank">GPLv3+</a>.
+                <p class="centrado">Dona para unos tacos con <span class="versalita">ETH</span>: <a href="https://etherscan.io/address/0x39b0bf0cf86776060450aba23d1a6b47f5570486" target="_blank">0x39b0Bf0CF86776060450ABA23d1a6b47f5570486</a>.</p>
+                <p class="centrado">Dona para unas croquetas con <span class="versalita">DOGE</span>: <a href="https://dogechain.info/address/DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G" target="_blank">DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G</a>.</p>
+            </footer>
+            <style>
+            body {margin:0;}
+            body > * {float:left;}
+            header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
+            header h1 {margin:0; font-size: 2em;}
+            header h1 + p {margin-top:1em!important;}
+            header h3 {margin-top:1em;}
+            header a {color: white;}
+            header p, footer nav {text-align:left;}
+            header p + p, footer p + p {text-indent:0;}
+            header nav > p:before {content:"> ";}
+            section {width:calc(75% - 10em);margin:5em;}
+            h2:before {content: "> ";}
+            div.example h2:before {content: none;}
+            div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
+            div.example > div {clear:both;}
+            div.example > div:last-child {width:94.5%;margin:2em auto;padding:.5em;box-shadow: .1em .1em .5em rgba(0,0,0,.45);}
+            div.example > div > div {float:left;width:50%;}
+            div.example > div > div:before {display:block;width:100%;margin-bottom:-1em;text-align:center;font-size:.75em;}
+            div.example > div > div:first-child:before {content:"Escritura en Markdown";}
+            div.example > div > div:last-child:before {content:"Resultado en HTML";}
+            div.example + div.example {border-top: 1px dashed black;margin-top:1.5em;padding-top:1.5em;}
+            footer {border-top: 1px dashed black; width:calc(100% - 2em); margin: 1em;}
+            footer > p {margin-top: 1em;}
+            footer > nav {display:none;}
+            footer nav > * {display:inline;}
+            footer nav > p:before {content:"> ";}
+            footer nav > p:not(:first-of-type):before {content:"| ";}
+            @media screen and (max-width: 768px) {
+            body > * {float:none;}
+            header {width:calc(100% - 5em);margin-top:0;border-radius:0;}
+            header > p:first-of-type {display:inline;}
+            header > nav:not(:first-of-type) {display:none;}
+            header nav > * {display:inline;}
+            header nav > p:before {content:"| ";}
+            header h3 + p:before {content: none;}
+            header h3:before {content:"\a";white-space: pre;}
+            header h3:after {content: " > ";}
+            section {width:calc(100% - 5em);margin:2.5em;}
+            div.example > div, div.example > div > div {float:none;width:100%;}
+            footer > nav {display:block;text-align:center;}
+            }
+            </style>
+        </body>
+    </html>

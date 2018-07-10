@@ -2,9 +2,9 @@
 # encoding: UTF-8
 # coding: UTF-8
 
-Encoding.default_internal = Encoding::UTF_8
-
 require 'fileutils'
+
+Encoding.default_internal = Encoding::UTF_8
 
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../../src/common/general.rb"
@@ -64,7 +64,7 @@ begin
     else
         # Extrae el texto y lo guarda como PDF y TXT
         puts $l_tg_extranendo2
-        system("tesseract -l #{lenguaje} #{nombre + ext} #{nombre} #{File.dirname(__FILE__) + '/pdf_txt'}")
+        system("tesseract -l #{lenguaje} #{nombre + ext} #{nombre} #{File.dirname(__FILE__) + '/src/pdf_txt'}")
     end
 rescue
     puts $l_tg_error_te

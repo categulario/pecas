@@ -42,29 +42,61 @@
             </nav>
         </header>
         <section>
-            <h1 id="scripts-de-javascript-para-epub"><i>Scripts</i> de JavaScript para EPUB</h1>
-            <p>Estos <i>scripts</i> implementan algunas funcionalidades adicionales a los EPUB.</p>
-            <h2 id="implementacion" class="espacio-arriba3">Implementación</h2>
-            <p>Solo vincula el archivo <code>.js</code> adentro de la etiqueta <code>head</code> de los XHTML del EPUB, por ejemplo:</p>
+            <h1 id="uso-de-pctiff2pdf">Uso de <code>pc-tiff2pdf</code></h1>
+            <p>Tiff2pdf utiliza el poder de libtiff y de tesseract para crear archivos <span class="smallcap">PDF</span> con <span class="smallcap">OCR</span> o <span class="smallcap">TXT</span> a partir de imágenes <span class="smallcap">TIFF</span>.</p>
+            <h2 id="dependencias-necesarias">Dependencias necesarias:</h2>
+            <ul>
+                <li>
+                    <p><code>tesseract</code></p>
+                </li>
+                <li>
+                    <p><code>libtiff</code></p>
+                </li>
+            </ul>
+            <h2 id="uso">Uso:</h2>
             <pre class="">
-                <code class="code-line-1">&lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;</code>
+                <code class="code-line-1">pc-tiff2pdf -d [directorio] -l [idioma] -o [nombre del archivo]</code>
             </pre>
-            <h2 id="documentacion" class="espacio-arriba3">Documentación</h2>
-            <p>Para saber cómo emplear cada uno de los <i>scripts</i> solo es necesario leer las líneas comentadas al inicio de estos archivos.</p>
-            <h2 id="scripts" class="espacio-arriba3"><em>Scripts</em></h2>
+            <h2 id="parametros-necesarios">Parámetros necesarios:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/poetry.js"><code>poetry.js</code></a>. Posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.</p>
+                    <p><code>-l</code> = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: &lt;https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages&gt;</p>
+                </li>
+                <li>
+                    <p><code>-o</code> = [output] Nombre para el o los archivos que se crearán.</p>
                 </li>
             </ul>
-            <blockquote>
-                <p><strong>CUIDADO</strong>. Este <i>script</i> tiene errores que aún no han sido arreglados.</p>
-            </blockquote>
+            <h2 id="parametros-opcionales">Parámetros opcionales:</h2>
             <ul>
                 <li>
-                    <p><a href="https://github.com/NikaZhenya/pecas/blob/master/epub/others/javascript/zoom.js"><code>zoom.js</code></a>. Posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.</p>
+                    <p><code>-d</code> = [directory] Directorio que contiene las imágenes.</p>
+                </li>
+                <li>
+                    <p><code>--tif</code> = Crea un <span class="smallcap">TIF</span> que contiene todas las imágenes.</p>
+                </li>
+                <li>
+                    <p><code>--txt</code> = Crea un <span class="smallcap">TXT</span> adicional al <span class="smallcap">PDF</span> creado.</p>
                 </li>
             </ul>
+            <h2 id="parametros-unicos">Parámetros únicos:</h2>
+            <ul>
+                <li>
+                    <p><code>-v</code> = [version] Muestra la versión.</p>
+                </li>
+                <li>
+                    <p><code>-h</code> = [help] Muestra esta ayuda.</p>
+                </li>
+            </ul>
+            <h2 id="ejemplo-sencillo">Ejemplo sencillo:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-tiff2pdf -d directorio/de/las/imágenes -l spa -o prueba</code>
+            </pre>
+            <p>Crea un archivo <span class="smallcap">PDF</span> con <span class="smallcap">OCR</span> en español a partir de las imágenes presentes en <code>directorio/de/las/imágenes</code>.</p>
+            <h2 id="ejemplo-con-archivo-de-texto">Ejemplo con archivo de texto:</h2>
+            <pre class="">
+                <code class="code-line-1">pc-tiff2pdf -d directorio/de/las/imágenes -l spa -o prueba --txt</code>
+            </pre>
+            <p>Además del <span class="smallcap">PDF</span> con <span class="smallcap">OCR</span>, se crea un archivo de texto con el contenido de las imágenes.</p>
         </section>
         <footer>
             <nav class="espacio-arriba1">

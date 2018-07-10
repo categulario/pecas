@@ -1,3 +1,0 @@
-# Cites
-
-Aún bajo desarrollo…

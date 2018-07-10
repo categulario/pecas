@@ -45,5 +45,5 @@ pc-doctor --update
 
 ¿Estás teniendo dificultades con Pecas? Visita el área de [solución de problemas](html/problemas.html).
 
-¿Usas Windows y quieres usar Pecas? Visita [este apartado](https://nikazhenya.github.io/pecas/html/problemas.html#como-uso-pecas-en-windows)
-del área de solución de problemas.
+¿Usas Windows y quieres usar Pecas? Visita [este apartado](html/problemas.html#como-uso-pecas-en-windows)
+del área de solución de problemas. {.espacio-arriba1 .sin-sangria}
