@@ -742,10 +742,12 @@
             header nav > * {display:inline;}
             header nav > p:before {content:"| ";}
             header h3 + p:before {content: none;}
-            header h3:before {content:"\a";white-space: pre;}
+            header h3:before {content:"\a\a";white-space: pre;}
+            header h3:first-of-type:before {content:"\a";}
             header h3:after {content: " > ";}
             section {width:calc(100% - 5em);margin:2.5em;}
             div.example > div, div.example > div > div {float:none;width:100%;}
+            footer {word-wrap: break-word;}
             footer > nav {display:block;text-align:center;}
             }
             </style>
