@@ -15,7 +15,7 @@ pc-tiff2pdf -d [directorio] -l [idioma] -o [nombre del archivo]
 
 ## Parámetros necesarios:
 
-* `-l` = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. Lista de acrónimos: &lt;https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages&gt;
+* `-l` = [language] Acrónimo del lenguaje a detectar. Es necesario instalar el lenguaje. [Lista de acrónimos](https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages).
 * `-o` = [output] Nombre para el o los archivos que se crearán.
 
 ## Parámetros opcionales:

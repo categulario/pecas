@@ -54,4 +54,4 @@ Similar al ejemplo anterior pero sin letras del alfabeto y con estilo de dos col
 
 --- {.espacio-arriba3}
 
-Nota: si se desconoce cómo completar el archivo +++YAML+++, consúltese la documentación de [+++YAML+++](yaml.html). {.espacio-arriba3}
+Nota: se generará un archivo `index-data.yaml` para la creación de índices analíticos. Si se desconoce cómo completarlo, consúltese la documentación de [+++YAML+++](yaml.html). {.espacio-arriba3}

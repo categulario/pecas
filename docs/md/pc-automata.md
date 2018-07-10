@@ -79,3 +79,7 @@ pc-automata -f archivo-madre.md -n notas.md -d epub-automata/ -c portada.jpg -i 
 ```
 
 Crea un proyecto +++EPUB+++, un +++EPUB+++ 3.0.1, un +++EPUB+++ 3.0.0 y un +++MOBI+++ a partir del `archivo-madre.md`, las notas al pie de `notas.md` adentro de cada archivo y con reinicio de numeración, la portada `portada.jpg`, las hojas de estilos `styles.css` y los metadatos `epub-automata/meta-data.yaml`, divididos cada etiqueta &lt;section&gt; y en un proyecto de pc-automata llamado `epub-automata`.
+
+--- {.espacio-arriba3}
+
+Nota: el proyecto +++EPUB+++ generará un archivo `meta-data.yaml` que sirve para los metadatos del libro y un `index-data.yaml` para la creación de índices analíticos. Si se desconoce cómo usar el archivo, consúltese la documentación de [+++YAML+++](yaml.html). {.espacio-arriba3}
