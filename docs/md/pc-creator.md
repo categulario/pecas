@@ -17,6 +17,7 @@ pc-creator
 * `-i` = [images] Ruta a la carpeta con las imágenes que se desean incluir.
 * `-x` = [xhtml] Ruta a la carpeta con los archivos +++XHTML+++ que se desean incluir.
 * `-j` = [js] Ruta a la carpeta con los archivos JavaScript que se desean incluir.
+* `\--fallbacks` = Ruta a la carpeta con los archivos con fallbacks que se desean incluir.
 
 ## Parámetros únicos:
 

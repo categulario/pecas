@@ -20,6 +20,7 @@ epubPortada = if argumento "-c", epubPortada != nil then argumento "-c", epubPor
 epub_img = if argumento "-i", epub_img != nil then argumento "-i", epub_img end
 epub_xhtml = if argumento "-x", epub_xhtml != nil then argumento "-x", epub_xhtml end
 epub_js = if argumento "-j", epub_js != nil then argumento "-j", epub_js end
+epub_fbk = if argumento "--fallbacks", epub_fbk != nil then argumento "--fallbacks", epub_fbk end
 epub_no_preliminares = argumento "--no-pre", epub_no_preliminares, 1
 only_css = argumento "--only-css", only_css, 1
 argumento "-v", $l_cr_v
@@ -29,6 +30,7 @@ argumento "-h", $l_cr_h
 if epub_img then epub_img = File.absolute_path(epub_img) end
 if epub_xhtml then epub_xhtml = File.absolute_path(epub_xhtml) end
 if epub_js then epub_js = File.absolute_path(epub_js) end
+if epub_fbk then epub_fbk = File.absolute_path(epub_fbk) end
 
 # Se va a la carpeta para crear los archivos
 epub_ubicacion = comprobacionDirectorio epub_ubicacion
@@ -202,15 +204,18 @@ else
     end
 
     # Agrega archivos JavaScript
-    if epub_js
+    if epub_js || epub_fbk
         # La adición de archivos y la creación de su carpeta contenedora depende de la ubicación actual
         if File.basename(Dir.getwd) == 'OPS'
-            Dir.mkdir('js')
+            if epub_js then Dir.mkdir('js') end
+            if epub_fbk then Dir.mkdir('fbk') end
         elsif File.basename(Dir.getwd) == 'xhtml'
-            Dir.mkdir('../js')
+            if epub_js then Dir.mkdir('../js') end
+            if epub_fbk then Dir.mkdir('../fbk') end
         end
 
-        adicion_archivos(epub_js, epub_ubicacion, "js", ["js"])
+        if epub_js then adicion_archivos(epub_js, epub_ubicacion, "js", ["js"]) end
+        if epub_fbk then adicion_archivos(epub_fbk, epub_ubicacion, "fbk", ["pdf"]) end # Aquí se tendrían que ir aumentando los tipos de archivos
     end
 end
 

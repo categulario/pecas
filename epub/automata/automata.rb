@@ -22,6 +22,7 @@ proyecto = if argumento "-d", proyecto != nil then argumento "-d", proyecto else
 imagenes = if argumento "-i", imagenes != nil then argumento "-i", imagenes end
 archivos_xhtml = if argumento "-x", archivos_xhtml != nil then argumento "-x", archivos_xhtml end
 archivos_js = if argumento "-j", archivos_js != nil then argumento "-j", archivos_js end
+archivos_fbk = if argumento "--fallbacks", archivos_fbk != nil then argumento "--fallbacks", archivos_fbk end
 notas = if argumento "-n", notas != nil then argumento "-n", notas end
 css = if argumento "-s", css != nil then argumento "-s", css end
 yaml = if argumento "-y", yaml != nil then argumento "-y", yaml else $l_au_prefijo + $l_g_meta_data end
@@ -231,6 +232,7 @@ else
 	imagenes = comprobacionDirectorio imagenes
 	archivos_xhtml = comprobacionDirectorio archivos_xhtml
 	archivos_js = comprobacionDirectorio archivos_js
+	archivos_fbk = comprobacionDirectorio archivos_fbk
 	
 	# Va al directorio
 	Dir.chdir(proyecto)
@@ -268,7 +270,7 @@ else
 	end
 	
 	# Creación del proyecto EPUB
-	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{$l_au_epub_nombre} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro archivos_js, "-j"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
+	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{$l_au_epub_nombre} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro archivos_js, "-j"} #{parametro archivos_fbk, "--fallbacks"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
 	
 	# División del archivo XHTML
 	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"

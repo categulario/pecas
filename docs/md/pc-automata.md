@@ -42,6 +42,7 @@ pc-automata -f [archivo madre]
 * `-n` = [notes] Archivo con las notas en formato MD.
 * `-s` = [style sheet] Ruta al archivo +++CSS+++ que se desea incluir.
 * `-y` = [yaml] Ruta al archivo con los metadatos para el +++EPUB+++.
+* `\--fallbacks` = Ruta a la carpeta con los archivos con fallbacks que se desean incluir.
 * `\--index` = Índice con el que ha de comenzar la numeración de los archivos divididos.
 * `\--inner` = +++SOLO+++ +++HTML+++, incluye las notas al pie al final del archivo.
 * `\--reset` =  Resetea el contador de las notas al pie cada vez que se modifica un archivo.
