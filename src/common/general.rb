@@ -1254,9 +1254,9 @@ def translate_inline text, html = true
                     # Sustituciones directas
                     elsif rx[1] == '―' || rx[1] == '—' || rx[1] == '–' || rx[1] == '&#8201;' || rx[1] == '&#160;' || rx[1] == '&#38;'
                         if rx[1] == '–'
-                            text.scan(/(--)(\w+)/).each do |s|
+                            text.scan(/(--)([\w|\s]+)/).each do |s|
                                 if s[1] != 'note' && s[1] != 'ignore'
-                                    text = text.gsub(rx[0], '\1' + rx[1])
+                                    text = text.gsub(s[0] + s[1], rx[1] + s[1])
                                 end
                             end
                         elsif rx[1] == '&#38;'
