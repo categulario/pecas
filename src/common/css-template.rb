@@ -534,6 +534,60 @@ span.gloss, span.glosa {
     hyphens: none;
 }
 
+/* Screenwriting / Guiones */
+
+.mono, 
+section.script *, section.guion * {
+    font-family: \"Courier New\", Courier, monospace;
+}
+
+section.script *, section.guion * {
+    font-size: 1em;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    text-align: left;
+    -moz-hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -o-hyphens: none !important;
+    -ms-hyphens: none !important;
+    hyphens: none !important;
+}
+
+section.script h2, section.guion h2,
+section.script h3, section.guion h3,
+section.script blockquote, section.guion blockquote {
+    width: 70%;
+    margin-left: 15%;
+}
+
+section.script h2, section.guion h2,
+section.script h3, section.guion h3 {
+    text-align: center;
+}
+
+section.script h1, section.guion h1 {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+section.script h2, section.guion h2 {
+    margin-top: 1em;
+    text-transform: uppercase;
+}
+
+section.script > p, section.guion > p {
+    margin-top: 1em;
+}
+
+section.script blockquote + blockquote > p, 
+section.guion blockquote + blockquote > p {
+    text-indent: 1.5em;
+}
+
 /* Special contents / Contenidos especiales */
 
 .title, .titulo {
