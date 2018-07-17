@@ -367,6 +367,26 @@ scelerisque nisl non, pretium turpis.
 
 </div></div>
 
+### .mono
+
+<div class="example"><div><div>
+
+```markdown
+[Lorem]{.mono} ipsum dolor sit amet, consectetur adipiscing elit. 
+```
+
+</div><div>
+
+```html
+<p><span class="mono">Lorem</span> ipsum dolor sit amet, consectetur adipiscing elit.</p>
+```
+
+</div></div><div>
+
+[Lorem]{.mono} ipsum dolor sit amet, consectetur adipiscing elit. 
+
+</div></div>
+
 ### .anchura-auto / .auto-width
 
 <div class="example"><div><div>
@@ -415,9 +435,11 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
-[Lorem ipsum dolor sit amet.]{.gloss}
+[Lorem ipsum.]{.gloss}
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
 
 </section>
 ```
@@ -428,7 +450,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 <section class="glosa gloss">
     <p class="glosa">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="glosa">Maecenas ac lacus viverra.</span></p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.</p>
-    <p><span class="gloss">Lorem ipsum dolor sit amet.</span> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p><span class="gloss">Lorem ipsum.</span> Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </section>
 ```
 
@@ -448,9 +470,11 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
 
-[Lorem ipsum dolor sit amet.]{.gloss}
+[Lorem ipsum.]{.gloss}
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
 
 </section>
 
@@ -628,5 +652,74 @@ Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis. {.vertical-spac
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+</div></div>
+
+### .script / .guion
+
+<div class="example"><div><div>
+
+```markdown
+<section class="script guion">
+<!-- Cualquiera de las dos clases -->
+
+# 1 Escena - Ejemplo
+
+Acción. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+## Personaje
+
+### (Paréntesis)
+
+> Diálogo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+
+> Diálogo. Maecenas ac lacus viverra, scelerisque nisl non, pretium 
+> turpis.
+
+</section>
+```
+
+</div><div>
+
+```html
+<section class="script">
+
+# 1 Escena - Ejemplo
+
+Acción. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+## Personaje
+
+### (Paréntesis)
+
+> Diálogo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+
+> Diálogo. Maecenas ac lacus viverra, scelerisque nisl non, pretium 
+> turpis.
+
+</section>
+```
+
+</div></div><div>
+
+<section class="script">
+
+# 1 Escena - Ejemplo
+
+Acción. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Maecenas ac lacus viverra, scelerisque nisl non, pretium turpis.
+
+## Personaje
+
+### (Paréntesis)
+
+> Diálogo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+
+> Diálogo. Maecenas ac lacus viverra, scelerisque nisl non, pretium 
+> turpis.
+
+</section>
 
 </div></div>

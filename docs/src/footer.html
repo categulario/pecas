@@ -19,6 +19,7 @@
 <style>
 body {margin:0;}
 body > * {float:left;}
+body > section {width:calc(75% - 10em);margin:5em;}
 header {width:calc(25% - 5em);margin-top: 5em;padding:2.5em;background-color:black;color:white;border-radius:0 .5em .5em 0;}
 header h1 {margin:0; font-size: 2em;}
 header h1 + p {margin-top:1em!important;}
@@ -27,7 +28,6 @@ header a {color: white;}
 header p, footer nav {text-align:left;}
 header p + p, footer p + p {text-indent:0;}
 header nav > p:before {content:"> ";}
-section {width:calc(75% - 10em);margin:5em;}
 h2:before {content: "> ";}
 div.example h2:before {content: none;}
 div.example:after {display:block;width:100%;content:"Estilo por defecto";margin-top:-1.5em;text-align:center;font-size:.75em;}
@@ -46,6 +46,7 @@ footer nav > p:before {content:"> ";}
 footer nav > p:not(:first-of-type):before {content:"| ";}
 @media screen and (max-width: 768px) {
     body > * {float:none;}
+    body > section {width:calc(100% - 5em);margin:2.5em;}
     header {width:calc(100% - 5em);margin-top:0;border-radius:0;}
     header > p:first-of-type {display:inline;}
     header > nav:not(:first-of-type) {display:none;}
@@ -55,7 +56,6 @@ footer nav > p:not(:first-of-type):before {content:"| ";}
     header h3:before {content:"\a\a";white-space: pre;}
     header h3:first-of-type:before {content:"\a";}
     header h3:after {content: " > ";}
-    section {width:calc(100% - 5em);margin:2.5em;}
     div.example > div, div.example > div > div {float:none;width:100%;}
     footer {word-wrap: break-word;}
     footer > nav {display:block;text-align:center;}
