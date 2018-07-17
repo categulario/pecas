@@ -560,13 +560,8 @@ section.script *, section.guion * {
 section.script h2, section.guion h2,
 section.script h3, section.guion h3,
 section.script blockquote, section.guion blockquote {
-    width: 70%;
-    margin-left: 15%;
-}
-
-section.script h2, section.guion h2,
-section.script h3, section.guion h3 {
-    text-align: center;
+    width: 60%;
+    margin-left: 3em;
 }
 
 section.script h1, section.guion h1 {
@@ -576,7 +571,12 @@ section.script h1, section.guion h1 {
 
 section.script h2, section.guion h2 {
     margin-top: 1em;
+    padding-left: 6em;
     text-transform: uppercase;
+}
+
+section.script h3, section.guion h3 {
+    padding-left: 3em;
 }
 
 section.script > p, section.guion > p {
