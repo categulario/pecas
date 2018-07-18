@@ -42,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    line-height: 1;
+    line-height: 1.5;
 }
 
 ol, ul {
@@ -164,7 +164,7 @@ p, blockquote, li, figcaption, details, aside {
     font-family: Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-size: 1em;
     text-align: justify;
-    line-height: 1.25em;
+    line-height: 1.5em;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     -o-hyphens: auto;
@@ -184,6 +184,10 @@ blockquote {
 blockquote + blockquote {
     text-indent: 1.5em;
     margin-top: -1em;
+}
+
+blockquote, blockquote > * {
+    line-height: 1.65;
 }
 
 .justified, .justificado {
@@ -458,7 +462,7 @@ pre {
     background-color: #fff;
     margin: 2em auto;
     padding: .5em;
-    line-height: 1.25;
+    line-height: 1.5;
     border-radius: .25em;
     box-shadow: .1em .1em .5em rgba(0,0,0,.45);
     white-space: unset;
@@ -622,7 +626,7 @@ h1 + .contributor, h1 + .contribuidor {
 .epigraph, .epigrafe {
     font-size: .9em;
     text-align: right;
-    line-height: 1.25em;
+    line-height: 1.65em;
     margin-left: 40%;
 }
 
