@@ -335,7 +335,7 @@ a, a:link, a:visited {
 /* Lists / Listas */
 
 ol, ul {
-    margin: 1em 1.5em;
+    margin: 1em;
     padding: 0;
 }
 
@@ -349,7 +349,11 @@ ul {
 
 ol ol, ol ul,
 ul ol, ul ul {
-    margin: 0 1.5em;
+    margin: 0 1em;
+}
+
+ol p, ul p {
+    margin-left: .5em;
 }
 
 ul.dash, ul.en-dash, ul.em-dash {
@@ -559,6 +563,11 @@ section.script *, section.guion * {
     -o-hyphens: none !important;
     -ms-hyphens: none !important;
     hyphens: none !important;
+}
+
+section.script ol, section.guion ol,
+section.script ul, section.guion ul {
+    margin: 1em 2em;
 }
 
 section.script h2, section.guion h2,
