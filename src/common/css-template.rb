@@ -686,7 +686,7 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 .#{$l_no_nota_a} {
     display: block;
     margin-left: -3em;
-    margin-bottom: -1.25em;
+    margin-bottom: -1.375em;
 }
 
 .#{$l_no_nota_sup}:before, .#{$l_no_nota_a}:before {
