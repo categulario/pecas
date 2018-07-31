@@ -15,6 +15,7 @@ $tools_md = {}
 tools = [
     ["pc-tiff2pdf", $l_tg_h],
     ["pc-analytics", $l_an_h],
+    ["pc-images", $l_im_h],
     ["pc-pandog", $l_pg_h],
     ["pc-automata", $l_au_h],
     ["pc-creator", $l_cr_h],
@@ -143,6 +144,7 @@ def create_md_tools
     archivo.puts "* [`#{$tools_md["pc-tiff2pdf"][0]}`](#{$tools_md["pc-tiff2pdf"][0]}.html): #{$tools_md["pc-tiff2pdf"][1]}"
 	archivo.puts "\n## Archivos madre\n\n"
     archivo.puts "* [`#{$tools_md["pc-analytics"][0]}`](#{$tools_md["pc-analytics"][0]}.html): #{$tools_md["pc-analytics"][1]}"
+    archivo.puts "* [`#{$tools_md["pc-images"][0]}`](#{$tools_md["pc-images"][0]}.html): #{$tools_md["pc-images"][1]}"
     archivo.puts "* [`#{$tools_md["pc-pandog"][0]}`](#{$tools_md["pc-pandog"][0]}.html): #{$tools_md["pc-pandog"][1]}"
 	archivo.puts "\n## +++EPUB+++\n\n"
     archivo.puts "* [`#{$tools_md["pc-automata"][0]}`](#{$tools_md["pc-automata"][0]}.html): #{$tools_md["pc-automata"][1]}"
