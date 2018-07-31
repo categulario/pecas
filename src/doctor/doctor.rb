@@ -17,6 +17,59 @@ update = argumento "--update", update, 1
 install = argumento "--install-dependencies", install, 1
 restore = argumento "--restore", restore, 1
 
+# Variables
+$no_instalado = false
+dependencias = {
+    'pandoc' => {
+        'nombre' => 'Pandoc', 
+        'paquete' => ['pandoc'],
+        'pecas' => ['pc-pandog'],
+        'version' => false
+    },
+    'convert' => {
+        'nombre' => 'ImageMagick', 
+        'paquete' => ['imagemagick'],
+        'pecas' => ['pc-images'],
+        'version' => true
+    },
+    'hunspell' => {
+        'nombre' => 'Hunspell', 
+        'paquete' => ['hunspell'],
+        'pecas' => ['pc-analytics'],
+        'version' => false
+    },
+    'linkchecker' => {
+        'nombre' => 'Linkchecker', 
+        'paquete' => ['linkchecker'],
+        'pecas' => ['pc-analytics'],
+        'version' => true
+    },
+    'zip' => {
+        'nombre' => 'Zip',
+        'paquete' => ['zip'],
+        'pecas' => ['pc-automata','pc-recreator','pc-changer'],
+        'version' => false
+    },
+    'unzip' => {
+        'nombre' => 'UnZip',
+        'paquete' => ['unzip'],
+        'pecas' => ['pc-automata','pc-changer'],
+        'version' => false
+    }, 
+    'tesseract' => {
+        'nombre' => 'Tesseract',
+        'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
+        'pecas' => ['pc-tiff2pdf'],
+        'version' => false
+    },
+    'tiffcp' => {
+        'nombre' => 'Libtiff',
+        'paquete' => ['libtiff'],
+        'pecas' => ['pc-tiff2pdf'],
+        'version' => nil
+    }
+}
+
 # Obtiene las versiones de cada dependecia
 def revisionDependencias install, d
     salida = []
@@ -31,11 +84,11 @@ def revisionDependencias install, d
             else
                 output = v['version'] ? `#{k} --version` : `#{k} -v`
 
-                version = k != 'zip' ? output.split("\n")[0].gsub(/^.*?\s+/,'').strip : output.split("\n")[1]
+                version = k == 'zip' ? output.split("\n")[1] : output.split("\n")[0].gsub(/^.*?\s+/,'').strip
                 version = version.gsub(/^[A-Za-z\s,\.:;]*?(\d.*?)\s.*$/, '\1')
 
-                # Si no encuentra una fórmula con solo números o puntos, solo indica que está instalado
-                if version.gsub(/[\d|\.|-|_]/,'') != ''
+                # Si no encuentra una fórmula con solo números, puntos o guiones, solo indica que está instalado
+                if version.gsub(/[\d|\.|-|_|-]/,'') != ''
                     version = $l_dr_instalado
                 end
             end
@@ -98,53 +151,6 @@ def pregunta
         return respuesta
     end
 end
-
-# Variables
-$no_instalado = false
-dependencias = {
-    'pandoc' => {
-        'nombre' => 'Pandoc', 
-        'paquete' => ['pandoc'],
-        'pecas' => ['pc-pandog'],
-        'version' => false
-    },
-    'hunspell' => {
-        'nombre' => 'Hunspell', 
-        'paquete' => ['hunspell'],
-        'pecas' => ['pc-analytics'],
-        'version' => false
-    },
-    'linkchecker' => {
-        'nombre' => 'Linkchecker', 
-        'paquete' => ['linkchecker'],
-        'pecas' => ['pc-analytics'],
-        'version' => true
-    },
-    'zip' => {
-        'nombre' => 'Zip',
-        'paquete' => ['zip'],
-        'pecas' => ['pc-automata','pc-recreator','pc-changer'],
-        'version' => false
-    },
-    'unzip' => {
-        'nombre' => 'UnZip',
-        'paquete' => ['unzip'],
-        'pecas' => ['pc-automata','pc-changer'],
-        'version' => false
-    }, 
-    'tesseract' => {
-        'nombre' => 'Tesseract',
-        'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
-        'pecas' => ['pc-tiff2pdf'],
-        'version' => false
-    },
-    'tiffcp' => {
-        'nombre' => 'Libtiff',
-        'paquete' => ['libtiff'],
-        'pecas' => ['pc-tiff2pdf'],
-        'version' => nil
-    }
-}
 
 # Va a la raíz de Pecas
 Dir.chdir(File.dirname(__FILE__) + '/../..')
