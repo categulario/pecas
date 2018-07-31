@@ -7,6 +7,12 @@ Automata automatiza el flujo de trabajo al poder usar todos los scripts para +++
 * `zip`
 * `unzip`
 
+## Dependencias opcionales:
+
+* `imagemagick`
+* `hunspell`
+* `linkchecker`
+
 ## Uso para inicializar:
 
 ```

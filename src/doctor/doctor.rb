@@ -20,30 +20,6 @@ restore = argumento "--restore", restore, 1
 # Variables
 $no_instalado = false
 dependencias = {
-    'pandoc' => {
-        'nombre' => 'Pandoc', 
-        'paquete' => ['pandoc'],
-        'pecas' => ['pc-pandog'],
-        'version' => false
-    },
-    'convert' => {
-        'nombre' => 'ImageMagick', 
-        'paquete' => ['imagemagick'],
-        'pecas' => ['pc-images'],
-        'version' => true
-    },
-    'hunspell' => {
-        'nombre' => 'Hunspell', 
-        'paquete' => ['hunspell'],
-        'pecas' => ['pc-analytics'],
-        'version' => false
-    },
-    'linkchecker' => {
-        'nombre' => 'Linkchecker', 
-        'paquete' => ['linkchecker'],
-        'pecas' => ['pc-analytics'],
-        'version' => true
-    },
     'zip' => {
         'nombre' => 'Zip',
         'paquete' => ['zip'],
@@ -55,7 +31,31 @@ dependencias = {
         'paquete' => ['unzip'],
         'pecas' => ['pc-automata','pc-changer'],
         'version' => false
-    }, 
+    },
+    'pandoc' => {
+        'nombre' => 'Pandoc', 
+        'paquete' => ['pandoc'],
+        'pecas' => ['pc-pandog'],
+        'version' => false
+    },
+    'convert' => {
+        'nombre' => 'ImageMagick', 
+        'paquete' => ['imagemagick'],
+        'pecas' => ['pc-automata','pc-images'],
+        'version' => true
+    },
+    'hunspell' => {
+        'nombre' => 'Hunspell', 
+        'paquete' => ['hunspell'],
+        'pecas' => ['pc-automata','pc-analytics'],
+        'version' => false
+    },
+    'linkchecker' => {
+        'nombre' => 'Linkchecker', 
+        'paquete' => ['linkchecker'],
+        'pecas' => ['pc-automata','pc-analytics'],
+        'version' => true
+    },
     'tesseract' => {
         'nombre' => 'Tesseract',
         'paquete' => ['tesseract-ocr','tesseract-ocr-spa','tesseract','tesseract-data-spa','tesseract --with-all-languages'],
