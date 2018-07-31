@@ -18,6 +18,8 @@ resize_v = if argumento "--resize-v", resize_v != nil then argumento "--resize-v
 compress = argumento "--compress", compress, 1
 argumento "-v", $l_im_v
 argumento "-h", $l_im_h
+
+# Variables
 $resize_h_px = 640
 $resize_v_px = 320
 total_size_old = 0
