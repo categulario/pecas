@@ -51,6 +51,10 @@ pc-automata -f [archivo madre]
 * `\--rotate` = Permite rotación aleatoria de las palabras en la nube de palabras de 30° a 150°.
 * `\--with-indexes` = Incluye índices analíticos del `index-data.yaml`.
 * `\--two-columns` = Agrega estilo para desplegar dos columnas; en sintaxis tipo +++HTML+++ se despliega a partir de los 768px de ancho.
+* `\--resize` = Redimensiona las imágenes con un tamaño predeterminado de 640px para cuadradas u horizontales, y 320px para verticales.
+* `\--resize-h` = Redimensiona las imágenes cuadradas u horizontales con el tamaño especificado.
+* `\--resize-v` = Redimensiona las imágenes verticales con el tamaño especificado.
+* `\--compress` = Comprime las imágenes.
 * `\--no-alphabet` = Evita añadir letras del alfabeto en la lista de términos, dejando un espacio en su lugar.
 * `\--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
 * `\--no-legacy` = Evita la conversión de +++EPUB+++ a una versión anterior.
