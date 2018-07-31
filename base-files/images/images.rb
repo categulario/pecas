@@ -25,10 +25,10 @@ total_size_new = 0
 images = []
 image_formats = [
     'aai','ai','bmp','bmp2','bmp3','cmyk','cmyka','epi','eps','eps2',
-    'eps3','epsf','epsi','ept','ept2','ept3','gif','gif87','hdr','icb',
-    'ico','icon','ipl','jpe','jpeg','jpg','jpm','jps','jpt','picon',
-    'pjpeg','png','png00','png24','png32','png48','png64','png8','pnm','ppm',
-    'ps','ps2','ps3','psb','psd','ptif','tif','tiff','tiff64',
+    'eps3','epsf','epsi','ept','ept2','ept3','hdr','icb','ico','icon',
+    'ipl','jpe','jpeg','jpg','jpm','jps','jpt','picon','pjpeg','png',
+    'png00','png24','png32','png48','png64','png8','pnm','ppm','ps','ps2',
+    'ps3','psb','psd','ptif','tif','tiff','tiff64',
 ]
 
 # Comprueba y obtiene la ruta absoluta a la carpeta

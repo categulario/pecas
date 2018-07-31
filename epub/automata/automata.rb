@@ -35,6 +35,10 @@ seccion = argumento "--section", seccion, 1
 rotacion = argumento "--rotate", rotacion, 1
 with_indexes = argumento "--with-indexes", init, 1
 two_columns = argumento "--two-columns", init, 1
+resize = argumento "--resize", resize, 1
+resize_h = if argumento "--resize-h", resize_h != nil then argumento "--resize-h", resize_h else nil end
+resize_v = if argumento "--resize-v", resize_v != nil then argumento "--resize-v", resize_v else nil end
+compress = argumento "--compress", compress, 1
 overwrite = argumento "--overwrite", overwrite, 1
 no_legacy = argumento "--no-legacy", no_legacy, 1
 no_analytics = argumento "--no-analytics", no_analytics, 1
@@ -271,6 +275,11 @@ else
 	
 	# Creación del proyecto EPUB
 	ejecutar "\n# pc-creator", "ruby #{File.dirname(__FILE__)+ "/../creator/creator.rb"} -o #{$l_au_epub_nombre} #{parametro portada, "-c"} #{parametro imagenes, "-i"} #{parametro archivos_xhtml, "-x"} #{parametro archivos_js, "-j"} #{parametro archivos_fbk, "--fallbacks"} #{parametro css, "-s"} #{if no_preliminares then "--no-pre" end}"
+
+	# Redimensión de las imágenes
+    if resize != nil || compress != nil || resize_h != nil || resize_v != nil
+    	ejecutar "\n# pc-images", "ruby #{File.dirname(__FILE__)+ "/../../base-files/images/images.rb"} -i '#{Dir.pwd + '/epub/OPS/img'}' #{compress ? '--compress' : ''} #{resize ? '--resize' : ''} #{parametro resize_h, "--resize-h"} #{parametro resize_v, "--resize-v"}"
+    end
 	
 	# División del archivo XHTML
 	ejecutar "\n# pc-divider", "ruby #{File.dirname(__FILE__)+ "/../divider/divider.rb"} -f #{arregloRutaTerminal xhtml} -d #{$l_au_epub_nombre}/OPS/xhtml -s #{$l_au_epub_nombre}/OPS/css/styles.css #{parametro indice, "-i"} #{if seccion then "--section" end}"
