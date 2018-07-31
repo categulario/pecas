@@ -64,6 +64,16 @@ analytics:
   advertencia_deep: "En el JSON o YAML estará el análisis profundo…"
   error_general: "\nNo fue posible analizar el archivo, revisa si su estructura es válida."
 
+# pc-images
+images:
+  h: "\nImages redimensiona o comprime distintos tipos de imágenes.\n\nDependencias opcionales:\n  imagemagick\n\nUso:\n  pc-images\n\nParámetros opcionales:\n  -i = [images] Ruta a la carpeta con las imágenes.\n  --resize = Redimensiona las imágenes con un tamaño predeterminado de 640px para cuadradas u horizontales, y 320px para verticales.\n  --resize-h = Redimensiona las imágenes cuadradas u horizontales con el tamaño especificado.\n  --resize-v = Redimensiona las imágenes verticales con el tamaño especificado.\n  --compress = Comprime las imágenes.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-images --resize\n  Redimensiona todas las imágenes en el directorio actual a los tamaños por defecto.\n\nEjemplo con compresión:\n  pc-images --resize --compress\n  Semejante al ejemplo anterior pero además comprime las imágenes.\n\nEjemplo con solo un tipo de redimensión:\n  pc-images --resize-h 768\n  Redimensiona solo las imágenes cuadradas u horizontales en el directorio actual a 768px de ancho.\n\nNota: la altura de las imágenes siempre es relativa a su anchura."
+  analizando: ["Analizando «", "»…"]
+  redimensionando: ["  Redimensionado de ", " a ~", "…"]
+  comprimiendo: "  Comprimiendo…"
+  total: ["Tamaño original de las imágenes: ", " MB.\nTamaño actual de las imágenes: ", " MB.\nAhorro aproximado: ", " MB."]
+  error_nulo: "\nNo se ha indicado qué hacer con las imágenes."
+  error_unidad: "\nLa unidad no puede ser igual o menor a 0."
+
 # pc-pandog
 pandog: 
   h: "\nPandog convierte entre archivos MD, HTML, HTM, XHTML, XML, JSON, TeX, EPUB, ODT o DOCX, estos tres últimos tipos a través de Pandoc.\n\nDependencias opcionales:\n  pandoc\n\nUso:\n  pc-pandog -i [nombre del archivo de entrada] -o [nombre del archivo de salida]\n\nParámetros necesarios:\n  -i = [input] Nombre del archivo a convertir.\n  -o = [output] Nombre para el archivo que se creará; si no se indica alguna ruta, el archivo se creará en el mismo directorio del archivo de entrada.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo:\n  pc-pandog -i directorio/al/archivo.md -o archivo.xhtml\n  Crea un archivo XHTML a partir de «archivo.md» presente en «directorio/al»."

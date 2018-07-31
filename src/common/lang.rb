@@ -132,6 +132,16 @@ $l_an_advertencia_linkchecker = $langObj["analytics"]["advertencia_linkchecker"]
 $l_an_advertencia_deep = $langObj["analytics"]["advertencia_deep"]
 $l_an_error_general = $langObj["analytics"]["error_general"].red.bold
 
+# Images
+$l_im_v = obtener_version
+$l_im_h = $langObj["images"]["h"]
+$l_im_analizando = $langObj["images"]["analizando"]
+$l_im_redimensionando = $langObj["images"]["redimensionando"]
+$l_im_comprimiendo = $langObj["images"]["comprimiendo"].green
+$l_im_total = $langObj["images"]["total"]
+$l_im_error_nulo = $langObj["images"]["error_nulo"].red.bold
+$l_im_error_unidad = $langObj["images"]["error_unidad"].red.bold
+
 # Pandog
 $l_pg_v = obtener_version
 $l_pg_h = $langObj["pandog"]["h"]
