@@ -26,6 +26,9 @@ only_css = argumento "--only-css", only_css, 1
 argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
 
+# Variables
+font = 'bitter-otf'
+
 # Obtiene la ruta absoluta a algunas carpetas
 if epub_img then epub_img = File.absolute_path(epub_img) end
 if epub_xhtml then epub_xhtml = File.absolute_path(epub_xhtml) end
@@ -131,6 +134,9 @@ else
 		    adicion_archivos(epub_img, epub_ubicacion, "img", ["jpg","jpeg","gif","png","svg"])
 	    end
     end
+
+    # Copia la fuente
+    FileUtils.cp_r(File.dirname(__FILE__) + '/../../src/alien/fonts/' + font, './otf')
 
     # Crea la carpeta para el CSS
     Dir.mkdir "css"

@@ -178,11 +178,14 @@ def create_html path
     html.each do |l|
         if l =~ /<head>/
             write = false
-            new_html.push($head.join("\n"))
+            if html_name !~ /^index/
+                new_html.push($head.join("\n"))
+            else
+                new_html.push($head.join("\n").gsub('<link type="text/css" rel="stylesheet" href="../css/styles.css">', '<link type="text/css" rel="stylesheet" href="css/styles.css">'))
+            end
         elsif l =~ /<\/head>/
             write = true
         elsif l =~ /<style>/
-            new_html.push(l)
             if html_name !~ /^index/
                 new_html.push($header.join("\n"))
             else
@@ -229,3 +232,8 @@ Dir.glob('./md/*').each do |f|
         create_html(f.gsub(/^\.\//,''))
     end
 end
+
+# Crea los estilos por defecto
+FileUtils.rm('css/styles.css')
+Dir.chdir('css')
+system("pc-creator --only-css")

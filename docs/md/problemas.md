@@ -1,4 +1,4 @@
-# Solución de problemas
+# Solución de problemas / +++FAQ+++
 
 Hay ocasiones donde el uso o instalación de Pecas es un poco conflictivo.
 Aquí están los problemas más comunes y sus soluciones.
@@ -9,6 +9,7 @@ Aquí están los problemas más comunes y sus soluciones.
   * [Pecas no puede instalarse: `El fichero ya existe`](#pecas-no-puede-instalarse-el-fichero-ya-existe)
   * [Uso de EpubCheck para verificar +++EPUB+++](#uso-de-epubcheck-para-verificar-epub)
   * [Uso de Ace para verificar +++EPUB+++](#uso-de-ace-para-verificar-epub)
+  * [¿Cuál fuente usa Pecas por defecto?](#cual-fuente-usa-pecas-por-defecto)
 * [En Linux](#en-linux)
   * [Error con `pc-tiff2pdf`: `tiffcp: no se encontró la orden`](#error-con-pctiff2pdf-tiffcp-no-se-encontro-la-orden)
 * [En Mac](#en-mac)
@@ -75,6 +76,11 @@ Para cualquier problema relacionado a su instalación, revisa [esta enlace](http
 
 > Nota: su instalación solo es recomendable. Pecas puede usarse sin su
 > presencia.
+
+### ¿Cuál fuente usa Pecas por defecto?
+
+Pecas apoya al movimiento de [tipografías abiertas](https://es.wikipedia.org/wiki/SIL_Open_Font_License).
+La serifa utilizada es [Bitter ht](https://www.huertatipografica.com/es/fonts/bitter-ht) de [Sol Matas](https://twitter.com/tullida).
 
 ## En Linux {.espacio-arriba3}
 

@@ -1,13 +1,4 @@
-#!/usr/bin/env ruby
-# encoding: UTF-8
-# coding: UTF-8
-
-Encoding.default_internal = Encoding::UTF_8
-
-# Funciones y módulos comunes a todas las herramientas
-require File.dirname(__FILE__) + "/../common/lang.rb"
-
-$css_template = "/**************************************************/
+/**************************************************/
 /******************* RESETEADOR *******************/
 /**************************************************/
 
@@ -69,22 +60,22 @@ table {
 /* Fuentes */
 
 @font-face {
-    font-family: \"Bitter Regular\";
+    font-family: "Bitter Regular";
     src: url(../otf/bitter-regular.otf);
 }
 
 @font-face {
-    font-family: \"Bitter Italic\";
+    font-family: "Bitter Italic";
     src: url(../otf/bitter-italic.otf);
 }
 
 @font-face {
-    font-family: \"Bitter Bold\";
+    font-family: "Bitter Bold";
     src: url(../otf/bitter-bold.otf);
 }
 
 @font-face {
-    font-family: \"Bitter BoldItalic\";
+    font-family: "Bitter BoldItalic";
     src: url(../otf/bitter-bolditalic.otf);
 }
 
@@ -137,7 +128,7 @@ section + section {
 /* Headers / Encabezados */
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Regular", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-bottom: 1em;
     text-align: left;
     font-size: 1em;
@@ -161,12 +152,12 @@ h1 {
 }
 
 h3, h5 {
-    font-family: \"Bitter Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Italic", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-style: italic;
 }
 
 h6 {
-    font-family: \"Bitter Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Bold", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-weight: bold;
 }
 
@@ -185,7 +176,7 @@ h2.subtitle, h2.subtitulo {
 /* Paragraphs / Párrafos */
 
 p, blockquote, li, figcaption, details, aside {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Regular", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 1em;
     text-align: justify;
     line-height: 1.5em;
@@ -278,12 +269,12 @@ blockquote, blockquote > * {
 /* Font effects / Efectos en las fuentes */
 
 i, em {
-    font-family: \"Bitter Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Italic", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-style: italic;
 }
 
 b, strong {
-    font-family: \"Bitter Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Bold", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-weight: bold;
 }
 
@@ -291,7 +282,7 @@ i > b, b > i,
 em > strong, strong > em,
 i > strong, strong > i,
 em > b, b > em {
-    font-family: \"Bitter BoldItalic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter BoldItalic", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 .initial, .capitular {
@@ -318,7 +309,7 @@ em > b, b > em {
     hyphens: auto;
 }
 
-@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle: <span class=\"versalita\">ACRÓNIMO</span> */
+@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle: <span class="versalita">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: lowercase;
         font-variant: small-caps;
@@ -330,7 +321,7 @@ em > b, b > em {
     }
 }
 
-@media amzn-mobi {    /* For Kindle because the “font-variant” property isn't supported / Para Kindle ya que no soporta la propiedad «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
+@media amzn-mobi {    /* For Kindle because the “font-variant” property isn't supported / Para Kindle ya que no soporta la propiedad «font-variant»: <span class="versalita">ACRÓNIMO</span> */
     .smallcap, .versalita {
         text-transform: uppercase;
         font-size: .8em;
@@ -402,15 +393,15 @@ ul.dash > li:before, ul.en-dash > li:before, ul.em-dash > li:before {
 }
 
 ul.dash > li:before {
-    content: \"-\";
+    content: "-";
 }
 
 ul.en-dash > li:before {
-    content: \"–\";
+    content: "–";
 }
 
 ul.em-dash > li:before {
-    content: \"—\";
+    content: "—";
 }
 
 li.no-count {
@@ -433,7 +424,7 @@ figure {
 }
 
 figcaption {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: "Bitter Regular", Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: .5em;
     font-size: .9em;
 }
@@ -486,7 +477,7 @@ sub {
 /* Code / Código (inspirados en https://codepen.io/elomatreb/pen/hbgxp)*/
 
 code {
-    font-family: \"Courier New\", Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     background-color: #fff;
     padding: .125em .5em;
     border: 1px solid #ddd;
@@ -495,7 +486,7 @@ code {
 
 pre {
     width: 90%;
-    font-family: \"Courier New\", Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     background-color: #fff;
     margin: 2em auto;
     padding: .5em;
@@ -544,7 +535,7 @@ pre code:before {
 
 @media amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
     pre code:before {
-        content: \"•\";
+        content: "•";
     }
 }
 
@@ -563,7 +554,7 @@ span.gloss, span.glosa {
     font-size: .75em;
 }
 
-/* Poetry / Poesía: <p class=\"poetry\">Verse 1<br />verse 2<br />verse 3.</p>*/
+/* Poetry / Poesía: <p class="poetry">Verse 1<br />verse 2<br />verse 3.</p>*/
 
 .poetry, .poesia {
     margin: 1em 1.5em;
@@ -579,7 +570,7 @@ span.gloss, span.glosa {
 
 .mono, 
 section.script *, section.guion * {
-    font-family: \"Courier New\", Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
 }
 
 section.script *, section.guion * {
@@ -703,12 +694,12 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 
 /* Footnotes / Notas al pie */
 
-.#{$l_no_nota_sup} {
+.n-note-sup {
     font-style: normal;
     font-weight: normal;
 }
 
-.#{$l_no_nota_hr} {
+.n-note-hr {
     margin-top: 2em;
     width: 25%;
     margin-left: 0;
@@ -716,51 +707,51 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     background-color: blue;
 }
 
-.#{$l_no_nota_a} {
+.n-note-a {
     display: block;
     margin-left: -3em;
     margin-bottom: -1.375em;
 }
 
-.#{$l_no_nota_sup}:before, .#{$l_no_nota_a}:before {
-    content: \"[\";
+.n-note-sup:before, .n-note-a:before {
+    content: "[";
     color: #0000EE;
 }
 
-.#{$l_no_nota_sup}:after, .#{$l_no_nota_a}:after {
-    content: \"]\";
+.n-note-sup:after, .n-note-a:after {
+    content: "]";
     color: #0000EE;
 }
 
-.#{$l_no_nota_p}, .#{$l_no_nota_p2} {
+.n-note-p, .n-note-p2 {
     margin-left: 3em;
     font-size: .9em;
     text-indent: 0;
 }
 
-* + .#{$l_no_nota_p} {
+* + .n-note-p {
     margin-top: 1em;
     text-indent: 0;
 }
 
-.#{$l_no_nota_p2} {
+.n-note-p2 {
     margin-top: 0;
     text-indent: 1.5em;
 }
 
 /* Indexes / Índices analíticos */
 
-.#{$l_in_item_section} p {
+.i-item-section p {
     margin-top: .5em !important;
 }
 
-.#{$l_in_item_div} > h2:first-child, .#{$l_in_item_div2} > h2:first-child {
+.i-item-div > h2:first-child, .i-item-div-single > h2:first-child {
     margin-top: 0;
 }
 
 @media screen and (min-width:768px) {
     @media not amzn-mobi {
-        .#{$l_in_item_div} {
+        .i-item-div {
             column-count: 2;
             column-gap: 2em;
             column-rule: solid 1px lightgray;
@@ -768,13 +759,13 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
     }
 }
 
-.#{$l_in_item_a}:before {
-    content: \"[\";
+.i-item-a:before {
+    content: "[";
     color: #0000EE;
 }
 
-.#{$l_in_item_a}:after {
-    content: \"]\";
+.i-item-a:after {
+    content: "]";
     color: #0000EE;
 }
 
@@ -797,19 +788,3 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 /* Styles for this edition / Estilos de esta edición */
 
 /* ADD HERE CUSTOM STYLES / AGREGAR ESTILOS PERSONALIZADOS */
-"
-
-# Plantilla minificada
-$css_template_min = $css_template
-                        .gsub(/\/\*.*?\*\//,"")                 # Elimina los comentarios
-                        .gsub(/^\s+/, "")                       # Elimina espacios al inicio de la línea
-                        .gsub(/,\s+/,",").gsub(/\s+,\s+/,",")   # Elimina los espacios entre comas
-                        .gsub(/:\s+/,":").gsub(/\s+:\s+/,":")   # Elimina los espacios entre dos puntos
-                        .gsub(/\s+{\s+/,"{").gsub(/{\s+/,"{")   # Elimina los espacios entre corchetes
-                        .gsub(/}\s+/,"}").gsub(/\s+}\s+/,"}")   # Elimina los espacios entre corchetes
-                        .gsub(/;\s+/,";").gsub(/\s+;\s+/,";")   # Elimina los espacios entre puntos y coma
-                        .gsub(/\s+\+\s+/, "+")                  # Elimina espacios entre el operador «+»
-                        .gsub(/\s+>\s+/, ">")                   # Elimina espacios entre el operador «>»
-                        .gsub(/\s+~\s+/, "~")                   # Elimina espacios entre el operador «~»
-                        .gsub(/\s+/," ")                        # Elimina los dobles espacios como precaución
-                        .gsub(/\n/,"")                          # Elimina los saltos de línea como precaución
