@@ -237,3 +237,37 @@ end
 FileUtils.rm('css/styles.css')
 Dir.chdir('css')
 system("pc-creator --only-css")
+
+# Va al directorio de los man
+Dir.chdir('../man/man1')
+
+# Crea los archivos man
+puts "Creando archivos man con Pandoc…"
+Dir.glob('../../md/*').each do |f|
+    if File.basename(f) =~ /^pc-/
+        array = []
+
+        # Copia el archivo MD
+        FileUtils.cp(f, '.')
+
+        # Depura el archivo MD
+        archivo = File.open(File.basename(f), 'r:UTF-8')
+        archivo.each do |l|
+            if l !~ /^Nota/ && l !~ /^---/
+                array.push(l.gsub(/\s*?{.*?}\s*$/,'').gsub(/^\* /,"\n").gsub(/\+\+\+(.+?)\+\+\+/,'\1').gsub('```','').gsub('\\',''))
+            end
+	    end
+        archivo.close
+
+        # Guarda los cambios
+	    archivo = File.new(File.basename(f), 'w:UTF-8')
+	    archivo.puts array
+	    archivo.close
+
+        # Crea al fin el man
+        system("pandoc -s -f markdown-smart -t man -V section:#{File.basename(f, '.*')} -V header:Pecas #{File.basename(f, '.*')}.md -V footer:\"Véase también: #{File.basename(f, '.*')} -h\" -o #{File.basename(f, '.*')}.1")
+
+        # Elimina el MD porque ya no es necesario
+        FileUtils.rm(File.basename(f))
+    end
+end
