@@ -15,11 +15,11 @@ SCRIPT_PATH=`pwd`;
 popd  > /dev/null
 
 # Para generar la ruta a la carpeta bin
-SCRIPT_PATH="${SCRIPT_PATH}/bin"
+SCRIPT_PATH_PECAS="${SCRIPT_PATH}/bin"
 
 # Sustituye los espacios en la ruta
 space="\\ "
-SCRIPT_PATH=${SCRIPT_PATH// /$space}
+SCRIPT_PATH_PECAS=${SCRIPT_PATH_PECAS// /$space}
 
 # Para localizar dónde se encuentra el perfil; viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if [[ -f ~/.bash_profile ]]; then
@@ -46,7 +46,7 @@ fi
 if ! grep PECAS_ROOT "$profile_script_full" &> /dev/null; then
     echo "" >> $profile_script_full
     echo "# Pecas" >> $profile_script_full
-    echo "export PECAS_ROOT=$SCRIPT_PATH" >> $profile_script_full
+    echo "export PECAS_ROOT=$SCRIPT_PATH_PECAS" >> $profile_script_full
     echo "export PATH=\$PECAS_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
 
@@ -57,27 +57,38 @@ else
     echo "=> Al parecer ya se han agregado las herramientas de Pecas a $profile_script_short."
 fi
 
-# Para obtener la ruta absoluta del repositorio; viene de http://stackoverflow.com/questions/59895/can-a-bash-script-tell-which-directory-it-is-stored-in
-SCRIPT_PATH="${BASH_SOURCE[0]}";
-if ([ -h "${SCRIPT_PATH}" ]) then
-    while([ -h "${SCRIPT_PATH}" ]) do SCRIPT_PATH=`readlink "${SCRIPT_PATH}"`; done
-fi
-pushd . > /dev/null
-cd `dirname ${SCRIPT_PATH}` > /dev/null
-SCRIPT_PATH=`pwd`;
-popd  > /dev/null
-
 # Para generar la ruta a la carpeta bin
-SCRIPT_PATH="${SCRIPT_PATH}/src/alien/epubcheck/bin"
+SCRIPT_PATH_MAN="${SCRIPT_PATH}/docs/man"
 
 # Sustituye los espacios en la ruta
 space="\\ "
-SCRIPT_PATH=${SCRIPT_PATH// /$space}
+SCRIPT_PATH_MAN=${SCRIPT_PATH_MAN// /$space}
+
+# La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
+if ! grep PECAS_MAN "$profile_script_full" &> /dev/null; then
+    echo "# Pecas (manual)" >> $profile_script_full
+    echo "export PECAS_MAN=$SCRIPT_PATH_MAN" >> $profile_script_full
+    echo "export PATH=\$PECAS_MAN:\$PATH" >> $profile_script_full
+    echo "" >> $profile_script_full
+
+    source $profile_script_full
+
+    echo "=> Se ha agregado el manual de Pecas a $profile_script_short."
+else
+    echo "=> Al parecer ya se ha el manual de Pecas a $profile_script_short."
+fi
+
+# Para generar la ruta a la carpeta bin
+SCRIPT_PATH_EPUBCHECK="${SCRIPT_PATH}/src/alien/epubcheck/bin"
+
+# Sustituye los espacios en la ruta
+space="\\ "
+SCRIPT_PATH_EPUBCHECK=${SCRIPT_PATH_EPUBCHECK// /$space}
 
 # La condición también viene de https://github.com/NikaZhenya/sexy-bash-prompt/blob/master/install.bash
 if ! grep EPUBCHECK_ROOT "$profile_script_full" &> /dev/null; then
     echo "# EpubCheck" >> $profile_script_full
-    echo "export EPUBCHECK_ROOT=$SCRIPT_PATH" >> $profile_script_full
+    echo "export EPUBCHECK_ROOT=$SCRIPT_PATH_EPUBCHECK" >> $profile_script_full
     echo "export PATH=\$EPUBCHECK_ROOT:\$PATH" >> $profile_script_full
     echo "" >> $profile_script_full
 
