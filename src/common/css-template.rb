@@ -98,7 +98,7 @@ body {
     margin: -4em;
 }
 
-@media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
+@media amzn-mobi, amzn-kf8 {    /* For Kindle because it generates a lot of margin / Para Kindle porque genera mucho margen */
     body {
         margin: 0;
     }
@@ -117,7 +117,7 @@ body {
         margin: -5em;
     }
 
-    @media amzn-mobi {    /* For Mobi, Kindle Fire generates a lot of margin / Para Mobi ya que Kindle Fire genera mucho margen */
+    @media amzn-mobi, amzn-kf8 {    /* For Kindle because it generates a lot of margin / Para Kindle porque genera mucho margen */
         body {
             margin: 0;
         }
@@ -309,7 +309,7 @@ em > b, b > em {
     font-variant: none;
 }
 
-.smallcap-light, .versalita-ligera { /* In Kindle the small-caps won't work because it doesn't support “font-variant” property / En Kindle no funcionarán las versalitas porque no soporta la propiedad «font-variant» */
+.smallcap-light, .versalita-ligera {
     font-variant: small-caps;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -318,28 +318,14 @@ em > b, b > em {
     hyphens: auto;
 }
 
-@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle: <span class=\"versalita\">ACRÓNIMO</span> */
-    .smallcap, .versalita {
-        text-transform: lowercase;
-        font-variant: small-caps;
-        -moz-hyphens: auto;
-        -webkit-hyphens: auto;
-        -o-hyphens: auto;
-        -ms-hyphens: auto;
-        hyphens: auto;
-    }
-}
-
-@media amzn-mobi {    /* For Kindle because the “font-variant” property isn't supported / Para Kindle ya que no soporta la propiedad «font-variant»: <span class=\"versalita\">ACRÓNIMO</span> */
-    .smallcap, .versalita {
-        text-transform: uppercase;
-        font-size: .8em;
-        -moz-hyphens: auto;
-        -webkit-hyphens: auto;
-        -o-hyphens: auto;
-        -ms-hyphens: auto;
-        hyphens: auto;
-    }
+.smallcap, .versalita {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -o-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 .underline, .subrayado {
@@ -353,7 +339,7 @@ em > b, b > em {
     margin-right: auto;
 }
 
-@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+@media not amzn-mobi, not amzn-kf8 {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
     .auto-width, .anchura-auto {
         max-width: 100%;
     }
@@ -526,7 +512,7 @@ pre code:before {
     color: #888;
 }
 
-@media not amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+@media not amzn-mobi, not amzn-kf8 {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
     pre {
         counter-reset: line;
         overflow: scroll;
@@ -542,7 +528,7 @@ pre code:before {
     }
 }
 
-@media amzn-mobi {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
+@media amzn-mobi, amzn-kf8 {    /* Only for Kindle / Solo para Kindle */
     pre code:before {
         content: \"•\";
     }
@@ -759,7 +745,7 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 }
 
 @media screen and (min-width:768px) {
-    @media not amzn-mobi {
+    @media not amzn-mobi, not-amzn-kf8 {    /* For any device except Kindle / Para cualquier dispositivo excepto Kindle */
         .#{$l_in_item_div} {
             column-count: 2;
             column-gap: 2em;
