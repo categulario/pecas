@@ -866,6 +866,31 @@ end
 # Va a la carpeta para iniciar la compresión
 Dir.chdir(carpeta)
 
+# Indaga si se ha de cambiar el lenguaje en los metadatos
+if yaml['language'] != nil
+    Dir.glob(Dir.pwd + '/**/*.{html,xhtml,opf,ncx}') do |file|
+        file_updated = Array.new
+        
+        # Analiza el archivo viejo y sustituye la línea deseada
+        file_open = File.open(file, 'r:UTF-8')
+        file_open.each do |line|
+            if line =~ /^\s*?<html/ || line =~ /^\s*?<ncx/ || line =~ /^\s*?<package/
+                file_updated.push(line.gsub('lang="es"','lang="' + yaml['language'] + '"'))
+            elsif line =~ /^\s*?<dc:language/
+                file_updated.push(line.gsub(/<dc:language>.*?<\/dc:language>/,'<dc:language>' + yaml['language'] + '</dc:language>'))
+            else
+                file_updated.push(line)
+            end
+        end
+        file_open.close
+        
+        # Se actualiza la información
+        file_open = File.new(file, 'w:UTF-8')
+        file_open.puts file_updated
+        file_open.close
+    end
+end
+
 # Crea el EPUB
 puts "#{$l_re_creando_epub[0] + espacio + $l_re_creando_epub[1] + carpeta + $l_re_creando_epub[2] + File.basename(rutaEpub) + $l_re_creando_epub[3]}".green
 system ("zip \"#{rutaEpub}\" -X mimetype -q")
