@@ -23,6 +23,7 @@ author:
 publisher:
 synopsis: 
 category: 
+language: es
 version: 1.0.0
 cover: 
 navigation: nav.xhtml
@@ -67,6 +68,7 @@ hazard:
   * `publisher` : `Array` : `nil` : Institución u organización que editó la obra. 
   * `synopsis` : `String` : `nil` : Reseña de la obra. 
   * `category` : `Array` : `nil` : Categoría de la obra; p. ej., `Ficción` y `Novela`. 
+  * `language` : `String` : `es` : Idioma de la obra en formato [+++ISO+++ 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes): p. ej., `en` para inglés y `pt` para portugués.
   * `version` : `String` : `1.0.0` : Versión de la obra. Este dato no es visible para el usuario. 
   * `cover` : `String` : `nil` : Portada de la obra con su extensión de archivo (no introducir la ruta completa); p. ej., `portada.jpg`. Permite que se vea la miniatura de la portada en el lector de EPUB. 
   * `navigation` : `String` : `nav.xhtml` : Archivo XHTML para la tabla de contenidos.
