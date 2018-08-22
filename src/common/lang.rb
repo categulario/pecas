@@ -7,10 +7,14 @@ require 'yaml'
 Encoding.default_internal = Encoding::UTF_8
 
 # Especifica el lenguaje a usar
-$lang = "es"
+$lang = `echo $LANG` != nil ? `echo $LANG`[0..1] : 'es'
 
 # Obtiene el YAML
-$langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
+begin
+    $langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/#{$lang}.yaml")
+rescue
+    $langObj = YAML.load_file(File.dirname(__FILE__) + "/lang/es.yaml")
+end
 
 # Para colorear el texto; viene de: http://stackoverflow.com/questions/1489183/colorized-ruby-output
 class String
