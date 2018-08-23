@@ -70,22 +70,22 @@ table {
 
 @font-face {
     font-family: \"Bitter Regular\";
-    src: url(../otf/bitter-regular.otf);
+    src: url(../ttf/bitter-regular.ttf);
 }
 
 @font-face {
     font-family: \"Bitter Italic\";
-    src: url(../otf/bitter-italic.otf);
+    src: url(../ttf/bitter-italic.ttf);
 }
 
 @font-face {
     font-family: \"Bitter Bold\";
-    src: url(../otf/bitter-bold.otf);
+    src: url(../ttf/bitter-bold.ttf);
 }
 
 @font-face {
     font-family: \"Bitter BoldItalic\";
-    src: url(../otf/bitter-bolditalic.otf);
+    src: url(../ttf/bitter-bolditalic.ttf);
 }
 
 /* Body / Cuerpo */

@@ -27,7 +27,7 @@ argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
 
 # Variables
-font = 'bitter-otf'
+font = 'bitter-ttf'
 
 # Obtiene la ruta absoluta a algunas carpetas
 if epub_img then epub_img = File.absolute_path(epub_img) end
@@ -136,7 +136,7 @@ else
     end
 
     # Copia la fuente
-    FileUtils.cp_r(File.dirname(__FILE__) + '/../../src/alien/fonts/' + font, './otf')
+    FileUtils.cp_r(File.dirname(__FILE__) + '/../../src/alien/fonts/' + font, './ttf')
 
     # Crea la carpeta para el CSS
     Dir.mkdir "css"
