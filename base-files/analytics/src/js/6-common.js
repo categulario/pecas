@@ -86,7 +86,8 @@ function wordcloud () {
     fillColor = d3.scale.category20b()
     w = parseInt(wordcloud_div.offsetWidth)
     h = parseInt((wordcloud_div.offsetWidth / 4) * 3) // Ratio 4:3
-    scale = parseInt(wordcloud_div.offsetWidth / 100) >= 8 ? 2 : 10 - (wordcloud_div.offsetWidth / 100)
+    max_size = words[0].size
+    max_fontSize = parseInt((h * 0.1) * 1.5) // 1.5 times 1/10 of the wordcloud height
     min_rotate = rotation ? -60 : 0 // 90° to 150° (-60°)
     max_rotate = rotation ? 30 : 0  // 30° to 90°
 
@@ -122,10 +123,10 @@ function wordcloud () {
     d3.layout.cloud().size([w, h])
         .words(words)
         .spiral('archimedean')
-        .padding(2)
+        .padding(1)
         .rotate(function() { return Math.random() * (max_rotate - min_rotate) + min_rotate })     
         .font('Impact')
-        .fontSize(function(d) { return d.size / scale })
+        .fontSize(function(d) { return (d.size * max_fontSize) / max_size })
         .on('end', draw)
         .start()
 }
