@@ -207,13 +207,19 @@ elsif $ext_i == '.md' && $ext_o == '.json'
     puts $l_pg_iniciando
     md_to_json
 # JSON => MD / HTML / HTM / XHTML / XML
-elsif $ext_i == ".json" && ($ext_o == ".md" || $ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
+elsif $ext_i == '.json' && ($ext_o == '.md' || $ext_o == '.html' || $ext_o == '.htm' || $ext_o == '.xhtml' || $ext_o == '.xml')
     puts $l_pg_iniciando
     json_to_html_md
 # Resto
 else
     puts $l_pg_iniciando_pandoc
-  	`pandoc #{arregloRutaTerminal(define_path($pandog_i))} -o #{arregloRutaTerminal(define_path($pandog_o))}`
+    # DOCX => MD
+    if $ext_i == '.docx' && $ext_o == '.md'
+      	`pandoc --atx-headers #{arregloRutaTerminal(define_path($pandog_i))} -o #{arregloRutaTerminal(define_path($pandog_o))}`
+    # Resto
+    else
+      	`pandoc #{arregloRutaTerminal(define_path($pandog_i))} -o #{arregloRutaTerminal(define_path($pandog_o))}`
+    end
 end
 
 puts $l_g_fin
