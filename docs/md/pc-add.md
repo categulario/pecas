@@ -25,8 +25,8 @@ pc-add --add [tipo]
 
 * `css` = Hoja de estilo actual de Pecas.
 * `css-legacy` = Hoja de estilo antigua de Pecas.
-* `poetry` = Script que posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.
-* `zoom` = Script que posibilita el aumento o disminución del tamaño de la tipografía en +++EPUB+++ de diseño fijo.
+* `js-poetry` = Script que posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.
+* `js-zoom` = Script que posibilita el aumento o disminución del tamaño de la tipografía en +++EPUB+++ de diseño fijo.
 
 ## Ejemplo sencillo:
 

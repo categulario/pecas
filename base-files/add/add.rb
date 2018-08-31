@@ -28,15 +28,16 @@ comprobacion [add]
 if directory[-1] == '/' then directory = directory[0..-2] end
 
 # Añade la hoja de estilo CSS actual
-if add == 'css' || add == 'css-legacy'
+if add =~ /^css/
     puts "#{$l_ad_anadiendo_css[0] + if add.split('-').last != 'css' then ' ' + add.split('-').last else '' end + $l_ad_anadiendo_css[1]}"
 	archivo = File.new(directory + '/' + 'styles.css', 'w:UTF-8')
 	if add == 'css' then archivo.puts $css_template else archivo.puts $css_template_legacy end
 	archivo.close
 # Añade algún script de JavaScript
-elsif add == 'poetry' || add == 'zoom'
-    puts "#{$l_ad_anadiendo_js[0] + add + $l_ad_anadiendo_js[1]}".green
-    FileUtils.cp(js + add + '.js', directory)
+elsif add =~ /^js/
+    js_final = add.split('js-').last
+    puts "#{$l_ad_anadiendo_js[0] + js_final + $l_ad_anadiendo_js[1]}".green
+    FileUtils.cp(js + js_final + '.js', directory)
 end
 
 puts $l_g_fin
