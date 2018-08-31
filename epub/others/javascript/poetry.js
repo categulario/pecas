@@ -4,27 +4,27 @@
 
     Hasta el final existen las siquientes opciones:
     
-    1. poetry.clase
-        Indica los elementos HTML que empleará el script. 
-        Por defecto no tiene clase y toma los elementos <p>.
-    2. poetry.claseVerso
+    1. poetry.claseVerso
 		Indica la clase que se ha de agregar a cada verso
 		de manera automática. Por defecto es "py-v".
-    3. poetry.clasePalabra
+    2. poetry.clasePalabra
         Indica la clase que se ha de agregar a cada palabra
 		de manera automática. Por defecto es "py-w".
-	4. poetry.claseCorte
+	3. poetry.claseCorte
 		Indica la clase que se ha de agregar a cada verso
 		cortado de manera automática. Por defecto es "py-b".
-	5. poetry.claseContenido
+	4. poetry.claseContenido
 		Indica la clase que se ha de agregar a cada contenido
 		inicial de manera automática. Por defecto es "py-c".
-	6. poetry.contenidoInicial
+	5. poetry.contenidoInicial
 		Indica el contenido que se ha de agregar antes del
 		corte de cada verso. Por defecto es "[".
-	7. poetry.estilo
+	6. poetry.estilo
 		Indica el estilo que se ha de agegar a cada verso
 		cortado. Por defecto es alineado a la derecha.
+    7. poetry.clase
+        Indica los elementos HTML que empleará el script. 
+        Por defecto la clase a la que se aplica es "poesia".
 	
 	En la estructura HTML un párrafo equivale a una estrofa
 	y cada verso se divide con un salto. Por ejemplo:
@@ -100,6 +100,7 @@ var poetry = {
 		//	Crea un iframe que ayudará a detectar los cambios de fuente
 		iframe = document.createElement("iframe");
 		iframe.id = poetry.iframe;
+        iframe.style.position = "absolute";
 		iframe.style.top = "0";
 		iframe.style.left = "0";
 		iframe.style.width = "100%";
@@ -161,7 +162,7 @@ var poetry = {
 					elementos;
 
 				//  Si la estrofa está adentro de una etiqueta, se toma en consideración lo que está contiene
-				if (etiqueta.children.length == 1 && etiqueta.children.localName != "br") {
+				if (etiqueta.children.length == 1 && etiqueta.children[0].localName != "br") {
 					elementos = etiqueta.children[0].innerHTML.split(/<\s*?br.*?>/);
 					etiquetaInterior = etiqueta.children[0].localName;
 				//  Si la estrofa está limpia, esta se toma en consideración
@@ -325,7 +326,7 @@ var poetry = {
 												return localizar(e.parentNode, p);
 											}
 										}
-										
+
 										quiebre.appendChild(localizar(conjunto[i], false));
 									}
 
@@ -408,12 +409,12 @@ var poetry = {
 
 //  Todo empezará hasta que se cargue el DOM
 window.addEventListener("load", function () {
-    // poetry.clase = "CLASE_CSS";
     // poetry.claseVerso = "CLASE_CSS";
     // poetry.clasePalabra = "CLASE_CSS";
     // poetry.claseCorte = "CLASE_CSS";
     // poetry.claseContenido = _"CLASE_CSS";
     // poetry.contenidoInicial = "CONTENIDO";
     // poetry.estilo = "CODIGO_CSS";
+    poetry.clase = "poesia";
     poetry.init();	// Aplica el script
 });
