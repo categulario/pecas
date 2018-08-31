@@ -117,6 +117,12 @@ $l_g_error_nombre = $langObj["general"]["error_nombre"].red.bold
 $l_g_error_opf = $langObj["general"]["error_opf"].red.bold
 $l_g_error_hash = $langObj["general"]["error_hash"].red.bold
 
+# Add
+$l_ad_v = obtener_version
+$l_ad_h = $langObj["add"]["h"]
+$l_ad_anadiendo_css = $langObj["add"]["anadiendo_css"]
+$l_ad_anadiendo_js = $langObj["add"]["anadiendo_js"]
+
 # Analytics
 $l_an_v = obtener_version
 $l_an_h = $langObj["analytics"]["h"]
@@ -199,7 +205,6 @@ $l_cr_xhtml_portada = $langObj["creator"]["xhtml_portada"]
 $l_cr_xhtml_portadilla = $langObj["creator"]["xhtml_portadilla"]
 $l_cr_xhtml_legal = $langObj["creator"]["xhtml_legal"]
 $l_cr_creando = $langObj["creator"]["creando"]
-$l_cr_creando2 = $langObj["creator"]["creando2"].green
 $l_cr_error_meta = $langObj["creator"]["error_meta"].red.bold
 
 # Divider

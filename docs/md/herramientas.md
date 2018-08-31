@@ -6,6 +6,7 @@
 
 ## Archivos madre
 
+* [`pc-add`](pc-add.html): añade plantillas +++CSS+++ o archivos JavaScript al proyecto.
 * [`pc-analytics`](pc-analytics.html): analiza archivos +++EPUB+++, +++XML+++, +++XHTML+++ o +++HTML+++ para un mayor cuidado editorial y técnico.
 * [`pc-images`](pc-images.html): redimensiona o comprime distintos tipos de imágenes.
 * [`pc-pandog`](pc-pandog.html): convierte entre archivos MD, +++HTML+++, +++HTM+++, +++XHTML+++, +++XML+++, +++JSON+++, TeX, +++EPUB+++, +++ODT+++ o +++DOCX+++, estos tres últimos tipos a través de Pandoc.

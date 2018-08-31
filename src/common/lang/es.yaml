@@ -45,6 +45,12 @@ general:
   error_hash: "\nAl parecer la notación de objetos no tiene la estructura necesaria para convertirlo a HTML."
   version: "\n\nSoftware bajo licencia GPLv3+: <https://gnu.org/licenses/gpl.html>.\nDocumentación: <http://pecas.cliteratu.re/>."
 
+# pc-add
+add:
+  h: "\nAdd añade plantillas CSS o archivos JavaScript al proyecto.\n\nUso:\n  pc-add --add [tipo]\n\nParámetro necesario:\n  --add = Elige qué tipo de archivo añadir al proyecto\n\nParámetro opcional:\n  -d = [directory] Directorio donde se desea añadir el archivo.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nTipos de archivos:\n  css = Hoja de estilo actual de Pecas.\n  css-legacy = Hoja de estilo antigua de Pecas.\n  poetry = Script que posibilita un control ortotipográfico cuando el verso excede el tamaño de la caja.\n  zoom = Script que posibilita el aumento o disminución del tamaño de la tipografía en EPUB de diseño fijo.\n\nEjemplo sencillo:\n  pc-add --add css\n  Agregará la hoja de estilo actual de Pecas en el directorio actual.\n\nEjemplo con directorio específico:\n  pc-add --add css -d directorio/especifico\n  Semejante al ejemplo anterior pero añadirá el archivo en «directorio/especifico».\n\nNota: ¿cómo implementar los archivos JavaScript?, consúltese la documentación de JavaScript en <http://pecas.cliteratu.re>."
+  anadiendo_css: ["Añadiendo hoja de estilo CSS", "…"]
+  anadiendo_js: ["Añadiendo script ", ".js…"]
+
 # pc-analytics
 analytics: 
   h: "\nAnalytics analiza archivos EPUB, XML, XHTML o HTML para un mayor cuidado editorial y técnico.\n\nDependencias opcionales:\n  hunspell\n  linkchecker\n\nUso:\n  pc-analytics -f [archivo]\n\nParámetro necesario:\n  -f = [file] Archivo EPUB, XML, XHTML o HTML a analizar.\n\nParámetros opcionales:\n  --deep = Realiza un análisis profundo del archivo.\n  --json = Crea una salida del análisis en formato JSON.\n  --yaml = Crea una salida del análisis en formato YAML.\n  --rotate = Permite rotación aleatoria de las palabras en la nube de palbras de 30° a 150°.\n\nParámetros únicos:\n  -v = [version] Muestra la versión.\n  -h = [help] Muestra esta ayuda.\n\nEjemplo sencillo:\n  pc-analytics -f directorio/al/archivo.epub\n  Analiza el «archivo.epub» y crea una salida HTML con el análisis básico, incluyendo una nube de palabras y una gráfica de pastel.\n\nEjemplo con análisis profundo:\n  pc-analytics -f directorio/al/archivo.epub --deep\n  Semejante al ejemplo anterior pero además crea un análisis profundo, solo visible en JSON o YAML; se crea un JSON si no se especificó «--json» o «--yaml».\n\nEjemplo con análisis profundo y rotación:\n  pc-analytics -f directorio/al/archivo.epub --deep --rotate\n  Semejante al ejemplo anterior pero además las palabras de la nube serán rotadas aleatoriamente, en lugar de permanecer horizontales.\n\nNota: ¿qué es un «análisis profundo»?, consúltese la documentación de YAML en <http://pecas.cliteratu.re>."
@@ -128,7 +134,6 @@ creator:
   xhtml_portadilla: "Portadilla"
   xhtml_legal: "Legal"
   creando: ["Creando proyecto EPUB con el nombre «","»…"]
-  creando2: "Creando hoja de estilo CSS…"
   error_meta: "\nYa existe un archivo para metadatos. Para corregirlo, elimina o renombra el archivo."
 
 # pc-divider

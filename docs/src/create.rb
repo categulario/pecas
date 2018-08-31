@@ -15,6 +15,7 @@ $tools_md = {}
 tools = [
     ["pc-tiff2pdf", $l_tg_h],
     ["pc-analytics", $l_an_h],
+    ["pc-add", $l_ad_h],
     ["pc-images", $l_im_h],
     ["pc-pandog", $l_pg_h],
     ["pc-automata", $l_au_h],
@@ -54,6 +55,7 @@ def create_md tool
     # Cambia las rutas y < y > por código HTML
     def diple l
         return l.gsub('de +++YAML+++ en <http://pecas.cliteratu.re>', 'de [+++YAML+++](yaml.html)')
+                .gsub('de JavaScript en <http://pecas.cliteratu.re>', 'de [JavaScript](js.html)')
                 .gsub('Lista de acrónimos: <https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages>', '[Lista de acrónimos](https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#languages)')
                 .gsub('<','&lt;').gsub('>','&gt;')
     end
@@ -120,9 +122,20 @@ def create_md tool
                 # Explicaciones
                 elsif l =~ /^[A-Z]/
                     new.push("\n" + avoid_endash(l))
-                # Dependencias
+                # Dependencias / Tipos
                 else
-                    new.push('* `' + avoid_endash(l) + '`')
+                    # Evita que se quede como línea de código el tipo y su descripción
+                    l_final = []
+                    l.split(/\s+/).each_with_index do |ll, i|
+                        # Solo la primera palabra se va como código
+                        if i == 0
+                            l_final.push('* `' + avoid_endash(ll) + '`')
+                        # El resto de las palabras se quedan como texto
+                        else
+                            l_final.push(ll)
+                        end
+                    end
+                    new.push(l_final.join(' '))
                 end
             # Líneas en blanco
             else
@@ -143,6 +156,7 @@ def create_md_tools
 	archivo.puts "## Digitalización\n\n"
     archivo.puts "* [`#{$tools_md["pc-tiff2pdf"][0]}`](#{$tools_md["pc-tiff2pdf"][0]}.html): #{$tools_md["pc-tiff2pdf"][1]}"
 	archivo.puts "\n## Archivos madre\n\n"
+    archivo.puts "* [`#{$tools_md["pc-add"][0]}`](#{$tools_md["pc-add"][0]}.html): #{$tools_md["pc-add"][1]}"
     archivo.puts "* [`#{$tools_md["pc-analytics"][0]}`](#{$tools_md["pc-analytics"][0]}.html): #{$tools_md["pc-analytics"][1]}"
     archivo.puts "* [`#{$tools_md["pc-images"][0]}`](#{$tools_md["pc-images"][0]}.html): #{$tools_md["pc-images"][1]}"
     archivo.puts "* [`#{$tools_md["pc-pandog"][0]}`](#{$tools_md["pc-pandog"][0]}.html): #{$tools_md["pc-pandog"][1]}"
@@ -234,9 +248,8 @@ Dir.glob('./md/*').each do |f|
 end
 
 # Crea los estilos por defecto
-FileUtils.rm('css/styles.css')
 Dir.chdir('css')
-system("pc-creator --only-css")
+system("pc-add --add css")
 
 # Va al directorio de los man
 Dir.chdir('../man/man1')

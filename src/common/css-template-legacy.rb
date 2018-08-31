@@ -7,7 +7,7 @@ Encoding.default_internal = Encoding::UTF_8
 # Funciones y módulos comunes a todas las herramientas
 require File.dirname(__FILE__) + "/../common/lang.rb"
 
-$css_template = "/**************************************************/
+$css_template_legacy = "/**************************************************/
 /******************* RESETEADOR *******************/
 /**************************************************/
 
@@ -705,7 +705,7 @@ body > .epigraph:first-child, body > .epigrafe:first-child {
 "
 
 # Plantilla minificada
-$css_template_min = $css_template
+$css_template_legacy_min = $css_template_legacy
 						.gsub(/\/\*.*?\*\//,"")                 # Elimina los comentarios
 						.gsub(/^\s+/, "")						# Elimina espacios al inicio de la línea
                         .gsub(/,\s+/,",").gsub(/\s+,\s+/,",")	# Elimina los espacios entre comas
