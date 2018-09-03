@@ -24,7 +24,6 @@ pc-creator
 * `-v` = [version] Muestra la versión.
 * `-h` = [help] Muestra esta ayuda.
 * `\--no-pre` = [preliminary] Evita la creación de contenidos preliminares (portada, portadilla y legal).
-* `\--only-css` = Crea un archivo +++CSS+++ con la hoja de estilos por defecto en lugar de un proyecto +++EPUB+++.
 
 ## Ejemplo sencillo:
 
