@@ -1027,7 +1027,7 @@ def md_to_html ruta
                 elsif i == array.length - 1
                     text += '</pre>'
                 else
-                    text += '<code class="code-line-' + i.to_s + '">' + e.gsub('<', '&lt;').gsub('>', '&gt;') + '</code>'
+                    text += '<code class="code-line-' + i.to_s + '">' + e.gsub('&', '&#38;').gsub('<', '&lt;').gsub('>', '&gt;') + '</code>'
                 end
             end
 
@@ -1320,7 +1320,6 @@ def get_blocks ruta, md
                 if linea =~ /```/
                     pre = !pre
                 end
-
                 tmp.push(linea)
             else
                 if pre == true
