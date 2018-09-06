@@ -1243,7 +1243,7 @@ def translate_inline text, html = true
 
                         # El contenido del código requiere muchas modificaciones para evitar conflicto con otros estilos en línea e incluso con la misma estructura HTML
                         text.scan(/<code>(.+?)<\/code>/).each do |scan|
-                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub(/<span class="smallcap">(.*?)<\/span>/, '+++' + '\1' + '+++').gsub(/<span class="smallcap-light">(.*?)<\/span>/, '++' + '\1' + '++').gsub('<', '&lt;').gsub('>', '&gt;') }.join('') + '</code>')
+                            text = text.gsub('<code>' + scan.join('') + '</code>', '<code>' + scan.map{ |s| s.gsub(/<.?strong>/, '*').gsub(/<.?b>/, '__').gsub(/<.?em>/, '*').gsub(/<.?i>/, '_').gsub(/<span class="smallcap">(.*?)<\/span>/, '+++' + '\1' + '+++').gsub(/<span class="smallcap-light">(.*?)<\/span>/, '++' + '\1' + '++').gsub('<', '&lt;').gsub('>', '&gt;').gsub('----', '&#45;&#45;&#45;&#45;').gsub('---', '&#45;&#45;&#45;').gsub('--', '&#45;&#45;') }.join('') + '</code>')
                         end
                     elsif rx[1] == 'force_sc'
                         text = text.gsub(rx[0], '\1' + '<span class="smallcap">' + '\3' + '</span>')
