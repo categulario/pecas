@@ -31,6 +31,24 @@ Visita [la documentación](http://pecas.cliteratu.re/).
 Pecas fue un feo y maltratado perro chihuahueño que nunca conoció el 
 mundo exterior, ¡larga vida a Pecas!
 
+## Donaciones
+
+🌮 Dona para unos tacos con [ETH](https://etherscan.io/address/0x39b0bf0cf86776060450aba23d1a6b47f5570486).
+
+:dog: Dona para unas croquetas con [DOGE](https://dogechain.info/address/DMbxM4nPLVbzTALv5n8G16TTzK4WDUhC7G).
+
+:beer: Dona para unas cervezas con [PayPal](https://www.paypal.me/perrotuerto).
+
+## Páginas hermanas
+
+Taller de Edición Digital: [ted.cliteratu.re](https://ted.cliteratu.re/).
+
+_Edición digital como metodología para una edición global_: [ed.cliteratu.re](https://ed.cliteratu.re/).
+
+Pecas, herramientas editoriales: [pecas.cliteratu.re](https://pecas.cliteratu.re/).
+
+Sitio personal: [xxx.cliteratu.re](https://xxx.cliteratu.re/).
+
 ## Licencia
 
 Software bajo [licencia GPLv3+](https://gnu.org/licenses/gpl.html).
