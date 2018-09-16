@@ -429,6 +429,20 @@ li.no-count:before {
     content: none !important;
 }
 
+.li-manual {
+	list-style-type: none;
+}
+
+.li-manual > li > p:first-child > span:first-of-type:not(.versalita) {
+	display: block;
+	margin-left: -1.5em;
+	margin-bottom: -1.25em;
+}
+
+li > .li-manual {
+    margin: 0 0 0 1.5em;
+}
+
 /* Images / Imágenes */
 
 img {    /* It helps if the source doesn't exist / Ayuda a detectarlos si no existe el recurso */
