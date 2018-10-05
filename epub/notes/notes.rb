@@ -208,11 +208,11 @@ archivos.each do |archivo|
 					primera_nota = adicion_titulo primera_nota, titulo, archivo_tmp_footer
 					
 					# Obtiene el contenido mediante un match que obtiene capturas de las cuales solo se usa la primera, quitándole los elementos innecesarios
-                    if new_syntax == true
+          if new_syntax == true
     					contenido = /#{$l_g_note[0]}(\[.*?\])/.match(palabra).captures.first.gsub($l_g_marca_in_1,"").gsub($l_g_marca_in_2,"")
-                    else
+          else
     					contenido = /#{$l_g_note_b[0]}(.*?)#{$l_g_note_b[1]}/.match(palabra).captures.first.gsub($l_g_marca_in_1_b,"").gsub($l_g_marca_in_2_b,"")
-                    end
+          end
 
 					if texHay
 						nota = "\\let\\svthefootnote\\thefootnote\\let\\thefootnote\\relax\\textsuperscript{#{contenido}}\\footnote{\\textsuperscript{#{contenido}} #{txtNotas[notaReal]}}\\addtocounter{footnote}{-1}\\let\\thefootnote\\svthefootnote"
@@ -292,7 +292,7 @@ if htmlHay && !inner
 	archivo.puts xhtmlTemplateHead $l_no_archivo_notas_titulo, css
 	archivo.puts "<section epub:type=\"footnotes\">"
 	archivo.puts "<h1>#{$l_no_archivo_notas_titulo}</h1>"
-	archivo.puts archivo_tmp_footer
+	archivo.puts archivo_tmp_footer.join('').gsub(/@note[\w\[\]]*/, '')
 	archivo.puts "</section>"
 	archivo.puts $xhtmlTemplateFoot
 	archivo.close
