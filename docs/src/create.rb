@@ -195,7 +195,7 @@ def create_html path
             if html_name !~ /^index/
                 new_html.push($head.join("\n"))
             else
-                new_html.push($head.join("\n").gsub('<link type="text/css" rel="stylesheet" href="../css/styles.css">', '<link type="text/css" rel="stylesheet" href="css/styles.css">'))
+                new_html.push($head.join("\n").gsub('<link type="text/css" rel="stylesheet" href="../css/styles.css">', '<link type="text/css" rel="stylesheet" href="css/styles.css">').gsub('<script type="text/javascript" src="../js/piwik.js"></script>', '<script type="text/javascript" src="js/piwik.js"></script>'))
             end
         elsif l =~ /<\/head>/
             write = true
