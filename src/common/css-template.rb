@@ -513,6 +513,11 @@ code {
     padding: .125em .5em;
     border: 1px solid #ddd;
     border-radius: .25em;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -o-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
 pre {
