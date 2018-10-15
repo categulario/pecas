@@ -504,12 +504,12 @@ carpeta = comprobacionDirectorio carpeta
 # Comprueba, adquiere el path absoluto del archivo YAML y obtiene su información
 yaml = comprobacionArchivo yaml, [".yaml"]
 
-#begin
+begin
 	yaml = YAML.load_file(yaml)
-#rescue
-#	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
-#	abort
-#end
+rescue
+	puts "#{$l_re_error_y[0] + File.basename(yaml) + $l_re_error_y[1]}".red.bold
+	abort
+end
 
 # Comprueba las medidas del EPUB fijo, si lo hay
 if yaml["px-width"] != nil && yaml["px-height"] != nil	
