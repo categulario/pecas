@@ -117,6 +117,7 @@ todo
 unas
 unos
 tres
+and
 asi
 aun
 bah
