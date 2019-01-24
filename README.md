@@ -47,7 +47,7 @@ _Edición digital como metodología para una edición global_: [ed.cliteratu.re]
 
 Pecas, herramientas editoriales: [pecas.cliteratu.re](https://pecas.cliteratu.re/).
 
-Sitio personal: [xxx.cliteratu.re](https://xxx.cliteratu.re/).
+Blog: [perrotuerto.blog](https://perrotuerto.blog).
 
 ## Licencia
 
