@@ -554,7 +554,7 @@ begin
     # Se inicia hunspell
     begin
         puts $l_an_analizando_hunspell
-        hunspell = `hunspell -d es_ANY,en_US,pt_BR,it_IT,de_DE -l #{arregloRutaTerminal($l_an_archivo_hunspell)} | sort`
+        hunspell = `hunspell -d es_MX,en_US,pt_BR,it_IT,de_DE -l #{arregloRutaTerminal($l_an_archivo_hunspell)} | sort`
         hunspell = hunspell.split("\n")
     rescue
         puts $l_an_advertencia_hunspell.yellow.bold
