@@ -26,7 +26,7 @@ argumento "-v", $l_cr_v
 argumento "-h", $l_cr_h
 
 # Variables
-font = 'bitter-ttf'
+font = 'alegreya-ttf'
 
 # Obtiene la ruta absoluta a algunas carpetas
 if epub_img then epub_img = File.absolute_path(epub_img) end

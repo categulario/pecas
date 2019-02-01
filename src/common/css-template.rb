@@ -69,23 +69,23 @@ table {
 /* Fuentes */
 
 @font-face {
-    font-family: \"Bitter Regular\";
-    src: url(../ttf/bitter-regular.ttf);
+    font-family: \"Alegreya Regular\";
+    src: url(../ttf/alegreya-regular.ttf);
 }
 
 @font-face {
-    font-family: \"Bitter Italic\";
-    src: url(../ttf/bitter-italic.ttf);
+    font-family: \"Alegreya Italic\";
+    src: url(../ttf/alegreya-italic.ttf);
 }
 
 @font-face {
-    font-family: \"Bitter Bold\";
-    src: url(../ttf/bitter-bold.ttf);
+    font-family: \"Alegreya Bold\";
+    src: url(../ttf/alegreya-bold.ttf);
 }
 
 @font-face {
-    font-family: \"Bitter BoldItalic\";
-    src: url(../ttf/bitter-bolditalic.ttf);
+    font-family: \"Alegreya BoldItalic\";
+    src: url(../ttf/alegreya-bolditalic.ttf);
 }
 
 /* Body / Cuerpo */
@@ -159,7 +159,7 @@ section + section {
 /* Headers / Encabezados */
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     margin-bottom: 1em;
     text-align: left;
     font-size: 1em;
@@ -183,12 +183,12 @@ h1 {
 }
 
 h3, h5 {
-    font-family: \"Bitter Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-style: italic;
 }
 
 h6 {
-    font-family: \"Bitter Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-weight: bold;
 }
 
@@ -207,7 +207,7 @@ h2.subtitle, h2.subtitulo {
 /* Paragraphs / Párrafos */
 
 p, blockquote, li, figcaption, details, aside {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-size: 1em;
     text-align: justify;
     line-height: 1.5em;
@@ -300,12 +300,12 @@ blockquote, blockquote > * {
 /* Font effects / Efectos en las fuentes */
 
 i, em {
-    font-family: \"Bitter Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Italic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-style: italic;
 }
 
 b, strong {
-    font-family: \"Bitter Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Bold\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     font-weight: bold;
 }
 
@@ -313,7 +313,7 @@ i > b, b > i,
 em > strong, strong > em,
 i > strong, strong > i,
 em > b, b > em {
-    font-family: \"Bitter BoldItalic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya BoldItalic\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
 }
 
 .initial, .capitular {
@@ -455,7 +455,7 @@ figure {
 }
 
 figcaption {
-    font-family: \"Bitter Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
+    font-family: \"Alegreya Regular\", Georgia, \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;
     margin-top: .5em;
     font-size: .9em;
 }
